@@ -1,35 +1,35 @@
 -- CONFIG
-APP_NAME = "otclientv8" -- important, change it, it's name for config dir and files in appdata
-APP_VERSION = 860 -- client version for updater and login to identify outdated client
+APP_NAME = "otclientv8"  -- important, change it, it's name for config dir and files in appdata
+APP_VERSION = 860        -- client version for updater and login to identify outdated client
 DEFAULT_LAYOUT = "retro" -- on android it's forced to "mobile", check code bellow
 
 -- If you don't use updater or other service, set it to updater = ""
 Services = {
     website = "https://docs.opentibiabr.com/",
-    updater = "", -- "http://yourwebsite/api/updater.php"
-    stats = "", -- --"http://yourwebsite/api/stats.php"
-    crash = "", -- "http://yourwebsite/api/crash.php",
-    feedback = "", -- "http://yourwebsite/api/feedback.php",
+    updater = "",                          -- "http://yourwebsite/api/updater.php"
+    stats = "",                            -- --"http://yourwebsite/api/stats.php"
+    crash = "",                            -- "http://yourwebsite/api/crash.php",
+    feedback = "",                         -- "http://yourwebsite/api/feedback.php",
     status = "http://docs.opentibiabr.com" -- http://yourwebsite/api/status.php"
 }
 
 -- Servers accept http login url, websocket login url or ip:port:version
-Servers = {Local = "127.0.0.1:7171:860"}
+Servers = { Local = "127.0.0.1:7171:860" }
 
 -- Server = "ws://yourwebsite:3000/"
 -- Server = "ws://127.0.0.1:88/"
 -- USE_NEW_ENERGAME = true -- uses entergamev2 based on websockets instead of entergame
-ALLOW_CUSTOM_SERVERS = true -- if true it shows option ANOTHER on server list
+ALLOW_CUSTOM_SERVERS = false -- if true it shows option ANOTHER on server list
 
-g_app.setName("OTCv8")
+g_app.setName("DBOSupreme")
 -- CONFIG END
 
 -- print first terminal message
 g_logger.info(os.date("== application started at %b %d %Y %X"))
 g_logger.info(g_app.getName() .. ' ' .. g_app.getVersion() .. ' (' ..
-                  g_app.getBuildCommit() .. ') made by ' .. g_app.getAuthor() ..
-                  ' built on ' .. g_app.getBuildDate() .. ' for arch ' ..
-                  g_app.getBuildArch())
+    g_app.getBuildCommit() .. ') made by ' .. g_app.getAuthor() ..
+    ' built on ' .. g_app.getBuildDate() .. ' for arch ' ..
+    g_app.getBuildArch())
 
 if not g_resources.directoryExists("/data") then
     g_logger.fatal("Data dir doesn't exist.")
