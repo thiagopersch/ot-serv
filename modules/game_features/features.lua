@@ -1,6 +1,6 @@
-function init() connect(g_game, {onClientVersionChange = updateFeatures}) end
+function init() connect(g_game, { onClientVersionChange = updateFeatures }) end
 
-function terminate() disconnect(g_game, {onClientVersionChange = updateFeatures}) end
+function terminate() disconnect(g_game, { onClientVersionChange = updateFeatures }) end
 
 function updateFeatures(version)
     g_game.resetFeatures()
@@ -43,7 +43,9 @@ function updateFeatures(version)
 
     if (version >= 854) then g_game.enableFeature(GameCreatureEmblems) end
 
-    if (version >= 860) then g_game.enableFeature(GameAttackSeq) end
+    if (version >= 860) then
+        g_game.enableFeature(GameAttackSeq)
+    end
 
     if (version >= 862) then g_game.enableFeature(GamePenalityOnDeath) end
 
