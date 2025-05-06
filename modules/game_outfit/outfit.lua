@@ -428,7 +428,7 @@ function newPreset()
   }
 
   presetWidget:focus()
-  window.presetsList:ensureChildVisible(presetWidget, {x = 0, y = 196})
+  window.presetsList:ensureChildVisible(presetWidget, { x = 0, y = 196 })
 end
 
 function deletePreset()
@@ -559,7 +559,7 @@ function showPresets()
   if focused then
     local w = window.presetsList[focused]
     w:focus()
-    window.presetsList:ensureChildVisible(w, {x = 0, y = 196})
+    window.presetsList:ensureChildVisible(w, { x = 0, y = 196 })
   end
 
   window.presetsList.onChildFocusChange = onPresetSelect
@@ -602,7 +602,7 @@ function showOutfits()
   if focused then
     local w = window.selectionList[focused]
     w:focus()
-    window.selectionList:ensureChildVisible(w, {x = 0, y = 196})
+    window.selectionList:ensureChildVisible(w, { x = 0, y = 196 })
   end
 
   window.selectionList.onChildFocusChange = onOutfitSelect
@@ -624,7 +624,7 @@ function showMounts()
     local button = g_ui.createWidget("SelectionButton", window.selectionList)
     button:setId(mountData[1])
 
-    button.outfit:setOutfit({type = mountData[1]})
+    button.outfit:setOutfit({ type = mountData[1] })
     button.outfit:setCenter(true)
     button.name:setText(mountData[2])
     if tempOutfit.mount == mountData[1] then
@@ -642,7 +642,7 @@ function showMounts()
   if focused ~= nil then
     local w = window.selectionList[focused]
     w:focus()
-    window.selectionList:ensureChildVisible(w, {x = 0, y = 196})
+    window.selectionList:ensureChildVisible(w, { x = 0, y = 196 })
   end
 
   window.selectionList.onChildFocusChange = onMountSelect
@@ -664,7 +664,7 @@ function showAuras()
     local button = g_ui.createWidget("SelectionButton", window.selectionList)
     button:setId("0")
 
-    button.outfit:setOutfit({type = 0})
+    button.outfit:setOutfit({ type = 0 })
     button.name:setText("None")
     if tempOutfit.aura == 0 then
       focused = 0
@@ -675,7 +675,7 @@ function showAuras()
     local button = g_ui.createWidget("SelectionButton", window.selectionList)
     button:setId(auraData[1])
 
-    button.outfit:setOutfit({type = auraData[1]})
+    button.outfit:setOutfit({ type = auraData[1] })
     button.outfit:setAnimate(true)
     button.name:setText(auraData[2])
     if tempOutfit.aura == auraData[1] then
@@ -686,7 +686,7 @@ function showAuras()
   if focused ~= nil then
     local w = window.selectionList[focused]
     w:focus()
-    window.selectionList:ensureChildVisible(w, {x = 0, y = 196})
+    window.selectionList:ensureChildVisible(w, { x = 0, y = 196 })
   end
 
   window.selectionList.onChildFocusChange = onAuraSelect
@@ -708,7 +708,7 @@ function showWings()
     local button = g_ui.createWidget("SelectionButton", window.selectionList)
     button:setId("0")
 
-    button.outfit:setOutfit({type = 0})
+    button.outfit:setOutfit({ type = 0 })
     button.name:setText("None")
     if tempOutfit.wings == 0 then
       focused = 0
@@ -719,7 +719,7 @@ function showWings()
     local button = g_ui.createWidget("SelectionButton", window.selectionList)
     button:setId(wingsData[1])
 
-    button.outfit:setOutfit({type = wingsData[1]})
+    button.outfit:setOutfit({ type = wingsData[1] })
     button.outfit:setAnimate(true)
     button.name:setText(wingsData[2])
     if tempOutfit.wings == wingsData[1] then
@@ -730,7 +730,7 @@ function showWings()
   if focused ~= nil then
     local w = window.selectionList[focused]
     w:focus()
-    window.selectionList:ensureChildVisible(w, {x = 0, y = 196})
+    window.selectionList:ensureChildVisible(w, { x = 0, y = 196 })
   end
 
   window.selectionList.onChildFocusChange = onWingsSelect
@@ -752,7 +752,7 @@ function showShaders()
     local button = g_ui.createWidget("SelectionButton", window.selectionList)
     button:setId("outfit_default")
 
-    button.outfit:setOutfit({type = tempOutfit.type, addons = tempOutfit.addons, shader = "outfit_default"})
+    button.outfit:setOutfit({ type = tempOutfit.type, addons = tempOutfit.addons, shader = "outfit_default" })
     button.name:setText("None")
     if tempOutfit.shader == "outfit_default" then
       focused = "outfit_default"
@@ -763,7 +763,7 @@ function showShaders()
     local button = g_ui.createWidget("SelectionButton", window.selectionList)
     button:setId(shaderData[2])
 
-    button.outfit:setOutfit({type = tempOutfit.type, addons = tempOutfit.addons, shader = shaderData[2]})
+    button.outfit:setOutfit({ type = tempOutfit.type, addons = tempOutfit.addons, shader = shaderData[2] })
     button.outfit:setCenter(true)
     button.name:setText(shaderData[2])
     if tempOutfit.shader == shaderData[2] then
@@ -774,7 +774,7 @@ function showShaders()
   if focused ~= nil then
     local w = window.selectionList[focused]
     w:focus()
-    window.selectionList:ensureChildVisible(w, {x = 0, y = 196})
+    window.selectionList:ensureChildVisible(w, { x = 0, y = 196 })
   end
 
   window.selectionList.onChildFocusChange = onShaderSelect
@@ -821,7 +821,7 @@ function showHealthBars()
   if focused ~= nil then
     local w = window.selectionList[focused]
     w:focus()
-    window.selectionList:ensureChildVisible(w, {x = 0, y = 196})
+    window.selectionList:ensureChildVisible(w, { x = 0, y = 196 })
   end
 
   window.selectionList.onChildFocusChange = onHealthBarSelect
@@ -868,7 +868,7 @@ function showManaBars()
   if focused ~= nil then
     local w = window.selectionList[focused]
     w:focus()
-    window.selectionList:ensureChildVisible(w, {x = 0, y = 196})
+    window.selectionList:ensureChildVisible(w, { x = 0, y = 196 })
   end
 
   window.selectionList.onChildFocusChange = onManaBarSelect
@@ -1231,11 +1231,11 @@ function saveSettings()
   local fullSettings = {}
   do
     local json_status, json_data =
-      pcall(
-      function()
-        return json.decode(g_resources.readFileContents(settingsFile))
-      end
-    )
+        pcall(
+          function()
+            return json.decode(g_resources.readFileContents(settingsFile))
+          end
+        )
 
     if not json_status then
       g_logger.error("[saveSettings] Couldn't load JSON: " .. json_data)
@@ -1247,11 +1247,11 @@ function saveSettings()
   fullSettings[g_game.getCharacterName()] = settings
 
   local json_status, json_data =
-    pcall(
-    function()
-      return json.encode(fullSettings)
-    end
-  )
+      pcall(
+        function()
+          return json.encode(fullSettings)
+        end
+      )
 
   if not json_status then
     g_logger.error("[saveSettings] Couldn't save JSON: " .. json_data)
@@ -1268,11 +1268,11 @@ function loadSettings()
 
   if g_resources.fileExists(settingsFile) then
     local json_status, json_data =
-      pcall(
-      function()
-        return json.decode(g_resources.readFileContents(settingsFile))
-      end
-    )
+        pcall(
+          function()
+            return json.decode(g_resources.readFileContents(settingsFile))
+          end
+        )
 
     if not json_status then
       g_logger.error("[loadSettings] Couldn't load JSON: " .. json_data)
