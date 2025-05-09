@@ -463,7 +463,7 @@ if(MSVC)
 else()
 	target_include_directories(${PROJECT_NAME}
 		PRIVATE
-		${CMAKE_SOURCE_DIR}/src
+		${CMAKE_SOURCE_DIR}
 		${LUAJIT_INCLUDE_DIR}
 		${CMAKE_THREAD_LIBS_INIT}
 		${GMP_INCLUDE_DIR}

@@ -3,17 +3,17 @@ function g_game.getRsa()
 end
 
 function g_game.findPlayerItem(itemId, subType)
-    local localPlayer = g_game.getLocalPlayer()
-    if localPlayer then
-        for slot = InventorySlotFirst, InventorySlotLast do
-            local item = localPlayer:getInventoryItem(slot)
-            if item and item:getId() == itemId and (subType == -1 or item:getSubType() == subType) then
-                return item
-            end
-        end
+  local localPlayer = g_game.getLocalPlayer()
+  if localPlayer then
+    for slot = InventorySlotFirst, InventorySlotLast do
+      local item = localPlayer:getInventoryItem(slot)
+      if item and item:getId() == itemId and (subType == -1 or item:getSubType() == subType) then
+        return item
+      end
     end
+  end
 
-    return g_game.findItemInContainers(itemId, subType)
+  return g_game.findItemInContainers(itemId, subType)
 end
 
 function g_game.chooseRsa(host)

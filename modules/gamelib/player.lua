@@ -40,31 +40,31 @@ InventorySlotLast = 10
 function Player:isPartyLeader()
   local shield = self:getShield()
   return (shield == ShieldYellow or
-          shield == ShieldYellowSharedExp or
-          shield == ShieldYellowNoSharedExpBlink or
-          shield == ShieldYellowNoSharedExp)
+    shield == ShieldYellowSharedExp or
+    shield == ShieldYellowNoSharedExpBlink or
+    shield == ShieldYellowNoSharedExp)
 end
 
 function Player:isPartyMember()
   local shield = self:getShield()
   return (shield == ShieldYellow or
-          shield == ShieldYellowSharedExp or
-          shield == ShieldYellowNoSharedExpBlink or
-          shield == ShieldYellowNoSharedExp or
-          shield == ShieldBlueSharedExp or
-          shield == ShieldBlueNoSharedExpBlink or
-          shield == ShieldBlueNoSharedExp or
-          shield == ShieldBlue)
+    shield == ShieldYellowSharedExp or
+    shield == ShieldYellowNoSharedExpBlink or
+    shield == ShieldYellowNoSharedExp or
+    shield == ShieldBlueSharedExp or
+    shield == ShieldBlueNoSharedExpBlink or
+    shield == ShieldBlueNoSharedExp or
+    shield == ShieldBlue)
 end
 
 function Player:isPartySharedExperienceActive()
   local shield = self:getShield()
   return (shield == ShieldYellowSharedExp or
-          shield == ShieldYellowNoSharedExpBlink or
-          shield == ShieldYellowNoSharedExp or
-          shield == ShieldBlueSharedExp or
-          shield == ShieldBlueNoSharedExpBlink or
-          shield == ShieldBlueNoSharedExp)
+    shield == ShieldYellowNoSharedExpBlink or
+    shield == ShieldYellowNoSharedExp or
+    shield == ShieldBlueSharedExp or
+    shield == ShieldBlueNoSharedExpBlink or
+    shield == ShieldBlueNoSharedExp)
 end
 
 function Player:hasVip(creatureName)
@@ -105,7 +105,7 @@ function Player:getItems(itemId, subType)
   local subType = subType or -1
 
   local items = {}
-  for i=InventorySlotFirst,InventorySlotLast do
+  for i = InventorySlotFirst, InventorySlotLast do
     local item = self:getInventoryItem(i)
     if item and item:getId() == itemId and (subType == -1 or item:getSubType() == subType) then
       table.insert(items, item)
@@ -125,7 +125,7 @@ end
 
 function Player:getItemsCount(itemId)
   local items, count = self:getItems(itemId), 0
-  for i=1,#items do
+  for i = 1, #items do
     count = count + items[i]:getCount()
   end
   return count
@@ -137,7 +137,7 @@ function Player:hasState(state, states)
   end
 
   for i = 1, 32 do
-    local pow = math.pow(2, i-1)
+    local pow = math.pow(2, i - 1)
     if pow > states then break end
 
     local states = bit32.band(states, pow)

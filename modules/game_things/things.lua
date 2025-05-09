@@ -30,24 +30,26 @@ function load()
             g_game.enableFeature(GameMagicEffectU16)
             g_game.enableFeature(GameDistanceEffectU16)
             g_game.enableFeature(GameDiagonalAnimatedText)
+            g_game.enableFeature(GameExtendedOpcode)
+            g_game.enableFeature(GameBlueNpcNameColor)
             if not g_things.loadDat(datPath) then
                 errorMessage = errorMessage ..
-                                   tr(
-                                       "Unable to load dat file, please place a valid dat in '%s'",
-                                       datPath) .. '\n'
+                    tr(
+                        "Unable to load dat file, please place a valid dat in '%s'",
+                        datPath) .. '\n'
             end
         else
             errorMessage = errorMessage ..
-                               tr(
-                                   "Unable to load dat file, please place a valid dat in '%s'",
-                                   datPath) .. '\n'
+                tr(
+                    "Unable to load dat file, please place a valid dat in '%s'",
+                    datPath) .. '\n'
         end
     end
     if not g_sprites.loadSpr(sprPath) then
         errorMessage = errorMessage ..
-                           tr(
-                               "Unable to load spr file, please place a valid spr in '%s'",
-                               sprPath)
+            tr(
+                "Unable to load spr file, please place a valid spr in '%s'",
+                sprPath)
     end
 
     loaded = (errorMessage:len() == 0)

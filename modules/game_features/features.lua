@@ -45,6 +45,14 @@ function updateFeatures(version)
 
     if (version >= 860) then
         g_game.enableFeature(GameAttackSeq)
+        g_game.enableFeature(GameBot)
+        --g_game.enableFeature(GameSpellList)
+        g_game.enableFeature(GameSpritesU32)
+        g_game.enableFeature(GameMagicEffectU16)
+        g_game.enableFeature(GameDistanceEffectU16)
+        g_game.enableFeature(GameBlueNpcNameColor)
+        g_game.enableFeature(GameMapDrawGroundFirst)
+        -- g_game.enableFeature(GameItemTooltip)
     end
 
     if (version >= 862) then g_game.enableFeature(GamePenalityOnDeath) end
@@ -113,7 +121,9 @@ function updateFeatures(version)
 
     if (version >= 1038) then g_game.enableFeature(GamePremiumExpiration) end
 
-    if (version <= 1050) then g_game.enableFeature(GameEnhancedAnimations) end
+    if (version <= 1050) then
+        g_game.enableFeature(GameEnhancedAnimations)
+    end
 
     if (version >= 1053) then g_game.enableFeature(GameUnjustifiedPoints) end
 

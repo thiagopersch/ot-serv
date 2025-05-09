@@ -105,7 +105,6 @@ local experienceTooltip = 'You have %d%% to advance to level %d.'
 local settings = {}
 
 function init()
-    
     connect(LocalPlayer, {
         onHealthChange = onHealthChange,
         onManaChange = onManaChange,
@@ -116,7 +115,7 @@ function init()
         onSkillChange = onSkillChange,
         onBaseSkillChange = onBaseSkillChange
     })
-    connect(g_game, {onGameStart = refresh, onGameEnd = offline})
+    connect(g_game, { onGameStart = refresh, onGameEnd = offline })
 
     -- load condition icons
     for k, v in pairs(Icons) do g_textures.preload(v.path) end
@@ -125,7 +124,6 @@ function init()
 end
 
 function terminate()
-
     disconnect(LocalPlayer, {
         onHealthChange = onHealthChange,
         onManaChange = onManaChange,
@@ -136,7 +134,7 @@ function terminate()
         onSkillChange = onSkillChange,
         onBaseSkillChange = onBaseSkillChange
     })
-    disconnect(g_game, {onGameStart = refresh, onGameEnd = offline})
+    disconnect(g_game, { onGameStart = refresh, onGameEnd = offline })
 end
 
 function setupTopBar()
@@ -182,8 +180,8 @@ function refresh(profileChange)
 end
 
 function refreshVisibleBars()
-    local ids = {"Experience", "Magic", "Axe", "Club", "Distance", "Fist", "Shielding",
-    "Sword", "Fishing"}
+    local ids = { "Experience", "Magic", "Axe", "Club", "Distance", "Fist", "Shielding",
+        "Sword", "Fishing" }
 
     for i, id in ipairs(ids) do
         local panel = topBar[id] or topBar.skills[id]
@@ -213,7 +211,7 @@ function setSkillsLayout()
     local many = visible > 1
     width = many and (width / 2) or width
 
-    skills:getLayout():setCellSize({width = width, height = 19})
+    skills:getLayout():setCellSize({ width = width, height = 19 })
 end
 
 function offline()
@@ -283,7 +281,7 @@ function onLevelChange(localPlayer, value, percent)
     if not topBar then return end
     local experienceBar = topBar.Experience.progress
     local levelLabel = topBar.Experience.level
-    experienceBar:setTooltip(tr(experienceTooltip, 100-percent, value + 1))
+    experienceBar:setTooltip(tr(experienceTooltip, 100 - percent, value + 1))
     experienceBar:setPercent(percent)
     levelLabel:setText(value)
     levelLabel:setTextAutoResize(true)
@@ -311,10 +309,10 @@ function setupSkillPanel(id, parent, experience, defaultOff)
     widget:setId(id)
     widget.level:setTooltip(id)
     widget.icon:setTooltip(id)
-    widget.icon:setImageClip({x = iconsTable[id]*9, y = 0, width = 9,height = 9})
+    widget.icon:setImageClip({ x = iconsTable[id] * 9, y = 0, width = 9, height = 9 })
 
-    if not experience then 
-        widget.progress:setBackgroundColor('#00c000') 
+    if not experience then
+        widget.progress:setBackgroundColor('#00c000')
         widget.shop:setVisible(false)
         widget.shop:disable()
         widget.shop:setWidth(0)
@@ -333,7 +331,6 @@ function setupSkillPanel(id, parent, experience, defaultOff)
         left:setMarginRight(margin)
         right:setMarginRight(margin)
     end
-
 end
 
 function menu(mouseButton)
@@ -346,13 +343,13 @@ function menu(mouseButton)
     local expPanel = topBar.Experience
     local start = expPanel:isVisible() and "Hide" or "Show"
     menu:addOption(start .. " Experience Level",
-                   function() toggleSkillPanel(id) end)
+        function() toggleSkillPanel(id) end)
     for i, child in ipairs(topBar.skills:getChildren()) do
         local id = child:getId()
         if id ~= "stats" then
             local start = child:isVisible() and "Hide" or "Show"
             menu:addOption(start .. " " .. id .. " Level",
-                           function() toggleSkillPanel(id) end)
+                function() toggleSkillPanel(id) end)
         end
     end
 
@@ -369,7 +366,7 @@ function setupSkills()
     for i, id in ipairs(t) do
         if not topBar[id] and not topBar.skills[id] then
             setupSkillPanel(id, i == 1 and topBar or topBar.skills, i == 1,
-                            i == 1)
+                i == 1)
         end
     end
 
@@ -419,7 +416,7 @@ function setSkillBase(id, value, baseValue)
     if value > baseValue then
         level:setColor('#008b00') -- green
         progress:setTooltip(value .. " = " .. baseValue .. ' + ' ..
-                                (value - baseValue) .. "\n" .. progressDesc)
+            (value - baseValue) .. "\n" .. progressDesc)
     elseif value < baseValue then
         level:setColor('#b22222') -- red
         progress:setTooltip(baseValue .. ' ' .. (value - baseValue))
@@ -427,7 +424,6 @@ function setSkillBase(id, value, baseValue)
         level:setColor('#bbbbbb') -- default
         progress:removeTooltip()
     end
-
 end
 
 function onMagicLevelChange(localPlayer, magiclevel, percent)
@@ -474,13 +470,13 @@ function save()
     local status, result = pcall(function() return json.encode(settings, 2) end)
     if not status then
         return onError(
-                   "Error while saving top bar settings. Data won't be saved. Details: " ..
-                       result)
+            "Error while saving top bar settings. Data won't be saved. Details: " ..
+            result)
     end
 
     if result:len() > 100 * 1024 * 1024 then
         return onError(
-                   "Something went wrong, file is above 100MB, won't be saved")
+            "Something went wrong, file is above 100MB, won't be saved")
     end
 
     g_resources.writeFileContents(settingsFile, result)
@@ -495,8 +491,8 @@ function load()
         end)
         if not status then
             return onError(
-                       "Error while reading top bar settings file. To fix this problem you can delete storage.json. Details: " ..
-                           result)
+                "Error while reading top bar settings file. To fix this problem you can delete storage.json. Details: " ..
+                result)
         end
         settings = result
     else

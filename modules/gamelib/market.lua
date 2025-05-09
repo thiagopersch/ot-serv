@@ -61,12 +61,12 @@ MarketCategory.First = MarketCategory.Armors
 MarketCategory.Last = MarketCategory.Unassigned
 
 MarketCategoryWeapons = {
-  [MarketCategory.Ammunition] = { slots = {255} },
-  [MarketCategory.Axes] = { slots = {255, InventorySlotOther, InventorySlotLeft} },
-  [MarketCategory.Clubs] = { slots = {255, InventorySlotOther, InventorySlotLeft} },
-  [MarketCategory.DistanceWeapons] = { slots = {255, InventorySlotOther, InventorySlotLeft} },
-  [MarketCategory.Swords] = { slots = {255, InventorySlotOther, InventorySlotLeft} },
-  [MarketCategory.WandsRods] = { slots = {255, InventorySlotOther, InventorySlotLeft} }
+  [MarketCategory.Ammunition] = { slots = { 255 } },
+  [MarketCategory.Axes] = { slots = { 255, InventorySlotOther, InventorySlotLeft } },
+  [MarketCategory.Clubs] = { slots = { 255, InventorySlotOther, InventorySlotLeft } },
+  [MarketCategory.DistanceWeapons] = { slots = { 255, InventorySlotOther, InventorySlotLeft } },
+  [MarketCategory.Swords] = { slots = { 255, InventorySlotOther, InventorySlotLeft } },
+  [MarketCategory.WandsRods] = { slots = { 255, InventorySlotOther, InventorySlotLeft } }
 }
 
 MarketCategoryStrings = {
@@ -101,7 +101,7 @@ MarketCategoryStrings = {
   [28] = 'Unknown 3',
   [29] = 'Unknown 4',
   [30] = 'Gold',
-  [31] = 'Unassigned',  
+  [31] = 'Unassigned',
   [255] = 'Weapons'
 }
 

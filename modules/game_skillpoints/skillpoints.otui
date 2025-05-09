@@ -1,0 +1,143 @@
+Window
+  id: skillsWindow
+  @size: 600 400
+  @position: center
+  text: Pontos de Habilidade
+  closable: true
+
+Label
+  id: pointsLabel
+  @position: 10 30
+  text: Pontos Disponíveis: 0
+
+Panel
+  id: skillsPanel
+  @position: 10 60
+  @size: 580 300
+  scrollable: true
+
+Button
+  id: expButton
+  @position: 10 10
+  text: Experiência (+5% XP)
+  @size: 180 30
+  !onClick: addPoint('exp')
+
+Button
+  id: staminaButton
+  @position: 10 50
+  text: Stamina (+0.1/min)
+  @size: 180 30
+  !onClick: addPoint('stamina')
+
+Button
+  id: magicButton
+  @position: 10 90
+  text: Nível Mágico (+50 tentativas)
+  @size: 180 30
+  !onClick: addPoint('magic')
+
+Button
+  id: speedButton
+  @position: 10 130
+  text: Velocidade (+10 speed)
+  @size: 180 30
+  !onClick: addPoint('speed')
+
+Button
+  id: attackSpeedButton
+  @position: 10 170
+  text: Velocidade de Ataque
+  @size: 180 30
+  !onClick: addPoint('attack_speed')
+
+Button
+  id: fistButton
+  @position: 200 10
+  text: Luta com Punhos (+100 tentativas)
+  @size: 180 30
+  !onClick: addPoint('fist')
+
+Button
+  id: clubButton
+  @position: 200 50
+  text: Luta com Clava (+100 tentativas)
+  @size: 180 30
+  !onClick: addPoint('club')
+
+Button
+  id: swordButton
+  @position: 200 90
+  text: Luta com Espada (+100 tentativas)
+  @size: 180 30
+  !onClick: addPoint('sword')
+
+Button
+  id: axeButton
+  @position: 200 130
+  text: Luta com Machado (+100 tentativas)
+  @size: 180 30
+  !onClick: addPoint('axe')
+
+Button
+  id: distanceButton
+  @position: 200 170
+  text: Luta à Distância (+100 tentativas)
+  @size: 180 30
+  !onClick: addPoint('distance')
+
+Button
+  id: shieldingButton
+  @position: 390 10
+  text: Defesa (+100 tentativas)
+  @size: 180 30
+  !onClick: addPoint('shielding')
+
+Button
+  id: fishingButton
+  @position: 390 50
+  text: Pesca (+100 tentativas)
+  @size: 180 30
+  !onClick: addPoint('fishing')
+
+Button
+  id: healthButton
+  @position: 390 90
+  text: Vida (+50 HP)
+  @size: 180 30
+  !onClick: addPoint('health')
+
+Button
+  id: manaButton
+  @position: 390 130
+  text: Mana (+50 MP)
+  @size: 180 30
+  !onClick: addPoint('mana')
+
+Button
+  id: defenseButton
+  @position: 390 170
+  text: Defesa
+  @size: 180 30
+  !onClick: addPoint('defense')
+
+Button
+  id: cooldownButton
+  @position: 10 210
+  text: Cooldown de Magias
+  @size: 180 30
+  !onClick: addPoint('cooldown')
+
+Button
+  id: lootButton
+  @position: 200 210
+  text: Chance de Loot (+2%)
+  @size: 180 30
+  !onClick: addPoint('loot')
+
+Button
+  id: criticalButton
+  @position: 390 210
+  text: Chance Crítica (+2%)
+  @size: 180 30
+  !onClick: addPoint('critical')

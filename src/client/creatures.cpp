@@ -302,10 +302,10 @@ void CreatureManager::loadCreatureBuffer(const std::string& buffer)
     CreatureTypePtr newType(new CreatureType(cName));
     for(TiXmlElement* attrib = root->FirstChildElement(); attrib; attrib = attrib->NextSiblingElement()) {
         if(attrib->ValueStr() != "look")
-            continue;
+             continue;
 
-        internalLoadCreatureBuffer(attrib, newType);
-        break;
+         internalLoadCreatureBuffer(attrib, newType);
+         break;
     }
 
     doc.Clear();

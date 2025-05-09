@@ -74,9 +74,10 @@
     <TargetName>otclient_gl</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='OpenGL|x64'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);../src;</IncludePath>
     <SourcePath>$(VC_SourcePath);$(ProjectDir)../src;</SourcePath>
     <TargetName>otclient_gl</TargetName>
+    <ExecutablePath>C:\Users\thiag\Meus Projetos\client-server-tibia\vcpkg_installed\x64-windows-static\x64-windows-static\include;$(ExecutablePath)</ExecutablePath>
+    <LibraryPath>C:\Users\thiag\Meus Projetos\client-server-tibia\vcpkg_installed\x64-windows-static\x64-windows-static\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DirectX|Win32'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);../src;</IncludePath>
@@ -156,7 +157,7 @@
       <FloatingPointModel>Fast</FloatingPointModel>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(VcpkgRoot)\installed\$(VcpkgTriplet)\include\luajit;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VcpkgRoot)\installed\$(VcpkgTriplet)\include\luajit;C:\vcpkg\installed\x64-windows-static\include;C:\Users\thiag\Meus Projetos\client-server-tibia\src\framework;C:\Users\thiag\Meus Projetos\client-server-tibia;C:\Users\thiag\Meus Projetos\client-server-tibia\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>Default</LanguageStandard_C>
@@ -172,6 +173,7 @@
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>C:\vcpkg\installed\x64-windows-static\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DirectX|Win32'">

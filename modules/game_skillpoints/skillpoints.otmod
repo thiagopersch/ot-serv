@@ -1,0 +1,12 @@
+Module
+  name: game_skillpoints
+  description: Sistema de Pontos de Habilidade
+  author: Peixola
+  website: https://github.com/edubart/otclient
+  sandboxed: true
+  scripts: [ skillpoints ]
+  @onLoad: init()
+  @onUnload: terminate()
+  dependencies:
+    - game_interface
+    - game_skills

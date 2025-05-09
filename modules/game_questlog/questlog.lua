@@ -16,26 +16,32 @@ function init()
   trackerWindow = g_ui.createWidget('QuestTracker', modules.game_interface.getRightPanel())
   trackerWindow:setup()
   trackerWindow:hide()
-  
+
   if not g_app.isMobile() then
-    questLogButton = modules.client_topmenu.addLeftGameButton('questLogButton', tr('Quest Log'), '/images/topbuttons/questlog', function() g_game.requestQuestLog() end, false, 8)
-    questTrackerButton = modules.client_topmenu.addLeftGameButton('questTrackerButton', tr('Quest Tracker'), '/images/topbuttons/quest_tracker', toggle, false, 9)
+    questLogButton = modules.client_topmenu.addLeftGameButton('questLogButton', tr('Quest Log'),
+      '/images/topbuttons/questlog', function() g_game.requestQuestLog() end, false, 8)
+    questTrackerButton = modules.client_topmenu.addLeftGameButton('questTrackerButton', tr('Quest Tracker'),
+      '/images/topbuttons/quest_tracker', toggle, false, 9)
   end
-  
-  connect(g_game, { onQuestLog = onGameQuestLog,
-                    onQuestLine = onGameQuestLine,
-                    onGameEnd = offline,
-                    onGameStart = online})
+
+  connect(g_game, {
+    onQuestLog = onGameQuestLog,
+    onQuestLine = onGameQuestLine,
+    onGameEnd = offline,
+    onGameStart = online
+  })
   if g_game.isOnline() then
     online()
   end
 end
 
 function terminate()
-  disconnect(g_game, { onQuestLog = onGameQuestLog,
-                       onQuestLine = onGameQuestLine,
-                       onGameEnd = offline,
-                       onGameStart = online})
+  disconnect(g_game, {
+    onQuestLog = onGameQuestLog,
+    onQuestLine = onGameQuestLine,
+    onGameEnd = offline,
+    onGameStart = online
+  })
 
   if g_game.isOnline() then
     offline()
@@ -46,7 +52,7 @@ function terminate()
   if questTrackerButton then
     questTrackerButton:destroy()
   end
-  
+
   if refreshEvent then
     removeEvent(refreshEvent)
     refreshEvent = nil
@@ -72,7 +78,7 @@ function offline()
   -- reset tracker
   trackerWindow.contentsPanel.list:destroyChildren()
   trackerWindow.contentsPanel.list:setHeight(0)
-  
+
   if refreshEvent then
     removeEvent(refreshEvent)
     refreshEvent = nil
@@ -93,16 +99,16 @@ function online()
   local track = window.missionlog.track
   local missionDescription = window.missionlog.missionDescription
 
-  connect(missionList, { 
+  connect(missionList, {
     onChildFocusChange = function(self, focusedChild)
       if focusedChild == nil then return end
-        missionDescription:setText(focusedChild.description)
-        if focusedChild:isVisible() then
-          track:setEnabled(true)
-        end
-        track:setChecked(settings[focusedChild.trackData])
-      end 
-    }
+      missionDescription:setText(focusedChild.description)
+      if focusedChild:isVisible() then
+        track:setEnabled(true)
+      end
+      track:setChecked(settings[focusedChild.trackData])
+    end
+  }
   )
 end
 
@@ -152,14 +158,14 @@ function onGameQuestLog(quests)
   local questList = window.questlog.questList
 
   questList:destroyChildren()
-  for i,questEntry in pairs(quests) do
+  for i, questEntry in pairs(quests) do
     local id, name, completed = unpack(questEntry)
 
     local questLabel = g_ui.createWidget('QuestLabel', questList)
     questLabel:setChecked(i % 2 == 0)
     questLabel.questId = id -- for quest tracker
     questLabel.questName = name
-    name = completed and name.." (completed)" or name
+    name = completed and name .. " (completed)" or name
     questLabel:setText(name)
     questLabel.onDoubleClick = function()
       window.missionlog.currentQuest = id
@@ -177,12 +183,12 @@ function onGameQuestLine(questId, questMissions)
   if questId == window.missionlog.currentQuest then
     missionList:destroyChildren()
   end
-  for i,questMission in pairs(questMissions) do
+  for i, questMission in pairs(questMissions) do
     local name, description = unpack(questMission)
 
     --questlog
     local missionLabel = g_ui.createWidget('QuestLabel', missionList)
-    local widgetId = questId..'.'..i
+    local widgetId = questId .. '.' .. i
     missionLabel:setChecked(i % 2 == 0)
     missionLabel:setId(widgetId)
     missionLabel.questId = questId
@@ -242,11 +248,11 @@ function refreshQuests()
         dispatcher[questData] = dispatcher[questData] or g_clock.millis()
       end
 
-      if dispatcher[questData] and g_clock.millis() > dispatcher[questData] + callDelay + math.random(callDelay/2) then
+      if dispatcher[questData] and g_clock.millis() > dispatcher[questData] + callDelay + math.random(callDelay / 2) then
         dispatcher[questData] = g_clock.millis()
         scheduleEvent(function()
           g_game.requestQuestLine(id) -- request update
-        end, math.random(callDelay/2) )
+        end, math.random(callDelay / 2))
       end
     end
   end
@@ -275,12 +281,12 @@ function load()
   local file = "/settings/questlog.json"
   if g_resources.fileExists(file) then
     local status, result = pcall(function()
-        return json.decode(g_resources.readFileContents(file))
+      return json.decode(g_resources.readFileContents(file))
     end)
     if not status then
-        return g_logger.error(
-                   "Error while reading profiles file. To fix this problem you can delete storage.json. Details: " ..
-                       result)
+      return g_logger.error(
+        "Error while reading profiles file. To fix this problem you can delete storage.json. Details: " ..
+        result)
     end
     settings = result
   end
@@ -290,13 +296,13 @@ function save()
   local file = "/settings/questlog.json"
   local status, result = pcall(function() return json.encode(settings, 2) end)
   if not status then
-      return g_logger.error(
-                 "Error while saving profile settings. Data won't be saved. Details: " ..
-                     result)
+    return g_logger.error(
+      "Error while saving profile settings. Data won't be saved. Details: " ..
+      result)
   end
   if result:len() > 100 * 1024 * 1024 then
-      return g_logger.error(
-                 "Something went wrong, file is above 100MB, won't be saved")
+    return g_logger.error(
+      "Something went wrong, file is above 100MB, won't be saved")
   end
   g_resources.writeFileContents(file, result)
 end
