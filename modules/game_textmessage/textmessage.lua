@@ -1,15 +1,15 @@
 MessageSettings = {
-  none            = {},
-  consoleRed      = { color = TextColors.red,    consoleTab='Default' },
-  consoleOrange   = { color = TextColors.orange, consoleTab='Default' },
-  consoleBlue     = { color = TextColors.blue,   consoleTab='Default' },
-  centerRed       = { color = TextColors.red,    consoleTab='Server Log', screenTarget='lowCenterLabel' },
-  centerGreen     = { color = TextColors.green,  consoleTab='Server Log', screenTarget='highCenterLabel',   consoleOption='showInfoMessagesInConsole' },
-  centerWhite     = { color = TextColors.white,  consoleTab='Server Log', screenTarget='middleCenterLabel', consoleOption='showEventMessagesInConsole' },
-  bottomWhite     = { color = TextColors.white,  consoleTab='Server Log', screenTarget='statusLabel',       consoleOption='showEventMessagesInConsole' },
-  status          = { color = TextColors.white,  consoleTab='Server Log', screenTarget='statusLabel',       consoleOption='showStatusMessagesInConsole' },
-  statusSmall     = { color = TextColors.white,                           screenTarget='statusLabel' },
-  private         = { color = TextColors.lightblue,                       screenTarget='privateLabel' }
+  none          = {},
+  consoleRed    = { color = TextColors.red, consoleTab = 'Default' },
+  consoleOrange = { color = TextColors.orange, consoleTab = 'Default' },
+  consoleBlue   = { color = TextColors.blue, consoleTab = 'Default' },
+  centerRed     = { color = TextColors.red, consoleTab = 'Server Log', screenTarget = 'lowCenterLabel' },
+  centerGreen   = { color = TextColors.green, consoleTab = 'Server Log', screenTarget = 'highCenterLabel', consoleOption = 'showInfoMessagesInConsole' },
+  centerWhite   = { color = TextColors.white, consoleTab = 'Server Log', screenTarget = 'middleCenterLabel', consoleOption = 'showEventMessagesInConsole' },
+  bottomWhite   = { color = TextColors.white, consoleTab = 'Server Log', screenTarget = 'statusLabel', consoleOption = 'showEventMessagesInConsole' },
+  status        = { color = TextColors.white, consoleTab = 'Server Log', screenTarget = 'statusLabel', consoleOption = 'showStatusMessagesInConsole' },
+  statusSmall   = { color = TextColors.white, screenTarget = 'statusLabel' },
+  private       = { color = TextColors.lightblue, screenTarget = 'privateLabel' }
 }
 
 MessageTypes = {
@@ -86,6 +86,30 @@ function displayMessage(mode, text)
 
   if msgtype == MessageSettings.none then return end
 
+  if mode == MessageModes.Warning then
+    local label = messagesPanel:recursiveGetChildById('customMessage')
+    local color = msgtype.color
+
+    if (text:find('|')) then
+      color = text:explode('|')[1]
+      text  = text:explode('|')[2]
+    end
+
+    label:setText(text)
+    label:setColor(color)
+    label:setBorderColor(color)
+    label:setWidth(label:getTextSize().width + 110)
+    label:show()
+
+    addEvent(function() g_effects.fadeIn(label, 250) end)
+    removeEvent(label.hideEvent)
+    label.hideEvent = scheduleEvent(function()
+      addEvent(function() g_effects.fadeOut(label, 250) end)
+      scheduleEvent(function() label:hide() end, 250)
+    end, calculateVisibleTime(text))
+    return
+  end
+
   if msgtype.consoleTab ~= nil and (msgtype.consoleOption == nil or modules.client_options.getOption(msgtype.consoleOption)) then
     modules.game_console.addText(text, msgtype, tr(msgtype.consoleTab))
     --TODO move to game_console
@@ -122,7 +146,7 @@ function displayBroadcastMessage(text)
 end
 
 function clearMessages()
-  for _i,child in pairs(messagesPanel:recursiveGetChildren()) do
+  for _i, child in pairs(messagesPanel:recursiveGetChildren()) do
     if child:getId():match('Label') then
       child:hide()
       removeEvent(child.hideEvent)

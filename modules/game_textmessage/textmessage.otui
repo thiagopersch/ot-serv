@@ -38,3 +38,14 @@ Panel
     anchors.bottom: parent.bottom
     anchors.left: parent.left
     anchors.right: parent.right
+
+  TextMessageLabel
+    id: customMessage
+    height: 32
+    anchors.top: parent.top
+    anchors.horizontalCenter: parent.horizontalCenter
+    background-color: #00000890
+    border: 1 #cc0c0c
+    margin-top: 80
+    text-auto-resize: false
+    text-wrap: false

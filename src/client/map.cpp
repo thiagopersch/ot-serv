@@ -189,7 +189,7 @@ void Map::addThing(const ThingPtr& thing, const Position& pos, int stackPos)
             StaticTextPtr staticText = thing->static_self_cast<StaticText>();
             g_lua.callGlobalField("g_map", "onStaticText", thing, staticText->getText());
         }
-    } 
+    }
 
     notificateTileUpdate(pos, thing->isItem());
 }
@@ -814,13 +814,24 @@ void Map::setAwareRange(const AwareRange& range)
 
 void Map::resetAwareRange()
 {
-    AwareRange range;
-    range.left = 8;
-    range.top = 6;
-    range.bottom = 7;
-    range.right = 9;
-    setAwareRange(range);
+
+AwareRange range;
+range.left = 14; //Change this to = maxClientViewportX
+range.top = 12; //Change this to = maxClientViewportY
+range.bottom = range.top+1;
+range.right = range.left+1;
+setAwareRange(range);
 }
+
+// void Map::resetAwareRange()
+// {
+//     AwareRange range;
+//     range.left = 8;
+//     range.top = 6;
+//     range.bottom = 7;
+//     range.right = 9;
+//     setAwareRange(range);
+// }
 
 int Map::getFirstAwareFloor()
 {
@@ -1345,7 +1356,7 @@ std::map<std::string, std::tuple<int, int, int, std::string>> Map::findEveryPath
                     }
                     bool hasStairs = isNotPathable && mapColor >= 210 && mapColor <= 213;
                     bool hasReachedMaxDistance = maxDistanceFrom && maxDistanceFromPos.isValid() && maxDistanceFromPos.distance(neighbor) > maxDistanceFrom;
-                    if ((!wasSeen && !allowUnseen) || (hasStairs && !ignoreStairs && neighbor != destPos) || 
+                    if ((!wasSeen && !allowUnseen) || (hasStairs && !ignoreStairs && neighbor != destPos) ||
                         (isNotPathable && !ignoreNonPathable && neighbor != destPos) || (isNotWalkable && !ignoreNonWalkable) ||
                         hasReachedMaxDistance) {
                         it = nodes.emplace(neighbor, nullptr).first;

@@ -32,6 +32,7 @@ function load()
             g_game.enableFeature(GameDiagonalAnimatedText)
             g_game.enableFeature(GameExtendedOpcode)
             g_game.enableFeature(GameBlueNpcNameColor)
+            g_game.enableFeature(GameSpritesAlphaChannel)
             if not g_things.loadDat(datPath) then
                 errorMessage = errorMessage ..
                     tr(
