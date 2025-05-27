@@ -1,0 +1,11 @@
+Module
+  name: attributes_window
+  description:
+  author: Wtver
+  website:
+  sandboxed: true
+  autoload: true
+  autoload-priority: 1000
+  scripts: [ attributes_window ]
+  @onLoad: init()
+  @onUnload: terminate()

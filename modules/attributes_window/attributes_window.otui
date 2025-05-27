@@ -1,0 +1,153 @@
+SkillPanel < Panel
+  text-offset: 8 -6
+  image-source: /images/ui/window_headless
+  image-color: #70707080
+  image-border: 5
+  padding: 10
+  focusable: true
+  phantom: false
+
+  $hover:
+    image-color: #ffffff
+
+  Label
+    id: countLabel
+    text: "0 / 0"
+    text-auto-resize: true
+    font: window
+    margin-bottom: -8
+    anchors.bottom: parent.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+
+  Button
+    id: addButton
+    anchors.right: parent.right
+    anchors.verticalCenter: parent.verticalCenter
+    margin-right: -5
+    icon-source: assets/close_buttons
+    icon-clip: 20 0 20 21
+    size: 20 20
+    cursor: pointer
+    change-cursor-image: true
+    $pressed:
+      icon-clip: 0 0 19 20
+
+    @onClick: modules.attributes_window.onClickAdd(self)
+
+SkillImagePanel < Panel
+  image-color: #ffffff
+  border: 1 black
+  anchors.left: parent.left
+  anchors.verticalCenter: parent.verticalCenter
+  margin-left: -8
+  size: 34 34
+
+MainWindow
+  id: ChestWindow
+  !text: tr("Attributes Window")
+  size: 287 520
+  font: window
+  padding: 25 30 25 30
+  $dragging:
+    opacity: 0.8
+
+  ScrollablePanel
+    id: skillsList
+    anchors.fill: parent
+    margin-top: 5
+    margin-bottom: 62
+    image-source: ~
+    image-border: 1
+    padding: 8
+    vertical-scrollbar: scrollbar
+    layout:
+      type: grid
+      cell-size: 200 40
+      cell-spacing: 2
+      flow: true
+
+    SkillPanel
+      id: skill1
+      text: "[Reduce Cooldown]"
+      tooltip: Cada ponto reduz o tempo de espera em %s%%.
+      SkillImagePanel
+        image-source: assets/1
+    SkillPanel
+      id: skill2
+      text: "[Lifeleech]"
+      tooltip: Cada ponto aumenta a sugada de life em %s%%. (Melee damage only)
+      SkillImagePanel
+        image-source: assets/2
+    SkillPanel
+      id: skill4
+      text: "[Crit. Chance]"
+      tooltip: Cada ponto aumenta a chance critica em %s%%.
+      SkillImagePanel
+        image-source: assets/4
+    SkillPanel
+      id: skill5
+      text: "[Crit. Damage]"
+      tooltip: Cada ponto aumenta o dano critico em %s%%.
+      SkillImagePanel
+        image-source: assets/5
+    SkillPanel
+      id: skill6
+      text: "[Reiatsu Damage]"
+      tooltip: Cada ponto aumenta o dano magico em %s%%.
+      SkillImagePanel
+        image-source: assets/6
+    SkillPanel
+      id: skill7
+      text: "[Reiatsu Heal]"
+      tooltip: Cada ponto aumenta a cura magica em %s%%.
+      SkillImagePanel
+        image-source: assets/7
+    SkillPanel
+      id: skill8
+      text: "[Explorer]"
+      tooltip: Cada ponto aumenta a chance de loot em %s%%.
+      SkillImagePanel
+        image-source: assets/8
+    SkillPanel
+      id: skill9
+      text: "[Expert]"
+      tooltip: Cada ponto aumenta a experiencia dos monstros em %s%%.
+      SkillImagePanel
+        image-source: assets/9
+    SkillPanel
+      id: skill10
+      text: "[Reiatsu Expert]"
+      tooltip: Cada ponto reduz os custos de reiatsu em spells em %s%%.
+      SkillImagePanel
+        image-source: assets/10
+
+  VerticalScrollBar
+    id: scrollbar
+    anchors.top: skillsList.top
+    anchors.right: skillsList.right
+    anchors.bottom: skillsList.bottom
+    step: 24
+    pixel-scroll: true
+
+  Button
+    id: closeButton
+    !text: tr('Close')
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    color: #ffffff
+    width: 56
+    margin-right: 85
+    @onClick: modules.attributes_window.close()
+
+  Label
+    id: freePointsLabel
+    text: "Free points: %d."
+    text-auto-resize: true
+    font: window
+    margin-bottom: 22
+    margin-left: 5
+    anchors.left: parent.left
+    anchors.top: skillsList.bottom
+
+  anchors.centerIn: parent
+  @onEscape: modules.attributes_window.close()
