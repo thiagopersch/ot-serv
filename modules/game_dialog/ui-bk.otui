@@ -1,0 +1,220 @@
+DailyItemPanel < Panel
+  image-source: assets/panel
+  phantom: false
+  change-cursor-image: false
+  cursor: pointer
+  UIItem
+    id: itemWidget
+    font: verdana-11px-rounded
+    size: 32 32
+    virtual: true
+    phantom: true
+    anchors.centerIn: parent
+    margin: 5
+    &onItemChange: function() end
+  Panel
+    id: stateWidget
+    icon-align: center
+    anchors.fill: parent
+    margin: 9
+  Label
+    id: labelWidget
+    text-auto-resize: true
+    color: white
+    font: verdana-11px-rounded
+    anchors.top: parent.top
+    anchors.left: parent.left
+
+DailySeqItemPanel < Panel
+  image-source: assets/panel
+  phantom: false
+  change-cursor-image: false
+  cursor: pointer
+  UIItem
+    id: itemWidget
+    font: verdana-11px-rounded
+    size: 32 32
+    virtual: true
+    phantom: true
+    anchors.centerIn: parent
+    margin: 5
+    &onItemChange: function() end
+  Panel
+    id: stateWidget
+    anchors.centerIn: parent
+    margin: 5
+
+MainWindow
+  id: DailyWindow
+  image-source: assets/window
+  size: 500 300
+  padding: 3 6 4 4
+
+  Panel
+    id: daysPanel
+    anchors.fill: parent
+    margin-left: 10
+    margin-top: 32
+    margin-bottom: 14
+    margin-right: 209
+    padding: 14
+    padding-top: 20
+    layout:
+      type: grid
+      cell-size: 38 38
+      cell-spacing: 3
+      flow: true
+
+    DailyItemPanel
+      id: panel1
+      @onSetup: self:getChildById("labelWidget"):setText("1")
+    DailyItemPanel
+      id: panel2
+      @onSetup: self:getChildById("labelWidget"):setText("2")
+    DailyItemPanel
+      id: panel3
+      @onSetup: self:getChildById("labelWidget"):setText("3")
+    DailyItemPanel
+      id: panel4
+      @onSetup: self:getChildById("labelWidget"):setText("4")
+    DailyItemPanel
+      id: panel5
+      @onSetup: self:getChildById("labelWidget"):setText("5")
+    DailyItemPanel
+      id: panel6
+      @onSetup: self:getChildById("labelWidget"):setText("6")
+    DailyItemPanel
+      id: panel7
+      @onSetup: self:getChildById("labelWidget"):setText("7")
+    DailyItemPanel
+      id: panel8
+      @onSetup: self:getChildById("labelWidget"):setText("8")
+    DailyItemPanel
+      id: panel9
+      @onSetup: self:getChildById("labelWidget"):setText("9")
+    DailyItemPanel
+      id: panel10
+      @onSetup: self:getChildById("labelWidget"):setText("10")
+    DailyItemPanel
+      id: panel11
+      @onSetup: self:getChildById("labelWidget"):setText("11")
+    DailyItemPanel
+      id: panel12
+      @onSetup: self:getChildById("labelWidget"):setText("12")
+    DailyItemPanel
+      id: panel13
+      @onSetup: self:getChildById("labelWidget"):setText("13")
+    DailyItemPanel
+      id: panel14
+      @onSetup: self:getChildById("labelWidget"):setText("14")
+    DailyItemPanel
+      id: panel15
+      @onSetup: self:getChildById("labelWidget"):setText("15")
+    DailyItemPanel
+      id: panel16
+      @onSetup: self:getChildById("labelWidget"):setText("16")
+    DailyItemPanel
+      id: panel17
+      @onSetup: self:getChildById("labelWidget"):setText("17")
+    DailyItemPanel
+      id: panel18
+      @onSetup: self:getChildById("labelWidget"):setText("18")
+    DailyItemPanel
+      id: panel19
+      @onSetup: self:getChildById("labelWidget"):setText("19")
+    DailyItemPanel
+      id: panel20
+      @onSetup: self:getChildById("labelWidget"):setText("20")
+    DailyItemPanel
+      id: panel21
+      @onSetup: self:getChildById("labelWidget"):setText("21")
+    DailyItemPanel
+      id: panel22
+      @onSetup: self:getChildById("labelWidget"):setText("22")
+    DailyItemPanel
+      id: panel23
+      @onSetup: self:getChildById("labelWidget"):setText("23")
+    DailyItemPanel
+      id: panel24
+      @onSetup: self:getChildById("labelWidget"):setText("24")
+    DailyItemPanel
+      id: panel25
+      @onSetup: self:getChildById("labelWidget"):setText("25")
+    DailyItemPanel
+      id: panel26
+      @onSetup: self:getChildById("labelWidget"):setText("26")
+    DailyItemPanel
+      id: panel27
+      @onSetup: self:getChildById("labelWidget"):setText("27")
+    DailyItemPanel
+      id: panel28
+      @onSetup: self:getChildById("labelWidget"):setText("28")
+
+  Label
+    !text: '3 ' .. tr('DIAS EM FILA')
+    font: terminus-14px-bold
+    text-auto-resize: true
+    color: white
+    anchors.top: parent.top
+    anchors.right: parent.right
+    margin-top: 50
+    margin-right: 45
+  DailySeqItemPanel
+    id: seq3Panel
+    anchors.top: prev.bottom
+    anchors.horizontalCenter: prev.horizontalCenter
+    size: 38 38
+
+  Label
+    !text: '7 ' .. tr('DIAS EM FILA')
+    font: terminus-14px-bold
+    text-auto-resize: true
+    color: white
+    anchors.top: prev.bottom
+    anchors.horizontalCenter: prev.horizontalCenter
+    margin-top: 20
+  DailySeqItemPanel
+    id: seq7Panel
+    anchors.top: prev.bottom
+    anchors.horizontalCenter: prev.horizontalCenter
+    size: 38 38
+
+  Label
+    !text: '25 ' .. tr('DIAS EM FILA')
+    font: terminus-14px-bold
+    text-auto-resize: true
+    color: white
+    anchors.top: prev.bottom
+    anchors.horizontalCenter: prev.horizontalCenter
+    margin-top: 20
+  DailySeqItemPanel
+    id: seq25Panel
+    size: 38 38
+    anchors.top: prev.bottom
+    anchors.horizontalCenter: prev.horizontalCenter
+
+  Label
+    id: sequenceLabel
+    font: verdana-11px-rounded
+    text-auto-resize: true
+    color: white
+    anchors.horizontalCenter: daysPanel.horizontalCenter
+    anchors.bottom: parent.bottom
+    margin-bottom: 20
+
+  UIButton
+    id: closeButton
+    image-source: assets/close_button
+    anchors.top: parent.top
+    anchors.right: parent.right
+    size: 34 22
+    opacity: 1.0
+    margin-top: 2
+    margin-right: 6
+    change-cursor-image: true
+    cursor: pointer
+    $pressed:
+      opacity: 0.7
+    @onClick: modules.game_daily.close()
+
+  @onEscape: modules.game_daily.close()

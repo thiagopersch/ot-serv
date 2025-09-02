@@ -14,7 +14,7 @@ countWindow = nil
 logoutWindow = nil
 exitWindow = nil
 bottomSplitter = nil
-limitedZoom = false
+limitedZoom = true
 hookedMenuOptions = {}
 lastDirTime = g_clock.millis()
 
@@ -152,10 +152,10 @@ function show()
 
   addEvent(function()
     if not limitedZoom or g_game.isGM() then
-      gameMapPanel:setMaxZoomOut(513)
+      gameMapPanel:setMaxZoomOut(25)
       gameMapPanel:setLimitVisibleRange(false)
     else
-      gameMapPanel:setMaxZoomOut(15)
+      gameMapPanel:setMaxZoomOut(25)
       gameMapPanel:setLimitVisibleRange(true)
     end
   end)
@@ -225,11 +225,11 @@ function tryExit()
 
   exitWindow = displayGeneralBox(tr('Exit'),
     tr(
-    "If you shut down the program, your character might stay in the game.\nClick on 'Logout' to ensure that you character leaves the game properly.\nClick on 'Exit' if you want to exit the program without logging out your character."),
+      "If you shut down the program, your character might stay in the game.\nClick on 'Logout' to ensure that you character leaves the game properly.\nClick on 'Exit' if you want to exit the program without logging out your character."),
     {
       { text = tr('Force Exit'), callback = exitFunc },
-      { text = tr('Logout'),   callback = logoutFunc },
-      { text = tr('Cancel'),   callback = cancelFunc },
+      { text = tr('Logout'),     callback = logoutFunc },
+      { text = tr('Cancel'),     callback = cancelFunc },
       anchor = AnchorHorizontalCenter
     }, logoutFunc, cancelFunc)
 
@@ -281,7 +281,7 @@ function tryLogout(prompt)
   if prompt then
     logoutWindow = displayGeneralBox(tr('Logout'), tr(msg), {
       { text = tr('Yes'), callback = yesCallback },
-      { text = tr('No'), callback = noCallback },
+      { text = tr('No'),  callback = noCallback },
       anchor = AnchorHorizontalCenter
     }, yesCallback, noCallback)
   else
@@ -1021,7 +1021,7 @@ function refreshViewMode()
     gameMapPanel:addAnchor(AnchorTop, 'gameTopBar', AnchorBottom)
     gameMapPanel:setKeepAspectRatio(true)
     gameMapPanel:setLimitVisibleRange(false)
-    gameMapPanel:setZoom(11)
+    gameMapPanel:setZoom(15)
     gameMapPanel:setOn(false) -- frame
 
     modules.client_topmenu.getTopMenu():setImageColor('white')

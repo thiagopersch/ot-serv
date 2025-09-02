@@ -1,3 +1,3 @@
 {
-  "Lua.diagnostics.globals": ["g_game"]
+  "Lua.diagnostics.globals": ["g_game", "g_ui", "ProtocolGame", "g_modules"]
 }

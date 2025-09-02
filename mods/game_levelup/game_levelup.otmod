@@ -1,0 +1,12 @@
+Module
+  name: game_levelup
+  description: Display LEVEL UP on top when player advance level
+  author: Vagner and Stone
+  website: globalking.com.br
+  autoload: true
+  reloadable: true
+  sandboxed: true
+  version: 1.0
+  scripts: [ game_levelup ]
+  @onLoad: init()
+  @onUnload: terminate()

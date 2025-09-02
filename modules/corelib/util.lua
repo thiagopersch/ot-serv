@@ -2,9 +2,9 @@
 
 function print(...)
   local msg = ""
-  local args = {...}
+  local args = { ... }
   local appendSpace = #args > 1
-  for i,v in ipairs(args) do
+  for i, v in ipairs(args) do
     msg = msg .. tostring(v)
     if appendSpace and i < #args then
       msg = msg .. '    '
@@ -52,7 +52,7 @@ function connect(object, arg1, arg2, arg3)
     pushFront = arg2
   end
 
-  for signal,slot in pairs(signalsAndSlots) do
+  for signal, slot in pairs(signalsAndSlots) do
     if not object[signal] then
       local mt = getmetatable(object)
       if mt and type(object) == 'userdata' then
@@ -76,7 +76,7 @@ function connect(object, arg1, arg2, arg3)
       if pushFront then
         table.insert(object[signal], 1, slot)
       else
-        table.insert(object[signal], #object[signal]+1, slot)
+        table.insert(object[signal], #object[signal] + 1, slot)
       end
     end
   end
@@ -96,14 +96,14 @@ function disconnect(object, arg1, arg2)
     perror(debug.traceback('unable to disconnect'))
   end
 
-  for signal,slot in pairs(signalsAndSlots) do
+  for signal, slot in pairs(signalsAndSlots) do
     if not object[signal] then
     elseif type(object[signal]) == 'function' then
       if object[signal] == slot then
         object[signal] = nil
       end
     elseif type(object[signal]) == 'table' then
-      for k,func in pairs(object[signal]) do
+      for k, func in pairs(object[signal]) do
         if func == slot then
           table.remove(object[signal], k)
 
@@ -125,11 +125,12 @@ function newclass(name)
   local class = {}
   function class.internalCreate()
     local instance = {}
-    for k,v in pairs(class) do
+    for k, v in pairs(class) do
       instance[k] = v
     end
     return instance
   end
+
   class.create = class.internalCreate
   class.__class = name
   class.getClassName = function() return name end
@@ -144,11 +145,12 @@ function extends(base, name)
   local derived = {}
   function derived.internalCreate()
     local instance = base.create()
-    for k,v in pairs(derived) do
+    for k, v in pairs(derived) do
       instance[k] = v
     end
     return instance
   end
+
   derived.create = derived.internalCreate
   derived.__class = name
   derived.getClassName = function() return name end
@@ -162,9 +164,9 @@ function runinsandbox(func, ...)
       error(err)
     end
   end
-  local env = { }
+  local env = {}
   local oldenv = getfenv(0)
-  setmetatable(env, { __index = oldenv } )
+  setmetatable(env, { __index = oldenv })
   setfenv(0, env)
   func(...)
   setfenv(0, oldenv)
@@ -198,7 +200,7 @@ table.insert(package.loaders, 1, module_loader)
 function import(table)
   assert(type(table) == 'table')
   local env = getfenv(2)
-  for k,v in pairs(table) do
+  for k, v in pairs(table) do
     env[k] = v
   end
 end
@@ -207,7 +209,7 @@ function export(what, key)
   if key ~= nil then
     _G[key] = what
   else
-    for k,v in pairs(what) do
+    for k, v in pairs(what) do
       _G[k] = v
     end
   end
@@ -215,7 +217,7 @@ end
 
 function unexport(key)
   if type(key) == 'table' then
-    for _k,v in pairs(key) do
+    for _k, v in pairs(key) do
       _G[v] = nil
     end
   else
@@ -225,7 +227,7 @@ end
 
 function getfsrcpath(depth)
   depth = depth or 2
-  local info = debug.getinfo(1+depth, "Sn")
+  local info = debug.getinfo(1 + depth, "Sn")
   local path
   if info.short_src then
     path = info.short_src:match("(.*)/.*")
@@ -243,14 +245,14 @@ function resolvepath(filePath, depth)
   depth = depth or 1
   if filePath then
     if filePath:sub(0, 1) ~= '/' then
-      local basepath = getfsrcpath(depth+1)
+      local basepath = getfsrcpath(depth + 1)
       if basepath:sub(#basepath) ~= '/' then basepath = basepath .. '/' end
-      return  basepath .. filePath
+      return basepath .. filePath
     else
       return filePath
     end
   else
-    local basepath = getfsrcpath(depth+1)
+    local basepath = getfsrcpath(depth + 1)
     if basepath:sub(#basepath) ~= '/' then basepath = basepath .. '/' end
     return basepath
   end
@@ -315,7 +317,7 @@ function signalcall(param, ...)
       perror(ret)
     end
   elseif type(param) == 'table' then
-    for k,v in pairs(param) do
+    for k, v in pairs(param) do
       local status, ret = pcall(v, ...)
       if status then
         if ret then return true end
@@ -353,7 +355,7 @@ end
 function makesingleton(obj)
   local singleton = {}
   if obj.getClassName then
-    for key,value in pairs(_G[obj:getClassName()]) do
+    for key, value in pairs(_G[obj:getClassName()]) do
       if type(value) == 'function' then
         singleton[key] = function(...) return value(obj, ...) end
       end
@@ -364,13 +366,26 @@ end
 
 function comma_value(amount)
   local formatted = amount
-  while true do  
+  while true do
     formatted, k = string.gsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2')
-    if (k==0) then
+    if (k == 0) then
       break
     end
   end
   return formatted
+end
+
+function switch(indice)
+  return function(codetable)
+    local case = codetable[indice] or codetable.default
+    if (case) then
+      if (type(case) == "function") then
+        return case(indice)
+      else
+        error("action " .. tostring(indice) .. " not a function")
+      end
+    end
+  end
 end
 
 -- @}
