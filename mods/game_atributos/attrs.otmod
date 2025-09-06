@@ -1,0 +1,14 @@
+Module
+  name: atributos
+  description: Manage your attributes
+  author: Mirto  website: 
+  sandboxed: true
+  
+  autoload: true
+  autoload-priority: 1000
+  
+  - game_interface
+  
+  scripts: [ attrs ]
+  @onLoad: init()
+  @onUnload: terminate()

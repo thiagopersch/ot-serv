@@ -1,5 +1,6 @@
 
 project(otclient)
+add_definitions(-DBIG_FONTS)
 
 # *****************************************************************************
 # Options

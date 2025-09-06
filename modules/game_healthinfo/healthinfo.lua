@@ -1,21 +1,96 @@
 Icons = {}
-Icons[PlayerStates.Poison] = { tooltip = tr('You are poisoned'), path = '/images/game/states/poisoned', id = 'condition_poisoned' }
-Icons[PlayerStates.Burn] = { tooltip = tr('You are burning'), path = '/images/game/states/burning', id = 'condition_burning' }
-Icons[PlayerStates.Energy] = { tooltip = tr('You are electrified'), path = '/images/game/states/electrified', id = 'condition_electrified' }
+Icons[PlayerStates.Poison] = {
+  tooltip = tr('You are poisoned'),
+  path = '/images/game/states/poisoned',
+  id =
+  'condition_poisoned'
+}
+Icons[PlayerStates.Burn] = {
+  tooltip = tr('You are burning'),
+  path = '/images/game/states/burning',
+  id =
+  'condition_burning'
+}
+Icons[PlayerStates.Energy] = {
+  tooltip = tr('You are electrified'),
+  path = '/images/game/states/electrified',
+  id =
+  'condition_electrified'
+}
 Icons[PlayerStates.Drunk] = { tooltip = tr('You are drunk'), path = '/images/game/states/drunk', id = 'condition_drunk' }
-Icons[PlayerStates.ManaShield] = { tooltip = tr('You are protected by a magic shield'), path = '/images/game/states/magic_shield', id = 'condition_magic_shield' }
-Icons[PlayerStates.Paralyze] = { tooltip = tr('You are paralysed'), path = '/images/game/states/slowed', id = 'condition_slowed' }
+Icons[PlayerStates.ManaShield] = {
+  tooltip = tr('You are protected by a magic shield'),
+  path =
+  '/images/game/states/magic_shield',
+  id = 'condition_magic_shield'
+}
+Icons[PlayerStates.Paralyze] = {
+  tooltip = tr('You are paralysed'),
+  path = '/images/game/states/slowed',
+  id =
+  'condition_slowed'
+}
 Icons[PlayerStates.Haste] = { tooltip = tr('You are hasted'), path = '/images/game/states/haste', id = 'condition_haste' }
-Icons[PlayerStates.Swords] = { tooltip = tr('You may not logout during a fight'), path = '/images/game/states/logout_block', id = 'condition_logout_block' }
-Icons[PlayerStates.Drowning] = { tooltip = tr('You are drowning'), path = '/images/game/states/drowning', id = 'condition_drowning' }
-Icons[PlayerStates.Freezing] = { tooltip = tr('You are freezing'), path = '/images/game/states/freezing', id = 'condition_freezing' }
-Icons[PlayerStates.Dazzled] = { tooltip = tr('You are dazzled'), path = '/images/game/states/dazzled', id = 'condition_dazzled' }
-Icons[PlayerStates.Cursed] = { tooltip = tr('You are cursed'), path = '/images/game/states/cursed', id = 'condition_cursed' }
-Icons[PlayerStates.PartyBuff] = { tooltip = tr('You are strengthened'), path = '/images/game/states/strengthened', id = 'condition_strengthened' }
-Icons[PlayerStates.PzBlock] = { tooltip = tr('You may not logout or enter a protection zone'), path = '/images/game/states/protection_zone_block', id = 'condition_protection_zone_block' }
-Icons[PlayerStates.Pz] = { tooltip = tr('You are within a protection zone'), path = '/images/game/states/protection_zone', id = 'condition_protection_zone' }
-Icons[PlayerStates.Bleeding] = { tooltip = tr('You are bleeding'), path = '/images/game/states/bleeding', id = 'condition_bleeding' }
-Icons[PlayerStates.Hungry] = { tooltip = tr('You are hungry'), path = '/images/game/states/hungry', id = 'condition_hungry' }
+Icons[PlayerStates.Swords] = {
+  tooltip = tr('You may not logout during a fight'),
+  path =
+  '/images/game/states/logout_block',
+  id = 'condition_logout_block'
+}
+Icons[PlayerStates.Drowning] = {
+  tooltip = tr('You are drowning'),
+  path = '/images/game/states/drowning',
+  id =
+  'condition_drowning'
+}
+Icons[PlayerStates.Freezing] = {
+  tooltip = tr('You are freezing'),
+  path = '/images/game/states/freezing',
+  id =
+  'condition_freezing'
+}
+Icons[PlayerStates.Dazzled] = {
+  tooltip = tr('You are dazzled'),
+  path = '/images/game/states/dazzled',
+  id =
+  'condition_dazzled'
+}
+Icons[PlayerStates.Cursed] = {
+  tooltip = tr('You are cursed'),
+  path = '/images/game/states/cursed',
+  id =
+  'condition_cursed'
+}
+Icons[PlayerStates.PartyBuff] = {
+  tooltip = tr('You are strengthened'),
+  path = '/images/game/states/strengthened',
+  id =
+  'condition_strengthened'
+}
+Icons[PlayerStates.PzBlock] = {
+  tooltip = tr('You may not logout or enter a protection zone'),
+  path =
+  '/images/game/states/protection_zone_block',
+  id = 'condition_protection_zone_block'
+}
+Icons[PlayerStates.Pz] = {
+  tooltip = tr('You are within a protection zone'),
+  path = '/images/game/states/protection_zone',
+  id =
+  'condition_protection_zone'
+}
+Icons[PlayerStates.Bleeding] = {
+  tooltip = tr('You are bleeding'),
+  path = '/images/game/states/bleeding',
+  id =
+  'condition_bleeding'
+}
+Icons[PlayerStates.Hungry] = {
+  tooltip = tr('You are hungry'),
+  path = '/images/game/states/hungry',
+  id =
+  'condition_hungry'
+}
 
 healthInfoWindow = nil
 healthBar = nil
@@ -36,20 +111,23 @@ topHealthBar = nil
 topManaBar = nil
 
 function init()
-  connect(LocalPlayer, { onHealthChange = onHealthChange,
-                         onManaChange = onManaChange,
-                         onLevelChange = onLevelChange,
-                         onStatesChange = onStatesChange,
-                         onSoulChange = onSoulChange,
-                         onFreeCapacityChange = onFreeCapacityChange })
+  connect(LocalPlayer, {
+    onHealthChange = onHealthChange,
+    onManaChange = onManaChange,
+    onLevelChange = onLevelChange,
+    onStatesChange = onStatesChange,
+    onSoulChange = onSoulChange,
+    onFreeCapacityChange = onFreeCapacityChange
+  })
 
   connect(g_game, { onGameEnd = offline })
 
   healthInfoWindow = g_ui.loadUI('healthinfo', modules.game_interface.getRightPanel())
   healthInfoWindow:disableResize()
-  
+
   if not healthInfoWindow.forceOpen then
-    healthInfoButton = modules.client_topmenu.addRightGameToggleButton('healthInfoButton', tr('Health Information'), '/images/topbuttons/healthinfo', toggle)
+    healthInfoButton = modules.client_topmenu.addRightGameToggleButton('healthInfoButton', tr('Health Information'),
+      '/images/topbuttons/healthinfo', toggle)
     if g_app.isMobile() then
       healthInfoButton:hide()
     else
@@ -63,18 +141,18 @@ function init()
   soulLabel = healthInfoWindow:recursiveGetChildById('soulLabel')
   capLabel = healthInfoWindow:recursiveGetChildById('capLabel')
 
-  overlay = g_ui.createWidget('HealthOverlay', modules.game_interface.getMapPanel())  
+  overlay = g_ui.createWidget('HealthOverlay', modules.game_interface.getMapPanel())
   healthCircleFront = overlay:getChildById('healthCircleFront')
   manaCircleFront = overlay:getChildById('manaCircleFront')
   healthCircle = overlay:getChildById('healthCircle')
   manaCircle = overlay:getChildById('manaCircle')
   topHealthBar = overlay:getChildById('topHealthBar')
   topManaBar = overlay:getChildById('topManaBar')
-  
+
   connect(overlay, { onGeometryChange = onOverlayGeometryChange })
-  
+
   -- load condition icons
-  for k,v in pairs(Icons) do
+  for k, v in pairs(Icons) do
     g_textures.preload(v.path)
   end
 
@@ -93,24 +171,26 @@ function init()
   hideExperience()
 
   healthInfoWindow:setup()
-  
+
   if g_app.isMobile() then
     healthInfoWindow:close()
-    healthInfoButton:setOn(false)  
+    healthInfoButton:setOn(false)
   end
 end
 
 function terminate()
-  disconnect(LocalPlayer, { onHealthChange = onHealthChange,
-                            onManaChange = onManaChange,
-                            onLevelChange = onLevelChange,
-                            onStatesChange = onStatesChange,
-                            onSoulChange = onSoulChange,
-                            onFreeCapacityChange = onFreeCapacityChange })
+  disconnect(LocalPlayer, {
+    onHealthChange = onHealthChange,
+    onManaChange = onManaChange,
+    onLevelChange = onLevelChange,
+    onStatesChange = onStatesChange,
+    onSoulChange = onSoulChange,
+    onFreeCapacityChange = onFreeCapacityChange
+  })
 
   disconnect(g_game, { onGameEnd = offline })
   disconnect(overlay, { onGeometryChange = onOverlayGeometryChange })
-  
+
   healthInfoWindow:destroy()
   if healthInfoButton then
     healthInfoButton:destroy()
@@ -198,7 +278,7 @@ function onManaChange(localPlayer, mana, maxMana)
   if mana > maxMana then
     maxMana = mana
   end
-  
+
   manaBar:setText(comma_value(mana) .. ' / ' .. comma_value(maxMana))
   manaBar:setTooltip(tr(manaTooltip, mana, maxMana))
   manaBar:setValue(mana, 0, maxMana)
@@ -215,7 +295,7 @@ end
 
 function onLevelChange(localPlayer, value, percent)
   experienceBar:setText(percent .. '%')
-  experienceBar:setTooltip(tr(experienceTooltip, percent, value+1))
+  experienceBar:setTooltip(tr(experienceTooltip, percent, value + 1))
   experienceBar:setPercent(percent)
 end
 
@@ -232,7 +312,7 @@ function onStatesChange(localPlayer, now, old)
 
   local bitsChanged = bit32.bxor(now, old)
   for i = 1, 32 do
-    local pow = math.pow(2, i-1)
+    local pow = math.pow(2, i - 1)
     if pow > bitsChanged then break end
     local bitChanged = bit32.band(bitsChanged, pow)
     if bitChanged ~= 0 then
@@ -244,7 +324,8 @@ end
 -- personalization functions
 function hideLabels()
   local content = healthInfoWindow:recursiveGetChildById('conditionPanel')
-  local removeHeight = math.max(capLabel:getMarginRect().height, soulLabel:getMarginRect().height) + content:getMarginRect().height - 3
+  local removeHeight = math.max(capLabel:getMarginRect().height, soulLabel:getMarginRect().height) +
+      content:getMarginRect().height - 3
   capLabel:setOn(false)
   soulLabel:setOn(false)
   content:setVisible(false)
@@ -280,18 +361,18 @@ function setExperienceTooltip(tooltip)
 
   local localPlayer = g_game.getLocalPlayer()
   if localPlayer then
-    experienceBar:setTooltip(tr(experienceTooltip, localPlayer:getLevelPercent(), localPlayer:getLevel()+1))
+    experienceBar:setTooltip(tr(experienceTooltip, localPlayer:getLevelPercent(), localPlayer:getLevel() + 1))
   end
 end
 
-function onOverlayGeometryChange() 
+function onOverlayGeometryChange()
   if g_app.isMobile() then
     topHealthBar:setMarginTop(35)
     topManaBar:setMarginTop(35)
-    local width = overlay:getWidth() 
+    local width = overlay:getWidth()
     local margin = width / 3 + 10
     topHealthBar:setMarginLeft(margin)
-    topManaBar:setMarginRight(margin)    
+    topManaBar:setMarginRight(margin)
     return
   end
 
@@ -302,13 +383,13 @@ function onOverlayGeometryChange()
     topManaBar:setMarginTop(15)
   else
     topHealthBar:setMarginTop(45 - overlay:getParent():getMarginTop())
-    topManaBar:setMarginTop(45 - overlay:getParent():getMarginTop())  
+    topManaBar:setMarginTop(45 - overlay:getParent():getMarginTop())
     minMargin = 200
   end
 
   local height = overlay:getHeight()
   local width = overlay:getWidth()
-     
+
   topHealthBar:setMarginLeft(math.max(minMargin, (width - height + 50) / 2 + 2))
   topManaBar:setMarginRight(math.max(minMargin, (width - height + 50) / 2 + 2))
 end

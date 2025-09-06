@@ -1,0 +1,159 @@
+ModuleListLabel < Label
+  font: verdana-11px-monochrome
+  background-color: alpha
+  text-offset: 2 0
+  focusable: true
+  color: #cccccc
+
+  $focus:
+    background-color: #4444ff
+
+  $on:
+    background-color: #4444ff
+
+ModuleInfoLabel < Label
+  $!first:
+    margin-top: 5
+  margin-bottom: 2
+
+ModuleValueLabel < FlatLabel
+  font: verdana-11px-antialised
+  color: #aaaaaa
+  text-offset: 2 3
+  padding-bottom: 5
+  height: 20
+
+MainWindow
+  id: questlogWindow
+  height: 385
+  width: 400
+  !text: tr("Quests")
+
+  Label
+    id: nomedobixo
+    size: 248 20
+    text-align: center
+    font: sans-bold-16px
+    !text: tr('Nome')
+    anchors.top: parent.top
+    anchors.left: parent.left
+    margin-top: 25
+    margin-left: 150
+    visible: false
+
+  UIButton
+    id: fotodobixo
+    image-source: /modules/game_questlog/imgs/padrao
+    anchors.top: parent.top
+    anchors.right: parent.right
+    margin-right: 35
+    margin-top: 67
+    visible: false
+
+  Label
+    id: descricau
+    size: 248 20
+    text-align: center
+    font: sans-bold-16px
+    !text: tr('')
+    anchors.top: parent.top
+    anchors.left: parent.left
+    margin-top: 7
+    margin-left: 350
+    visible: false
+
+  Label
+    id: nomedonpcqpega
+    size: 248 20
+    text-align: center
+    font: sans-bold-16px
+    anchors.top: parent.top
+    anchors.left: parent.left
+    margin-top: 25
+    margin-left: 350
+    visible: false
+
+  Label
+    id: xpdobixo1
+    size: 248 20
+    text-align: center
+    !text: tr('Quest')
+    font: terminus-10px
+    anchors.top: nomedobixo.top
+    anchors.left: parent.left
+    margin-top: 17
+    margin-left: 150
+    visible: false
+
+  UIButton
+    id: fotodonpc
+    size: 64 64
+    image-source: /modules/game_questlog/imgs/padrao
+    anchors.top: parent.top
+    anchors.right: parent.right
+    margin-top: 30
+    margin-right: 150
+    visible: false
+
+  Label
+    id: nome
+    size: 248 20
+    text-align: center
+    font: sans-bold-16px
+    !text: tr('Quests')
+    anchors.top: parent.top
+    anchors.left: parent.left
+    margin-top: 1
+    margin-left: -55
+
+  VerticalScrollBar
+    id: missionListScrollBar1
+    anchors.top: missionDescription1.top
+    anchors.bottom: missionDescription1.bottom
+    anchors.left: missionDescription1.right
+    step: 14
+    margin-left: 3
+    pixels-scroll: false
+    visible: false
+
+  Button
+    id: markButton
+    !text: tr("Marcar")
+    anchors.top: parent.top
+    anchors.left: parent.left
+    margin-top: 200
+    margin-left: 223
+    width: 100
+    height: 25
+    visible: false
+    @onClick: markQuest()
+
+  FlatLabel
+    id: missionDescription1
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 233
+    margin-left: 152
+    margin-right: 10
+    text-wrap: true
+    size: 15 100
+    vertical-scrollbar: missionListScrollBar1
+    visible: false
+
+  TextList
+    id: moduleList
+    anchors.fill: parent
+    margin-right: 230
+    margin-top: 25
+    padding: 3
+    focusable: false
+    vertical-scrollbar: moduleListScrollBar
+
+  VerticalScrollBar
+    id: moduleListScrollBar
+    anchors.top: moduleList.top
+    anchors.bottom: moduleList.bottom
+    anchors.left: moduleList.right
+    step: 14
+    pixels-scroll: true

@@ -1,3 +1,13 @@
 {
-  "Lua.diagnostics.globals": ["g_game", "g_ui", "ProtocolGame", "g_modules"]
+  "Lua.diagnostics.globals": [
+    "g_game",
+    "g_ui",
+    "ProtocolGame",
+    "g_modules",
+    "g_app",
+    "g_logger",
+    "g_resources",
+    "g_configs"
+  ],
+  "Lua.diagnostics.disable": ["undefined-field"]
 }

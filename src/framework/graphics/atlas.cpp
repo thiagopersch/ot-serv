@@ -2,7 +2,7 @@
 #include "framebuffermanager.h"
 #include "painter.h"
 #include "graphics.h"
-#include <framework/core/clock.h>
+#include<framework/core/clock.h>
 #include <framework/platform/platform.h>
 
 Atlas g_atlas;

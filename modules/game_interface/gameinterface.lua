@@ -523,6 +523,17 @@ function createThingMenu(menuPosition, lookThing, useThing, creatureThing)
         end
       end
 
+      if creatureThing:isNpc() then
+        menu:addOption(tr('Conversar'), function()
+          local destPos = creatureThing:getPosition()
+          local myPos = g_game.getLocalPlayer():getPosition()
+          if ((destPos.x >= myPos.x - 3) and (destPos.x <= myPos.x + 3) and (destPos.y >= myPos.y - 3) and (destPos.y <= myPos.y + 3)) then
+            scheduleEvent(g_game.talkChannel(11, 0, "hi"), 500)
+          else
+            modules.game_textmessage.displayFailureMessage("Chegue mais perto para falar com NPC.")
+          end
+        end, shortcut)
+      end
       if creatureThing:isPlayer() then
         menu:addSeparator()
         local creatureName = creatureThing:getName()
@@ -697,21 +708,45 @@ function processMouseAction(menuPosition, mouseButton, autoWalkPos, lookThing, u
         return true
       end
       return true
-    elseif attackCreature and g_keyboard.isAltPressed() and (mouseButton == MouseLeftButton or mouseButton == MouseRightButton) then
-      g_game.attack(attackCreature)
-      return true
-    elseif creatureThing and creatureThing:getPosition().z == autoWalkPos.z and g_keyboard.isAltPressed() and (mouseButton == MouseLeftButton or mouseButton == MouseRightButton) then
-      g_game.attack(creatureThing)
-      return true
+    elseif creatureThing.isNpc() and g_keyboard.isAltPressed() and (mouseButton == MouseLeftButton or mouseButton == MouseRightButton) then
+      local destPos = attackCreature:getPosition()
+      local myPos = g_game.getLocalPlayer():getPosition()
+      if ((destPos.x >= myPos.x - 3) and (destPos.x <= myPos.x + 3) and (destPos.y >= myPos.y - 3) and (destPos.y <= myPos.y + 3)) then
+        scheduleEvent(g_game.talkChannel(11, 0, "hi"), 500)
+      else
+        modules.game_textmessage.displayFailureMessage("Chegue mais perto para falar com NPC.")
+      end
     end
   else -- classic control
     if useThing and keyboardModifiers == KeyboardNoModifier and mouseButton == MouseRightButton and not g_mouse.isPressed(MouseLeftButton) then
       local player = g_game.getLocalPlayer()
       if attackCreature and attackCreature ~= player then
-        g_game.attack(attackCreature)
-        return true
-      elseif creatureThing and creatureThing ~= player and creatureThing:getPosition().z == autoWalkPos.z then
-        g_game.attack(creatureThing)
+        if not attackCreature:isNpc() then
+          g_game.attack(attackCreature)
+        else
+          local destPos = attackCreature:getPosition()
+          local myPos = player:getPosition()
+          if ((destPos.x >= myPos.x - 3) and (destPos.x <= myPos.x + 3) and (destPos.y >= myPos.y - 3) and (destPos.y <= myPos.y + 3)) then
+            scheduleEvent(g_game.talkChannel(11, 0, "hi"), 500)
+          else
+            modules.game_textmessage.displayFailureMessage("Chegue mais perto para falar com NPC.")
+          end
+        end
+        --   elseif attackCreature and g_keyboard.isAltPressed() and (mouseButton == MouseLeftButton or mouseButton == MouseRightButton) then
+        --     g_game.attack(attackCreature)
+        --     return true
+        --   elseif creatureThing and creatureThing:getPosition().z == autoWalkPos.z and g_keyboard.isAltPressed() and (mouseButton == MouseLeftButton or mouseButton == MouseRightButton) then
+        --     g_game.attack(creatureThing)
+        --     return true
+        --   end
+        -- else -- classic control
+        --   if useThing and keyboardModifiers == KeyboardNoModifier and mouseButton == MouseRightButton and not g_mouse.isPressed(MouseLeftButton) then
+        --     local player = g_game.getLocalPlayer()
+        --     if attackCreature and attackCreature ~= player then
+        --       g_game.attack(attackCreature)
+        --       return true
+        --     elseif creatureThing and creatureThing ~= player and creatureThing:getPosition().z == autoWalkPos.z then
+        --       g_game.attack(creatureThing)
         return true
       elseif useThing:isContainer() then
         if useThing:getParentContainer() then

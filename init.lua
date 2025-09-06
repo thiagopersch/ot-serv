@@ -1,7 +1,7 @@
 -- CONFIG
-APP_NAME = "WoDBO Global" -- important, change it, it's name for config dir and files in appdata
-APP_VERSION = 860         -- client version for updater and login to identify outdated client
-DEFAULT_LAYOUT = "Mobile" -- on android it's forced to "mobile", check code bellow
+APP_NAME = "WoDBO Supreme" -- important, change it, it's name for config dir and files in appdata
+APP_VERSION = 860          -- client version for updater and login to identify outdated client
+DEFAULT_LAYOUT = "Mobile"  -- on android it's forced to "mobile", check code bellow
 
 -- If you don't use updater or other service, set it to updater = ""
 Services = {
@@ -67,8 +67,8 @@ local function loadModules()
 
     -- game modules 500-999
     g_modules.autoLoadModules(999)
-    g_modules.ensureModuleLoaded("game_interface")
-    g_modules.ensureModuleLoaded("game_outfit")
+    -- g_modules.ensureModuleLoaded("game_interface")
+    -- g_modules.ensureModuleLoaded("game_outfit")
 
     -- mods 1000-9999
     g_modules.autoLoadModules(9999)

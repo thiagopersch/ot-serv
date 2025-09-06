@@ -1,0 +1,7 @@
+Font
+  name: start_small
+  texture: start_small
+  height: 15
+  glyph-size: 20 20
+  space-width: 5
+  space-height: 5

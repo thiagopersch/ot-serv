@@ -1,9 +1,0 @@
-Module
-  name: game_bank
-  author: Wtver
-  sandboxed: true
-  autoload: true
-  autoload-priority: 1000
-  scripts: [ bank ]
-  @onLoad: init()
-  @onUnload: terminate()

@@ -1,0 +1,9 @@
+Module
+  name: game_inspect
+  actor: Wtver
+  autoload: true
+  autoload-priority: 1000
+  sandboxed: true
+  scripts: [ script ]
+  @onLoad: init()
+  @onUnload: terminate()

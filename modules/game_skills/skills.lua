@@ -32,12 +32,12 @@ function init()
   skillsButton:setOn(true)
   skillsWindow = g_ui.loadUI('skills', modules.game_interface.getRightPanel())
 
-  pointsButton = g_ui.createWidget('Button', skillsWindow:getChildById('contentsPanel'))
-  pointsButton:setId('pointsButton')
-  pointsButton:setText('Pontos de Habilidade')
-  pointsButton:setSize('150 30')
-  pointsButton:setMarginTop(10)
-  pointsButton.onClick = openPointsWindow
+  -- pointsButton = g_ui.createWidget('Button', skillsWindow:getChildById('contentsPanel'))
+  -- pointsButton:setId('pointsButton')
+  -- pointsButton:setText('Pontos de Habilidade')
+  -- pointsButton:setSize('150 30')
+  -- pointsButton:setMarginTop(10)
+  -- pointsButton.onClick = openPointsWindow
 
   refresh()
   skillsWindow:setup()
@@ -367,7 +367,7 @@ function onStaminaChange(localPlayer, stamina)
   elseif stamina > 2400 and g_game.getClientVersion() >= 1038 and not localPlayer:isPremium() then
     local text = tr("You have %s hours and %s minutes left", hours, minutes) .. '\n' ..
         tr(
-        "You will not gain 50%% more experience because you aren't premium player, now you receive only 1x experience points")
+          "You will not gain 50%% more experience because you aren't premium player, now you receive only 1x experience points")
     setSkillPercent('stamina', percent, text, '#89F013')
   elseif stamina > 2400 and g_game.getClientVersion() < 1038 then
     local text = tr("You have %s hours and %s minutes left", hours, minutes) .. '\n' ..

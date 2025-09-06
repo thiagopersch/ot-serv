@@ -1,0 +1,306 @@
+MainWindow
+  id: inspectWindow
+  !text: tr("Profile")
+  font: verdana-11px-rounded
+  color: white
+  size: 500 500
+  @onEscape: modules.game_inspect.close()
+  @onEnter: modules.game_inspect.search()
+
+  Panel
+    id: playerPanel
+    !text: tr("Player")
+    text-align: top
+    text-offset: 0 10
+    color: orange
+    font: verdana-11px-rounded
+    width: 220
+    background-color: #0000007f
+    border-width: 1
+    border-color: black
+    border-color-right: #7b7b7b
+    border-color-bottom: #7b7b7b
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.bottom: parent.bottom
+    Panel
+      id: eloInfo
+      anchors.top: parent.top
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 35
+      phantom: false
+    Panel
+      id: vocationImage
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 8
+    Label
+      id: nameLabel
+      text-auto-resize: true
+      color: white
+      font: terminus-14px-bold
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 10
+    HealthBar
+      id: healthBar
+      width: 120
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 10
+      phantom: true
+    ManaBar
+      id: manaBar
+      width: 120
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      phantom: true
+    Label
+      id: levelLabel
+      font: verdana-11px-rounded
+      text-auto-resize: true
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      text-align: center
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 30
+    Label
+      id: vocationLabel
+      font: verdana-11px-rounded
+      text-auto-resize: true
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      text-align: center
+      anchors.horizontalCenter: parent.horizontalCenter
+    Label
+      id: accountLabel
+      font: verdana-11px-rounded
+      text-auto-resize: true
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      text-align: center
+      anchors.horizontalCenter: parent.horizontalCenter
+    Label
+      id: townLabel
+      font: verdana-11px-rounded
+      text-auto-resize: true
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      text-align: center
+      anchors.horizontalCenter: parent.horizontalCenter
+
+    Label
+      id: guildLabel
+      font: verdana-11px-rounded
+      text-auto-resize: true
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      text-align: center
+      anchors.horizontalCenter: parent.horizontalCenter
+
+    Label
+      id: staminaLabel
+      font: verdana-11px-rounded
+      text-auto-resize: true
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      text-align: center
+      anchors.horizontalCenter: parent.horizontalCenter
+    ProgressBar
+      id: staminaBar
+      width: 120
+      background-color: #3bd309
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      text-align: center
+      anchors.horizontalCenter: parent.horizontalCenter
+      phantom: true
+
+  TextEdit
+    id: searchEdit
+    max-length: 30
+    width: 150
+    !placeholder: tr("Player name...")
+    placeholder-color: #2929299f
+    icon: assets/search
+    icon-align: left
+    icon-size: 14 14
+    icon-offset: 4 4
+    padding-left: 22
+    anchors.top: parent.top
+    anchors.right: parent.right
+    margin-bottom: 10
+    margin-right: 70
+
+  Button
+    id: searchButton
+    !text: tr("Search")
+    anchors.top: searchEdit.top
+    anchors.left: searchEdit.right
+    anchors.right: parent.right
+    margin-left: 5
+    @onClick: modules.game_inspect.search()
+
+  Panel
+    id: itemsPanel
+    !text: tr("Items")
+    text-align: top
+    text-offset: 0 2
+    color: orange
+    font: verdana-11px-rounded
+    size: 220 180
+    background-color: #0000007f
+    border-width: 1
+    border-color: black
+    border-color-right: #7b7b7b
+    border-color-bottom: #7b7b7b
+    anchors.top: searchEdit.bottom
+    anchors.right: parent.right
+    margin-top: 10
+    Panel
+      id: eyeIcon
+      image-source: assets/eye_open
+      !tooltip: tr("Esconder Items/Mostrar Items")
+      anchors.top: parent.top
+      anchors.left: parent.left
+      margin: 8
+      change-cursor-image: true
+      cursor: pointer
+      phantom: false
+      @onClick: modules.game_inspect.changePrivacy()
+    HeadSlot
+      anchors.top: parent.top
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 25
+      virtual: true
+      phantom: true
+    BodySlot
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: prev.horizontalCenter
+      margin-top: 3
+      virtual: true
+      phantom: true
+    LegSlot
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: prev.horizontalCenter
+      margin-top: 3
+      virtual: true
+      phantom: true
+    FeetSlot
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: prev.horizontalCenter
+      margin-top: 3
+      virtual: true
+      phantom: true
+    NeckSlot
+      anchors.top: slot1.top
+      anchors.right: slot1.left
+      margin-top: 13
+      margin-right: 5
+      virtual: true
+      phantom: true
+    LeftSlot
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: prev.horizontalCenter
+      margin-top: 3
+      virtual: true
+      phantom: true
+    FingerSlot
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: prev.horizontalCenter
+      margin-top: 3
+      virtual: true
+      phantom: true
+    BackSlot
+      anchors.top: slot1.top
+      anchors.left: slot1.right
+      margin-top: 13
+      margin-left: 5
+      virtual: true
+      phantom: true
+    RightSlot
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: prev.horizontalCenter
+      margin-top: 3
+      virtual: true
+      phantom: true
+    AmmoSlot
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: prev.horizontalCenter
+      margin-top: 3
+      virtual: true
+      phantom: true
+
+  Panel
+    id: skillsPanel
+    !text: tr("Skills")
+    text-align: top
+    text-offset: 0 2
+    color: orange
+    font: verdana-11px-rounded
+    size: 160 145
+    background-color: #0000007f
+    border-width: 1
+    border-color: black
+    border-color-right: #7b7b7b
+    border-color-bottom: #7b7b7b
+    anchors.top: itemsPanel.bottom
+    anchors.horizontalCenter: itemsPanel.horizontalCenter
+    margin-top: 10
+    Label
+      id: magLevel
+      text-auto-resize: true
+      font: verdana-11px-rounded
+      anchors.top: parent.top
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 30
+    Label
+      id: skill0
+      text-auto-resize: true
+      font: verdana-11px-rounded
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: prev.horizontalCenter
+    Label
+      id: skill1
+      text-auto-resize: true
+      font: verdana-11px-rounded
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: prev.horizontalCenter
+    Label
+      id: skill2
+      text-auto-resize: true
+      font: verdana-11px-rounded
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: prev.horizontalCenter
+    Label
+      id: skill3
+      text-auto-resize: true
+      font: verdana-11px-rounded
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: prev.horizontalCenter
+    Label
+      id: skill4
+      text-auto-resize: true
+      font: verdana-11px-rounded
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: prev.horizontalCenter
+    Label
+      id: skill5
+      text-auto-resize: true
+      font: verdana-11px-rounded
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: prev.horizontalCenter
+    Label
+      id: skill6
+      text-auto-resize: true
+      font: verdana-11px-rounded
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: prev.horizontalCenter
+
+  Button
+    id: closeButton
+    !text: tr("Close")
+    width: 56
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    @onClick: modules.game_inspect.close()

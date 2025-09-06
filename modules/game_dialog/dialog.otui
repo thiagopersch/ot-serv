@@ -24,7 +24,7 @@ UIWindow
   size: 690 381
   visible: false
   focusable: false
-  image-source: window
+  image-source: assets/window
 
   image-repeated: false
   anchors.centerIn: parent
