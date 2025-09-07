@@ -22,6 +22,9 @@ function init()
     onGameEnd = hideWindow
   })
   ProtocolGame.registerExtendedOpcode(135, onReceiveQuestData)
+  connect(g_game, {
+    onGameEnd = close
+  })
 end
 
 function terminate()

@@ -2,8 +2,9 @@ MainWindow
   id: inspectWindow
   !text: tr("Profile")
   font: verdana-11px-rounded
-  color: white
+  color: #ffffff
   size: 500 500
+  cursor: pointer
   @onEscape: modules.game_inspect.close()
   @onEnter: modules.game_inspect.search()
 
@@ -12,28 +13,31 @@ MainWindow
     !text: tr("Player")
     text-align: top
     text-offset: 0 10
-    color: orange
+    color: #ffa500
     font: verdana-11px-rounded
     width: 220
     background-color: #0000007f
     border-width: 1
-    border-color: black
+    border-color: #000000
     border-color-right: #7b7b7b
     border-color-bottom: #7b7b7b
     anchors.top: parent.top
     anchors.left: parent.left
     anchors.bottom: parent.bottom
+
     Panel
       id: eloInfo
       anchors.top: parent.top
       anchors.horizontalCenter: parent.horizontalCenter
       margin-top: 35
       phantom: false
+
     Panel
       id: vocationImage
       anchors.top: prev.bottom
       anchors.horizontalCenter: parent.horizontalCenter
       margin-top: 8
+
     Label
       id: nameLabel
       text-auto-resize: true
@@ -42,6 +46,7 @@ MainWindow
       anchors.top: prev.bottom
       anchors.horizontalCenter: parent.horizontalCenter
       margin-top: 10
+
     HealthBar
       id: healthBar
       width: 120
@@ -49,12 +54,14 @@ MainWindow
       anchors.horizontalCenter: parent.horizontalCenter
       margin-top: 10
       phantom: true
+
     ManaBar
       id: manaBar
       width: 120
       anchors.top: prev.bottom
       anchors.horizontalCenter: parent.horizontalCenter
       phantom: true
+
     Label
       id: levelLabel
       font: verdana-11px-rounded
@@ -64,6 +71,7 @@ MainWindow
       text-align: center
       anchors.horizontalCenter: parent.horizontalCenter
       margin-top: 30
+
     Label
       id: vocationLabel
       font: verdana-11px-rounded
@@ -72,6 +80,7 @@ MainWindow
       anchors.left: parent.left
       text-align: center
       anchors.horizontalCenter: parent.horizontalCenter
+
     Label
       id: accountLabel
       font: verdana-11px-rounded
@@ -80,6 +89,7 @@ MainWindow
       anchors.left: parent.left
       text-align: center
       anchors.horizontalCenter: parent.horizontalCenter
+
     Label
       id: townLabel
       font: verdana-11px-rounded
@@ -106,6 +116,7 @@ MainWindow
       anchors.left: parent.left
       text-align: center
       anchors.horizontalCenter: parent.horizontalCenter
+
     ProgressBar
       id: staminaBar
       width: 120
@@ -132,14 +143,14 @@ MainWindow
     margin-bottom: 10
     margin-right: 70
 
-  Button
-    id: searchButton
-    !text: tr("Search")
-    anchors.top: searchEdit.top
-    anchors.left: searchEdit.right
-    anchors.right: parent.right
-    margin-left: 5
-    @onClick: modules.game_inspect.search()
+    Button
+      id: searchButton
+      !text: tr("Search")
+      anchors.top: searchEdit.top
+      anchors.left: searchEdit.right
+      anchors.right: parent.right
+      margin-left: 5
+      @onClick: modules.game_inspect.search()
 
   Panel
     id: itemsPanel
@@ -157,6 +168,7 @@ MainWindow
     anchors.top: searchEdit.bottom
     anchors.right: parent.right
     margin-top: 10
+
     Panel
       id: eyeIcon
       image-source: assets/eye_open
@@ -168,65 +180,85 @@ MainWindow
       cursor: pointer
       phantom: false
       @onClick: modules.game_inspect.changePrivacy()
+
     HeadSlot
+      id: slot1
       anchors.top: parent.top
       anchors.horizontalCenter: parent.horizontalCenter
       margin-top: 25
       virtual: true
       phantom: true
-    BodySlot
-      anchors.top: prev.bottom
-      anchors.horizontalCenter: prev.horizontalCenter
-      margin-top: 3
-      virtual: true
-      phantom: true
-    LegSlot
-      anchors.top: prev.bottom
-      anchors.horizontalCenter: prev.horizontalCenter
-      margin-top: 3
-      virtual: true
-      phantom: true
-    FeetSlot
-      anchors.top: prev.bottom
-      anchors.horizontalCenter: prev.horizontalCenter
-      margin-top: 3
-      virtual: true
-      phantom: true
+
     NeckSlot
+      id: slot2
       anchors.top: slot1.top
       anchors.right: slot1.left
       margin-top: 13
       margin-right: 5
       virtual: true
       phantom: true
-    LeftSlot
-      anchors.top: prev.bottom
-      anchors.horizontalCenter: prev.horizontalCenter
-      margin-top: 3
-      virtual: true
-      phantom: true
-    FingerSlot
-      anchors.top: prev.bottom
-      anchors.horizontalCenter: prev.horizontalCenter
-      margin-top: 3
-      virtual: true
-      phantom: true
+
     BackSlot
+      id: slot3
       anchors.top: slot1.top
       anchors.left: slot1.right
       margin-top: 13
       margin-left: 5
       virtual: true
       phantom: true
-    RightSlot
-      anchors.top: prev.bottom
-      anchors.horizontalCenter: prev.horizontalCenter
+
+    BodySlot
+      id: slot4
+      anchors.top: slot1.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
       margin-top: 3
       virtual: true
       phantom: true
+
+    RightSlot
+      id: slot5
+      anchors.top: slot2.bottom
+      anchors.horizontalCenter: slot2.horizontalCenter
+      margin-top: 3
+      virtual: true
+      phantom: true
+
+    LeftSlot
+      id: slot6
+      anchors.top: slot3.bottom
+      anchors.horizontalCenter: slot3.horizontalCenter
+      margin-top: 3
+      virtual: true
+      phantom: true
+
+    LegSlot
+      id: slot7
+      anchors.top: slot4.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 3
+      virtual: true
+      phantom: true
+
+    FeetSlot
+      id: slot8
+      anchors.top: slot7.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 3
+      virtual: true
+      phantom: true
+
+    FingerSlot
+      id: slot9
+      anchors.top: slot5.bottom
+      anchors.horizontalCenter: slot5.horizontalCenter
+      margin-top: 3
+      virtual: true
+      phantom: true
+
     AmmoSlot
-      anchors.top: prev.bottom
-      anchors.horizontalCenter: prev.horizontalCenter
+      id: slot10
+      anchors.top: slot6.bottom
+      anchors.horizontalCenter: slot6.horizontalCenter
       margin-top: 3
       virtual: true
       phantom: true
@@ -247,6 +279,7 @@ MainWindow
     anchors.top: itemsPanel.bottom
     anchors.horizontalCenter: itemsPanel.horizontalCenter
     margin-top: 10
+
     Label
       id: magLevel
       text-auto-resize: true
@@ -254,42 +287,49 @@ MainWindow
       anchors.top: parent.top
       anchors.horizontalCenter: parent.horizontalCenter
       margin-top: 30
+
     Label
       id: skill0
       text-auto-resize: true
       font: verdana-11px-rounded
       anchors.top: prev.bottom
       anchors.horizontalCenter: prev.horizontalCenter
+
     Label
       id: skill1
       text-auto-resize: true
       font: verdana-11px-rounded
       anchors.top: prev.bottom
       anchors.horizontalCenter: prev.horizontalCenter
+
     Label
       id: skill2
       text-auto-resize: true
       font: verdana-11px-rounded
       anchors.top: prev.bottom
       anchors.horizontalCenter: prev.horizontalCenter
+
     Label
       id: skill3
       text-auto-resize: true
       font: verdana-11px-rounded
       anchors.top: prev.bottom
       anchors.horizontalCenter: prev.horizontalCenter
+
     Label
       id: skill4
       text-auto-resize: true
       font: verdana-11px-rounded
       anchors.top: prev.bottom
       anchors.horizontalCenter: prev.horizontalCenter
+
     Label
       id: skill5
       text-auto-resize: true
       font: verdana-11px-rounded
       anchors.top: prev.bottom
       anchors.horizontalCenter: prev.horizontalCenter
+
     Label
       id: skill6
       text-auto-resize: true

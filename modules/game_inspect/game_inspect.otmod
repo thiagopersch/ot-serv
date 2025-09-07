@@ -4,6 +4,6 @@ Module
   autoload: true
   autoload-priority: 1000
   sandboxed: true
-  scripts: [ script ]
+  scripts: [ game_inspect ]
   @onLoad: init()
   @onUnload: terminate()

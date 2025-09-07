@@ -8,8 +8,8 @@ local bankWindow = nil
 
 -- Initialize the module
 function init()
-  g_logger.info("Initializing Banking module...")
-  g_logger.info("Module version: 1.0.2")
+  -- g_logger.info("Initializing Banking module...")
+  -- g_logger.info("Module version: 1.0.2")
 
   -- Connect to game events
   connect(
@@ -26,18 +26,18 @@ function init()
 
   -- Create UI if player is already online
   if g_game.isOnline() then
-    g_logger.info("Player is online, creating bank UI...")
+    -- g_logger.info("Player is online, creating bank UI...")
     create()
   else
-    g_logger.info("Player is not online, waiting for onGameStart event...")
+    -- g_logger.info("Player is not online, waiting for onGameStart event...")
   end
 
-  g_logger.info("Banking module initialized!")
+  -- g_logger.info("Banking module initialized!")
 end
 
 -- Terminate the module
 function terminate()
-  g_logger.info("Terminating Banking module...")
+  -- g_logger.info("Terminating Banking module...")
 
   -- Disconnect from game events
   disconnect(
@@ -55,7 +55,7 @@ function terminate()
   -- Destroy UI
   destroy()
 
-  g_logger.info("Banking module terminated!")
+  -- g_logger.info("Banking module terminated!")
 end
 
 -- Handle NPC talk to detect banking keywords
@@ -80,10 +80,10 @@ end
 
 -- Create UI elements
 function create()
-  g_logger.info("Creating Banking UI...")
+  -- g_logger.info("Creating Banking UI...")
 
   if bankWindow then
-    g_logger.info("Window already exists, skipping creation.")
+    -- g_logger.info("Window already exists, skipping creation.")
     return
   end
 
@@ -97,27 +97,27 @@ function create()
   )
 
   if bankButton then
-    g_logger.info("Successfully created BankButton!")
+    -- g_logger.info("Successfully created BankButton!")
   else
-    g_logger.error("Failed to create BankButton!")
+    -- g_logger.error("Failed to create BankButton!")
   end
 
   -- Load the window UI
-  g_logger.info("Displaying bank_window.otui...")
+  -- g_logger.info("Displaying bank_window.otui...")
   bankWindow = g_ui.displayUI("bank_window")
   if not bankWindow then
-    g_logger.error("Failed to load Bank window!")
+    -- g_logger.error("Failed to load Bank window!")
     return
   end
 
-  g_logger.info("Successfully loaded Bank window!")
+  -- g_logger.info("Successfully loaded Bank window!")
 
   -- Check UI elements to make sure they're created
   local balanceValue = bankWindow:getChildById('balanceValue')
   if balanceValue then
-    g_logger.info("balanceValue element found!")
+    -- g_logger.info("balanceValue element found!")
   else
-    g_logger.error("balanceValue element NOT found!")
+    -- g_logger.error("balanceValue element NOT found!")
   end
 
   -- Set initial UI state
@@ -135,12 +135,12 @@ function create()
     statusLabel:setText("Ready for transactions")
   end
 
-  g_logger.info("Banking UI created!")
+  -- g_logger.info("Banking UI created!")
 end
 
 -- Request balance update from server
 function requestBalance()
-  g_logger.info("Requesting bank balance from server...")
+  -- g_logger.info("Requesting bank balance from server...")
 
   -- Update status to show we're loading
   local statusLabel = safeGetElement('statusLabel')
@@ -151,9 +151,9 @@ function requestBalance()
   local protocolGame = g_game.getProtocolGame()
   if protocolGame then
     protocolGame:sendExtendedOpcode(OPCODE, json.encode({ action = "get_balance" }))
-    g_logger.info("Balance request sent with opcode: " .. OPCODE)
+    -- g_logger.info("Balance request sent with opcode: " .. OPCODE)
   else
-    g_logger.error("Failed to get protocol game!")
+    -- g_logger.error("Failed to get protocol game!")
 
     -- Show error in status
     if statusLabel then
@@ -165,12 +165,12 @@ end
 
 -- Deposit specified amount to bank
 function deposit()
-  g_logger.info("Deposit button clicked!")
+  -- g_logger.info("Deposit button clicked!")
 
   -- Get amount from input field
   local amountEdit = safeGetElement('amountEdit')
   if not amountEdit then
-    g_logger.error("Failed to find amountEdit!")
+    -- g_logger.error("Failed to find amountEdit!")
     return
   end
 
@@ -200,18 +200,18 @@ function deposit()
       statusLabel:setColor("#ffffff")
     end
   else
-    g_logger.error("Failed to get protocol game!")
+    -- g_logger.error("Failed to get protocol game!")
   end
 end
 
 -- Withdraw specified amount from bank
 function withdraw()
-  g_logger.info("Withdraw button clicked!")
+  -- g_logger.info("Withdraw button clicked!")
 
   -- Get amount from input field
   local amountEdit = safeGetElement('amountEdit')
   if not amountEdit then
-    g_logger.error("Failed to find amountEdit!")
+    -- g_logger.error("Failed to find amountEdit!")
     return
   end
 
@@ -241,13 +241,13 @@ function withdraw()
       statusLabel:setColor("#ffffff")
     end
   else
-    g_logger.error("Failed to get protocol game!")
+    -- g_logger.error("Failed to get protocol game!")
   end
 end
 
 -- Deposit all money to bank
 function depositAll()
-  g_logger.info("Deposit All button clicked!")
+  -- g_logger.info("Deposit All button clicked!")
 
   -- Send deposit all request to server
   local protocolGame = g_game.getProtocolGame()
@@ -263,13 +263,13 @@ function depositAll()
       statusLabel:setColor("#ffffff")
     end
   else
-    g_logger.error("Failed to get protocol game!")
+    -- g_logger.error("Failed to get protocol game!")
   end
 end
 
 -- Withdraw all money from bank
 function withdrawAll()
-  g_logger.info("Withdraw All button clicked!")
+  -- g_logger.info("Withdraw All button clicked!")
 
   -- Send withdraw all request to server
   local protocolGame = g_game.getProtocolGame()
@@ -285,7 +285,7 @@ function withdrawAll()
       statusLabel:setColor("#ffffff")
     end
   else
-    g_logger.error("Failed to get protocol game!")
+    -- g_logger.error("Failed to get protocol game!")
   end
 end
 
@@ -300,7 +300,7 @@ function onExtendedOpcode(protocol, opcode, buffer)
   end)
 
   if not json_status then
-    g_logger.error("BANK json error: " .. json_data)
+    -- g_logger.error("BANK json error: " .. json_data)
     return false
   end
 
@@ -308,17 +308,17 @@ function onExtendedOpcode(protocol, opcode, buffer)
 
   -- Ensure we have a valid window
   if not bankWindow then
-    g_logger.error("Bank window not available, recreating...")
+    -- g_logger.error("Bank window not available, recreating...")
     create()
     if not bankWindow then
-      g_logger.error("Failed to recreate bank window!")
+      -- g_logger.error("Failed to recreate bank window!")
       return
     end
   end
 
   -- Handle balance update from server
   if data.action == "balance_update" then
-    g_logger.info("Received bank balance: " .. data.balance)
+    -- g_logger.info("Received bank balance: " .. data.balance)
 
     -- Update balance display using our helper function
     if updateBalanceDisplay(data.balance) then
@@ -373,31 +373,31 @@ end
 
 -- Toggle the window visibility
 function toggle()
-  g_logger.info("Toggle function called!")
+  -- g_logger.info("Toggle function called!")
 
   if not bankWindow then
-    g_logger.error("Cannot toggle: bankWindow is nil!")
+    -- g_logger.error("Cannot toggle: bankWindow is nil!")
     return
   end
 
   if bankWindow:isVisible() then
-    g_logger.info("Window is visible, hiding...")
+    -- g_logger.info("Window is visible, hiding...")
     return hide()
   end
 
-  g_logger.info("Window is hidden, showing...")
+  -- g_logger.info("Window is hidden, showing...")
   show()
 end
 
 -- Show the window and update balance
 function show()
-  g_logger.info("Show function called!")
+  -- g_logger.info("Show function called!")
 
   if not bankWindow then
-    g_logger.error("Cannot show: bankWindow is nil!")
+    -- g_logger.error("Cannot show: bankWindow is nil!")
     create()
     if not bankWindow then
-      g_logger.error("Failed to recreate bank window!")
+      -- g_logger.error("Failed to recreate bank window!")
       return
     end
   end
@@ -415,9 +415,9 @@ function show()
   -- Check if UI elements are accessible
   local balanceValue = bankWindow:getChildById('balanceValue')
   if balanceValue then
-    g_logger.info("balanceValue element accessible at show time")
+    -- g_logger.info("balanceValue element accessible at show time")
   else
-    g_logger.error("balanceValue element NOT accessible at show time")
+    -- g_logger.error("balanceValue element NOT accessible at show time")
 
     -- Try to recreate the window
     bankWindow:destroy()
@@ -428,9 +428,9 @@ function show()
     if bankWindow then
       balanceValue = bankWindow:getChildById('balanceValue')
       if balanceValue then
-        g_logger.info("balanceValue element found after recreation")
+        -- g_logger.info("balanceValue element found after recreation")
       else
-        g_logger.error("balanceValue element STILL not found after recreation")
+        -- g_logger.error("balanceValue element STILL not found after recreation")
       end
     end
   end
@@ -448,55 +448,55 @@ function show()
       -- Verify that elements exist
       local balanceValueCheck = bankWindow:getChildById('balanceValue')
       if balanceValueCheck then
-        g_logger.info("balanceValue element found before balance request")
+        -- g_logger.info("balanceValue element found before balance request")
       else
-        g_logger.error("balanceValue element NOT found before balance request")
+        -- g_logger.error("balanceValue element NOT found before balance request")
       end
 
       requestBalance()
     end
   end, 100) -- 100ms delay
 
-  g_logger.info("Window shown!")
+  -- g_logger.info("Window shown!")
 end
 
 -- Hide the window
 function hide()
-  g_logger.info("Hide function called!")
+  -- g_logger.info("Hide function called!")
 
   if not bankWindow then
-    g_logger.error("Cannot hide: bankWindow is nil!")
+    -- g_logger.error("Cannot hide: bankWindow is nil!")
     return
   end
 
   bankWindow:hide()
-  g_logger.info("Window hidden!")
+  -- g_logger.info("Window hidden!")
 end
 
 -- Destroy UI elements
 function destroy()
-  g_logger.info("Destroying Banking UI...")
+  -- g_logger.info("Destroying Banking UI...")
 
   if bankButton then
     bankButton:destroy()
     bankButton = nil
-    g_logger.info("BankButton destroyed!")
+    -- g_logger.info("BankButton destroyed!")
   end
 
   if bankWindow then
     bankWindow:destroy()
     bankWindow = nil
-    g_logger.info("BankWindow destroyed!")
+    -- g_logger.info("BankWindow destroyed!")
   end
 
-  g_logger.info("Banking UI destroyed!")
+  -- g_logger.info("Banking UI destroyed!")
 end
 
 -- Helper function to safely get UI elements with fallbacks
 function safeGetElement(elementId)
   -- First check if the window exists
   if not bankWindow then
-    g_logger.error("Cannot get element " .. elementId .. ": bankWindow is nil!")
+    -- g_logger.error("Cannot get element " .. elementId .. ": bankWindow is nil!")
     return nil
   end
 
@@ -509,7 +509,7 @@ function safeGetElement(elementId)
   -- Try recursive lookup if direct failed
   element = bankWindow:recursiveGetChildById(elementId)
   if element then
-    g_logger.info("Found " .. elementId .. " using recursive search")
+    -- g_logger.info("Found " .. elementId .. " using recursive search")
     return element
   end
 
@@ -520,14 +520,14 @@ function safeGetElement(elementId)
     if panelWidget then
       element = panelWidget:getChildById(elementId)
       if element then
-        g_logger.info("Found " .. elementId .. " in " .. panel)
+        -- g_logger.info("Found " .. elementId .. " in " .. panel)
         return element
       end
     end
   end
 
   -- If all else fails, log the error and return nil
-  g_logger.error("Failed to find element: " .. elementId)
+  -- g_logger.error("Failed to find element: " .. elementId)
   return nil
 end
 
@@ -536,7 +536,7 @@ function updateBalanceDisplay(balance)
   local balanceValue = safeGetElement('balanceValue')
   if balanceValue then
     local formattedBalance = comma_value(balance)
-    g_logger.info("Setting formatted balance: " .. formattedBalance)
+    -- g_logger.info("Setting formatted balance: " .. formattedBalance)
     balanceValue:setText(formattedBalance .. " gold")
     return true
   end
