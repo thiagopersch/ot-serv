@@ -68,7 +68,8 @@ local function getVocation(arg)
 end
 
 highscoreController = Controller:new()
-highscoreController:setUI('game_highscore')
+-- highscoreController:setUI('game_highscore')
+highscoreController:displayUI('game_highscore')
 
 function highscoreController:onInit()
   highscoreController.ui:hide()
@@ -156,8 +157,14 @@ function highscoreController:onGameStart()
     return
   end
 
-  highscoreButton = modules.client_topmenu.addRightGameToggleButton('highscore', tr('Highscores'),
-    '/images/options/highscores', toggle, false)
+  if not highscoreButton then
+    g_logger('highscoreButton is nil')
+    return
+  end
+
+  highscoreButton = modules.client_topmenu.addRightGameToggleButton("highscore", tr("Highscores"),
+    "highscores.png", toggle, true)
+
   highscoreButton:setOn(false)
 end
 
@@ -210,7 +217,7 @@ function createHighscores(list)
     row.rank:setText(entry[1] .. ".")
     row.name:setText(entry[2])
     row.voc:setText(entry[4] == 0 and "None" or
-    getVocation(entry[4] == 1 and entry[4] + 3 or (entry[4] < 3 and entry[4] + 1 or entry[4] - 2)))
+      getVocation(entry[4] == 1 and entry[4] + 3 or (entry[4] < 3 and entry[4] + 1 or entry[4] - 2)))
     row.world:setText(entry[5])
     row.level:setText(entry[6])
     row.points:setText(comma_value(entry[8]))

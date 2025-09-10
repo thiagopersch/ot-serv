@@ -4,7 +4,7 @@ AtributosButton = nil
 local atributos = { "health", "mana", "bend", "dodge" }
 local cantClose = 0
 local hasOpen = 0
-local firstOpen = 1
+local firstOpen = 0
 canAddAtt = 1
 
 local function hideTests()
@@ -30,13 +30,13 @@ end
 function init()
 	canAddAtt = 1
 	AtributosButton = modules.client_topmenu.addRightGameToggleButton('AtributosButton', tr('Atributos (Ctrl+E)'),
-		'atributos.png', toggle)
+		'atributos.png', toggle, false)
 	AtributosButton:setOn(false)
 	ProtocolGame.registerExtendedOpcode(38, onReceivePoint)
 	ProtocolGame.registerExtendedOpcode(40, makeStates)
 	ProtocolGame.registerExtendedOpcode(41, onReceivePendentes)
 
-	AtributosWindow = g_ui.displayUI('attrs.otui')
+	AtributosWindow = g_ui.displayUI('attrs')
 	connect(g_game, {
 		onGameStart = online,
 		onGameEnd = offline,
@@ -58,7 +58,7 @@ function init()
 	hasOpen = 0
 
 	g_keyboard.bindKeyDown("Ctrl+E", toggle)
-	hideTests()   -- Inicia a verificação periódica
+	hideTests() -- Inicia a verificação periódica
 end
 
 function turnButtons(type)
@@ -180,7 +180,7 @@ end
 
 function online()
 	-- Removida a chamada a sendInitialState, pois ela é responsabilidade do servidor
-	AtributosWindow:show()   -- Opcional: exibe a janela ao conectar
+	AtributosWindow:show() -- Opcional: exibe a janela ao conectar
 end
 
 function offline()
