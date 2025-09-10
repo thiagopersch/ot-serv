@@ -65,4 +65,7 @@ function load()
         g_game.setClientVersion(0)
         g_game.setProtocolVersion(0)
     end
+
+    g_things.loadOtb('/items/items.otb')
+    g_things.loadXml('/items/items.xml')
 end
