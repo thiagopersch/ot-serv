@@ -1,0 +1,9 @@
+Module
+  name: game_bank
+  description: Game Bank
+  author: Gengo
+  scripts: [ bank ]
+  autoload: true
+  autoload-priority: 1001
+  @onLoad: init()
+  @onUnload: terminate()

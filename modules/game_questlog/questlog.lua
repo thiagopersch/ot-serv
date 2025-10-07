@@ -91,7 +91,7 @@ function showQuestDetails(questId)
   imageWidget:setTooltip(tr(quest.name))
   imageWidget:setWidth(120)
   imageWidget:setHeight(120)
-  taskDescription:setText(quest.description or "Sem descrição disponível")
+  taskDescription:setText(quest.description or "No description available.")
   local markButton = questlogWindow:recursiveGetChildById("markButton")
   if markButton then
     markButton:setVisible(true)
@@ -121,7 +121,7 @@ function onReceiveQuestData(protocol, opcode, buffer)
       for i = 2, #data - 1, 4 do -- Ajustado para 4 (id, name, description, completa)
         local questId = tonumber(data[i])
         local questName = data[i + 1]
-        local questDescription = data[i + 2] or "Sem descrição disponível"
+        local questDescription = data[i + 2] or "No description available."
         local completa = tonumber(data[i + 3]) or 0
         if questId and questName then
           quests[questId] = { name = questName, description = questDescription }

@@ -17,7 +17,7 @@ ModuleInfoLabel < Label
   margin-bottom: 2
 
 ModuleValueLabel < FlatLabel
-  font: verdana-11px-antialised
+  font: verdana-11px-rounded
   color: #aaaaaa
   text-offset: 2 3
   padding-bottom: 5
@@ -33,8 +33,8 @@ MainWindow
     id: nomedobixo
     size: 248 20
     text-align: center
-    font: sans-bold-16px
-    !text: tr('Nome')
+    font: verdana-11px-rounded
+    !text: tr('Name')
     anchors.top: parent.top
     anchors.left: parent.left
     margin-top: 25
@@ -99,7 +99,7 @@ MainWindow
     id: nome
     size: 248 20
     text-align: center
-    font: sans-bold-16px
+    font: verdana-11px-rounded
     !text: tr('Quests')
     anchors.top: parent.top
     anchors.left: parent.left
@@ -118,7 +118,7 @@ MainWindow
 
   Button
     id: markButton
-    !text: tr("Marcar")
+    !text: tr("Check")
     anchors.top: parent.top
     anchors.left: parent.left
     margin-top: 200
