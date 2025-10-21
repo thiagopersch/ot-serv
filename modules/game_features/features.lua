@@ -56,9 +56,16 @@ function updateFeatures(version)
         g_game.enableFeature(GameDistanceEffectU16)
         g_game.enableFeature(GameBlueNpcNameColor)
         g_game.enableFeature(GameChangeMapAwareRange)
+        g_game.enableFeature(GameEnhancedAnimations)
+        g_game.enableFeature(GamePlayerStateU32)
+        -- g_game.enableFeature(GameIdleAnimations)
+        g_game.enableFeature(GameFasterAnimations)
+        g_game.enableFeature(GameHideNpcNames)
+
+        --g_game.enableFeature(GameCenteredOutfits)
+        -- g_game.enableFeature(GameItemTooltip)
         -- g_game.enableFeature(GamePlayerMounts)
         -- g_game.enableFeature(GameMapDrawGroundFirst)
-        -- g_game.enableFeature(GameItemTooltip)
     end
 
     if (version >= 862) then g_game.enableFeature(GamePenalityOnDeath) end
@@ -127,7 +134,7 @@ function updateFeatures(version)
 
     if (version >= 1038) then g_game.enableFeature(GamePremiumExpiration) end
 
-    if (version <= 1050) then
+    if (version >= 1050) then
         g_game.enableFeature(GameEnhancedAnimations)
     end
 
