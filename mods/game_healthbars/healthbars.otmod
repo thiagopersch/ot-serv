@@ -4,7 +4,7 @@ Module
   author: Oen44
   website: http://yourwebsite
   scripts: [ healthbars ]
-  autoload: false
+  autoload: true
   sandboxed: true
   @onLoad: init()
   @onUnload: terminate()

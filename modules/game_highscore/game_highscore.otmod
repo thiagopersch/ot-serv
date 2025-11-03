@@ -5,5 +5,4 @@ Module
   website: https://github.com/mehah/otclient
   sandboxed: true
   scripts: [ game_highscore ]
-  @onLoad: highscoreController:init()
-  @onUnload: highscoreController:terminate()
+  autoload: true

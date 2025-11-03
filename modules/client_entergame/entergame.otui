@@ -3,7 +3,7 @@ EnterGameWindow
   @onEnter: EnterGame.doLogin()
 
   MenuLabel
-    !text: tr('Account name')
+    !text: tr('User/Account name')
     anchors.left: parent.left
     anchors.top: parent.top
     text-auto-resize: true
@@ -19,25 +19,11 @@ EnterGameWindow
     !text: tr('Password')
     anchors.left: prev.left
     anchors.top: prev.bottom
-    margin-top: 8
+    margin-top: 15
     text-auto-resize: true
 
   PasswordTextEdit
     id: accountPasswordTextEdit
-    anchors.left: parent.left
-    anchors.right: parent.right
-    anchors.top: prev.bottom
-    margin-top: 2
-    
-  MenuLabel
-    !text: tr('Token')
-    anchors.left: prev.left
-    anchors.top: prev.bottom
-    text-auto-resize: true
-    margin-top: 8
-
-  TextEdit
-    id: accountTokenTextEdit
     anchors.left: parent.left
     anchors.right: parent.right
     anchors.top: prev.bottom
@@ -51,15 +37,15 @@ EnterGameWindow
     height: 52
     on: true
     focusable: false
-    
+
     $on:
       visible: true
       margin-top: 0
-    
+
     $!on:
       visible: false
       margin-top: -52
-      
+
     HorizontalSeparator
       anchors.left: parent.left
       anchors.right: parent.right
@@ -71,7 +57,7 @@ EnterGameWindow
       !text: tr('Server')
       anchors.left: parent.left
       anchors.top: prev.bottom
-      text-auto-resize: true    
+      text-auto-resize: true
       margin-top: 5
 
     ComboBox
@@ -86,7 +72,7 @@ EnterGameWindow
       menu-scroll-step: 25
       text-offset: 5 2
       @onOptionChange: EnterGame.onServerChange()
-    
+
   Panel
     id: customServerSelectorPanel
     anchors.left: parent.left
@@ -95,15 +81,15 @@ EnterGameWindow
     height: 52
     on: true
     focusable: true
-    
+
     $on:
       visible: true
       margin-top: 0
-    
+
     $!on:
       visible: false
       margin-top: -52
-    
+
     HorizontalSeparator
       anchors.left: parent.left
       anchors.right: parent.right
@@ -144,7 +130,7 @@ EnterGameWindow
       menu-height: 125
       menu-scroll-step: 25
       margin-right: 3
-      
+
   HorizontalSeparator
     anchors.left: parent.left
     anchors.right: parent.right

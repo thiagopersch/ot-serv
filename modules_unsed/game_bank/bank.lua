@@ -73,12 +73,12 @@ function init()
     local status, result = pcall(function() return loadstring("return" .. buffer)() end)
 
     if status then
-      return g_logger.info('[game_bank/bank.lua]: ProtocolGame.registerExtendedOpcode: ' .. tostring(result))
+      return print('[game_bank/bank.lua]: ProtocolGame.registerExtendedOpcode: ' .. tostring(result))
     end
 
 
     if not status then
-      return g_logger.error('[game_bank/bank.lua]:[ERROR] -> ProtocolGame.registerExtendedOpcode: ' .. tostring(result))
+      return print('[game_bank/bank.lua]:[ERROR] -> ProtocolGame.registerExtendedOpcode: ' .. tostring(result))
     end
 
     local action = result.action

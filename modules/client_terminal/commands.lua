@@ -17,9 +17,13 @@ end
 
 local pinging = false
 local function pingBack(ping)
-  if ping < 300 then color = 'green'
-  elseif ping < 600 then color = 'yellow'
-  else color = 'red' end
+  if ping < 300 then
+    color = 'green'
+  elseif ping < 600 then
+    color = 'yellow'
+  else
+    color = 'red'
+  end
   pcolored(g_game.getWorldName() .. ' => ' .. ping .. ' ms', color)
 end
 function ping()
@@ -50,7 +54,7 @@ end
 function ls(path)
   path = path or '/'
   local files = g_resources.listDirectoryFiles(path)
-  for k,v in pairs(files) do
+  for k, v in pairs(files) do
     if g_resources.directoryExists(path .. v) then
       pcolored(path .. v, 'blue')
     else
@@ -64,13 +68,13 @@ function about_version()
 end
 
 function about_graphics()
-  pcolored('Vendor ' .. g_graphics.getVendor() )
+  pcolored('Vendor ' .. g_graphics.getVendor())
   pcolored('Renderer' .. g_graphics.getRenderer())
   pcolored('Version' .. g_graphics.getVersion())
 end
 
 function about_modules()
-  for k,m in pairs(g_modules.getModules()) do
+  for k, m in pairs(g_modules.getModules()) do
     local loadedtext
     if m:isLoaded() then
       pcolored(m:getName() .. ' => loaded', 'green')
