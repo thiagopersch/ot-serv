@@ -86,4 +86,8 @@ if type(Services.updater) == 'string' and Services.updater:len() > 4 and
   g_modules.ensureModuleLoaded("updater")
   return Updater.init(loadModules)
 end
+
+if g_game.getFeature(GameSpellList) then
+  g_game.requestSpellList()
+end
 loadModules()

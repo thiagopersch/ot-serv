@@ -39,7 +39,7 @@ FilterButton < Button
 MainWindow
   id: spelllistWindow
   !text: tr('Spell List')
-  size: 550 400
+  size: 550 500
   @onEscape: toggle()
 
   TextList
@@ -251,7 +251,7 @@ MainWindow
     id: labelGroupFilter
     anchors.top: labelPremium.bottom
     anchors.left: labelVocationFilter.right
-    width: 70
+    width: 100
     font: verdana-11px-monochrome
     !text: tr('Group')
     margin-top: 30
@@ -264,7 +264,7 @@ MainWindow
     margin-top: 3
     margin-left: 3
     !text: tr('Any')
-    width: 75
+    width: 100
 
   CheckBox
     id: groupBoxAttack
@@ -272,7 +272,7 @@ MainWindow
     anchors.top: prev.bottom
     margin-top: 3
     !text: tr('Attack')
-    width: 75
+    width: 100
 
   CheckBox
     id: groupBoxHealing
@@ -280,7 +280,7 @@ MainWindow
     anchors.top: prev.bottom
     margin-top: 3
     !text: tr('Healing')
-    width: 75
+    width: 100
 
   CheckBox
     id: groupBoxSupport
@@ -288,7 +288,39 @@ MainWindow
     anchors.top: prev.bottom
     margin-top: 3
     !text: tr('Support')
-    width: 75
+    width: 100
+
+  CheckBox
+    id: groupBoxSpecial
+    anchors.left: prev.left
+    anchors.top: prev.bottom
+    margin-top: 3
+    !text: tr('Special')
+    width: 100
+
+  CheckBox
+    id: groupBoxBuff
+    anchors.left: prev.left
+    anchors.top: prev.bottom
+    margin-top: 3
+    !text: tr('Buff')
+    width: 100
+
+  CheckBox
+    id: groupBoxBeams
+    anchors.left: prev.left
+    anchors.top: prev.bottom
+    margin-top: 3
+    !text: tr('Beams')
+    width: 100
+
+  CheckBox
+    id: groupBoxCombos
+    anchors.left: prev.left
+    anchors.top: prev.bottom
+    margin-top: 3
+    !text: tr('Combos')
+    width: 100
 
   Label
     id: labelPremiumFilter

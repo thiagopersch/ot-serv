@@ -1,3 +1,4 @@
+-- meu ot
 Icons = {}
 Icons[PlayerStates.Poison] = {
   tooltip = tr('You are poisoned'),

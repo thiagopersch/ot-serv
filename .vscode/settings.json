@@ -8,7 +8,8 @@
     "g_logger",
     "g_resources",
     "g_configs",
-    "Creature"
+    "Creature",
+    "g_mouse"
   ],
   "Lua.diagnostics.disable": ["undefined-field"]
 }

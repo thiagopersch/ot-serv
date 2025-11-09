@@ -48,9 +48,14 @@ FILTER_GROUP_ANY         = 0
 FILTER_GROUP_ATTACK      = 1
 FILTER_GROUP_HEALING     = 2
 FILTER_GROUP_SUPPORT     = 3
+FILTER_GROUP_SPECIAL     = 4
+FILTER_GROUP_BUFF        = 5
+FILTER_GROUP_BEAMS       = 6
+FILTER_GROUP_COMBOS      = 7
+
 
 -- Filter Settings
-local filters            = {
+local filters             = {
   level      = false,
   vocation   = false,
 
@@ -58,6 +63,7 @@ local filters            = {
   premium    = FILTER_PREMIUM_ANY,
   groupId    = FILTER_GROUP_ANY
 }
+local OpcodeOpenSpellList = 123
 
 function getSpelllistProfile()
   return SpelllistProfile
@@ -100,15 +106,13 @@ function init()
     onGameStart = online,
     onGameEnd   = offline
   })
+  ProtocolGame.registerExtendedOpcode(OpcodeOpenSpellList, toggle)
   spelllistButton = modules.client_topmenu.addRightGameToggleButton('spelllistButton', tr('Spell List'),
     '/images/topbuttons/spelllist', toggle, false, 4)
 
   spelllistWindow = g_ui.displayUI('spelllist', modules.game_interface.getRightPanel())
   spelllistWindow:hide()
 
-  -- spelllistButton = modules.client_topmenu.addRightGameToggleButton('spelllistButton', tr('Spell List'),
-  --   '/images/topbuttons/spelllist', toggle, false, 4)
-  -- spelllistButton:setOn(false)
 
   nameValueLabel        = spelllistWindow:getChildById('labelNameValue')
   formulaValueLabel     = spelllistWindow:getChildById('labelFormulaValue')
@@ -131,6 +135,10 @@ function init()
   groupBoxAttack        = spelllistWindow:getChildById('groupBoxAttack')
   groupBoxHealing       = spelllistWindow:getChildById('groupBoxHealing')
   groupBoxSupport       = spelllistWindow:getChildById('groupBoxSupport')
+  groupBoxSpecial       = spelllistWindow:getChildById('groupBoxSpecial')
+  groupBoxBuff          = spelllistWindow:getChildById('groupBoxBuff')
+  groupBoxBeams         = spelllistWindow:getChildById('groupBoxBeams')
+  groupBoxCombos        = spelllistWindow:getChildById('groupBoxCombos')
 
   premiumBoxAny         = spelllistWindow:getChildById('premiumBoxAny')
   premiumBoxYes         = spelllistWindow:getChildById('premiumBoxYes')
@@ -148,6 +156,10 @@ function init()
   groupRadioGroup:addWidget(groupBoxAttack)
   groupRadioGroup:addWidget(groupBoxHealing)
   groupRadioGroup:addWidget(groupBoxSupport)
+  groupRadioGroup:addWidget(groupBoxSpecial)
+  groupRadioGroup:addWidget(groupBoxBuff)
+  groupRadioGroup:addWidget(groupBoxBeams)
+  groupRadioGroup:addWidget(groupBoxCombos)
 
   premiumRadioGroup = UIRadioGroup.create()
   premiumRadioGroup:addWidget(premiumBoxAny)
@@ -180,6 +192,7 @@ function terminate()
     onGameStart = online,
     onGameEnd   = offline
   })
+  ProtocolGame.unregisterExtendedOpcode(OpcodeOpenSpellList)
 
   disconnect(spellList, {
     onChildFocusChange = function(self, focusedChild)
@@ -187,6 +200,7 @@ function terminate()
       updateSpellInformation(focusedChild)
     end
   })
+
 
   spelllistWindow:destroy()
   spelllistButton:destroy()
@@ -353,6 +367,14 @@ function toggleFilter(widget, selectedWidget)
       filters.groupId = FILTER_GROUP_HEALING
     elseif boxId == 'groupBoxSupport' then
       filters.groupId = FILTER_GROUP_SUPPORT
+    elseif boxId == 'groupBoxSpecial' then
+      filters.groupId = FILTER_GROUP_SPECIAL
+    elseif boxId == 'groupBoxBuff' then
+      filters.groupId = FILTER_GROUP_BUFF
+    elseif boxId == 'groupBoxBeams' then
+      filters.groupId = FILTER_GROUP_BEAMS
+    elseif boxId == 'groupBoxCombos' then
+      filters.groupId = FILTER_GROUP_COMBOS
     end
   elseif widget == premiumRadioGroup then
     local boxId = selectedWidget:getId()

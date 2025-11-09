@@ -97,6 +97,7 @@ function UIItem:onMouseRelease(mousePosition, mouseButton)
     self.cancelNextRelease = true
     return true
   elseif modules.game_interface.processMouseAction(mousePosition, mouseButton, nil, item, item, nil, nil) then
+    self:onHoverChange(false)
     return true
   end
   return false

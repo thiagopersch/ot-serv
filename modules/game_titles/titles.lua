@@ -128,6 +128,7 @@ function getVisiblePlayersOnScreen()
     return visiblePlayers
   end
 
+
   local position = localPlayer:getPosition()
   if not position or position.x == 0 and position.y == 0 and position.z == 0 then
     return visiblePlayers
@@ -143,17 +144,15 @@ function getVisiblePlayersOnScreen()
 end
 
 function deadpool(protocol, opcode, buffer)
-  if opcode == VOCATION_OPCODE then
-    local data = string.split(buffer, ';')
-    local vocation = tonumber(data[1])
-    local playerName = data[2]
-    local color = data[3]
+  local data = string.split(buffer, ';')
+  local vocation = tonumber(data[1])
+  local playerName = data[2]
+  local color = data[3]
 
-    playerTitles[playerName] = { vocation = vocation, color = color }
+  playerTitles[playerName] = { vocation = vocation, color = color }
 
 
-    applyTitlesToVisiblePlayers()
-  end
+  applyTitlesToVisiblePlayers()
 end
 
 function applyTitlesToVisiblePlayers()
@@ -193,33 +192,3 @@ function updateTitle(creature)
     creature:setTitle(npcTitles[name].title, titleFont, npcTitles[name].color)
   end
 end
-
--- function init()
---   connect(Creature, {
---     onAppear = updateTitle,
---   })
--- end
-
--- function terminate()
---   disconnect(Creature, {
---     onAppear = updateTitle,
---   })
--- end
-
--- function updateTitle(creature)
---   local name = creature:getName()
-
---   if creature:isPlayer() then
---     if playerTitles[name] then
---       creature:setTitle(playerTitles[name].title, titleFont, playerTitles[name].color)
---     end
---   elseif creature:isNpc() then
---     if npcTitles[name] then
---       creature:setTitle(npcTitles[name].title, titleFont, npcTitles[name].color)
---     end
---   else -- assume it's a monster
---     if monsterTitles[name] then
---       creature:setTitle(monsterTitles[name].title, titleFont, monsterTitles[name].color)
---     end
---   end
--- end

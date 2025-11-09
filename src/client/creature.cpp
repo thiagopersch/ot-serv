@@ -146,7 +146,7 @@ void Creature::drawInformation(const Point& point, bool useGray, const Rect& par
         fillColor = m_informationColor;
 
     // calculate main rects - hp/mana
-    Rect backgroundRect = Rect(point.x + m_informationOffset.x - (13.5), point.y + m_informationOffset.y, 27, 4);
+    Rect backgroundRect = Rect(point.x + m_informationOffset.x - (13.5), point.y + m_informationOffset.y - 40, 30, 6);
     backgroundRect.bind(parentRect);
 
     //debug
@@ -161,7 +161,7 @@ void Creature::drawInformation(const Point& point, bool useGray, const Rect& par
     }
 
     Size nameSize = m_nameCache.getTextSize();
-    Rect textRect = Rect(point.x + m_informationOffset.x - nameSize.width() / 2.0, point.y + m_informationOffset.y - 12, nameSize);
+    Rect textRect = Rect(point.x + m_informationOffset.x - nameSize.width() / 2.0, point.y + m_informationOffset.y - 60, nameSize);
     textRect.bind(parentRect);
 
     // distance them
@@ -188,7 +188,7 @@ void Creature::drawInformation(const Point& point, bool useGray, const Rect& par
 
     if (healthBar) {
         backgroundRect.setHeight(healthBar->getHeight());
-        backgroundRect.moveTop(backgroundRect.top() + healthBar->getBarOffset().y);
+        backgroundRect.moveTop(backgroundRect.top() + healthBar->getBarOffset().y - 20);
         backgroundRect.moveLeft(backgroundRect.left() + healthBar->getBarOffset().x);
     }
 
@@ -225,7 +225,7 @@ void Creature::drawInformation(const Point& point, bool useGray, const Rect& par
             if (manaPercent >= 0) {
                 backgroundRect.moveTop(backgroundRect.bottom());
                 if (healthBar) {
-                    backgroundRect.moveTop(backgroundRect.top() + healthBar->getBarOffset().y + 1);
+                    backgroundRect.moveTop(backgroundRect.top() + healthBar->getBarOffset().y + 2);
                 }
                 if (manaBar) {
                     if (!healthBar) {
