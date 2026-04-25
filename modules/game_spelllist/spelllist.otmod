@@ -7,4 +7,3 @@ Module
   scripts: [ spelllist ]
   @onLoad: init()
   @onUnload: terminate()
-  dependencies: [ client_topmenu ]

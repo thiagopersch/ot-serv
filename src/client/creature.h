@@ -97,11 +97,14 @@ public:
     std::string getTitle() { return m_titleCache.getText(); }
 
     uint32 getId() { return m_id; }
+	Point getWingsOffset() { return m_wingsOffset; }    void setWingsOffset(int x, int y) {        m_wingsOffset.x = x;        m_wingsOffset.y = y;    }
     std::string getName() { return m_name; }
     uint8 getHealthPercent() { return m_healthPercent; }
     int8 getManaPercent() { return m_manaPercent; }
     Otc::Direction getDirection() { return m_direction; }
     Otc::Direction getWalkDirection() { return m_walkDirection; }
+	int getWings() { return m_outfit.getWings(); }
+
     Outfit getOutfit() { return m_outfit; }
     Light getLight() { return m_light; }
     uint16 getSpeed() { return m_speed; }
@@ -241,6 +244,7 @@ protected:
     CachedText m_nameCache;
     Color m_informationColor;
     bool m_useCustomInformationColor = false;
+	Point m_wingsOffset;
     Point m_informationOffset;
     Color m_outfitColor;
     ScheduledEventPtr m_outfitColorUpdateEvent;

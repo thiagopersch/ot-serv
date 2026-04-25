@@ -23,7 +23,7 @@
 #ifndef EFFECT_H
 #define EFFECT_H
 
-#include "../framework/global.h"
+#include <framework/global.h>
 #include <framework/core/timer.h>
 #include "thing.h"
 
@@ -37,7 +37,7 @@ class Effect : public Thing
 public:
     void draw(const Point& dest, bool animate = true, LightView* lightView = nullptr) override {}
     void draw(const Point& dest, int offsetX = 0, int offsetY = 0, bool animate = true, LightView* lightView = nullptr);
-    
+
     void setId(uint32 id) override;
     uint32 getId() override { return m_id; }
 

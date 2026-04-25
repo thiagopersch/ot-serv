@@ -854,8 +854,8 @@ void ProtocolGame::parseStoreOffers(const InputMessagePtr& msg)
                 msg->getU8(); // has category?
 
             msg->getString(); // filter
-            msg->getU32(); // TimeAddedToStore 
-            msg->getU16(); // TimesBought 
+            msg->getU32(); // TimeAddedToStore
+            msg->getU16(); // TimesBought
             msg->getU8(); // RequiresConfiguration
         } else {
             offer.id = msg->getU32();
@@ -3035,7 +3035,7 @@ void ProtocolGame::parseKillTracker(const InputMessagePtr& msg)
     msg->getU8();
     int corpseSize = msg->getU8(); // corpse size
     for (int i = 0; i < corpseSize; i++) {
-        getItem(msg); // corpse item    
+        getItem(msg); // corpse item
     }
 }
 

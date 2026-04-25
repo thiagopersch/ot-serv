@@ -79,7 +79,7 @@ void Client::registerLuaFunctions()
     g_lua.bindSingletonFunction("g_things", "findItemTypeByCategory", &ThingTypeManager::findItemTypeByCategory, &g_things);
     g_lua.bindSingletonFunction("g_things", "findThingTypeByAttr", &ThingTypeManager::findThingTypeByAttr, &g_things);
     g_lua.bindSingletonFunction("g_things", "getMarketCategories", &ThingTypeManager::getMarketCategories, &g_things);
-    
+
     g_lua.registerSingletonClass("g_houses");
     g_lua.bindSingletonFunction("g_houses", "clear",          &HouseManager::clear,          &g_houses);
     g_lua.bindSingletonFunction("g_houses", "load",           &HouseManager::load,           &g_houses);
@@ -106,7 +106,7 @@ void Client::registerLuaFunctions()
     g_lua.bindSingletonFunction("g_sprites", "saveSpr", &SpriteManager::saveSpr, &g_sprites);
     g_lua.bindSingletonFunction("g_sprites", "saveSpr64", &SpriteManager::saveSpr64, &g_sprites);
     g_lua.bindSingletonFunction("g_sprites", "dumpSprites", &SpriteManager::dumpSprites, &g_sprites);
-    g_lua.bindSingletonFunction("g_sprites", "encryptSprites", &SpriteManager::encryptSprites, &g_sprites);    
+    g_lua.bindSingletonFunction("g_sprites", "encryptSprites", &SpriteManager::encryptSprites, &g_sprites);
 #endif
     g_lua.bindSingletonFunction("g_sprites", "unload", &SpriteManager::unload, &g_sprites);
     g_lua.bindSingletonFunction("g_sprites", "isLoaded", &SpriteManager::isLoaded, &g_sprites);
@@ -541,6 +541,9 @@ void Client::registerLuaFunctions()
     g_lua.bindClassMemberFunction<Creature>("canBeSeen", &Creature::canBeSeen);
     g_lua.bindClassMemberFunction<Creature>("canShoot", &Creature::canShoot);
     g_lua.bindClassMemberFunction<Creature>("jump", &Creature::jump);
+    g_lua.bindClassMemberFunction<Creature>("setWingsOffset", &Creature::setWingsOffset);
+    g_lua.bindClassMemberFunction<Creature>("getWingsOffset", &Creature::getWingsOffset);
+    g_lua.bindClassMemberFunction<Creature>("getWings", &Creature::getWings);
     g_lua.bindClassMemberFunction<Creature>("getPrewalkingPosition", &Creature::getPrewalkingPosition);
     g_lua.bindClassMemberFunction<Creature>("setInformationColor", &Creature::setInformationColor);
     g_lua.bindClassMemberFunction<Creature>("resetInformationColor", &Creature::resetInformationColor);
@@ -575,7 +578,7 @@ void Client::registerLuaFunctions()
     // progress bar
     g_lua.bindClassMemberFunction<Creature>("setProgressBar", &Creature::setProgressBar);
     g_lua.bindClassMemberFunction<Creature>("getProgressBarPercent", &Creature::getProgressBarPercent);
-    
+
 
     g_lua.registerClass<ItemType>();
     g_lua.bindClassMemberFunction<ItemType>("getServerId", &ItemType::getServerId);

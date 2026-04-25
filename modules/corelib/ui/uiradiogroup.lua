@@ -9,7 +9,7 @@ function UIRadioGroup.create()
 end
 
 function UIRadioGroup:destroy()
-  for k,widget in pairs(self.widgets) do
+  for k, widget in pairs(self.widgets) do
     widget.onClick = nil
   end
   self.widgets = {}

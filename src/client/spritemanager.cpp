@@ -44,23 +44,37 @@ void SpriteManager::terminate()
 
 bool SpriteManager::loadSpr(std::string file)
 {
-    m_spritesCount = 0;
-    m_signature = 0;
-    m_loaded = false;
-    m_sprites.clear();
+    try {
+        m_spritesCount = 0;
+        m_signature = 0;
+        m_loaded = false;
+        m_sprites.clear();
 
-    auto cwmFile = g_resources.guessFilePath(file, "cwm");
-    if (g_resources.fileExists(cwmFile)) {
-        m_isHdMod = true;
-        return loadCwmSpr(cwmFile);
+        auto cwmFile = g_resources.guessFilePath(file, "cwm");
+        if (g_resources.fileExists(cwmFile)) {
+            m_isHdMod = true;
+            return loadCwmSpr(cwmFile);
+        }
+
+        auto sprFile = g_resources.guessFilePath(file, "spr");
+        if (g_resources.fileExists(sprFile)) {
+            return loadCasualSpr(sprFile);
+        }
+
+        return false;
     }
-
-    auto sprFile = g_resources.guessFilePath(file, "spr");
-    if (g_resources.fileExists(sprFile)) {
-        return loadCasualSpr(sprFile);
+    catch (stdext::exception& e) {
+        g_logger.error(stdext::format("Failed to load sprites from '%s': %s", file, e.what()));
+        return false;
     }
-
-    return false;
+    catch (std::exception& e) {
+        g_logger.error(stdext::format("Failed to load sprites from '%s': %s", file, e.what()));
+        return false;
+    }
+    catch (...) {
+        g_logger.error(stdext::format("Failed to load sprites from '%s': unknown error", file));
+        return false;
+    }
 }
 
 #ifdef WITH_ENCRYPTION

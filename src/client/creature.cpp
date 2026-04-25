@@ -102,6 +102,7 @@ void Creature::draw(const Point& dest, bool animate, LightView* lightView)
     if (m_outfit.getCategory() != ThingCategoryCreature)
         animationOffset -= getDisplacement();
 
+    m_outfit.setWingsOffset(getWingsOffset());
     size_t drawQueueSize = g_drawQueue->size();
     m_outfit.draw(dest - jumpOffset + animationOffset, m_walking ? m_walkDirection : m_direction, m_walkAnimationPhase, true, lightView);
     if (m_marked) {
@@ -194,7 +195,7 @@ void Creature::drawInformation(const Point& point, bool useGray, const Rect& par
 
     // health rect is based on background rect, so no worries
     Rect healthRect = backgroundRect.expanded(-1);
-    healthRect.setWidth((m_healthPercent / 100.0) * 25);
+    healthRect.setWidth((m_healthPercent / 100.0) * 32);
 
     // draw
     if (g_game.getFeature(Otc::GameBlueNpcNameColor) && isNpc() && m_healthPercent == 100 && !useGray)
@@ -242,7 +243,7 @@ void Creature::drawInformation(const Point& point, bool useGray, const Rect& par
                 g_drawQueue->addFilledRect(backgroundRect, Color::black);
 
                 Rect manaRect = backgroundRect.expanded(-1);
-                manaRect.setWidth(((float)manaPercent / 100.f) * 25);
+                manaRect.setWidth(((float)manaPercent / 100.f) * 32);
                 g_drawQueue->addFilledRect(manaRect, Color::blue);
             }
         }
@@ -488,12 +489,12 @@ void Creature::updateWalkAnimation(uint8 totalPixelsWalked)
     // TODO, should be /2 for <= 810
     uint16 footDelay = getStepDuration(true);
     if (footAnimPhases > 0) {
-        footDelay = ((getStepDuration(true) + 20) / (g_game.getFeature(Otc::GameFasterAnimations) ? footAnimPhases * 2 : footAnimPhases));
+        footDelay = ((getStepDuration(true) + 35) / (g_game.getFeature(Otc::GameFasterAnimations) ? footAnimPhases * 2 : footAnimPhases));
     }
     if (!g_game.getFeature(Otc::GameFasterAnimations))
-        footDelay += 10;
-    if (footDelay < 20)
-        footDelay = 20;
+        footDelay += 20;
+    if (footDelay < 35)
+        footDelay = 35;
 
     // Since mount is a different outfit we need to get the mount animation phases
     if (m_outfit.getMount() != 0) {
@@ -517,7 +518,7 @@ void Creature::updateWalkAnimation(uint8 totalPixelsWalked)
             self->m_footStep = 0;
             self->m_walkAnimationPhase = 0;
             self->m_walkFinishAnimEvent = nullptr;
-        }, 50);
+        }, footDelay);
     }
 
 }
@@ -681,6 +682,7 @@ void Creature::setHealthPercent(uint8 healthPercent)
 void Creature::setDirection(Otc::Direction direction)
 {
     VALIDATE(direction != Otc::InvalidDirection);
+    callLuaField("onDirectionChange", m_direction, direction);
     m_direction = direction;
 }
 

@@ -1,5 +1,5 @@
 GameServerOpcodes.AutoLoot = 157
-maxSlot = 25
+maxSlot = 30
 
 listLoot = nil
 itemSelected = nil

@@ -26,13 +26,8 @@ function load()
   local errorMessage = ''
   if not g_things.loadDat(datPath) then
     if not g_game.getFeature(GameSpritesU32) then
-      g_game.enableFeature(GameSpritesU32)
-      g_game.enableFeature(GameMagicEffectU16)
-      g_game.enableFeature(GameDistanceEffectU16)
-      g_game.enableFeature(GameDiagonalAnimatedText)
-      g_game.enableFeature(GameExtendedOpcode)
-      g_game.enableFeature(GameBlueNpcNameColor)
-      g_game.enableFeature(GameSpritesAlphaChannel)
+      -- g_game.enableFeature(GameSpritesU32)
+
       if not g_things.loadDat(datPath) then
         errorMessage = errorMessage ..
             tr(
@@ -46,7 +41,10 @@ function load()
             datPath) .. '\n'
     end
   end
-  if not g_sprites.loadSpr(sprPath) then
+  local sprSuccess, sprResult = pcall(function()
+    return g_sprites.loadSpr(sprPath)
+  end)
+  if not sprSuccess or not sprResult then
     errorMessage = errorMessage ..
         tr(
           "Unable to load spr file, please place a valid spr in '%s'",
@@ -66,6 +64,6 @@ function load()
     g_game.setProtocolVersion(0)
   end
 
-  g_things.loadOtb('/items/items.otb')
-  g_things.loadXml('/items/items.xml')
+  -- g_things.loadOtb('/items/items.otb')
+  -- g_things.loadXml('/items/items.xml')
 end

@@ -96,4 +96,3 @@ private:
 extern HealthBars g_healthBars;
 
 #endif
-

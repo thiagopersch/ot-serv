@@ -23,7 +23,7 @@
 #ifndef THINGTYPEMANAGER_H
 #define THINGTYPEMANAGER_H
 
-#include "../framework/global.h"
+#include <framework/global.h>
 #include <framework/core/declarations.h>
 #include <framework/core/eventdispatcher.h>
 
@@ -65,11 +65,11 @@ public:
 
     const ThingTypePtr& getThingType(uint16 id, ThingCategory category);
     const ItemTypePtr& getItemType(uint16 id);
-    ThingType* rawGetThingType(uint16 id, ThingCategory category) { 
+    ThingType* rawGetThingType(uint16 id, ThingCategory category) {
         VALIDATE(id < m_thingTypes[category].size());
-        return m_thingTypes[category][id].get(); 
+        return m_thingTypes[category][id].get();
     }
-    ItemType* rawGetItemType(uint16 id) { 
+    ItemType* rawGetItemType(uint16 id) {
         VALIDATE(id < m_itemTypes.size());
         return m_itemTypes[id].get();
     }

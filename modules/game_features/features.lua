@@ -5,14 +5,11 @@ function terminate() disconnect(g_game, { onClientVersionChange = updateFeatures
 function updateFeatures(version)
   g_game.resetFeatures()
 
-  -- you can add custom features here, list of them is in the modules\gamelib\const.lua
+  if version <= 0 then return end
+
   g_game.enableFeature(GameBot)
   g_game.enableFeature(GameExtendedOpcode)
-  g_game.enableFeature(GameChangeMapAwareRange)
-  -- g_game.enableFeature(GameItemTooltip)
-  -- g_game.enableFeature(GameHealthInfoBackground)
-  -- g_game.enableFeature(GameWingsAndAura)
-  -- g_game.enableFeature(GameMinimapLimitedToSingleFloor)  -- it will generate minimap only for current floor
+  g_game.enableFeature(GameSpritesAlphaChannel)
 
   if (version >= 770) then
     g_game.enableFeature(GameLooktypeU16)
@@ -47,29 +44,33 @@ function updateFeatures(version)
 
   if (version >= 860) then
     g_game.enableFeature(GameAttackSeq)
+    g_game.enableFeature(GameMapDrawGroundFirst)
+    g_game.enableFeature(GameChangeMapAwareRange)
+    g_game.enableFeature(GameMagicEffectU16)
     g_game.enableFeature(GameSpellList)
+    g_game.enableFeature(GameExtendedClientPing)
+    g_game.enableFeature(GameDistanceEffectU16)
     g_game.enableFeature(GameSpritesU32)
     g_game.enableFeature(GameLooktypeU16)
-    g_game.enableFeature(GameMagicEffectU16)
-    g_game.enableFeature(GameDistanceEffectU16)
     g_game.enableFeature(GameBlueNpcNameColor)
     g_game.enableFeature(GameEnhancedAnimations)
     g_game.enableFeature(GameFasterAnimations)
-    g_game.enableFeature(GameHideNpcNames)
-    g_game.enableFeature(GamePremiumExpiration)
-    g_game.enableFeature(GameMapDrawGroundFirst)
-    g_game.enableFeature(GamePurseSlot)
-    g_game.enableFeature(GamePlayerMarket)
-    g_game.enableFeature(GameDiagonalAnimatedText)
-    -- g_game.enableFeature(GameWingsAndAura)
-    -- g_game.enableFeature(GameOutfitShaders)
-    -- g_game.enableFeature(GameItemTooltip)
-    -- g_game.enableFeature(GameIdleAnimations)
-    -- g_game.enableFeature(GameSpritesAlphaChannel)
-    -- g_game.enableFeature(GameCreatureIcons)
 
-    -- g_game.enableFeature(GameCenteredOutfits)
-    -- g_game.enableFeature(GamePlayerMounts)
+    -- g_game.enableFeature(GameDoubleSkills)
+    -- g_game.enableFeature(GameDoubleMagicLevel)
+    -- g_game.enableFeature(GameDoubleHealth)
+    -- g_game.enableFeature(GameWingsAndAura)
+    -- g_game.enableFeature(GameDrawAuraOnTop)
+    -- g_game.enableFeature(GameOutfitShaders)
+    -- g_game.enableFeature(GameHealthInfoBackground)
+    --g_game.enableFeature(GameHideNpcNames)
+    -- g_game.enableFeature(GameBigAurasCenter)
+    -- g_game.enableFeature(GameItemTooltip)
+    -- g_game.enableFeature(GameCountU16)
+    -- g_game.enableFeature(GameCreaturesMana)
+    -- g_game.enableFeature(GameDoubleLevel)
+    -- g_game.enableFeature(GameDoubleExperience)
+    -- g_game.enableFeature(GameDoubleSoul)
   end
 
   if (version >= 862) then g_game.enableFeature(GamePenalityOnDeath) end
