@@ -3,7 +3,7 @@ Module
   description: View available spells
   author: Summ, Edubart
   website: https://github.com/edubart/otclient
-  sandboxed: true
+  sandboxed: false
   scripts: [ spelllist ]
   @onLoad: init()
   @onUnload: terminate()
