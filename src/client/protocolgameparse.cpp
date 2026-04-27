@@ -3433,9 +3433,11 @@ CreaturePtr ProtocolGame::getCreature(const InputMessagePtr& msg, int type)
                 msg->getU32(); // master
 
             std::string name = g_game.formatCreatureName(msg->getString());
+            std::string title = msg->getString();
 
             if (creature) {
                 creature->setName(name);
+                if (!title.empty()) creature->setTitle(title, "", Color(220, 220, 220));
             } else {
                 if (id == m_localPlayer->getId())
                     creature = m_localPlayer;
@@ -3457,6 +3459,7 @@ CreaturePtr ProtocolGame::getCreature(const InputMessagePtr& msg, int type)
                 if (creature) {
                     creature->setId(id);
                     creature->setName(name);
+                    if (!title.empty()) creature->setTitle(title, "", Color(220, 220, 220));
 
                     g_map.addCreature(creature);
                 }

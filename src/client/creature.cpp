@@ -66,6 +66,8 @@ Creature::Creature() : Thing()
     m_footLastStep = 0;
     m_nameCache.setFont(g_fonts.getFont("verdana-11px-rounded"));
     m_nameCache.setAlign(Fw::AlignTopCenter);
+    m_titleCache.setFont(g_fonts.getFont("verdana-11px-rounded"));
+    m_titleCache.setAlign(Fw::AlignTopCenter);
     m_footStep = 0;
     //m_speedFormula.fill(-1);
     m_outfitColor = Color::white;
@@ -147,7 +149,7 @@ void Creature::drawInformation(const Point& point, bool useGray, const Rect& par
         fillColor = m_informationColor;
 
     // calculate main rects - hp/mana
-    Rect backgroundRect = Rect(point.x + m_informationOffset.x - (13.5), point.y + m_informationOffset.y - 40, 30, 6);
+    Rect backgroundRect = Rect(point.x + m_informationOffset.x - (13.5), point.y + m_informationOffset.y - 40, 27, 6);
     backgroundRect.bind(parentRect);
 
     //debug
@@ -195,7 +197,7 @@ void Creature::drawInformation(const Point& point, bool useGray, const Rect& par
 
     // health rect is based on background rect, so no worries
     Rect healthRect = backgroundRect.expanded(-1);
-    healthRect.setWidth((m_healthPercent / 100.0) * 32);
+    healthRect.setWidth((m_healthPercent / 100.0) * 25);
 
     // draw
     if (g_game.getFeature(Otc::GameBlueNpcNameColor) && isNpc() && m_healthPercent == 100 && !useGray)
@@ -243,7 +245,7 @@ void Creature::drawInformation(const Point& point, bool useGray, const Rect& par
                 g_drawQueue->addFilledRect(backgroundRect, Color::black);
 
                 Rect manaRect = backgroundRect.expanded(-1);
-                manaRect.setWidth(((float)manaPercent / 100.f) * 32);
+                manaRect.setWidth(((float)manaPercent / 100.f) * 25);
                 g_drawQueue->addFilledRect(manaRect, Color::blue);
             }
         }

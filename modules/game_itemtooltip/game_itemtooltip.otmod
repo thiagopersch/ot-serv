@@ -1,0 +1,10 @@
+Module
+  name: game_itemtooltip
+  description: Handles dynamic item tooltips
+  author: Antigravity
+  website: https://github.com/edubart/otclient
+  sandboxed: true
+  autoload: true
+  scripts: [ itemtooltip ]
+  @onLoad: init()
+  @onUnload: terminate()
