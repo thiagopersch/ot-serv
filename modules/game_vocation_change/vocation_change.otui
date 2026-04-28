@@ -1,6 +1,6 @@
 MainWindow
   id: vocationChangeWindow
-  size: 550 420
+  size: 580 440
   anchors.centerIn: parent
   text: Change Vocation
 
@@ -9,7 +9,7 @@ MainWindow
     anchors.top: parent.top
     anchors.left: parent.left
     anchors.bottom: buttonsPanel.top
-    width: 190
+    width: 195
     margin-top: 5
     margin-bottom: 5
 
@@ -19,30 +19,31 @@ MainWindow
       anchors.top: parent.top
       anchors.horizontalCenter: parent.horizontalCenter
       margin-top: 10
-      color: #ffffff
+      color: #cccccc
+      font: verdana-11px-rounded
 
     UICreature
       id: vocationPanel
       anchors.top: titleLabel.bottom
       anchors.horizontalCenter: parent.horizontalCenter
-      margin-top: 15
+      margin-top: 12
       size: 128 128
       fixed-creature-size: true
 
     Label
       id: nameLabel
-      text: -
+      text: ?
       anchors.top: vocationPanel.bottom
       anchors.horizontalCenter: parent.horizontalCenter
-      margin-top: 8
-      color: #aaffaa
+      margin-top: 6
+      color: #88ff88
+      font: verdana-11px-rounded
 
   VerticalSeparator
     id: separator
     anchors.top: parent.top
     anchors.bottom: buttonsPanel.top
     anchors.left: leftPanel.right
-    margin-left: 5
 
   Panel
     id: rightPanel
@@ -59,28 +60,30 @@ MainWindow
       anchors.top: parent.top
       anchors.horizontalCenter: parent.horizontalCenter
       margin-top: 10
-      color: #ffffff
+      color: #cccccc
+      font: verdana-11px-rounded
 
     UIScrollArea
       id: vocationsScroll
       anchors.top: parent.top
       anchors.left: parent.left
-      anchors.right: parent.right
+      anchors.right: vocationListScrollBar.left
       anchors.bottom: parent.bottom
       margin-top: 35
       margin-bottom: 5
       margin-left: 5
-      margin-right: 5
       vertical-scrollbar: vocationListScrollBar
       layout:
         type: verticalBox
-        spacing: 2
+        spacing: 3
 
     VerticalScrollBar
       id: vocationListScrollBar
-      anchors.top: vocationsScroll.top
-      anchors.bottom: vocationsScroll.bottom
+      anchors.top: parent.top
+      anchors.bottom: parent.bottom
       anchors.right: parent.right
+      margin-top: 35
+      margin-bottom: 5
       margin-right: 3
       step: 14
       pixels-scroll: true
