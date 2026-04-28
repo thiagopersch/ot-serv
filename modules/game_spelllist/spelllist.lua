@@ -465,6 +465,15 @@ function toggle()
   end
 end
 
+function open()
+  if not spelllistButton:isOn() then
+    g_game.talk("!spells")
+  else
+    spelllistWindow:raise()
+    spelllistWindow:focus()
+  end
+end
+
 function toggleFilter(widget, selectedWidget)
   if widget == groupRadioGroup then
     local boxId = selectedWidget:getId()

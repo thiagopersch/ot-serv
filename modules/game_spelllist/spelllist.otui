@@ -19,8 +19,8 @@ SpellListLabel < Label
     anchors.right: parent.right
     anchors.verticalCenter: parent.verticalCenter
     margin-right: 50
-    !text: tr('Copiar')
-    !tooltip: tr('Clique aqui para copiar a magia!')
+    !text: tr('Copy')
+    !tooltip: tr('Click here to copy the spell!')
     @onClick: modules.game_spelllist.copySpellWords(self:getParent():getId())
 
 SpellInfoLabel < Label
