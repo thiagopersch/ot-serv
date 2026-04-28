@@ -3,7 +3,7 @@ MainWindow
   !text: tr("Profile")
   font: verdana-11px-rounded
   color: white
-  size: 500 500
+  size: 500 600
   @onEscape: modules.game_player_profile.close()
   @onEnter: modules.game_player_profile.search()
 

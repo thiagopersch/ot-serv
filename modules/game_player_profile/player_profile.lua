@@ -32,10 +32,7 @@ function init()
 
 	InspectWindow:hide()
 
-	InspectButton = modules.client_topmenu.addLeftGameButton("InspectButton", tr("Profile"), "/images/topbuttons/inspect",
-		toggle)
 
-	InspectButton:setOn(true)
 	ProtocolGame.registerExtendedOpcode(opcode, onRecvExtendedOpcode)
 	ProtocolGame.registerExtendedOpcode(50, onRecvBackgroundUpdate)
 	connect(g_game, {
@@ -45,12 +42,7 @@ end
 
 function terminate()
 	InspectWindow:destroy()
-
 	InspectWindow = nil
-
-	InspectButton:destroy()
-
-	InspectButton = nil
 
 	ProtocolGame.unregisterExtendedOpcode(opcode)
 	disconnect(g_game, {
@@ -162,16 +154,25 @@ function updateProfile()
 	end
 
 	local playerPanel = InspectWindow:getChildById("playerPanel")
+	local ageLabel = ''
+	if ProfileData.age < 2 then
+		ageLabel = 'year'
+	else
+		ageLabel = 'years'
+	end
 
 	playerPanel:getChildById("vocationImage"):setImageSource(vocationImageSrc)
 	playerPanel:getChildById("nameLabel"):setText(ProfileData.name or "--")
 	playerPanel:getChildById("levelLabel"):setText(string.format("%s: %s", tr("Level"), tostringex(ProfileData.level, "--")))
 	playerPanel:getChildById("vocationLabel"):setText(string.format("%s: %s", tr("Vocation"),
 		tostringex(ProfileData.vocation_name, "--")))
-	playerPanel:getChildById("ageLabel"):setText(string.format("%s: %s", tr("Age"), tostringex(ProfileData.age, "--")))
+	playerPanel:getChildById("ageLabel"):setText(string.format("%s: %s", tr("Age"),
+		tostringex(ProfileData.age .. " " .. ageLabel, "--")))
 	playerPanel:getChildById("fragsLabel"):setText(string.format("%s: %s", tr("Frags"), tostringex(ProfileData.frags, "--")))
-	playerPanel:getChildById("resetsLabel"):setText(string.format("%s: %s", tr("Resets"), tostringex(ProfileData.resets, "--")))
-	playerPanel:getChildById("balanceLabel"):setText(string.format("%s: %s", tr("Balance"), tostringex(ProfileData.balance, "--")))
+	playerPanel:getChildById("resetsLabel"):setText(string.format("%s: %s", tr("Resets"),
+		tostringex(ProfileData.resets, "--")))
+	playerPanel:getChildById("balanceLabel"):setText(string.format("%s: %s", tr("Balance"),
+		tostringex(ProfileData.balance, "--")))
 	playerPanel:getChildById("capLabel"):setText(string.format("%s: %s", tr("Cap"), tostringex(ProfileData.cap, "--")))
 	playerPanel:getChildById("accountLabel"):setText(string.format("%s: %s", tr("Account"),
 		tr(ProfileData.premium and "Premium Account" or "Free Account")))
@@ -216,6 +217,9 @@ function updateProfile()
 				slotPanel:setStyle("InventoryItem")
 				slotPanel:setItemId(itemId)
 				slotPanel:setItemCount(item.count or 0)
+				if slotPanel.setTooltipTable then
+					slotPanel:setTooltipTable("", itemId)
+				end
 			else
 				slotPanel:setStyle(InventorySlotStyles[i])
 				slotPanel:setItem(nil)
@@ -273,7 +277,9 @@ function updateItemSlots()
 				slotPanel:setStyle("InventoryItem")
 				slotPanel:setItemId(itemId)
 				slotPanel:setItemCount(item.count or 0)
-				slotPanel:setTooltipTable("", itemId)
+				if slotPanel.setTooltipTable then
+					slotPanel:setTooltipTable("", itemId)
+				end
 			else
 				slotPanel:setStyle(InventorySlotStyles[i])
 				slotPanel:setItem(nil)
@@ -342,11 +348,11 @@ function onRecvExtendedOpcode(pg, opcode, buffer)
 		stamina = tonumber(data[7]) or 0,
 		guild_name = data[8],
 		premium = (tonumber(data[9]) or 0) ~= 0,
-		age = data[10],
-		frags = data[11],
-		resets = data[12],
-		balance = data[13],
-		cap = data[14]
+		age = tonumber(data[10]) or 0,
+		frags = tonumber(data[11]) or 0,
+		resets = tonumber(data[12]) or 0,
+		balance = tonumber(data[13]) or 0,
+		cap = tonumber(data[14]) or 0
 	}
 	ProfileData.skills = {}
 
@@ -384,9 +390,9 @@ function onRecvBackgroundUpdate(protocol, opcode, buffer)
 	-- Opcode 50 usually sends: age|title|frags|resets
 	-- We only update ProfileData if it belongs to the local player
 	if ProfileData.isLocalPlayer then
-		if data[1] then ProfileData.age = data[1] end
-		if data[3] then ProfileData.frags = data[3] end
-		if data[4] then ProfileData.resets = data[4] end
+		if data[1] then ProfileData.age = tonumber(data[1]) or 0 end
+		if data[3] then ProfileData.frags = tonumber(data[3]) or 0 end
+		if data[4] then ProfileData.resets = tonumber(data[4]) or 0 end
 		updateProfile()
 	end
 end
