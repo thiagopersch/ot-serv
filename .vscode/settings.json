@@ -9,7 +9,9 @@
     "g_resources",
     "g_configs",
     "Creature",
-    "g_mouse"
+    "g_mouse",
+    "init",
+    "handleProfileData"
   ],
   "Lua.diagnostics.disable": ["undefined-field"]
 }

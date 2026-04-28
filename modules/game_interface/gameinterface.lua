@@ -483,6 +483,8 @@ function createThingMenu(menuPosition, lookThing, useThing, creatureThing)
 
     if creatureThing:isLocalPlayer() then
       menu:addOption(tr('Set Outfit'), function() g_game.requestOutfit() end)
+      g_modules.ensureModuleLoaded("game_player_profile")
+      menu:addOption(tr('Profile'), function() modules.game_player_profile.open(creatureThing) end)
 
       if g_game.getFeature(GamePlayerMounts) then
         if not localPlayer:isMounted() then
@@ -537,6 +539,10 @@ function createThingMenu(menuPosition, lookThing, useThing, creatureThing)
       if creatureThing:isPlayer() then
         menu:addSeparator()
         local creatureName = creatureThing:getName()
+        menu:addOption(tr('Profile'), function() 
+          g_modules.ensureModuleLoaded("game_player_profile")
+          modules.game_player_profile.open(creatureThing) 
+        end)
         menu:addOption(tr('Message to %s', creatureName), function() g_game.openPrivateChannel(creatureName) end)
         if modules.game_console.getOwnPrivateTab() then
           menu:addOption(tr('Invite to private chat'), function() g_game.inviteToOwnChannel(creatureName) end)
