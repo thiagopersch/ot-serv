@@ -11,7 +11,8 @@
     "Creature",
     "g_mouse",
     "init",
-    "handleProfileData"
+    "handleProfileData",
+    "AlignHCenter"
   ],
   "Lua.diagnostics.disable": ["undefined-field"]
 }

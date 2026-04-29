@@ -9,7 +9,7 @@ MainWindow
     anchors.top: parent.top
     anchors.left: parent.left
     anchors.bottom: buttonsPanel.top
-    width: 195
+    width: 200
     margin-top: 5
     margin-bottom: 5
 
@@ -26,8 +26,9 @@ MainWindow
       id: vocationPanel
       anchors.top: titleLabel.bottom
       anchors.horizontalCenter: parent.horizontalCenter
-      margin-top: 12
-      size: 128 128
+      margin-top: 5
+      margin-bottom: 5
+      size: 120 120
       fixed-creature-size: true
 
     Label
@@ -35,8 +36,14 @@ MainWindow
       text: ?
       anchors.top: vocationPanel.bottom
       anchors.horizontalCenter: parent.horizontalCenter
-      margin-top: 6
+      margin-top: 5
+      margin-bottom: 5
       color: #88ff88
+      text-auto-resize: true
+      text-clip: true
+      text-overflow: ellipsis
+      text-clip-mode: clip
+      text-center: true
       font: verdana-11px-rounded
 
   VerticalSeparator

@@ -1,0 +1,324 @@
+{
+  "current_otui": "C:\\Users\\thiag\\Projetos\\client\\modules\\game_vocation_change\\vocation_change.otui",
+  "canvas": [
+    {
+      "type": "Button",
+      "name": "Button113",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 100.0,
+      "height": 50.0,
+      "z": 0.0,
+      "parent": "closeButton",
+      "otui_props": {
+        "props": {
+          "id": "Button113",
+          "pos": "0 0",
+          "size": "100 50"
+        },
+        "states": {},
+        "events": {},
+        "functions": {},
+        "inherit": null
+      }
+    },
+    {
+      "type": "Button",
+      "name": "Button104",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 100.0,
+      "height": 50.0,
+      "z": 0.0,
+      "parent": "closeButton",
+      "otui_props": {
+        "props": {
+          "id": "Button104",
+          "pos": "0 0",
+          "size": "100 50"
+        },
+        "states": {},
+        "events": {},
+        "functions": {},
+        "inherit": null
+      }
+    },
+    {
+      "type": "Panel",
+      "name": "closeButton",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 100.0,
+      "height": 50.0,
+      "z": 0.0,
+      "parent": null,
+      "otui_props": {
+        "props": {
+          "id": "closeButton",
+          "pos": "0 0",
+          "size": "100 50",
+          "anchors.bottom": "parent.bottom",
+          "anchors.left": "parent.left",
+          "anchors.right": "parent.right",
+          "height": "45",
+          "text": "Close",
+          "anchors.verticalCenter": "parent.verticalCenter",
+          "margin-right": "10",
+          "width": "80",
+          "enabled": "false"
+        },
+        "states": {},
+        "events": {},
+        "functions": {},
+        "inherit": null
+      }
+    },
+    {
+      "type": "VerticalScrollBar",
+      "name": "VerticalScrollBar86",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 100.0,
+      "height": 50.0,
+      "z": 0.0,
+      "parent": "vocationListScrollBar",
+      "otui_props": {
+        "props": {
+          "id": "VerticalScrollBar86",
+          "pos": "0 0",
+          "size": "100 50"
+        },
+        "states": {},
+        "events": {},
+        "functions": {},
+        "inherit": null
+      }
+    },
+    {
+      "type": "UIScrollArea",
+      "name": "UIScrollArea72",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 100.0,
+      "height": 50.0,
+      "z": 0.0,
+      "parent": "vocationListScrollBar",
+      "otui_props": {
+        "props": {
+          "id": "UIScrollArea72",
+          "pos": "0 0",
+          "size": "100 50"
+        },
+        "states": {},
+        "events": {},
+        "functions": {},
+        "inherit": null
+      }
+    },
+    {
+      "type": "Label",
+      "name": "Label64",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 100.0,
+      "height": 50.0,
+      "z": 0.0,
+      "parent": "vocationListScrollBar",
+      "otui_props": {
+        "props": {
+          "id": "Label64",
+          "pos": "0 0",
+          "size": "100 50"
+        },
+        "states": {},
+        "events": {},
+        "functions": {},
+        "inherit": null
+      }
+    },
+    {
+      "type": "Panel",
+      "name": "vocationListScrollBar",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 100.0,
+      "height": 50.0,
+      "z": 0.0,
+      "parent": null,
+      "otui_props": {
+        "props": {
+          "id": "vocationListScrollBar",
+          "pos": "0 0",
+          "size": "100 50",
+          "anchors.top": "parent.top",
+          "anchors.left": "parent.left",
+          "anchors.right": "parent.right",
+          "anchors.bottom": "parent.bottom",
+          "margin-left": "5",
+          "margin-right": "3",
+          "margin-top": "35",
+          "text": "Available Vocations",
+          "anchors.horizontalCenter": "parent.horizontalCenter",
+          "color": "#cccccc",
+          "font": "verdana-11px-rounded",
+          "margin-bottom": "5",
+          "vertical-scrollbar": "vocationListScrollBar",
+          "layout": "",
+          "type": "verticalBox",
+          "spacing": "3",
+          "step": "14",
+          "pixels-scroll": "true"
+        },
+        "states": {},
+        "events": {},
+        "functions": {},
+        "inherit": null
+      }
+    },
+    {
+      "type": "VerticalSeparator",
+      "name": "separator",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 100.0,
+      "height": 50.0,
+      "z": 0.0,
+      "parent": null,
+      "otui_props": {
+        "props": {
+          "id": "separator",
+          "pos": "0 0",
+          "size": "100 50",
+          "anchors.top": "parent.top",
+          "anchors.bottom": "buttonsPanel.top",
+          "anchors.left": "leftPanel.right"
+        },
+        "states": {},
+        "events": {},
+        "functions": {},
+        "inherit": null
+      }
+    },
+    {
+      "type": "Label",
+      "name": "Label33",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 100.0,
+      "height": 50.0,
+      "z": 0.0,
+      "parent": "nameLabel",
+      "otui_props": {
+        "props": {
+          "id": "Label33",
+          "pos": "0 0",
+          "size": "100 50"
+        },
+        "states": {},
+        "events": {},
+        "functions": {},
+        "inherit": null
+      }
+    },
+    {
+      "type": "UICreature",
+      "name": "UICreature24",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 100.0,
+      "height": 50.0,
+      "z": 0.0,
+      "parent": "nameLabel",
+      "otui_props": {
+        "props": {
+          "id": "UICreature24",
+          "pos": "0 0",
+          "size": "100 50"
+        },
+        "states": {},
+        "events": {},
+        "functions": {},
+        "inherit": null
+      }
+    },
+    {
+      "type": "Label",
+      "name": "Label15",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 100.0,
+      "height": 50.0,
+      "z": 0.0,
+      "parent": "nameLabel",
+      "otui_props": {
+        "props": {
+          "id": "Label15",
+          "pos": "0 0",
+          "size": "100 50"
+        },
+        "states": {},
+        "events": {},
+        "functions": {},
+        "inherit": null
+      }
+    },
+    {
+      "type": "Panel",
+      "name": "nameLabel",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 120.0,
+      "height": 120.0,
+      "z": 0.0,
+      "parent": null,
+      "otui_props": {
+        "props": {
+          "id": "nameLabel",
+          "pos": "0 0",
+          "size": "120 120",
+          "anchors.top": "vocationPanel.bottom",
+          "anchors.left": "parent.left",
+          "anchors.bottom": "buttonsPanel.top",
+          "width": "200",
+          "margin-top": "5",
+          "margin-bottom": "5",
+          "text": "?",
+          "anchors.horizontalCenter": "parent.horizontalCenter",
+          "color": "#88ff88",
+          "font": "verdana-11px-rounded",
+          "fixed-creature-size": "true",
+          "text-auto-resize": "true",
+          "text-clip": "true",
+          "text-overflow": "ellipsis",
+          "text-clip-mode": "clip",
+          "text-center": "true"
+        },
+        "states": {},
+        "events": {},
+        "functions": {},
+        "inherit": null
+      }
+    },
+    {
+      "type": "MainWindow",
+      "name": "MainWindow0",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 100.0,
+      "height": 50.0,
+      "z": 0.0,
+      "parent": null,
+      "otui_props": {
+        "props": {
+          "id": "MainWindow0",
+          "pos": "0 0",
+          "size": "100 50"
+        },
+        "states": {},
+        "events": {},
+        "functions": {},
+        "inherit": null
+      }
+    }
+  ]
+}
