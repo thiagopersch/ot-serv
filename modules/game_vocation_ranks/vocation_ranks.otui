@@ -1,0 +1,58 @@
+VocationRanksWindow < MiniWindow>
+
+VocationRanksWindow
+  id: vocationRanksWindow
+  !text: tr('Vocation Ranks')
+  icon: /images/topbuttons/skills
+  size: 300 400
+  @onClose: hideWindow()
+  &save: true
+  &autoOpen: false
+
+  MiniWindowContents
+    layout: verticalBox
+    padding: 10
+    spacing: 5
+
+    Panel
+      id: rankPanel
+      layout: horizontalBox
+      spacing: 5
+      padding: 5
+      height: 40
+
+      Label
+        id: rankLabel
+        text: tr('Rank: Bronze 0/5')
+        font: verdana-11px-rounded
+
+    ProgressBar
+      id: starsBar
+      height: 20
+      max: 5
+      value: 0
+
+    Panel
+      id: bonusesPanel
+      layout: verticalBox
+      padding: 5
+
+      Label
+        !text: tr('Bonuses per Star:')
+        font: verdana-11px-rounded
+
+      Label
+        id: bonusesLabel
+        !text: tr('Attack: +5\nDefense: +3\nHealth: +100\nMana: +50')
+        font: verdana-10px-rounded
+
+    Button
+      id: upgradeBtn
+      text: tr('Upgrade')
+      @onClick: onUpgrade()
+
+    Label
+      id: statusLabel
+      text: tr('')
+      color: green
+      font: verdana-10px-rounded

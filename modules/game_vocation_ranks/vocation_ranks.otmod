@@ -1,0 +1,12 @@
+Module
+  name: game_vocation_ranks
+  description: Vocation Rank System with Stars Display
+  author: DBOSupreme
+  sandboxed: true
+  autoload: true
+  scripts: [vocation_ranks]
+  @onLoad: init()
+  @onUnload: terminate()
+  dependencies:
+    - game_interface
+    - client_topmenu
