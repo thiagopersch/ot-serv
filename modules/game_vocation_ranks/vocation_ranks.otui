@@ -1,58 +1,77 @@
-VocationRanksWindow < MiniWindow>
-
-VocationRanksWindow
+MainWindow
   id: vocationRanksWindow
   !text: tr('Vocation Ranks')
-  icon: /images/topbuttons/skills
-  size: 300 400
-  @onClose: hideWindow()
-  &save: true
-  &autoOpen: false
+  size: 320 320
+  @onEscape: hideWindow()
 
-  MiniWindowContents
-    layout: verticalBox
-    padding: 10
-    spacing: 5
+  Label
+    id: rankLabel
+    !text: tr('Rank: Bronze 0/5')
+    text-align: center
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 5
+    font: verdana-11px-rounded
 
-    Panel
-      id: rankPanel
-      layout: horizontalBox
-      spacing: 5
-      padding: 5
-      height: 40
+  ProgressBar
+    id: starsBar
+    height: 20
+    anchors.top: prev.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 10
+    maximum: 5
+    minimum: 0
+    value: 0
 
-      Label
-        id: rankLabel
-        text: tr('Rank: Bronze 0/5')
-        font: verdana-11px-rounded
+  Label
+    id: infoLabel
+    !text: tr('Bonus per Star:\nAttack: +5 | Defense: +3\nHealth: +100 | Mana: +50')
+    text-align: center
+    text-auto-resize: true
+    anchors.top: prev.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 15
+    font: verdana-11px-rounded
 
-    ProgressBar
-      id: starsBar
-      height: 20
-      max: 5
-      value: 0
+  Label
+    id: fragmentsLabel
+    !text: tr('Fragments:\nUniversal: 0/100\nSpecific: 0/100')
+    text-align: center
+    text-auto-resize: true
+    anchors.top: prev.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 15
+    font: verdana-11px-rounded
 
-    Panel
-      id: bonusesPanel
-      layout: verticalBox
-      padding: 5
+  Button
+    id: upgradeBtn
+    !text: tr('Upgrade')
+    anchors.bottom: statusLabel.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-bottom: 5
+    @onClick: onUpgrade()
 
-      Label
-        !text: tr('Bonuses per Star:')
-        font: verdana-11px-rounded
+  Label
+    id: statusLabel
+    text:
+    color: #ff5555
+    text-align: center
+    text-auto-resize: true
+    anchors.bottom: closeBtn.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-bottom: 5
+    font: verdana-11px-rounded
 
-      Label
-        id: bonusesLabel
-        !text: tr('Attack: +5\nDefense: +3\nHealth: +100\nMana: +50')
-        font: verdana-10px-rounded
-
-    Button
-      id: upgradeBtn
-      text: tr('Upgrade')
-      @onClick: onUpgrade()
-
-    Label
-      id: statusLabel
-      text: tr('')
-      color: green
-      font: verdana-10px-rounded
+  Button
+    id: closeBtn
+    !text: tr('Close')
+    anchors.bottom: parent.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    width: 64
+    @onClick: hideWindow()

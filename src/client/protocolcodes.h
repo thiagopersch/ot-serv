@@ -160,6 +160,7 @@ namespace Proto {
         GameServerWalkWait                  = 182,
         GameServerUnjustifiedStats          = 183,
         GameServerPvpSituations             = 184,
+        GameServerItemInfoCustom            = 186, // Custom item info (universal fragment)
         GameServerHunting                   = 187,
         GameServerFloorChangeUp             = 190,
         GameServerFloorChangeDown           = 191,

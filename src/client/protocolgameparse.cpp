@@ -380,6 +380,9 @@ void ProtocolGame::parseMessage(const InputMessagePtr& msg)
             case Proto::GameServerPvpSituations:
                 parsePvpSituations(msg);
                 break;
+            case Proto::GameServerItemInfoCustom:
+                parseItemInfoCustom(msg);
+                break;
             case Proto::GameServerPreset:
                 parsePreset(msg);
                 break;
@@ -3654,4 +3657,20 @@ Position ProtocolGame::getPosition(const InputMessagePtr& msg)
     uint8 z = msg->getU8();
 
     return Position(x, y, z);
+}
+
+void ProtocolGame::parseItemInfoCustom(const InputMessagePtr& msg)
+{
+    // Custom opcode 186 for item info (universal fragment)
+    uint16 itemId = msg->getU16();
+    uint8 countOrSubType = msg->getU8();
+    std::string name = msg->getString();
+    std::string description = msg->getString();
+    double weight = msg->getDouble();
+    
+    g_logger.info(stdext::format("Item Info Custom: ID=%d, Name=%s, Desc=%s, Weight=%.2f", 
+                                  itemId, name, description, weight));
+    
+    // You can emit a signal or call lua here if needed
+    // g_lua.callGlobalField("g_game", "onItemInfoCustom", itemId, name, description, weight);
 }
