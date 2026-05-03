@@ -155,7 +155,7 @@ void Creature::drawInformation(const Point& point, bool useGray, const Rect& par
     }
     // point.y é a base da sprite (pés), subtrair altura para obter o topo
     int spriteTopY = point.y + m_informationOffset.y - spriteHeight;
-    int spacing = 3;
+    int spacing = 15; // Distancia entre os elementos
 
     // Ordem (topo para baixo): Nome > Barras > Estrelas > Topo da Sprite
     int starSize = 14;
