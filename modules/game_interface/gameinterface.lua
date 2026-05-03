@@ -487,7 +487,8 @@ function createThingMenu(menuPosition, lookThing, useThing, creatureThing)
       menu:addOption(tr('Profile'), function() modules.game_player_profile.open(creatureThing) end)
       g_modules.ensureModuleLoaded("game_spelllist")
       menu:addOption(tr('Spells'), function() modules.game_spelllist.open() end)
-
+      g_modules.ensureModuleLoaded("game_vocation_ranks")
+      menu:addOption(tr('Vocation Ranks'), function() modules.game_vocation_ranks.open(creatureThing) end)
       if g_game.getFeature(GamePlayerMounts) then
         if not localPlayer:isMounted() then
           menu:addOption(tr('Mount'), function() localPlayer:mount() end)

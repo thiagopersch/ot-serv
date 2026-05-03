@@ -55,6 +55,7 @@ function updateFeatures(version)
     g_game.enableFeature(GameBlueNpcNameColor)
     g_game.enableFeature(GameEnhancedAnimations)
     g_game.enableFeature(GameFasterAnimations)
+    g_game.enableFeature(GameCenteredOutfits)
 
     -- g_game.enableFeature(GameDoubleSkills)
     -- g_game.enableFeature(GameDoubleMagicLevel)

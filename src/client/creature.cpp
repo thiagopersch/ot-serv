@@ -148,8 +148,30 @@ void Creature::drawInformation(const Point& point, bool useGray, const Rect& par
     if (!useGray)
         fillColor = m_informationColor;
 
-    // calculate main rects - hp/mana
-    Rect backgroundRect = Rect(point.x + m_informationOffset.x - (13.5), point.y + m_informationOffset.y - 40, 27, 6);
+    // Calcular topo da sprite dinamicamente
+    int spriteHeight = getExactSize();
+    if (spriteHeight == 0) {
+        spriteHeight = g_sprites.spriteSize();
+    }
+    // point.y é a base da sprite (pés), subtrair altura para obter o topo
+    int spriteTopY = point.y + m_informationOffset.y - spriteHeight;
+    int spacing = 3;
+
+    // Ordem (topo para baixo): Nome > Barras > Estrelas > Topo da Sprite
+    int starSize = 14;
+    int barHeight = 6;
+
+    // Estrelas logo acima do topo da sprite
+    int starsY = spriteTopY - starSize - spacing;
+
+    // Barras acima das estrelas
+    int barY = starsY - barHeight - spacing;
+
+    // Nome acima das barras
+    int nameHeight = m_nameCache.getTextSize().height();
+    int textY = barY - nameHeight - spacing;
+
+    Rect backgroundRect = Rect(point.x + m_informationOffset.x - (13.5), barY, 27, barHeight);
     backgroundRect.bind(parentRect);
 
     //debug
@@ -164,7 +186,9 @@ void Creature::drawInformation(const Point& point, bool useGray, const Rect& par
     }
 
     Size nameSize = m_nameCache.getTextSize();
-    Rect textRect = Rect(point.x + m_informationOffset.x - nameSize.width() / 2.0, point.y + m_informationOffset.y - 60, nameSize);
+    // Nome acima das barras
+    textY = barY - nameSize.height() - spacing;
+    Rect textRect = Rect(point.x + m_informationOffset.x - nameSize.width() / 2.0, textY, nameSize);
     textRect.bind(parentRect);
 
     // distance them
@@ -276,7 +300,9 @@ void Creature::drawInformation(const Point& point, bool useGray, const Rect& par
 
         if (m_text) {
             auto extraTextSize = m_text->getCachedText().getTextSize();
-            Rect extraTextRect = Rect(point.x + m_informationOffset.x - extraTextSize.width() / 2.0, point.y + m_informationOffset.y + 15, extraTextSize);
+            // Texto extra abaixo do nome
+            int extraTextY = textY - extraTextSize.height() - spacing;
+            Rect extraTextRect = Rect(point.x + m_informationOffset.x - extraTextSize.width() / 2.0, extraTextY, extraTextSize);
             m_text->drawText(extraTextRect.center(), extraTextRect);
         }
     }
@@ -303,6 +329,32 @@ void Creature::drawInformation(const Point& point, bool useGray, const Rect& par
     if (m_icon != Otc::NpcIconNone && m_iconTexture) {
         Rect iconRect = Rect(backgroundRect.x() + 13.5 + 12, backgroundRect.y() + 5, m_iconTexture->getSize());
         g_drawQueue->addTexturedRect(iconRect, m_iconTexture, Rect(0, 0, m_iconTexture->getSize()));
+    }
+
+    // Draw Vocation Rank Stars - posiciona ABAIXO das barras e ACIMA do topo da sprite
+    if (m_vocationStars > 0) {
+        std::string rankName = "bronze";
+        if (m_vocationRank == 2) rankName = "silver";
+        else if (m_vocationRank == 3) rankName = "gold";
+        else if (m_vocationRank == 4) rankName = "diamond";
+
+        TexturePtr starTex = g_textures.getTexture(stdext::format("/images/ranks/%s_star", rankName));
+        if (starTex) {
+            int starSize = 14;
+            int totalWidth = m_vocationStars * starSize;
+
+            // Centraliza em relação ao centro do backgroundRect (barras)
+            int centerX = backgroundRect.center().x;
+            int startX = centerX - (totalWidth / 2);
+
+            // ABAIXO das barras: usa backgroundRect.bottom() + spacing
+            int startY = backgroundRect.bottom() + spacing;
+
+            for (int i = 0; i < m_vocationStars; ++i) {
+                Rect destRect(startX + (i * starSize), startY, starSize, starSize);
+                g_drawQueue->addTexturedRect(destRect, starTex, Rect(0, 0, starTex->getSize()));
+            }
+        }
     }
 }
 

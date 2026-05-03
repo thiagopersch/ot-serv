@@ -1,77 +1,127 @@
 MainWindow
   id: vocationRanksWindow
   !text: tr('Vocation Ranks')
-  size: 320 320
-  @onEscape: hideWindow()
+  size: 400 320
+  @onEscape: modules.game_vocation_ranks.destroyWindow()
+  anchors.centerIn: parent
 
-  Label
-    id: rankLabel
-    !text: tr('Rank: Bronze 0/5')
-    text-align: center
+  Panel
+    id: leftPanel
+    width: 130
     anchors.top: parent.top
-    anchors.left: parent.left
-    anchors.right: parent.right
-    margin-top: 5
-    font: verdana-11px-rounded
-
-  ProgressBar
-    id: starsBar
-    height: 20
-    anchors.top: prev.bottom
-    anchors.left: parent.left
-    anchors.right: parent.right
-    margin-top: 10
-    maximum: 5
-    minimum: 0
-    value: 0
-
-  Label
-    id: infoLabel
-    !text: tr('Bonus per Star:\nAttack: +5 | Defense: +3\nHealth: +100 | Mana: +50')
-    text-align: center
-    text-auto-resize: true
-    anchors.top: prev.bottom
-    anchors.left: parent.left
-    anchors.right: parent.right
-    margin-top: 15
-    font: verdana-11px-rounded
-
-  Label
-    id: fragmentsLabel
-    !text: tr('Fragments:\nUniversal: 0/100\nSpecific: 0/100')
-    text-align: center
-    text-auto-resize: true
-    anchors.top: prev.bottom
-    anchors.left: parent.left
-    anchors.right: parent.right
-    margin-top: 15
-    font: verdana-11px-rounded
-
-  Button
-    id: upgradeBtn
-    !text: tr('Upgrade')
-    anchors.bottom: statusLabel.top
-    anchors.left: parent.left
-    anchors.right: parent.right
-    margin-bottom: 5
-    @onClick: onUpgrade()
-
-  Label
-    id: statusLabel
-    text:
-    color: #ff5555
-    text-align: center
-    text-auto-resize: true
     anchors.bottom: closeBtn.top
     anchors.left: parent.left
+    margin-bottom: 10
+
+    UIWidget
+      id: vocImage
+      size: 96 96
+      anchors.top: parent.top
+      anchors.horizontalCenter: parent.horizontalCenter
+
+    Label
+      id: nameLabel
+      text: Player Name
+      text-align: center
+      color: #ffffff
+      font: verdana-11px-rounded
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 10
+
+    Label
+      id: vocNameLabel
+      text: Vocation Name
+      text-align: center
+      color: #aaaaaa
+      font: verdana-11px-rounded
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 5
+
+  VerticalSeparator
+    anchors.top: parent.top
+    anchors.bottom: closeBtn.top
+    anchors.left: leftPanel.right
+    margin-bottom: 10
+
+  Panel
+    id: rightPanel
+    anchors.top: parent.top
+    anchors.bottom: closeBtn.top
+    anchors.left: prev.right
     anchors.right: parent.right
-    margin-bottom: 5
-    font: verdana-11px-rounded
+    margin-left: 10
+    margin-bottom: 10
+
+    Label
+      id: rankLabel
+      text: Rank: Loading...
+      text-align: center
+      color: #ffd700
+      font: verdana-11px-rounded
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.right: parent.right
+
+    ProgressBar
+      id: starsBar
+      height: 20
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 10
+      maximum: 5
+      minimum: 0
+      value: 0
+
+    Label
+      id: infoLabel
+      text: Bonus Per Star:\nLoading...
+      text-align: center
+      text-auto-resize: true
+      font: verdana-11px-rounded
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 15
+
+    Label
+      id: fragmentsLabel
+      text: Loading fragments...
+      text-align: center
+      text-auto-resize: true
+      color: #aaaaaa
+      font: verdana-11px-rounded
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 15
+
+    Button
+      id: upgradeBtn
+      !text: tr('Upgrade Vocation')
+      anchors.bottom: statusLabel.top
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-bottom: 5
+      @onClick: modules.game_vocation_ranks.onUpgrade()
+
+    Label
+      id: statusLabel
+      text:
+      text-align: center
+      font: verdana-11px-rounded
+      anchors.bottom: parent.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
 
   Button
     id: closeBtn
     !text: tr('Close')
+    width: 80
     anchors.bottom: parent.bottom
     anchors.horizontalCenter: parent.horizontalCenter
-    width: 64
-    @onClick: hideWindow()
+    @onClick: modules.game_vocation_ranks.destroyWindow()

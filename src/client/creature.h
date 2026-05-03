@@ -75,6 +75,7 @@ public:
     void setIconTexture(const std::string& filename);
     void setPassable(bool passable) { m_passable = passable; }
     void setSpeedFormula(double speedA, double speedB, double speedC);
+    void setVocationStars(uint8 rank, uint8 stars) { m_vocationRank = rank; m_vocationStars = stars; }
 
     void addTimedSquare(uint8 color);
     void removeTimedSquare() { m_showTimedSquare = false; }
@@ -274,6 +275,11 @@ protected:
     Position m_oldPosition;
     uint8 m_elevation = 0;
     uint16 m_stepDuration = 0;
+
+    // vocation related
+    uint8 m_vocationRank = 1;
+    uint8 m_vocationStars = 0;
+
 
     // jump related
     float m_jumpHeight = 0;
