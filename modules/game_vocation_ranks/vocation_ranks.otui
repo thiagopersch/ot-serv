@@ -1,23 +1,28 @@
 MainWindow
   id: vocationRanksWindow
   !text: tr('Vocation Ranks')
-  size: 400 320
+  size: 520 400
   @onEscape: modules.game_vocation_ranks.destroyWindow()
   anchors.centerIn: parent
 
   Panel
     id: leftPanel
-    width: 130
+    width: 160
     anchors.top: parent.top
-    anchors.bottom: closeBtn.top
     anchors.left: parent.left
-    margin-bottom: 10
+    anchors.bottom: closeBtn.top
+    margin-top: 8
+    margin-left: 8
+    margin-bottom: 8
 
     UIWidget
       id: vocImage
-      size: 96 96
+      width: 96
+      height: 96
+      image-source: /images/vocations/not_found.png
       anchors.top: parent.top
       anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 8
 
     Label
       id: nameLabel
@@ -32,29 +37,83 @@ MainWindow
 
     Label
       id: vocNameLabel
-      text: Vocation Name
+      text: Vocation
       text-align: center
       color: #aaaaaa
       font: verdana-11px-rounded
       anchors.top: prev.bottom
       anchors.left: parent.left
       anchors.right: parent.right
-      margin-top: 5
+      margin-top: 4
+
+    Panel
+      id: currentStarsPanel
+      height: 24
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 10
+      margin-left: 8
+      margin-right: 8
+
+      UIWidget
+        id: star1
+        width: 16
+        height: 16
+        image-source: /images/ranks/empty_star.png
+        anchors.left: parent.left
+        margin-left: 8
+
+      UIWidget
+        id: star2
+        width: 16
+        height: 16
+        image-source: /images/ranks/empty_star.png
+        anchors.left: prev.right
+        margin-left: 4
+
+      UIWidget
+        id: star3
+        width: 16
+        height: 16
+        image-source: /images/ranks/empty_star.png
+        anchors.left: prev.right
+        margin-left: 4
+
+      UIWidget
+        id: star4
+        width: 16
+        height: 16
+        image-source: /images/ranks/empty_star.png
+        anchors.left: prev.right
+        margin-left: 4
+
+      UIWidget
+        id: star5
+        width: 16
+        height: 16
+        image-source: /images/ranks/empty_star.png
+        anchors.left: prev.right
+        margin-left: 4
 
   VerticalSeparator
+    id: vSep
     anchors.top: parent.top
     anchors.bottom: closeBtn.top
     anchors.left: leftPanel.right
-    margin-bottom: 10
+    margin-top: 8
+    margin-bottom: 8
 
   Panel
     id: rightPanel
     anchors.top: parent.top
-    anchors.bottom: closeBtn.top
-    anchors.left: prev.right
+    anchors.left: vSep.right
     anchors.right: parent.right
-    margin-left: 10
-    margin-bottom: 10
+    anchors.bottom: closeBtn.top
+    margin-top: 8
+    margin-left: 8
+    margin-right: 8
+    margin-bottom: 8
 
     Label
       id: rankLabel
@@ -65,40 +124,88 @@ MainWindow
       anchors.top: parent.top
       anchors.left: parent.left
       anchors.right: parent.right
-
-    ProgressBar
-      id: starsBar
-      height: 20
-      anchors.top: prev.bottom
-      anchors.left: parent.left
-      anchors.right: parent.right
-      margin-top: 10
-      maximum: 5
-      minimum: 0
-      value: 0
+      margin-top: 6
 
     Label
-      id: infoLabel
-      text: Bonus Per Star:\nLoading...
+      id: nextRankLabel
+      text: Next: Bronze 0/5
       text-align: center
-      text-auto-resize: true
+      color: #cd7f32
       font: verdana-11px-rounded
       anchors.top: prev.bottom
       anchors.left: parent.left
       anchors.right: parent.right
-      margin-top: 15
+      margin-top: 4
+
+    HorizontalSeparator
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 8
 
     Label
-      id: fragmentsLabel
-      text: Loading fragments...
-      text-align: center
-      text-auto-resize: true
-      color: #aaaaaa
+      id: bonusTitleLabel
+      text: Bonus Per Star:
+      text-align: left
+      color: #ffffff
       font: verdana-11px-rounded
       anchors.top: prev.bottom
       anchors.left: parent.left
       anchors.right: parent.right
-      margin-top: 15
+      margin-top: 8
+
+    Label
+      id: bonusValueLabel
+      text: (loading...)
+      text-align: left
+      color: #dddddd
+      font: verdana-11px-rounded
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 2
+      margin-left: 4
+
+    HorizontalSeparator
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 8
+
+    Label
+      id: fragTitleLabel
+      text: Fragments in Bag:
+      text-align: left
+      color: #ffffff
+      font: verdana-11px-rounded
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 8
+
+    Label
+      id: fragUnivLabel
+      text: Universal:  0  (need 0)
+      text-align: left
+      color: #ff5555
+      font: verdana-11px-rounded
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 3
+      margin-left: 4
+
+    Label
+      id: fragSpecLabel
+      text: Specific:   0  (need 0)
+      text-align: left
+      color: #ff5555
+      font: verdana-11px-rounded
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 2
+      margin-left: 4
 
     Button
       id: upgradeBtn
@@ -106,17 +213,19 @@ MainWindow
       anchors.bottom: statusLabel.top
       anchors.left: parent.left
       anchors.right: parent.right
-      margin-bottom: 5
+      margin-bottom: 4
       @onClick: modules.game_vocation_ranks.onUpgrade()
 
     Label
       id: statusLabel
       text:
       text-align: center
+      color: #aaaaaa
       font: verdana-11px-rounded
       anchors.bottom: parent.bottom
       anchors.left: parent.left
       anchors.right: parent.right
+      margin-bottom: 2
 
   Button
     id: closeBtn
@@ -124,4 +233,5 @@ MainWindow
     width: 80
     anchors.bottom: parent.bottom
     anchors.horizontalCenter: parent.horizontalCenter
+    margin-bottom: 6
     @onClick: modules.game_vocation_ranks.destroyWindow()
