@@ -141,16 +141,12 @@ function updateProfile()
 		end
 	end
 
-	local vocationImageSrc
+	local vocationName = ProfileData.vocation_name or ""
+	local formattedVocName = string.gsub(string.lower(vocationName), " ", "_")
+	local vocationImageSrc = "/images/vocations/" .. formattedVocName .. ".png"
 
-	if not ProfileData.vocation_name or ProfileData.vocation_name == "" then
-		vocationImageSrc = g_resources.guessFilePath("assets/vocation/not_found", "png")
-	else
-		vocationImageSrc = g_resources.guessFilePath("assets/vocation/" .. tostring(ProfileData.vocation_name):lower(), "png")
-
-		if not g_resources.fileExists(vocationImageSrc) then
-			vocationImageSrc = g_resources.guessFilePath("assets/vocation/not_found", "png")
-		end
+	if not g_resources.fileExists(vocationImageSrc) then
+		vocationImageSrc = "/images/vocations/not_found.png"
 	end
 
 	local playerPanel = InspectWindow:getChildById("playerPanel")
@@ -243,6 +239,11 @@ function updateProfile()
 		skillsPanel:getChildById("skill" .. i):setText(string.format("%s: %s", tr(SkillIdToName[i]),
 			tostringex(ProfileData.skills[i], "--")))
 	end
+
+	skillsPanel:getChildById("dodgeLabel"):setText(string.format("%s: %s", tr("Dodge"),
+		tostringex(ProfileData.dodge .. "/1000", "--")))
+	skillsPanel:getChildById("critLabel"):setText(string.format("%s: %s", tr("Critical"),
+		tostringex(ProfileData.crit .. "/1000", "--")))
 end
 
 function search()
@@ -352,20 +353,22 @@ function onRecvExtendedOpcode(pg, opcode, buffer)
 		frags = tonumber(data[11]) or 0,
 		resets = tonumber(data[12]) or 0,
 		balance = tonumber(data[13]) or 0,
-		cap = tonumber(data[14]) or 0
+		cap = tonumber(data[14]) or 0,
+		dodge = tonumber(data[15]) or 0,
+		crit = tonumber(data[16]) or 0
 	}
 	ProfileData.skills = {}
 
 	for i = 0, 6 do
-		ProfileData.skills[i] = data[15 + i]
+		ProfileData.skills[i] = data[17 + i]
 	end
 
-	ProfileData.magic_level = data[22]
-	ProfileData.isLocalPlayer = (tonumber(data[23]) or 0) ~= 0
-	ProfileData.showEquipments = (tonumber(data[24]) or 0) ~= 0
+	ProfileData.magic_level = data[24]
+	ProfileData.isLocalPlayer = (tonumber(data[25]) or 0) ~= 0
+	ProfileData.showEquipments = (tonumber(data[26]) or 0) ~= 0
 	ProfileData.equipments = {}
 
-	local index = 25
+	local index = 27
 
 	if index < #data then
 		for i = 1, 10 do

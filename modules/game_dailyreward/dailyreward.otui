@@ -1,0 +1,213 @@
+DailyRewardDay < UIWidget
+  size: 85 110
+  background-color: #111111cc
+  border: 1 #ffffff22
+  padding: 5
+  layout: anchor
+  cursor: pointer
+  $hover:
+    background-color: #222222cc
+    border: 1 #ffffff44
+
+  UIItem
+    id: item
+    size: 32 32
+    anchors.top: parent.top
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 5
+    virtual: true
+
+  Label
+    id: dayLabel
+    font: verdana-11px-rounded
+    text-auto-resize: true
+    anchors.top: item.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 8
+    color: #dfdfdf
+    phantom: true
+
+  Label
+    id: statusLabel
+    font: verdana-11px-monochrome
+    text-auto-resize: true
+    anchors.top: dayLabel.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 5
+    phantom: true
+
+  UIWidget
+    id: checkIcon
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    size: 20 20
+    margin: 5
+    image-source: ui/check
+    visible: false
+    phantom: true
+
+  UIWidget
+    id: lostIcon
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    size: 20 20
+    margin: 5
+    image-source: ui/x
+    visible: false
+    phantom: true
+
+DailyRewardBonus < UIWidget
+  size: 180 60
+  background-color: #111111cc
+  border: 1 #ffff0022
+  padding: 5
+  margin-bottom: 5
+  layout: anchor
+
+  UIItem
+    id: item
+    size: 32 32
+    anchors.left: parent.left
+    anchors.verticalCenter: parent.verticalCenter
+    margin-left: 5
+    virtual: true
+
+  Label
+    id: titleLabel
+    font: verdana-11px-rounded
+    text-auto-resize: true
+    anchors.top: parent.top
+    anchors.left: item.right
+    margin-left: 10
+    color: #ffff00
+    phantom: true
+
+  Label
+    id: statusLabel
+    font: verdana-11px-monochrome
+    text-auto-resize: true
+    anchors.top: titleLabel.bottom
+    anchors.left: item.right
+    margin-left: 10
+    margin-top: 2
+    phantom: true
+
+MainWindow
+  id: dailyRewardWindow
+  !text: tr('Daily Reward')
+  size: 780 580
+  anchors.centerIn: parent
+  @onEscape: modules.game_dailyreward.toggle()
+
+  // Botão X customizado para garantir cor e ação
+  Label
+    id: daysTitle
+    !text: tr('Monthly Calendar')
+    font: verdana-11px-rounded
+    anchors.top: parent.top
+    anchors.left: parent.left
+    margin-top: 5
+    color: #dfdfdf
+
+  ScrollablePanel
+    id: daysPanel
+    anchors.top: daysTitle.bottom
+    anchors.left: parent.left
+    anchors.right: bonusPanel.left
+    anchors.bottom: claimButton.top
+    margin-top: 10
+    margin-right: 15
+    margin-bottom: 20
+    vertical-scrollbar: daysScrollBar
+    layout:
+      type: grid
+      cell-size: 85 110
+      cell-spacing: 12
+      flow: true
+
+  VerticalScrollBar
+    id: daysScrollBar
+    anchors.top: daysPanel.top
+    anchors.bottom: daysPanel.bottom
+    anchors.right: daysPanel.right
+    margin-right: -12
+    step: 40
+
+  Label
+    id: bonusTitle
+    !text: tr('Streak Bonuses')
+    font: verdana-11px-rounded
+    anchors.top: parent.top
+    anchors.right: parent.right
+    margin-top: 5
+    margin-right: 50
+    color: #ffff00
+
+  ScrollablePanel
+    id: bonusPanel
+    width: 200
+    anchors.top: bonusTitle.bottom
+    anchors.right: parent.right
+    anchors.bottom: claimButton.top
+    margin-top: 10
+    margin-bottom: 20
+    padding: 5
+    background-color: #00000044
+    vertical-scrollbar: bonusScrollBar
+    layout: verticalBox
+
+  VerticalScrollBar
+    id: bonusScrollBar
+    anchors.top: bonusPanel.top
+    anchors.bottom: bonusPanel.bottom
+    anchors.right: bonusPanel.right
+    step: 20
+
+  // Botões como UIWidget para controle total de cores
+  UIWidget
+    id: claimButton
+    !text: tr('Claim Daily Reward')
+    width: 200
+    height: 45
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    margin-bottom: 5
+    font: verdana-11px-rounded
+    background-color: #008800
+    color: #ffffff
+    text-align: center
+    border: 1 #ffffff44
+    cursor: pointer
+    $hover:
+      background-color: #00aa00
+    $disabled:
+      background-color: #333333
+      color: #888888
+
+  UIWidget
+    id: closeButton
+    !text: tr('Close')
+    width: 200
+    height: 45
+    anchors.bottom: parent.bottom
+    anchors.left: claimButton.right
+    margin-left: 20
+    margin-bottom: 5
+    font: verdana-11px-rounded
+    background-color: #dc3545
+    color: #ffffff
+    text-align: center
+    border: 1 #ffffff44
+    cursor: pointer
+    $hover:
+      background-color: #880808
+
+  Label
+    id: consecutiveLabel
+    !text: tr('Consecutive: 0 days')
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    margin-bottom: 15
+    font: verdana-11px-rounded
+    color: #ffff00
+    text-auto-resize: true

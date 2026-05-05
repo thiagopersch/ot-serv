@@ -10,7 +10,7 @@ macro(1000, "Exchange money", function()
   for index, container in pairs(containers) do
     if not container.lootContainer then -- ignore monster containers
       for i, item in ipairs(container:getItems()) do
-        if item:getCount() == 100 then
+        if item:getCount() == 10000 then
           for m, moneyId in ipairs(storage.moneyItems) do
             if item:getId() == moneyId.id then
               return g_game.use(item)            

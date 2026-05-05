@@ -253,7 +253,7 @@ TargetBot.Looting.lootItem = function(lootContainers, item)
     local count = item:getCount()
     for _, container in ipairs(lootContainers) do
       for slot, citem in ipairs(container:getItems()) do
-        if item:getId() == citem:getId() and citem:getCount() < 100 then
+         if item:getId() == citem:getId() and citem:getCount() < 10000 then
           g_game.move(item, container:getSlotPosition(slot - 1), count)
           waitTill = now + 300 -- give it 0.3s to move item
           return

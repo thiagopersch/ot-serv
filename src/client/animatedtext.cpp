@@ -24,8 +24,27 @@
 #include "map.h"
 #include "game.h"
 #include <framework/core/clock.h>
-#include <framework/core/eventdispatcher.h>
 #include <framework/graphics/graphics.h>
+#include <sstream>
+#include <iomanip>
+
+std::string formatNumberWithK(int value) {
+    if(value >= 1000000) {
+        if(value >= 10000000) {
+            return std::to_string(value / 1000000) + "KK";
+        }
+        return std::to_string(value / 1000000) + "KK";
+    } else if(value >= 1000) {
+        if(value >= 10000) {
+            return std::to_string(value / 1000) + "K";
+        }
+        if(value % 1000 >= 100) {
+            return std::to_string(value / 1000) + "." + std::to_string((value % 1000) / 100) + "K";
+        }
+        return std::to_string(value / 1000) + "K";
+    }
+    return std::to_string(value);
+}
 
 AnimatedText::AnimatedText()
 {
@@ -99,7 +118,7 @@ bool AnimatedText::merge(const AnimatedTextPtr& other)
     try {
         int number = stdext::safe_cast<int>(m_cachedText.getText());
         int otherNumber = stdext::safe_cast<int>(other->getCachedText().getText());
-        m_cachedText.setText(std::to_string(number + otherNumber));
+        setText(formatNumberWithK(number + otherNumber));
         return true;
     } catch(...) {}
     return false;

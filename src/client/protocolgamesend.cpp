@@ -351,10 +351,7 @@ void ProtocolGame::sendEquipItem(int itemId, int countOrSubType)
     OutputMessagePtr msg(new OutputMessage);
     msg->addU8(Proto::ClientEquipItem);
     msg->addU16(itemId);
-    if (g_game.getFeature(Otc::GameCountU16))
-        msg->addU16(countOrSubType);
-    else
-        msg->addU8(countOrSubType);
+    msg->addU16(countOrSubType);
     send(msg);
 }
 
@@ -366,10 +363,7 @@ void ProtocolGame::sendMove(const Position& fromPos, int thingId, int stackpos, 
     msg->addU16(thingId);
     msg->addU8(stackpos);
     addPosition(msg, toPos);
-    if(g_game.getFeature(Otc::GameCountU16))
-        msg->addU16(count);
-    else
-        msg->addU8(count);
+    msg->addU16(count);
     send(msg);
 }
 
@@ -378,10 +372,7 @@ void ProtocolGame::sendInspectNpcTrade(int itemId, int count)
     OutputMessagePtr msg(new OutputMessage);
     msg->addU8(Proto::ClientInspectNpcTrade);
     msg->addU16(itemId);
-    if (g_game.getFeature(Otc::GameCountU16))
-        msg->addU16(count);
-    else
-        msg->addU8(count);
+    msg->addU16(count);
     send(msg);
 }
 
@@ -390,8 +381,8 @@ void ProtocolGame::sendBuyItem(int itemId, int subType, int amount, bool ignoreC
     OutputMessagePtr msg(new OutputMessage);
     msg->addU8(Proto::ClientBuyItem);
     msg->addU16(itemId);
-    msg->addU8(subType);
-    msg->addU8(amount);
+    msg->addU16(subType);
+    msg->addU16(amount);
     msg->addU8(ignoreCapacity ? 0x01 : 0x00);
     msg->addU8(buyWithBackpack ? 0x01 : 0x00);
     send(msg);
@@ -402,11 +393,8 @@ void ProtocolGame::sendSellItem(int itemId, int subType, int amount, bool ignore
     OutputMessagePtr msg(new OutputMessage);
     msg->addU8(Proto::ClientSellItem);
     msg->addU16(itemId);
-    msg->addU8(subType);
-    if(g_game.getFeature(Otc::GameDoubleShopSellAmount))
-        msg->addU16(amount);
-    else
-        msg->addU8(amount);
+    msg->addU16(subType);
+    msg->addU16(amount);
     msg->addU8(ignoreEquipped ? 0x01 : 0x00);
     send(msg);
 }
@@ -988,7 +976,7 @@ void ProtocolGame::sendRequestItemInfo(int itemId, int subType, int index)
 {
     OutputMessagePtr msg(new OutputMessage);
     msg->addU8(Proto::ClientRequestItemInfo);
-    msg->addU8(subType);
+    msg->addU16(subType);
     msg->addU16(itemId);
     msg->addU8(index);
     send(msg);

@@ -1,13 +1,13 @@
 MainWindow
   id: vocationRanksWindow
   !text: tr('Vocation Ranks')
-  size: 520 400
+  size: 550 420
   @onEscape: modules.game_vocation_ranks.destroyWindow()
   anchors.centerIn: parent
 
   Panel
     id: leftPanel
-    width: 160
+    width: 220
     anchors.top: parent.top
     anchors.left: parent.left
     anchors.bottom: closeBtn.top
@@ -17,84 +17,39 @@ MainWindow
 
     UIWidget
       id: vocImage
-      width: 96
-      height: 96
-      image-source: /images/vocations/not_found.png
+      size: 192 192
       anchors.top: parent.top
       anchors.horizontalCenter: parent.horizontalCenter
       margin-top: 8
+      image-smooth: true
 
     Label
       id: nameLabel
-      text: Player Name
+      text-auto-resize: true
       text-align: center
       color: #ffffff
       font: verdana-11px-rounded
       anchors.top: prev.bottom
-      anchors.left: parent.left
-      anchors.right: parent.right
+      anchors.horizontalCenter: parent.horizontalCenter
       margin-top: 10
 
     Label
       id: vocNameLabel
-      text: Vocation
+      text-auto-resize: true
       text-align: center
-      color: #aaaaaa
+      color: #dfdfdf
       font: verdana-11px-rounded
       anchors.top: prev.bottom
-      anchors.left: parent.left
-      anchors.right: parent.right
+      anchors.horizontalCenter: parent.horizontalCenter
       margin-top: 4
 
     Panel
       id: currentStarsPanel
       height: 24
       anchors.top: prev.bottom
-      anchors.left: parent.left
-      anchors.right: parent.right
+      anchors.horizontalCenter: parent.horizontalCenter
       margin-top: 10
-      margin-left: 8
-      margin-right: 8
-
-      UIWidget
-        id: star1
-        width: 16
-        height: 16
-        image-source: /images/ranks/empty_star.png
-        anchors.left: parent.left
-        margin-left: 8
-
-      UIWidget
-        id: star2
-        width: 16
-        height: 16
-        image-source: /images/ranks/empty_star.png
-        anchors.left: prev.right
-        margin-left: 4
-
-      UIWidget
-        id: star3
-        width: 16
-        height: 16
-        image-source: /images/ranks/empty_star.png
-        anchors.left: prev.right
-        margin-left: 4
-
-      UIWidget
-        id: star4
-        width: 16
-        height: 16
-        image-source: /images/ranks/empty_star.png
-        anchors.left: prev.right
-        margin-left: 4
-
-      UIWidget
-        id: star5
-        width: 16
-        height: 16
-        image-source: /images/ranks/empty_star.png
-        anchors.left: prev.right
-        margin-left: 4
+      width: 100
 
   VerticalSeparator
     id: vSep
@@ -111,13 +66,13 @@ MainWindow
     anchors.right: parent.right
     anchors.bottom: closeBtn.top
     margin-top: 8
-    margin-left: 8
-    margin-right: 8
+    margin-left: 12
+    margin-right: 12
     margin-bottom: 8
 
     Label
       id: rankLabel
-      text: Rank: Loading...
+      text: Current Rank: Loading...
       text-align: center
       color: #ffd700
       font: verdana-11px-rounded
@@ -128,7 +83,7 @@ MainWindow
 
     Label
       id: nextRankLabel
-      text: Next: Bronze 0/5
+      text: Next Progress: Loading...
       text-align: center
       color: #cd7f32
       font: verdana-11px-rounded
@@ -141,7 +96,7 @@ MainWindow
       anchors.top: prev.bottom
       anchors.left: parent.left
       anchors.right: parent.right
-      margin-top: 8
+      margin-top: 10
 
     Label
       id: bonusTitleLabel
@@ -152,25 +107,26 @@ MainWindow
       anchors.top: prev.bottom
       anchors.left: parent.left
       anchors.right: parent.right
-      margin-top: 8
+      margin-top: 10
 
     Label
       id: bonusValueLabel
       text: (loading...)
+      text-auto-resize: true
       text-align: left
       color: #dddddd
       font: verdana-11px-rounded
       anchors.top: prev.bottom
       anchors.left: parent.left
       anchors.right: parent.right
-      margin-top: 2
-      margin-left: 4
+      margin-top: 4
+      margin-left: 8
 
     HorizontalSeparator
       anchors.top: prev.bottom
       anchors.left: parent.left
       anchors.right: parent.right
-      margin-top: 8
+      margin-top: 10
 
     Label
       id: fragTitleLabel
@@ -181,31 +137,31 @@ MainWindow
       anchors.top: prev.bottom
       anchors.left: parent.left
       anchors.right: parent.right
-      margin-top: 8
+      margin-top: 10
 
     Label
       id: fragUnivLabel
-      text: Universal:  0  (need 0)
+      text: Universal: 0 / 0
       text-align: left
       color: #ff5555
       font: verdana-11px-rounded
       anchors.top: prev.bottom
       anchors.left: parent.left
       anchors.right: parent.right
-      margin-top: 3
-      margin-left: 4
+      margin-top: 5
+      margin-left: 8
 
     Label
       id: fragSpecLabel
-      text: Specific:   0  (need 0)
+      text: Specific: 0 / 0
       text-align: left
       color: #ff5555
       font: verdana-11px-rounded
       anchors.top: prev.bottom
       anchors.left: parent.left
       anchors.right: parent.right
-      margin-top: 2
-      margin-left: 4
+      margin-top: 4
+      margin-left: 8
 
     Button
       id: upgradeBtn
@@ -213,7 +169,8 @@ MainWindow
       anchors.bottom: statusLabel.top
       anchors.left: parent.left
       anchors.right: parent.right
-      margin-bottom: 4
+      margin-bottom: 6
+      height: 24
       @onClick: modules.game_vocation_ranks.onUpgrade()
 
     Label
@@ -230,8 +187,9 @@ MainWindow
   Button
     id: closeBtn
     !text: tr('Close')
-    width: 80
+    width: 100
     anchors.bottom: parent.bottom
     anchors.horizontalCenter: parent.horizontalCenter
-    margin-bottom: 6
+    margin-bottom: 8
     @onClick: modules.game_vocation_ranks.destroyWindow()
+

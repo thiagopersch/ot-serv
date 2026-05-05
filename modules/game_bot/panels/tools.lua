@@ -22,7 +22,7 @@ Panels.AutoStackItems = function(parent)
     for i, container in pairs(containers) do
       local toStack = {}
       for j, item in ipairs(container:getItems()) do
-        if item:isStackable() and item:getCount() ~= 100 then
+         if item:isStackable() and item:getCount() ~= 10000 then
           local otherItem = toStack[item:getId()]
           if otherItem then
             g_game.move(item, otherItem, item:getCount())

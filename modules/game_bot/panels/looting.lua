@@ -371,7 +371,7 @@ Panel
           for j, item in ipairs(container:getItems()) do
             if item:getId() == foundItem:getId() then
               if foundItem:isStackable() then
-                if item:getCount() ~= 100  then
+                 if item:getCount() ~= 10000  then
                   g_game.move(foundItem, container:getSlotPosition(j - 1), foundItem:getCount())
                   return
                 end

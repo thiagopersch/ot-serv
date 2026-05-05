@@ -27,8 +27,10 @@
 #include <framework/graphics/fontmanager.h>
 #include <framework/core/timer.h>
 #include <framework/graphics/cachedtext.h>
+#include <string>
 
-// @bindclass
+std::string formatNumberWithK(int value);
+
 class AnimatedText : public Thing
 {
 public:

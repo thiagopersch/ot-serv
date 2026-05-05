@@ -278,7 +278,7 @@ MainWindow
     text-offset: 0 2
     color: orange
     font: verdana-11px-rounded
-    size: 160 145
+    size: 160 200
     background-color: #0000007f
     border-width: 1
     border-color: black
@@ -336,6 +336,31 @@ MainWindow
       font: verdana-11px-rounded
       anchors.top: prev.bottom
       anchors.horizontalCenter: prev.horizontalCenter
+
+    Panel
+      id: skillDivider
+      height: 1
+      background-color: #ffffff33
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin: 5 10 0 10
+
+    Label
+      id: dodgeLabel
+      text-auto-resize: true
+      font: verdana-11px-rounded
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 5
+
+    Label
+      id: critLabel
+      text-auto-resize: true
+      font: verdana-11px-rounded
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 2
 
   Button
     id: closeButton

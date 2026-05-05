@@ -54,10 +54,10 @@ CaveBot.Extensions.BuySupplies.setup = function()
         local current = player:getItemsCount(id)
         local toBuy = max - current
 
-        if toBuy > 0 then
-          toBuy = math.min(100, toBuy)
+         if toBuy > 0 then
+           toBuy = math.min(10000, toBuy)
 
-          NPC.buy(id, math.min(100, toBuy))
+           NPC.buy(id, math.min(10000, toBuy))
           print("CaveBot[BuySupplies]: bought " .. toBuy .. "x " .. id)
           return "retry"
         end

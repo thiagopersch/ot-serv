@@ -1372,7 +1372,7 @@ void ProtocolGame::parseOpenNpcTrade(const InputMessagePtr& msg)
 
     for (int i = 0; i < listCount; ++i) {
         uint16 itemId = msg->getU16();
-        uint8 count = msg->getU8();
+        uint16 count = msg->getU16();
 
         ItemPtr item = Item::create(itemId);
         item->setCountOrSubType(count);
@@ -1402,10 +1402,8 @@ void ProtocolGame::parsePlayerGoods(const InputMessagePtr& msg)
         int itemId = msg->getU16();
         int amount;
 
-        if (g_game.getFeature(Otc::GameDoubleShopSellAmount))
-            amount = msg->getU16();
-        else
-            amount = msg->getU8();
+        // Usar sempre U16 agora que o servidor suporta 10k
+        amount = msg->getU16();
 
         goods.push_back(std::make_tuple(Item::create(itemId), amount));
     }
@@ -2321,7 +2319,7 @@ void ProtocolGame::parseTextMessage(const InputMessagePtr& msg)
                 continue;
             AnimatedTextPtr animatedText = AnimatedTextPtr(new AnimatedText);
             animatedText->setColor(color[i]);
-            animatedText->setText(stdext::to_string(value[i]));
+            animatedText->setText(formatNumberWithK(value[i]));
             if (font.size())
                 animatedText->setFont(font);
 
@@ -2344,7 +2342,7 @@ void ProtocolGame::parseTextMessage(const InputMessagePtr& msg)
 
         AnimatedTextPtr animatedText = AnimatedTextPtr(new AnimatedText);
         animatedText->setColor(color);
-        animatedText->setText(stdext::to_string(value));
+        animatedText->setText(formatNumberWithK(value));
         if(font.size())
             animatedText->setFont(font);
         g_map.addThing(animatedText, pos);
@@ -2745,7 +2743,7 @@ void ProtocolGame::parseItemInfo(const InputMessagePtr& msg)
     for (int i = 0; i < size; ++i) {
         ItemPtr item(new Item);
         item->setId(msg->getU16());
-        item->setCountOrSubType(g_game.getFeature(Otc::GameCountU16) ? msg->getU16() : msg->getU8());
+        item->setCountOrSubType(msg->getU16());
 
         std::string desc = msg->getString();
         list.push_back(std::make_tuple(item, desc));
@@ -2759,7 +2757,7 @@ void ProtocolGame::parsePlayerInventory(const InputMessagePtr& msg)
     int size = msg->getU16();
     for (int i = 0; i < size; ++i) {
         msg->getU16(); // id
-        msg->getU8(); // subtype
+        msg->getU16(); // subtype (agora 2 bytes para suportar 10k)
         msg->getU16(); // count
     }
 }
@@ -3036,7 +3034,7 @@ void ProtocolGame::parseKillTracker(const InputMessagePtr& msg)
     msg->getU8();
     msg->getU8();
     msg->getU8();
-    int corpseSize = msg->getU8(); // corpse size
+    int corpseSize = msg->getU16(); // corpse size (agora suporta 10k)
     for (int i = 0; i < corpseSize; i++) {
         getItem(msg); // corpse item
     }
@@ -3598,7 +3596,7 @@ ItemPtr ProtocolGame::getItem(const InputMessagePtr& msg, int id, bool hasDescri
     }
 
     if (item->isStackable() || item->isChargeable()) {
-        item->setCountOrSubType(g_game.getFeature(Otc::GameCountU16) ? msg->getU16() : msg->getU8());
+        item->setCountOrSubType(msg->getU16());
     }
     else if (item->isFluidContainer() || item->isSplash()) {
         item->setCountOrSubType(msg->getU8());
@@ -3663,7 +3661,7 @@ void ProtocolGame::parseItemInfoCustom(const InputMessagePtr& msg)
 {
     // Custom opcode 186 for item info (universal fragment)
     uint16 itemId = msg->getU16();
-    uint8 countOrSubType = msg->getU8();
+    uint16 countOrSubType = msg->getU16();
     std::string name = msg->getString();
     std::string description = msg->getString();
     double weight = msg->getDouble();

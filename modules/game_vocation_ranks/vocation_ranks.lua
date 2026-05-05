@@ -1,374 +1,177 @@
 -- Vocation Ranks Client Module
 local window = nil
 local topButton = nil
-local confirmWindow = nil
 local choiceWindow = nil
-local localData = {}
-local requestTimer = nil
+local cachedRankData = nil
 
 VOCATION_RANK_OPCODE = 235
 
 local RANK_NAMES = { [0] = "None", [1] = "Bronze", [2] = "Silver", [3] = "Gold", [4] = "Diamond" }
-local RANK_COLORS = {
-  [0] = "#aaaaaa",
-  [1] = "#cd7f32",
-  [2] = "#c0c0c0",
-  [3] = "#ffd700",
-  [4] = "#b9f2ff",
+local RANK_COLORS = { [0] = "#aaaaaa", [1] = "#cd7f32", [2] = "#c0c0c0", [3] = "#ffd700", [4] = "#b9f2ff" }
+local RANK_STAR_IMAGES = {
+  [1] = "bronze_star.png",
+  [2] = "silver_star.png",
+  [3] = "gold_star.png",
+  [4] = "diamond_star.png"
 }
 
 function init()
+  connect(g_game, {
+    onGameStart = onGameStart,
+    onGameEnd = onGameEnd
+  })
   ProtocolGame.registerExtendedOpcode(VOCATION_RANK_OPCODE, onOpcode)
-  topButton = modules.client_topmenu.addRightGameToggleButton(
-    "vocationRanksBtn",
-    tr("Vocation Ranks"),
-    "/images/topbuttons/skills",
-    toggleWindow
-  )
+  topButton = modules.client_topmenu.addRightGameToggleButton("vocationRanksBtn", tr("Vocation Ranks"),
+    "/images/topbuttons/skills", toggleWindow)
 end
 
 function terminate()
-  destroyWindow()
-  if topButton then
-    topButton:destroy()
-    topButton = nil
-  end
+  disconnect(g_game, {
+    onGameStart = onGameStart,
+    onGameEnd = onGameEnd
+  })
   ProtocolGame.unregisterExtendedOpcode(VOCATION_RANK_OPCODE)
+  destroyWindow()
+  if topButton then topButton:destroy() end
+end
+
+function onGameStart()
+  -- Request fresh data on start with a small delay to ensure player is ready
+  scheduleEvent(sendRequest, 100)
+end
+
+function onGameEnd()
+  cachedRankData = nil
+  if window then
+    destroyWindow()
+  end
 end
 
 function onOpcode(protocol, opcode, buffer)
+  if opcode ~= VOCATION_RANK_OPCODE then return end
   local t = string.split(buffer, "|")
-  local action = t[1]
 
-  if action == "1" then
-    local bonusCount = tonumber(t[11]) or 0
-    local bonuses = {}
-
-    for i = 1, bonusCount do
-      local kv = t[11 + i] or ""
-      local sep = string.find(kv, ":")
-      if sep then
-        local key = string.sub(kv, 1, sep - 1)
-        local val = tonumber(string.sub(kv, sep + 1)) or 0
-        bonuses[key] = val
-      end
-    end
-
-    local nameIdx = 12 + bonusCount
-    local vocIdx = 13 + bonusCount
-
-    localData = {
-      vocationId = tonumber(t[2]) or 0,
-      rank = tonumber(t[3]) or 0,
-      stars = tonumber(t[4]) or 0,
-      totalStars = tonumber(t[5]) or 0,
-      univFrag = tonumber(t[6]) or 0,
-      specFrag = tonumber(t[7]) or 0,
-      cost = tonumber(t[8]) or 9999,
-      maxRank = tonumber(t[9]) or 0,
-      specItemId = tonumber(t[10]) or 0,
-      bonuses = bonuses,
-      playerName = t[nameIdx] or "Unknown",
-      vocationName = t[vocIdx] or "Unknown",
-    }
-
-    if window then refreshUI() end
-
-  elseif action == "2" then
-    local creatureId = tonumber(t[2])
-    local pRank = tonumber(t[3])
-    local pStars = tonumber(t[4])
-    local creature = g_map.getCreatureById(creatureId)
+  -- Protocol 3: Update overhead stars for any creature
+  if t[1] == "3" then
+    local cid = tonumber(t[2])
+    local rank = tonumber(t[3])
+    local stars = tonumber(t[4])
+    local creature = g_map.getCreatureById(cid)
     if creature then
-      if pRank > 0 then
-        local rankName = RANK_NAMES[pRank] or "None"
-        local starsStr = string.rep("*", pStars)
-        creature:setName(creature:getName() .. " [" .. rankName .. " " .. starsStr .. "]")
-      end
+      creature:setVocationStars(rank, stars)
     end
-
-  elseif action == "ok" then
-    displayInfoBox(tr("Success"), t[2] or "Upgrade successful!")
-    sendRequest()
-  elseif action == "err" then
-    displayErrorBox(tr("Upgrade Failed"), t[2] or "Upgrade failed.")
-  end
-end
-
-function refreshUI()
-  if not window then return end
-
-  local rank = localData.rank or 0
-  local stars = localData.stars or 0
-  local maxRank = localData.maxRank or 0
-  local maxStars = 5
-
-  local vocImage = window:getChildById("vocImage")
-  if vocImage then
-    local vocLower = (localData.vocationName or "unknown"):lower():gsub(" ", "_")
-    local path = "/images/vocations/" .. vocLower .. ".png"
-    if g_resources.fileExists(path) then
-      vocImage:setImageSource(path)
-    else
-      vocImage:setImageSource("/images/vocations/not_found.png")
-    end
+    return
   end
 
-  local nameLabel = window:getChildById("nameLabel")
-  if nameLabel then nameLabel:setText(localData.playerName or "") end
+  if t[1] ~= "2" then return end
 
-  local vocNameLabel = window:getChildById("vocNameLabel")
-  if vocNameLabel then vocNameLabel:setText(localData.vocationName or "") end
-
-  for i = 1, 5 do
-    local starWidget = window:getChildById("star" .. i)
-    if starWidget then
-      if i <= stars and rank > 0 then
-        local rankName = string.lower(RANK_NAMES[rank] or "bronze")
-        local rankImage = "/images/ranks/" .. rankName .. "_star.png"
-        if g_resources.fileExists(rankImage) then
-          starWidget:setImageSource(rankImage)
-        else
-          starWidget:setImageSource("/images/ranks/empty_star.png")
-        end
-      else
-        starWidget:setImageSource("/images/ranks/empty_star.png")
-      end
-      starWidget:setVisible(true)
-    end
-  end
-
-  local rankLabel = window:getChildById("rankLabel")
-  if rankLabel then
-    if rank == 0 then
-      rankLabel:setText("Rank: None  (0/" .. maxStars .. ")")
-    else
-      rankLabel:setText("Rank: " .. RANK_NAMES[rank] .. "  " .. stars .. "/" .. maxStars)
-    end
-    rankLabel:setColor(RANK_COLORS[rank] or "#aaaaaa")
-  end
-
-  local nextRankLabel = window:getChildById("nextRankLabel")
-  if nextRankLabel then
-    if rank < maxRank and rank > 0 then
-      local nextRank = rank + 1
-      nextRankLabel:setText("Next: " .. RANK_NAMES[nextRank] .. "  0/" .. maxStars)
-      nextRankLabel:setColor(RANK_COLORS[nextRank] or "#aaaaaa")
-      nextRankLabel:setVisible(true)
-    elseif rank == 0 and maxRank > 0 then
-      nextRankLabel:setText("Next: Bronze  0/" .. maxStars)
-      nextRankLabel:setColor(RANK_COLORS[1] or "#cd7f32")
-      nextRankLabel:setVisible(true)
-    else
-      nextRankLabel:setText("MAX RANK REACHED!")
-      nextRankLabel:setColor("#ffd700")
-      nextRankLabel:setVisible(true)
-    end
-  end
-
-  local labelMap = {
-    attack = "Attack",
-    defense = "Defense",
-    health = "HP",
-    mana = "Mana",
-    magic = "Magic Lvl",
-    distance = "Distance",
-    shield = "Shielding",
+  -- Protocol 2: Update local player full rank data
+  cachedRankData = {
+    rankLvl    = tonumber(t[2]) or 0,
+    stars      = tonumber(t[3]) or 0,
+    totalStars = tonumber(t[4]) or 0,
+    univCount  = t[5] or "0",
+    univNeed   = t[6] or "0",
+    specCount  = t[7] or "0",
+    specNeed   = t[8] or "0",
+    bHp        = t[9] or "0",
+    bMana      = t[10] or "0",
+    bMelee     = t[11] or "0",
+    bShield    = t[12] or "0",
+    bMagic     = t[13] or "0",
+    vocName    = t[14] or "None"
   }
 
-  local bonusTitleLabel = window:getChildById("bonusTitleLabel")
-  if bonusTitleLabel then bonusTitleLabel:setText("Bonus Per Star:") end
+  if window then
+    updateWindowData()
+  end
 
-  local bonusValueLabel = window:getChildById("bonusValueLabel")
-  if bonusValueLabel then
-    local entries = {}
-    for key, val in pairs(localData.bonuses or {}) do
-      entries[#entries + 1] = "+" .. val .. " " .. (labelMap[key] or key)
-    end
-    if #entries == 0 then
-      bonusValueLabel:setText("(not configured for this vocation)")
-    else
-      bonusValueLabel:setText(table.concat(entries, "   "))
+  local function applyToLocal()
+    local player = g_game.getLocalPlayer()
+    if player then
+      player:setVocationStars(cachedRankData.rankLvl, cachedRankData.stars)
     end
   end
 
-  local univFrag = localData.univFrag or 0
-  local specFrag = localData.specFrag or 0
-  local cost = localData.cost or 9999
+  applyToLocal()
+  -- Retry after 500ms and 2000ms to ensure it sticks (map loading etc)
+  scheduleEvent(applyToLocal, 500)
+  scheduleEvent(applyToLocal, 2000)
 
-  local fragTitleLabel = window:getChildById("fragTitleLabel")
-  if fragTitleLabel then fragTitleLabel:setText("Fragments in Bag:") end
-
-  local fragUnivLabel = window:getChildById("fragUnivLabel")
-  if fragUnivLabel then
-    fragUnivLabel:setText("Universal:  " .. univFrag .. "  (need " .. cost .. ")")
-    fragUnivLabel:setColor(univFrag >= cost and "#55ff55" or "#ff5555")
-  end
-
-  local fragSpecLabel = window:getChildById("fragSpecLabel")
-  if fragSpecLabel then
-    fragSpecLabel:setText("Specific:   " .. specFrag .. "  (need " .. cost .. ")")
-    fragSpecLabel:setColor(specFrag >= cost and "#55ff55" or "#ff5555")
-  end
-
-  local statusLabel = window:getChildById("statusLabel")
-  if statusLabel then
-    local atMax = (maxRank > 0 and rank >= maxRank and stars >= maxStars)
-    if atMax then
-      statusLabel:setText("MAX RANK REACHED!")
-      statusLabel:setColor("#ffd700")
-    elseif univFrag >= cost or specFrag >= cost then
-      statusLabel:setText("Ready to Upgrade!")
-      statusLabel:setColor("#55ff55")
-    else
-      statusLabel:setText("Insufficient Fragments!")
-      statusLabel:setColor("#ff5555")
-    end
-  end
+  updateRankStarInterface(cachedRankData.rankLvl)
 end
 
-function sendRequest()
-  local protocol = g_game.getProtocolGame()
-  if protocol then
-    protocol:sendExtendedOpcode(VOCATION_RANK_OPCODE, "request")
-  end
-end
+function updateWindowData()
+  if not window or not cachedRankData then return end
+  local left = window:getChildById('leftPanel')
+  local right = window:getChildById('rightPanel')
 
-function onUpgrade()
-  if not localData.vocationId or localData.vocationId == 0 then
-    sendRequest()
-    displayErrorBox(tr("Please Wait"), tr("Loading vocation data, please try again in a moment."))
-    return
+  -- Local Player Data
+  local player = g_game.getLocalPlayer()
+  if player then
+    left:getChildById('nameLabel'):setText(player:getName())
   end
 
-  local univFrag = localData.univFrag or 0
-  local specFrag = localData.specFrag or 0
-  local cost = localData.cost or 9999
-  local rank = localData.rank or 0
-  local maxRank = localData.maxRank or 0
-  local stars = localData.stars or 0
+  left:getChildById('vocNameLabel'):setText(cachedRankData.vocName)
+  local formattedVocName = string.gsub(string.lower(cachedRankData.vocName), " ", "_")
+  local vocationImageSrc = '/images/vocations/' .. formattedVocName .. '.png'
+  if not g_resources.fileExists(vocationImageSrc) then
+    vocationImageSrc = '/images/vocations/not_found.png'
+  end
+  left:getChildById('vocImage'):setImageSource(vocationImageSrc)
 
-  if maxRank > 0 and rank >= maxRank and stars >= 5 then
-    displayErrorBox(tr("Max Rank"), tr("You have already reached the maximum rank for your vocation!"))
-    return
+  -- Update Stars Panel
+  local starsPanel = left:getChildById('currentStarsPanel')
+  starsPanel:destroyChildren()
+  local starImg = RANK_STAR_IMAGES[cachedRankData.rankLvl] or "bronze_star.png"
+  for i = 1, 5 do
+    local s = g_ui.createWidget('UIWidget', starsPanel)
+    s:setImageSource('/images/ranks/' .. starImg)
+    s:setImageColor(i <= cachedRankData.stars and '#ffffff' or '#444444')
+    s:setMarginLeft(i == 1 and 0 or 4)
+    s:setSize({ width = 16, height = 16 })
+    s:addAnchor(AnchorLeft, i == 1 and 'parent' or 'prev', i == 1 and AnchorLeft or AnchorRight)
+    s:addAnchor(AnchorTop, 'parent', AnchorTop)
+  end
+  starsPanel:updateLayout()
+
+  -- Right Panel (Texts and Costs)
+  right:getChildById('statusLabel'):setText('')
+  right:getChildById('rankLabel'):setText('Current Rank: ' .. RANK_NAMES[cachedRankData.rankLvl])
+  right:getChildById('rankLabel'):setColor(RANK_COLORS[cachedRankData.rankLvl])
+
+  -- Next Rank Progress
+  local nextStars = cachedRankData.stars + 1
+  local nextRankName = RANK_NAMES[cachedRankData.rankLvl]
+  if nextStars > 5 then
+    nextStars = 0
+    nextRankName = RANK_NAMES[cachedRankData.rankLvl + 1] or nextRankName
   end
 
-  local canUniv = univFrag >= cost
-  local canSpec = specFrag >= cost
-
-  if not canUniv and not canSpec then
-    displayErrorBox(
-      tr("Insufficient Fragments"),
-      "You need " .. cost .. " fragments to upgrade.\n\n" ..
-      "Universal:  " .. univFrag .. "  (missing " .. math.max(0, cost - univFrag) .. ")\n" ..
-      "Specific:   " .. specFrag .. "  (missing " .. math.max(0, cost - specFrag) .. ")"
-    )
-    return
+  local progressText = string.format("Next: %s (%d/5 stars)", nextRankName, nextStars)
+  if cachedRankData.rankLvl == 4 and cachedRankData.stars == 5 then
+    progressText = "Maximum Rank Reached"
   end
+  right:getChildById('nextRankLabel'):setText(progressText)
 
-  if choiceWindow then
-    choiceWindow:destroy()
-    choiceWindow = nil
-  end
-  if confirmWindow then
-    confirmWindow:destroy()
-    confirmWindow = nil
-  end
+  -- Fragment Counts
+  local univNeed = tonumber(cachedRankData.univNeed) or 0
+  local specNeed = tonumber(cachedRankData.specNeed) or 0
+  local univCount = tonumber(cachedRankData.univCount) or 0
+  local specCount = tonumber(cachedRankData.specCount) or 0
 
-  if canUniv and canSpec then
-    local vocName = localData.vocationName or "Vocation"
-    choiceWindow = displayGeneralBox(
-      tr("Choose Fragment Type"),
-      "You have enough of both fragment types.\n" ..
-      "Which would you like to spend? (need " .. cost .. ")\n\n" ..
-      "Universal:  " .. univFrag .. "\n" ..
-      "Specific (" .. vocName .. "):  " .. specFrag,
-      {
-        {
-          text = tr("Universal"),
-          callback = function()
-            if choiceWindow then
-              choiceWindow:destroy()
-              choiceWindow = nil
-            end
-            askConfirmUpgrade("universal")
-          end
-        },
-        {
-          text = tr("Specific"),
-          callback = function()
-            if choiceWindow then
-              choiceWindow:destroy()
-              choiceWindow = nil
-            end
-            askConfirmUpgrade("specific")
-          end
-        },
-        {
-          text = tr("Cancel"),
-          callback = function()
-            if choiceWindow then
-              choiceWindow:destroy()
-              choiceWindow = nil
-            end
-          end
-        },
-        anchor = AnchorHorizontalCenter
-      }
-    )
-  elseif canUniv then
-    askConfirmUpgrade("universal")
-  else
-    askConfirmUpgrade("specific")
-  end
-end
+  local univColor = univCount >= univNeed and '#00ff00' or '#ff5555'
+  local specColor = specCount >= specNeed and '#00ff00' or '#ff5555'
 
-function askConfirmUpgrade(source)
-  local cost = localData.cost or 9999
-  local vocName = localData.vocationName or "Vocation"
-  local srcText = (source == "universal") and "Universal" or ("Specific (" .. vocName .. ")")
-  local rankName = RANK_NAMES[localData.rank or 0] or "None"
-  local stars = localData.stars or 0
+  right:getChildById('fragUnivLabel'):setText(string.format('Universal Fragments: %d / %d', univCount, univNeed))
+  right:getChildById('fragUnivLabel'):setColor(univColor)
 
-  confirmWindow = displayGeneralBox(
-    tr("Confirm Upgrade"),
-    "Spend " .. cost .. " " .. srcText .. " fragments to gain 1 star?\n\n" ..
-    "Current: " .. rankName .. "  " .. stars .. "/5\n" ..
-    "This cannot be undone.",
-    {
-      {
-        text = tr("Confirm"),
-        callback = function()
-          if confirmWindow then
-            confirmWindow:destroy()
-            confirmWindow = nil
-          end
-          sendUpgrade(source)
-        end
-      },
-      {
-        text = tr("Cancel"),
-        callback = function()
-          if confirmWindow then
-            confirmWindow:destroy()
-            confirmWindow = nil
-          end
-        end
-      },
-      anchor = AnchorHorizontalCenter
-    }
-  )
-end
+  right:getChildById('fragSpecLabel'):setText(string.format('Specific Fragments: %d / %d', specCount, specNeed))
+  right:getChildById('fragSpecLabel'):setColor(specColor)
 
-function sendUpgrade(source)
-  local protocol = g_game.getProtocolGame()
-  if protocol then
-    protocol:sendExtendedOpcode(VOCATION_RANK_OPCODE, "upgrade|" .. source)
-  end
-end
-
-function open()
-  if not window then toggleWindow() end
+  local bonusText = string.format("HP: +%s\nMana: +%s\nAtk: +%s\nDef: +%s\nMag: +%s",
+    cachedRankData.bHp, cachedRankData.bMana, cachedRankData.bMelee, cachedRankData.bShield, cachedRankData.bMagic)
+  right:getChildById('bonusValueLabel'):setText(bonusText)
 end
 
 function toggleWindow()
@@ -376,29 +179,95 @@ function toggleWindow()
     destroyWindow()
     return
   end
-
   window = g_ui.loadUI("vocation_ranks", modules.game_interface.getRootPanel())
   if topButton then topButton:setOn(true) end
 
-  scheduleEvent(function()
-    sendRequest()
-  end, 100)
+  if cachedRankData then
+    updateWindowData()
+  end
 
-  scheduleEvent(function()
-    if window then
-      sendRequest()
-    end
-  end, 600)
+  sendRequest()
+end
+
+function sendRequest()
+  local p = g_game.getProtocolGame()
+  if p then
+    p:sendExtendedOpcode(VOCATION_RANK_OPCODE, "request")
+  end
+end
+
+function sendUpgrade(source)
+  local p = g_game.getProtocolGame()
+  if p then
+    p:sendExtendedOpcode(VOCATION_RANK_OPCODE, "upgrade|" .. source)
+  end
+end
+
+function onUpgrade()
+  if not cachedRankData then return end
+
+  local univCount = tonumber(cachedRankData.univCount) or 0
+  local univNeed = tonumber(cachedRankData.univNeed) or 0
+  local specCount = tonumber(cachedRankData.specCount) or 0
+  local specNeed = tonumber(cachedRankData.specNeed) or 0
+
+  if univCount >= univNeed and specCount >= specNeed then
+    choiceWindow = displayGeneralBox(tr("Upgrade"), tr("You have both types of fragments. Which one do you want to use?"),
+      {
+        {
+          text = tr("Universal"),
+          callback = function()
+            sendUpgrade("universal")
+            choiceWindow:destroy()
+          end
+        },
+        {
+          text = tr("Specific"),
+          callback = function()
+            sendUpgrade("specific")
+            choiceWindow:destroy()
+          end
+        },
+        { text = tr("Cancel"), callback = function() choiceWindow:destroy() end }
+      })
+  elseif univCount >= univNeed then
+    sendUpgrade("universal")
+  elseif specCount >= specNeed then
+    sendUpgrade("specific")
+  else
+    displayInfoBox(tr("Error"), tr("You do not have enough fragments to perform the upgrade."))
+  end
+end
+
+function sendUpgrade(source)
+  local p = g_game.getProtocolGame()
+  if p then p:sendExtendedOpcode(VOCATION_RANK_OPCODE, "upgrade|" .. source) end
+end
+
+function updateRankStarInterface(rankLvl)
+  local rootPanel = modules.game_interface.getRootPanel()
+  if not rootPanel then return end
+
+  -- Usa recursiveGetChildById para achar a estrela se estiver dentro do painel de Vida/Mana
+  local starWidget = rootPanel:recursiveGetChildById('rankStarWidget')
+  if not starWidget then return end
+
+  if rankLvl > 0 then
+    starWidget:setImageSource('/images/ranks/' .. RANK_STAR_IMAGES[rankLvl])
+    starWidget:show()
+  else
+    starWidget:hide() -- Sem rank, sem estrela na tela
+  end
+end
+
+function open()
+  if not window then toggleWindow() end
 end
 
 function destroyWindow()
   if window then
     window:destroy()
     window = nil
-  end
-  if confirmWindow then
-    confirmWindow:destroy()
-    confirmWindow = nil
   end
   if choiceWindow then
     choiceWindow:destroy()
@@ -407,7 +276,8 @@ function destroyWindow()
   if topButton then topButton:setOn(false) end
 end
 
+-- Exportando as funções para o game_interface reconhecer
 modules.game_vocation_ranks.onUpgrade = onUpgrade
 modules.game_vocation_ranks.destroyWindow = destroyWindow
-modules.game_vocation_ranks.open = open
 modules.game_vocation_ranks.toggleWindow = toggleWindow
+modules.game_vocation_ranks.open = open

@@ -4,6 +4,7 @@ local defaultOptions = {
   showFps = true,
   showPing = true,
   fullscreen = false,
+  useKFormatForNumbers = true,
   classicView = not g_app.isMobile(),
   cacheMap = g_app.isMobile(),
   classicControl = not g_app.isMobile(),
@@ -42,7 +43,7 @@ local defaultOptions = {
   dontStretchShrink = false,
   turnDelay = 30,
   hotkeyDelay = 30,
-    
+
   wsadWalking = false,
   walkFirstStepDelay = 200,
   walkTurnDelay = 100,
@@ -65,7 +66,7 @@ local defaultOptions = {
   actionbarLock = false,
 
   profile = 1,
-  
+
   antialiasing = true
 }
 
@@ -84,12 +85,12 @@ local extrasPanel
 local audioButton
 
 function init()
-  for k,v in pairs(defaultOptions) do
+  for k, v in pairs(defaultOptions) do
     g_settings.setDefault(k, v)
     options[k] = v
   end
   for _, v in ipairs(g_extras.getAll()) do
-	  extraOptions[v] = g_extras.get(v)
+    extraOptions[v] = g_extras.get(v)
     g_settings.setDefault("extras_" .. v, extraOptions[v])
   end
 
@@ -104,9 +105,9 @@ function init()
 
   generalPanel = g_ui.loadUI('game')
   optionsTabBar:addTab(tr('Game'), generalPanel, '/images/optionstab/game')
-  
+
   interfacePanel = g_ui.loadUI('interface')
-  optionsTabBar:addTab(tr('Interface'), interfacePanel, '/images/optionstab/game')  
+  optionsTabBar:addTab(tr('Interface'), interfacePanel, '/images/optionstab/game')
 
   consolePanel = g_ui.loadUI('console')
   optionsTabBar:addTab(tr('Console'), consolePanel, '/images/optionstab/console')
@@ -132,21 +133,27 @@ function init()
   customPanel = g_ui.loadUI('custom')
   optionsTabBar:addTab(tr('Custom'), customPanel, '/images/optionstab/features')
 
-  optionsButton = modules.client_topmenu.addLeftButton('optionsButton', tr('Options'), '/images/topbuttons/options', toggle)
-  audioButton = modules.client_topmenu.addLeftButton('audioButton', tr('Audio'), '/images/topbuttons/audio', function() toggleOption('enableAudio') end)
+  optionsButton = modules.client_topmenu.addLeftButton('optionsButton', tr('Options'), '/images/topbuttons/options',
+    toggle)
+  audioButton = modules.client_topmenu.addLeftButton('audioButton', tr('Audio'), '/images/topbuttons/audio',
+    function() toggleOption('enableAudio') end)
   if g_app.isMobile() then
     audioButton:hide()
   end
-  
+
   addEvent(function() setup() end)
-  
-  connect(g_game, { onGameStart = online,
-                     onGameEnd = offline })                    
+
+  connect(g_game, {
+    onGameStart = online,
+    onGameEnd = offline
+  })
 end
 
 function terminate()
-  disconnect(g_game, { onGameStart = online,
-                     onGameEnd = offline })  
+  disconnect(g_game, {
+    onGameStart = online,
+    onGameEnd = offline
+  })
 
   g_keyboard.unbindKeyDown('Ctrl+Shift+F')
   g_keyboard.unbindKeyDown('Ctrl+N')
@@ -157,7 +164,7 @@ end
 
 function setup()
   -- load options
-  for k,v in pairs(defaultOptions) do
+  for k, v in pairs(defaultOptions) do
     if type(v) == 'boolean' then
       setOption(k, g_settings.getBoolean(k), true)
     elseif type(v) == 'number' then
@@ -166,18 +173,18 @@ function setup()
       setOption(k, g_settings.getString(k), true)
     end
   end
-  
+
   for _, v in ipairs(g_extras.getAll()) do
     g_extras.set(v, g_settings.getBoolean("extras_" .. v))
     local widget = extrasPanel:recursiveGetChildById(v)
     if widget then
       widget:setChecked(g_extras.get(v))
     end
-  end  
-  
+  end
+
   if g_game.isOnline() then
     online()
-  end  
+  end
 end
 
 function toggle()
@@ -214,7 +221,7 @@ function toggleDisplays()
   end
 end
 
-function toggleOption(key) 
+function toggleOption(key)
   setOption(key, not getOption(key))
 end
 
@@ -226,16 +233,16 @@ function setOption(key, value, force)
       if value then
         modules.game_proxy.show()
       else
-        modules.game_proxy.hide()      
+        modules.game_proxy.hide()
       end
     end
     return
   end
-  
+
   if modules.game_interface == nil then
     return
   end
-   
+
   if not force and options[key] == value then return end
   local gameMapPanel = modules.game_interface.getMapPanel()
 
@@ -268,14 +275,14 @@ function setOption(key, value, force)
     end
   elseif key == 'musicSoundVolume' then
     if g_sounds ~= nil then
-      g_sounds.getChannel(SoundChannels.Music):setGain(value/100)
+      g_sounds.getChannel(SoundChannels.Music):setGain(value / 100)
     end
     audioPanel:getChildById('musicSoundVolumeLabel'):setText(tr('Music volume: %d', value))
   elseif key == 'botSoundVolume' then
     if g_sounds ~= nil then
-      g_sounds.getChannel(SoundChannels.Bot):setGain(value/100)
+      g_sounds.getChannel(SoundChannels.Bot):setGain(value / 100)
     end
-    audioPanel:getChildById('botSoundVolumeLabel'):setText(tr('Bot sound volume: %d', value))    
+    audioPanel:getChildById('botSoundVolumeLabel'):setText(tr('Bot sound volume: %d', value))
   elseif key == 'showHealthManaCircle' then
     modules.game_healthinfo.healthCircle:setVisible(value)
     modules.game_healthinfo.healthCircleFront:setVisible(value)
@@ -283,7 +290,10 @@ function setOption(key, value, force)
     modules.game_healthinfo.manaCircleFront:setVisible(value)
   elseif key == 'backgroundFrameRate' then
     local text, v = value, value
-    if value <= 0 or value >= 201 then text = 'max' v = 0 end
+    if value <= 0 or value >= 201 then
+      text = 'max'
+      v = 0
+    end
     graphicsPanel:getChildById('backgroundFrameRateLabel'):setText(tr('Game framerate limit: %s', text))
     g_app.setMaxFps(v)
   elseif key == 'enableLights' then
@@ -295,15 +305,15 @@ function setOption(key, value, force)
     interfacePanel:getChildById('floorFadingLabel'):setText(tr('Floor fading: %s ms', value))
   elseif key == 'crosshair' then
     if value == 1 then
-      gameMapPanel:setCrosshair("")    
+      gameMapPanel:setCrosshair("")
     elseif value == 2 then
-      gameMapPanel:setCrosshair("/images/crosshair/default.png")        
+      gameMapPanel:setCrosshair("/images/crosshair/default.png")
     elseif value == 3 then
-      gameMapPanel:setCrosshair("/images/crosshair/full.png")    
+      gameMapPanel:setCrosshair("/images/crosshair/full.png")
     end
   elseif key == 'ambientLight' then
     graphicsPanel:getChildById('ambientLightLabel'):setText(tr('Ambient light: %s%%', value))
-    gameMapPanel:setMinimumAmbientLight(value/100)
+    gameMapPanel:setMinimumAmbientLight(value / 100)
     gameMapPanel:setDrawLights(options['enableLights'] and value < 100)
   elseif key == 'optimizationLevel' then
     g_adaptiveRenderer.setLevel(value - 2)
@@ -329,31 +339,31 @@ function setOption(key, value, force)
   elseif key == 'dash' then
     if value then
       g_game.setMaxPreWalkingSteps(2)
-    else 
-      g_game.setMaxPreWalkingSteps(1)    
+    else
+      g_game.setMaxPreWalkingSteps(1)
     end
   elseif key == 'wsadWalking' then
     if modules.game_console and modules.game_console.consoleToggleChat:isChecked() ~= value then
       modules.game_console.consoleToggleChat:setChecked(value)
     end
   elseif key == 'hotkeyDelay' then
-    generalPanel:getChildById('hotkeyDelayLabel'):setText(tr('Hotkey delay: %s ms', value))  
+    generalPanel:getChildById('hotkeyDelayLabel'):setText(tr('Hotkey delay: %s ms', value))
   elseif key == 'walkFirstStepDelay' then
-    generalPanel:getChildById('walkFirstStepDelayLabel'):setText(tr('Walk delay after first step: %s ms', value))  
+    generalPanel:getChildById('walkFirstStepDelayLabel'):setText(tr('Walk delay after first step: %s ms', value))
   elseif key == 'walkTurnDelay' then
-    generalPanel:getChildById('walkTurnDelayLabel'):setText(tr('Walk delay after turn: %s ms', value))  
+    generalPanel:getChildById('walkTurnDelayLabel'):setText(tr('Walk delay after turn: %s ms', value))
   elseif key == 'walkStairsDelay' then
-    generalPanel:getChildById('walkStairsDelayLabel'):setText(tr('Walk delay after floor change: %s ms', value))  
+    generalPanel:getChildById('walkStairsDelayLabel'):setText(tr('Walk delay after floor change: %s ms', value))
   elseif key == 'walkTeleportDelay' then
-    generalPanel:getChildById('walkTeleportDelayLabel'):setText(tr('Walk delay after teleport: %s ms', value))  
+    generalPanel:getChildById('walkTeleportDelayLabel'):setText(tr('Walk delay after teleport: %s ms', value))
   elseif key == 'walkCtrlTurnDelay' then
-    generalPanel:getChildById('walkCtrlTurnDelayLabel'):setText(tr('Walk delay after ctrl turn: %s ms', value))  
+    generalPanel:getChildById('walkCtrlTurnDelayLabel'):setText(tr('Walk delay after ctrl turn: %s ms', value))
   elseif key == "antialiasing" then
     g_app.setSmooth(value)
   end
 
   -- change value for keybind updates
-  for _,panel in pairs(optionsTabBar:getTabsPanel()) do
+  for _, panel in pairs(optionsTabBar:getTabsPanel()) do
     local widget = panel:recursiveGetChildById(key)
     if widget then
       if widget:getStyle().__class == 'UICheckBox' then
@@ -365,26 +375,26 @@ function setOption(key, value, force)
           widget:setCurrentOption(value, true)
           break
         end
-        if value == nil or value < 1 then 
+        if value == nil or value < 1 then
           value = 1
         end
         if widget.currentIndex ~= value then
           widget:setCurrentIndex(value, true)
         end
-      end      
+      end
       break
     end
   end
-  
+
   g_settings.set(key, value)
   options[key] = value
 
   if key == "profile" then
     modules.client_profiles.onProfileChange()
   end
-  
+
   if key == 'classicView' or key == 'rightPanels' or key == 'leftPanels' or key == 'cacheMap' then
-    modules.game_interface.refreshViewMode()    
+    modules.game_interface.refreshViewMode()
   elseif key:find("actionbar") then
     modules.game_actionbar.show()
   end
@@ -423,8 +433,8 @@ end
 function setLightOptionsVisibility(value)
   graphicsPanel:getChildById('enableLights'):setEnabled(value)
   graphicsPanel:getChildById('ambientLightLabel'):setEnabled(value)
-  graphicsPanel:getChildById('ambientLight'):setEnabled(value)  
+  graphicsPanel:getChildById('ambientLight'):setEnabled(value)
   interfacePanel:getChildById('floorFading'):setEnabled(value)
   interfacePanel:getChildById('floorFadingLabel'):setEnabled(value)
-  interfacePanel:getChildById('floorFadingLabel2'):setEnabled(value)  
+  interfacePanel:getChildById('floorFadingLabel2'):setEnabled(value)
 end

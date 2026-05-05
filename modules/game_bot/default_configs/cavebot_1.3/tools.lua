@@ -41,7 +41,7 @@ macro(1000, "Exchange money", function()
   for index, container in pairs(containers) do
     if not container.lootContainer then -- ignore monster containers
       for i, item in ipairs(container:getItems()) do
-        if item:getCount() == 100 then
+         if item:getCount() == 10000 then
           for m, moneyId in ipairs(moneyIds) do
             if item:getId() == moneyId then
               return g_game.use(item)            
@@ -59,13 +59,13 @@ macro(1000, "Stack items", function()
   for index, container in pairs(containers) do
     if not container.lootContainer then -- ignore monster containers
       for i, item in ipairs(container:getItems()) do
-        if item:isStackable() and item:getCount() < 100 then
+         if item:isStackable() and item:getCount() < 10000 then
           local stackWith = toStack[item:getId()]
           if stackWith then
             g_game.move(item, stackWith[1], math.min(stackWith[2], item:getCount()))
             return
           end
-          toStack[item:getId()] = {container:getSlotPosition(i - 1), 100 - item:getCount()}
+           toStack[item:getId()] = {container:getSlotPosition(i - 1), 10000 - item:getCount()}
         end
       end
     end
