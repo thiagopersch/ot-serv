@@ -23,6 +23,7 @@
 #include "animatedtext.h"
 #include "map.h"
 #include "game.h"
+#include <framework/core/eventdispatcher.h>
 #include <framework/core/clock.h>
 #include <framework/graphics/graphics.h>
 #include <sstream>
