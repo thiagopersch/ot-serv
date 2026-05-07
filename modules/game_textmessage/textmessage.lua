@@ -1,15 +1,48 @@
+function toColor(c, msgtype)
+  if type(c) == 'string' then
+    if c:find('#') then
+      return c -- already hex string
+    else
+      local num = tonumber(c)
+      if num then
+        -- Map numeric IDs to hex colors
+        if num == 0 or num == 255 then return '#000000'
+        elseif num == 5 then return '#5ff7f7'
+        elseif num == 18 then return '#00EB00'
+        elseif num == 35 then return '#238a8a'
+        elseif num == 66 then return '#66ff66'
+        elseif num == 78 or num == 120 then return '#8b4513'
+        elseif num == 89 then return '#9f9dfd'
+        elseif num == 112 or num == 154 then return '#800080'
+        elseif num == 129 then return '#808080'
+        elseif num == 144 then return '#8b0000'
+        elseif num == 152 then return '#ff1493'
+        elseif num == 156 then return '#ff8c00'
+        elseif num == 180 then return '#f55e5e'
+        elseif num == 190 then return '#ff69b4'
+        elseif num == 192 then return '#f36500'
+        elseif num == 205 then return '#daa520'
+        elseif num == 210 then return '#ffff00'
+        elseif num == 215 then return '#ffffff'
+        end
+      end
+    end
+  end
+  return msgtype.color -- fallback to default color (should be hex string)
+end
+
 MessageSettings = {
   none          = {},
-  consoleRed    = { color = TextColors.red, consoleTab = 'Default' },
-  consoleOrange = { color = TextColors.orange, consoleTab = 'Default' },
-  consoleBlue   = { color = TextColors.blue, consoleTab = 'Default' },
-  centerRed     = { color = TextColors.red, consoleTab = 'Server Log', screenTarget = 'lowCenterLabel' },
-  centerGreen   = { color = TextColors.green, consoleTab = 'Server Log', screenTarget = 'highCenterLabel', consoleOption = 'showInfoMessagesInConsole' },
-  centerWhite   = { color = TextColors.white, consoleTab = 'Server Log', screenTarget = 'middleCenterLabel', consoleOption = 'showEventMessagesInConsole' },
-  bottomWhite   = { color = TextColors.white, consoleTab = 'Server Log', screenTarget = 'statusLabel', consoleOption = 'showEventMessagesInConsole' },
-  status        = { color = TextColors.white, consoleTab = 'Server Log', screenTarget = 'statusLabel', consoleOption = 'showStatusMessagesInConsole' },
-  statusSmall   = { color = TextColors.white, screenTarget = 'statusLabel' },
-  private       = { color = TextColors.lightblue, screenTarget = 'privateLabel' }
+  consoleRed    = { color = '#f55e5e', consoleTab = 'Default' },
+  consoleOrange = { color = '#f36500', consoleTab = 'Default' },
+  consoleBlue   = { color = '#9f9dfd', consoleTab = 'Default' },
+  centerRed     = { color = '#f55e5e', consoleTab = 'Server Log', screenTarget = 'lowCenterLabel' },
+  centerGreen   = { color = '#00EB00', consoleTab = 'Server Log', screenTarget = 'highCenterLabel', consoleOption = 'showInfoMessagesInConsole' },
+  centerWhite   = { color = '#ffffff', consoleTab = 'Server Log', screenTarget = 'middleCenterLabel', consoleOption = 'showEventMessagesInConsole' },
+  bottomWhite   = { color = '#ffffff', consoleTab = 'Server Log', screenTarget = 'statusLabel', consoleOption = 'showEventMessagesInConsole' },
+  status        = { color = '#ffffff', consoleTab = 'Server Log', screenTarget = 'statusLabel', consoleOption = 'showStatusMessagesInConsole' },
+  statusSmall   = { color = '#ffffff', screenTarget = 'statusLabel' },
+  private       = { color = '#5ff7f7', screenTarget = 'privateLabel' }
 }
 
 MessageTypes = {
@@ -87,18 +120,39 @@ function displayMessage(mode, text)
   if msgtype == MessageSettings.none then return end
 
   if mode == MessageModes.Warning then
-    local label = messagesPanel:recursiveGetChildById('customMessage')
+    local position = 'top'
     local color = msgtype.color
 
     if (text:find('|')) then
-      color = text:explode('|')[1]
-      text  = text:explode('|')[2]
+      local parts = text:explode('|')
+      if #parts >= 3 then
+        position = parts[1]
+        color = parts[2]
+        text = parts[3]
+      elseif #parts == 2 then
+        -- 2 parts: "color|text" (default position = top)
+        color = parts[1]
+        text = parts[2]
+      end
+    end
+
+    color = toColor(color, msgtype)
+
+    local label
+    if position == 'center' then
+      label = messagesPanel:recursiveGetChildById('broadcastCenterLabel')
+    elseif position == 'bottom' then
+      label = messagesPanel:recursiveGetChildById('broadcastBottomLabel')
+    else
+      label = messagesPanel:recursiveGetChildById('customMessage')
     end
 
     label:setText(text)
     label:setColor(color)
     label:setBorderColor(color)
-    label:setWidth(label:getTextSize().width + 110)
+    local maxWidth = g_window.getSize().width * 0.8
+    local textWidth = label:getTextSize().width + 110
+    label:setWidth(math.min(textWidth, maxWidth))
     label:show()
 
     addEvent(function() g_effects.fadeIn(label, 250) end)

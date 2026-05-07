@@ -56,7 +56,7 @@ function updateFeatures(version)
     g_game.enableFeature(GameEnhancedAnimations)
     g_game.enableFeature(GameFasterAnimations)
     g_game.enableFeature(GameHideNpcNames)
-    -- g_game.enableFeature(GameCenteredOutfits)
+    g_game.enableFeature(GameCenteredOutfits)
     --g_game.enableFeature(GameCountU16)
 
     -- g_game.enableFeature(GameHealthInfoBackground)
