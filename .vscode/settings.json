@@ -12,7 +12,8 @@
     "g_mouse",
     "init",
     "handleProfileData",
-    "AlignHCenter"
+    "AlignHCenter",
+    "g_healthBars"
   ],
   "Lua.diagnostics.disable": ["undefined-field"]
 }

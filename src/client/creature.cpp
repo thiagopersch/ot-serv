@@ -170,8 +170,9 @@ void Creature::drawInformation(const Point& point, bool useGray, const Rect& par
     // Nome acima das barras
     int nameHeight = m_nameCache.getTextSize().height();
     int textY = barY - nameHeight - spacing;
+    int barWidth = 50;
 
-    Rect backgroundRect = Rect(point.x + m_informationOffset.x - (13.5), barY, 27, barHeight);
+    Rect backgroundRect = Rect(point.x + m_informationOffset.x - (barWidth / 2.0), barY, barWidth, barHeight);
     backgroundRect.bind(parentRect);
 
     //debug
@@ -221,7 +222,7 @@ void Creature::drawInformation(const Point& point, bool useGray, const Rect& par
 
     // health rect is based on background rect, so no worries
     Rect healthRect = backgroundRect.expanded(-1);
-    healthRect.setWidth((m_healthPercent / 100.0) * 25);
+    healthRect.setWidth((m_healthPercent / 100.0) * (barWidth - 2));
 
     // draw
     if (g_game.getFeature(Otc::GameBlueNpcNameColor) && isNpc() && m_healthPercent == 100 && !useGray)
@@ -269,7 +270,7 @@ void Creature::drawInformation(const Point& point, bool useGray, const Rect& par
                 g_drawQueue->addFilledRect(backgroundRect, Color::black);
 
                 Rect manaRect = backgroundRect.expanded(-1);
-                manaRect.setWidth(((float)manaPercent / 100.f) * 25);
+                manaRect.setWidth(((float)manaPercent / 100.f) * (barWidth - 2));
                 g_drawQueue->addFilledRect(manaRect, Color::blue);
             }
         }
@@ -281,7 +282,7 @@ void Creature::drawInformation(const Point& point, bool useGray, const Rect& par
 
             Rect progressBarRect = backgroundRect.expanded(-1);
             double maxBar = 100;
-            progressBarRect.setWidth(getProgressBarPercent() / (maxBar * 1.0) * 25);
+            progressBarRect.setWidth(getProgressBarPercent() / (maxBar * 1.0) * (barWidth - 2));
 
             g_drawQueue->addFilledRect(progressBarRect, Color::white);
         }
