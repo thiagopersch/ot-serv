@@ -1284,7 +1284,7 @@ void ProtocolGame::parseOpenContainer(const InputMessagePtr& msg)
 
     std::vector<ItemPtr> items(itemCount);
     for (int i = 0; i < itemCount; i++)
-        items[i] = getItem(msg);
+        items[i] = getItem(msg, 0, true);
 
     g_game.processOpenContainer(containerId, containerItem, name, capacity, hasParent, items, isUnlocked, hasPages, containerSize, firstIndex);
 }
@@ -1302,7 +1302,7 @@ void ProtocolGame::parseContainerAddItem(const InputMessagePtr& msg)
     if (g_game.getFeature(Otc::GameContainerPagination)) {
         slot = msg->getU16(); // slot
     }
-    ItemPtr item = getItem(msg);
+    ItemPtr item = getItem(msg, 0, true);
     g_game.processContainerAddItem(containerId, item, slot);
 }
 
@@ -1315,7 +1315,7 @@ void ProtocolGame::parseContainerUpdateItem(const InputMessagePtr& msg)
     } else {
         slot = msg->getU8();
     }
-    ItemPtr item = getItem(msg);
+    ItemPtr item = getItem(msg, 0, true);
     g_game.processContainerUpdateItem(containerId, slot, item);
 }
 
@@ -1339,7 +1339,7 @@ void ProtocolGame::parseContainerRemoveItem(const InputMessagePtr& msg)
 void ProtocolGame::parseAddInventoryItem(const InputMessagePtr& msg)
 {
     int slot = msg->getU8();
-    ItemPtr item = getItem(msg);
+    ItemPtr item = getItem(msg, 0, true);
     g_game.processInventoryChange(slot, item);
 }
 

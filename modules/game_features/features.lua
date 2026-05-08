@@ -57,6 +57,7 @@ function updateFeatures(version)
     g_game.enableFeature(GameFasterAnimations)
     g_game.enableFeature(GameHideNpcNames)
     g_game.enableFeature(GameCenteredOutfits)
+    g_game.enableFeature(GameItemTooltip)
     --g_game.enableFeature(GameCountU16)
 
     -- g_game.enableFeature(GameHealthInfoBackground)
@@ -71,7 +72,6 @@ function updateFeatures(version)
     -- g_game.enableFeature(GameDoubleLevel)
     -- g_game.enableFeature(GameDoubleExperience)
     -- g_game.enableFeature(GameDoubleSoul)
-    -- g_game.enableFeature(GameItemTooltip)
   end
 
   if (version >= 862) then g_game.enableFeature(GamePenalityOnDeath) end

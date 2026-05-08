@@ -36,6 +36,9 @@ local function onWidgetHoverChange(widget, hovered)
     if widget.tooltip and not g_mouse.isPressed() then
       g_tooltip.display(widget.tooltip)
       currentHoveredWidget = widget
+    else
+      g_tooltip.hide()
+      currentHoveredWidget = nil
     end
   else
     if widget == currentHoveredWidget then

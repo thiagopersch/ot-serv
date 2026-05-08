@@ -1,4 +1,5 @@
 local gameStart = 0
+local lastHoveredContainerChild = nil
 
 function init()
   connect(Container, { onOpen = onContainerOpen,
@@ -35,6 +36,7 @@ function clean()
   for containerid,container in pairs(g_game.getContainers()) do
     destroy(container)
   end
+  lastHoveredContainerChild = nil
 end
 
 function markStart()
@@ -134,6 +136,19 @@ function onContainerOpen(container, previousContainer)
   
   local containerPanel = containerWindow:getChildById('contentsPanel')
   local containerItemWidget = containerWindow:getChildById('containerItemWidget')
+
+  containerPanel.onMouseMove = function(widget, mousePos)
+    local child = containerPanel:getChildByPos(mousePos)
+    if child ~= lastHoveredContainerChild then
+      lastHoveredContainerChild = child
+      if child and child:getTooltip() then
+        g_tooltip.display(child:getTooltip())
+      else
+        g_tooltip.hide()
+      end
+    end
+  end
+
   containerWindow.onClose = function()
     g_game.close(container)
     containerWindow:hide()

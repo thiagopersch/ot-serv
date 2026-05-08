@@ -59,29 +59,8 @@ function UIItem:onDestroy()
 end
 
 function UIItem:onHoverChange(hovered)
+  print("DBG onHoverChange widget=", self:getId() or "no-id", "hovered=", hovered, "tooltip=", self.tooltip)
   UIWidget.onHoverChange(self, hovered)
-
-  if hovered then
-    local item = self:getItem()
-    if item then
-      local itemId = item:getServerId()
-      if itemId == 0 then itemId = item:getId() end
-
-      if itemId > 0 then
-        local tooltip = item:getTooltip()
-        if not tooltip or tooltip:len() == 0 then
-          local pos = item:getPosition()
-          local protocol = g_game.getProtocolGame()
-          if protocol and pos then
-            local buffer = string.format("%d;%d;%d;%d;%d;%d", itemId, item:getCountOrSubType(), pos.x or 0, pos.y or 0,
-              pos.z or 0, item:getStackPos() or 0)
-            --print("Requesting tooltip. Item: " .. itemId .. " | Pos: " .. pos.x .. "," .. pos.y .. "," .. pos.z)
-            protocol:sendExtendedOpcode(150, buffer)
-          end
-        end
-      end
-    end
-  end
 
   if self:isVirtual() or not self:isDraggable() then return end
 
@@ -156,6 +135,7 @@ function UIItem:onItemChange()
   if self:getItem() and self:getItem():getTooltip():len() > 0 then
     tooltip = self:getItem():getTooltip()
   end
+  --print("DBG onItemChange widget=", self:getId() or "no-id", "item=", self:getItem() and self:getItem():getId() or "nil", "tooltip=", tooltip, "hovered=", self:isHovered())
   self:setTooltip(tooltip)
 
   if self:isHovered() and tooltip then
