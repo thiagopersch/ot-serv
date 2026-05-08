@@ -1,10 +1,15 @@
 local dailyButton
 local dailyOpcode = 155
 local pulseEvents = {}
+local bonusDays = {5, 10, 15, 20, 25, 30}
+
+local function isBitSet(mask, bit)
+  return math.floor(mask / (2 ^ (bit - 1))) % 2 == 1
+end
 
 local function startPulse(widget)
   if not widget then return end
-  local colors = { "#008800", "#111111" }
+  local colors = { "#00aa00", "#004400" }
   local i = 1
 
   local event = cycleEvent(function()
@@ -54,9 +59,8 @@ function create()
   dailyWindow = g_ui.displayUI('dailyreward')
   dailyWindow:hide()
 
-  -- Vinculando eventos de clique
   local claimBtn = dailyWindow:getChildById('claimButton')
-  if claimBtn then claimBtn.onClick = claim end
+  if claimBtn then claimBtn.onClick = claimDaily end
 
   local closeBtn = dailyWindow:getChildById('closeButton')
   if closeBtn then closeBtn.onClick = toggle end
@@ -92,10 +96,17 @@ function toggle()
   end
 end
 
-function claim()
+function claimDaily()
   local protocol = g_game.getProtocolGame()
   if protocol then
     protocol:sendExtendedOpcode(dailyOpcode, "claim")
+  end
+end
+
+function claimBonus(streakDay)
+  local protocol = g_game.getProtocolGame()
+  if protocol then
+    protocol:sendExtendedOpcode(dailyOpcode, "claim_bonus|" .. streakDay)
   end
 end
 
@@ -103,24 +114,19 @@ function onExtendedOpcode(protocol, opcode, buffer)
   if opcode ~= dailyOpcode then return end
 
   local data = buffer:explode("|")
-  if #data < 8 then return end
+  if #data < 11 then return end
 
   local currentDay = tonumber(data[1])
   local currentMonth = tonumber(data[2])
-  local daysInMonth = tonumber(data[3])
-  local consecutive = tonumber(data[4])
-  local claimedStr = data[5]
-  local lastClaim = tonumber(data[6])
-  local itemsStr = data[7]
-  local bonusStr = data[8]
-
+  local currentYear = tonumber(data[3])
+  local daysInMonth = tonumber(data[4])
   local claimedMask = tonumber(data[5]) or 0
-  local claimedDays = {}
-  for i = 1, 31 do
-    if math.floor(claimedMask / 2 ^ (i - 1)) % 2 == 1 then
-      claimedDays[i] = true
-    end
-  end
+  local missedMask = tonumber(data[6]) or 0
+  local consecutive = tonumber(data[7]) or 0
+  local itemsStr = data[8]
+  local bonusStr = data[9]
+  local bonusClaimedMask = tonumber(data[10]) or 0
+  local bonusAvailableMask = tonumber(data[11]) or 0
 
   local monthItems = {}
   if itemsStr then
@@ -135,36 +141,31 @@ function onExtendedOpcode(protocol, opcode, buffer)
   local bonusItems = {}
   if bonusStr then
     for _, bData in ipairs(bonusStr:explode(";")) do
-      local split = bData:explode(",")
-      if #split >= 4 then
-        table.insert(bonusItems, {
-          streak = tonumber(split[1]),
-          id = tonumber(split[2]),
-          count = tonumber(split[3]),
-          name = split[4]
-        })
+      local split = bData:explode(":")
+      if #split >= 3 then
+        local idCount = split[2]:explode(",")
+        if #idCount >= 2 then
+          table.insert(bonusItems, {
+            streak = tonumber(split[1]),
+            id = tonumber(idCount[1]),
+            count = tonumber(idCount[2]),
+            name = split[3]
+          })
+        end
       end
     end
   end
   table.sort(bonusItems, function(a, b) return a.streak < b.streak end)
 
-  updateUI(currentDay, daysInMonth, consecutive, claimedDays, monthItems, bonusItems, lastClaim)
+  updateUI(currentDay, daysInMonth, consecutive, claimedMask, missedMask, monthItems, bonusItems, bonusClaimedMask, bonusAvailableMask)
 end
 
-function updateUI(currentDay, daysInMonth, consecutive, claimedDays, monthItems, bonusItems, lastClaim)
+function updateUI(currentDay, daysInMonth, consecutive, claimedMask, missedMask, monthItems, bonusItems, bonusClaimedMask, bonusAvailableMask)
   if not dailyWindow then return end
 
   stopPulses()
 
-  -- Habilita claim apenas se hoje não foi coletado
-  local canClaim = true
-  if lastClaim and lastClaim > 0 then
-    local dateLast = os.date("*t", lastClaim)
-    local dateNow = os.date("*t")
-    if dateLast.day == dateNow.day and dateLast.month == dateNow.month and dateLast.year == dateNow.year then
-      canClaim = false
-    end
-  end
+  local canClaim = not isBitSet(claimedMask, currentDay)
 
   local claimBtn = dailyWindow:getChildById('claimButton')
   if claimBtn then
@@ -176,12 +177,13 @@ function updateUI(currentDay, daysInMonth, consecutive, claimedDays, monthItems,
   if closeBtn then
     closeBtn:setCursor('pointer')
   end
+
+  -- Painel de Dias (Calendário Mensal)
   local daysPanel = dailyWindow:getChildById('daysPanel')
   if daysPanel then
-    -- Limpa o painel e garante limite de segurança de 31 dias
     daysPanel:destroyChildren()
     local safeDays = math.min(daysInMonth, 31)
-    
+
     for i = 1, safeDays do
       local widget = g_ui.createWidget('DailyRewardDay', daysPanel)
       if widget then
@@ -190,50 +192,66 @@ function updateUI(currentDay, daysInMonth, consecutive, claimedDays, monthItems,
         local itemWidget = widget:getChildById('item')
         local itemData = monthItems[i]
         if itemData and itemWidget then
-          -- IMPORTANTE: O ID enviado aqui já é o clientId (ex: 3043)
           itemWidget:setItemId(itemData.id)
           itemWidget:setItemCount(itemData.count)
+          local name
+          pcall(function()
+            local t = g_things.getItemType(itemData.id)
+            if t then
+              if t.getName then
+                name = t:getName()
+              elseif t.name then
+                name = t.name
+              end
+            end
+            if not name then
+              name = getItemNameById(itemData.id)
+            end
+          end)
+          if name then
+            itemWidget:setTooltip(name)
+          end
         end
 
         local statusLabel = widget:getChildById('statusLabel')
         local checkIcon = widget:getChildById('checkIcon')
         local lostIcon = widget:getChildById('lostIcon')
 
-        if statusLabel then
-          if claimedDays[i] then
-            widget:setOpacity(0.8)
-            widget:setBackgroundColor('#222222cc')
-            widget:setBorderColor('#444444')
-            widget.isClaimed = true
-            if checkIcon then checkIcon:show() end
-            if statusLabel then statusLabel:hide() end
-            widget:setCursor('default')
-          elseif i < currentDay then
-            widget:setOpacity(0.8)
-            widget:setBackgroundColor('#440000cc')
-            widget:setBorderColor('#660000')
-            widget.isLost = true
-            if lostIcon then lostIcon:show() end
-            if statusLabel then statusLabel:hide() end
-            widget:setCursor('default')
-          elseif i == currentDay then
+        if checkIcon then checkIcon:setVisible(false) end
+        if lostIcon then lostIcon:setVisible(false) end
+        widget:setCursor('default')
+        widget:setOpacity(1.0)
+
+        if isBitSet(claimedMask, i) then
+          -- RESGATADO: verde + check
+          widget:setBackgroundColor('#004400cc')
+          widget:setOpacity(0.85)
+          if checkIcon then checkIcon:setVisible(true) end
+          if statusLabel then statusLabel:setText('') end
+        elseif isBitSet(missedMask, i) then
+          -- PERDIDO: vermelho + X
+          widget:setBackgroundColor('#440000cc')
+          widget:setOpacity(0.85)
+          if lostIcon then lostIcon:setVisible(true) end
+          if statusLabel then statusLabel:setText('') end
+        elseif i == currentDay then
+          -- HOJE (não resgatado)
+          if statusLabel then
             statusLabel:setText(tr('Available'))
             statusLabel:setColor('#ffffff')
-            widget:setOpacity(1.0)
-            widget:setBorderColor('#ffffff')
-            if canClaim then
-              startPulse(widget)
-              widget:setCursor('pointer')
-            else
-              widget:setCursor('default')
-            end
-          else
+          end
+          widget:setBorderColor('#ffffff')
+          if canClaim then
+            startPulse(widget)
+            widget:setCursor('pointer')
+          end
+        else
+          -- FUTURO
+          if statusLabel then
             statusLabel:setText(tr('Upcoming'))
             statusLabel:setColor('#888888')
-            widget:setOpacity(0.4)
-            widget.isUpcoming = true
-            widget:setCursor('default')
           end
+          widget:setOpacity(0.35)
         end
       end
     end
@@ -243,33 +261,56 @@ function updateUI(currentDay, daysInMonth, consecutive, claimedDays, monthItems,
   local bonusPanel = dailyWindow:getChildById('bonusPanel')
   if bonusPanel then
     bonusPanel:destroyChildren()
-    for _, b in ipairs(bonusItems) do
-      local widget = g_ui.createWidget('DailyRewardBonus', bonusPanel)
+
+    for i, b in ipairs(bonusItems) do
+      local widget = g_ui.createWidget('DailyRewardBonusDay', bonusPanel)
       if widget then
-        widget:getChildById('titleLabel'):setText(tr('%d Days Streak', b.streak))
+        local dayLabel = widget:getChildById('dayLabel')
+        if dayLabel then dayLabel:setText(tr('%d Days Streak', b.streak)) end
 
         local itemWidget = widget:getChildById('item')
         if itemWidget then
           itemWidget:setItemId(b.id)
           itemWidget:setItemCount(b.count)
-          itemWidget:setTooltip(b.name)
+          if b.name then
+            itemWidget:setTooltip(b.name)
+          end
         end
 
+        local checkIcon = widget:getChildById('checkIcon')
+        local lostIcon = widget:getChildById('lostIcon')
+        if checkIcon then checkIcon:setVisible(false) end
+        if lostIcon then lostIcon:setVisible(false) end
+
         local statusLabel = widget:getChildById('statusLabel')
-        if consecutive >= b.streak then
-          statusLabel:setText(tr('Unlocked'))
-          statusLabel:setColor('#00ff00')
-          widget:setOpacity(1.0)
-          widget:setBorderColor('#ffff00aa')
+        widget:setCursor('default')
+        widget:setOpacity(1.0)
+
+        if isBitSet(bonusClaimedMask, i) then
+          -- RESGATADO: verde + check
+          widget:setBackgroundColor('#004400cc')
+          widget:setOpacity(0.85)
+          if checkIcon then checkIcon:setVisible(true) end
+          if statusLabel then statusLabel:setText(tr('Claimed')) end
+        elseif isBitSet(bonusAvailableMask, i) then
+          -- DISPONÍVEL
+          widget:setBackgroundColor('#003300cc')
+          widget:setBorderColor('#00ff00')
+          widget:setCursor('pointer')
+          widget.onClick = function()
+            claimBonus(b.streak)
+          end
+          if statusLabel then statusLabel:setText(tr('Click to claim!')) end
         else
-          statusLabel:setText(tr('Locked (%d/%d)', consecutive, b.streak))
-          statusLabel:setColor('#888888')
-          widget:setOpacity(0.5)
+          -- TRAVADO
+          widget:setOpacity(0.4)
+          if lostIcon then lostIcon:setVisible(true) end
+          if statusLabel then statusLabel:setText(tr('Locked (%d/%d)', consecutive, b.streak)) end
         end
       end
     end
   end
 
   local progressLabel = dailyWindow:getChildById('consecutiveLabel')
-  if progressLabel then progressLabel:setText(tr('Monthly Progress: %d days', consecutive)) end
+  if progressLabel then progressLabel:setText(tr('Consecutive Days: %d', consecutive)) end
 end

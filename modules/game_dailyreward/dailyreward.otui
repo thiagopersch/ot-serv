@@ -1,8 +1,8 @@
 DailyRewardDay < UIWidget
-  size: 85 110
+  size: 75 60
   background-color: #111111cc
   border: 1 #ffffff22
-  padding: 5
+  padding: 3
   layout: anchor
   cursor: pointer
   $hover:
@@ -11,10 +11,10 @@ DailyRewardDay < UIWidget
 
   UIItem
     id: item
-    size: 32 32
+    size: 28 28
     anchors.top: parent.top
     anchors.horizontalCenter: parent.horizontalCenter
-    margin-top: 5
+    margin-top: 2
     virtual: true
 
   Label
@@ -23,7 +23,7 @@ DailyRewardDay < UIWidget
     text-auto-resize: true
     anchors.top: item.bottom
     anchors.horizontalCenter: parent.horizontalCenter
-    margin-top: 8
+    margin-top: 1
     color: #dfdfdf
     phantom: true
 
@@ -33,15 +33,15 @@ DailyRewardDay < UIWidget
     text-auto-resize: true
     anchors.top: dayLabel.bottom
     anchors.horizontalCenter: parent.horizontalCenter
-    margin-top: 5
+    margin-top: 1
     phantom: true
 
   UIWidget
     id: checkIcon
     anchors.bottom: parent.bottom
     anchors.right: parent.right
-    size: 20 20
-    margin: 5
+    size: 14 14
+    margin: 2
     image-source: ui/check
     visible: false
     phantom: true
@@ -50,35 +50,40 @@ DailyRewardDay < UIWidget
     id: lostIcon
     anchors.bottom: parent.bottom
     anchors.right: parent.right
-    size: 20 20
-    margin: 5
+    size: 14 14
+    margin: 2
     image-source: ui/x
     visible: false
     phantom: true
 
-DailyRewardBonus < UIWidget
-  size: 180 60
+DailyRewardBonusDay < UIWidget
+  size: 270 55
   background-color: #111111cc
   border: 1 #ffff0022
-  padding: 5
-  margin-bottom: 5
+  padding: 4
   layout: anchor
+  cursor: pointer
+  margin-bottom: 4
+  $hover:
+    background-color: #222222cc
+    border: 1 #ffffff44
 
   UIItem
     id: item
-    size: 32 32
+    size: 36 36
     anchors.left: parent.left
     anchors.verticalCenter: parent.verticalCenter
-    margin-left: 5
+    margin-left: 4
     virtual: true
 
   Label
-    id: titleLabel
+    id: dayLabel
     font: verdana-11px-rounded
     text-auto-resize: true
-    anchors.top: parent.top
     anchors.left: item.right
-    margin-left: 10
+    anchors.top: parent.top
+    margin-left: 8
+    margin-top: 8
     color: #ffff00
     phantom: true
 
@@ -86,20 +91,40 @@ DailyRewardBonus < UIWidget
     id: statusLabel
     font: verdana-11px-monochrome
     text-auto-resize: true
-    anchors.top: titleLabel.bottom
     anchors.left: item.right
-    margin-left: 10
+    anchors.top: dayLabel.bottom
+    margin-left: 8
     margin-top: 2
+    color: #888888
+    phantom: true
+
+  UIWidget
+    id: checkIcon
+    anchors.right: parent.right
+    anchors.verticalCenter: parent.verticalCenter
+    size: 20 20
+    margin-right: 8
+    image-source: ui/check
+    visible: false
+    phantom: true
+
+  UIWidget
+    id: lostIcon
+    anchors.right: parent.right
+    anchors.verticalCenter: parent.verticalCenter
+    size: 20 20
+    margin-right: 8
+    image-source: ui/x
+    visible: false
     phantom: true
 
 MainWindow
   id: dailyRewardWindow
   !text: tr('Daily Reward')
-  size: 780 580
+  size: 780 620
   anchors.centerIn: parent
   @onEscape: modules.game_dailyreward.toggle()
 
-  // Botão X customizado para garantir cor e ação
   Label
     id: daysTitle
     !text: tr('Monthly Calendar')
@@ -107,63 +132,74 @@ MainWindow
     anchors.top: parent.top
     anchors.left: parent.left
     margin-top: 5
+    margin-left: 15
     color: #dfdfdf
-
-  ScrollablePanel
-    id: daysPanel
-    anchors.top: daysTitle.bottom
-    anchors.left: parent.left
-    anchors.right: bonusPanel.left
-    anchors.bottom: claimButton.top
-    margin-top: 10
-    margin-right: 15
-    margin-bottom: 20
-    vertical-scrollbar: daysScrollBar
-    layout:
-      type: grid
-      cell-size: 85 110
-      cell-spacing: 12
-      flow: true
-
-  VerticalScrollBar
-    id: daysScrollBar
-    anchors.top: daysPanel.top
-    anchors.bottom: daysPanel.bottom
-    anchors.right: daysPanel.right
-    margin-right: -12
-    step: 40
 
   Label
     id: bonusTitle
     !text: tr('Streak Bonuses')
     font: verdana-11px-rounded
     anchors.top: parent.top
-    anchors.right: parent.right
+    anchors.left: divider.right
     margin-top: 5
-    margin-right: 50
+    margin-left: 15
     color: #ffff00
+
+  Label
+    id: bonusDescription
+    !text: tr('Complete consecutive days without missing to unlock each bonus reward!')
+    font: verdana-11px-monochrome
+    text-auto-resize: true
+    anchors.top: bonusTitle.bottom
+    anchors.left: divider.right
+    anchors.right: parent.right
+    margin-top: 2
+    margin-left: 15
+    margin-right: 15
+    color: #999999
+    phantom: true
+
+  UIWidget
+    id: divider
+    width: 3
+    anchors.top: parent.top
+    anchors.bottom: claimButton.top
+    anchors.left: parent.left
+    margin-left: 465
+    margin-top: 30
+    margin-bottom: 20
+    background-color: #555555
+
+  ScrollablePanel
+    id: daysPanel
+    anchors.top: daysTitle.bottom
+    anchors.left: parent.left
+    anchors.right: divider.left
+    anchors.bottom: claimButton.top
+    margin-top: 8
+    margin-left: 15
+    margin-right: 10
+    margin-bottom: 15
+    layout:
+      type: grid
+      cell-size: 75 60
+      cell-spacing: 6
+      flow: true
 
   ScrollablePanel
     id: bonusPanel
-    width: 200
-    anchors.top: bonusTitle.bottom
+    anchors.top: bonusDescription.bottom
+    anchors.left: divider.right
     anchors.right: parent.right
     anchors.bottom: claimButton.top
-    margin-top: 10
-    margin-bottom: 20
+    margin-top: 5
+    margin-left: 15
+    margin-right: 15
+    margin-bottom: 15
     padding: 5
-    background-color: #00000044
-    vertical-scrollbar: bonusScrollBar
-    layout: verticalBox
+    layout:
+      type: verticalBox
 
-  VerticalScrollBar
-    id: bonusScrollBar
-    anchors.top: bonusPanel.top
-    anchors.bottom: bonusPanel.bottom
-    anchors.right: bonusPanel.right
-    step: 20
-
-  // Botões como UIWidget para controle total de cores
   UIWidget
     id: claimButton
     !text: tr('Claim Daily Reward')
@@ -171,6 +207,7 @@ MainWindow
     height: 45
     anchors.bottom: parent.bottom
     anchors.left: parent.left
+    margin-left: 15
     margin-bottom: 5
     font: verdana-11px-rounded
     background-color: #008800
@@ -204,10 +241,11 @@ MainWindow
 
   Label
     id: consecutiveLabel
-    !text: tr('Consecutive: 0 days')
+    !text: tr('Consecutive Days: 0')
     anchors.bottom: parent.bottom
     anchors.right: parent.right
     margin-bottom: 15
+    margin-right: 15
     font: verdana-11px-rounded
     color: #ffff00
     text-auto-resize: true
