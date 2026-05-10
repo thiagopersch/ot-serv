@@ -1,0 +1,13 @@
+Module
+  name: game_skill_upgrades
+  description: Skill Upgrade System
+  author: Antigravity
+  website: -
+  sandboxed: true
+  autoload: true
+  autoload-priority: 800
+  scripts: [ skill_upgrades ]
+  @onLoad: init()
+  @onUnload: terminate()
+  dependencies:
+    - client_topmenu

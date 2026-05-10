@@ -5,10 +5,14 @@ local win             = nil
 local list            = nil
 local currentCreature = nil
 local currentName     = nil
+local currentLevel    = nil
 local changeBtn       = nil
 local closeBtn        = nil
-local selectedId      = nil
+
 local gameConnected   = false
+local selectedId      = nil
+local currentVocId    = nil
+local cachedData      = ""
 
 local cvSelect
 local requestChange
@@ -41,7 +45,7 @@ local function resetLeftPanel()
   if currentName then currentName:setText("?") end
 end
 
-local function buildRow(parentList, id, lookType, name, isCurrent)
+local function buildRow(parentList, id, lookType, displayName, level, isCurrent)
   local row = g_ui.createWidget('Panel', parentList)
   row:setId('voc_' .. id)
   row:setHeight(64)
@@ -99,13 +103,28 @@ local function buildRow(parentList, id, lookType, name, isCurrent)
   cw:setPhantom(true)
 
   local lName = g_ui.createWidget('Label', row)
+  lName:setId('nameLabel')
+  lName:setTextAutoResize(true)
   lName:addAnchor(AnchorHorizontalCenter, 'parent', AnchorHorizontalCenter)
-  lName:addAnchor(AnchorVerticalCenter, 'parent', AnchorVerticalCenter)
+  lName:addAnchor(AnchorTop, 'parent', AnchorTop)
+  lName:setMarginTop(18)
   lName:setTextAlign(AlignHCenter)
-  lName:setText(name)
+  lName:setText(displayName)
   lName:setFont('verdana-11px-rounded')
   lName:setColor(isCurrent and '#88ff88' or '#dddddd')
   lName:setPhantom(true)
+
+  local lLevel = g_ui.createWidget('Label', row)
+  lLevel:setId('levelLabel')
+  lLevel:setTextAutoResize(true)
+  lLevel:addAnchor(AnchorHorizontalCenter, 'parent', AnchorHorizontalCenter)
+  lLevel:addAnchor(AnchorTop, 'prev', AnchorBottom)
+  lLevel:setMarginTop(2)
+  lLevel:setTextAlign(AlignHCenter)
+  lLevel:setText("Level " .. level)
+  lLevel:setFont('verdana-9px')
+  lLevel:setColor('#aaaaaa')
+  lLevel:setPhantom(true)
 
   local badgeText  = isCurrent and '[Current]' or '[Available]'
   local badgeColor = isCurrent and '#44bb44' or '#4488cc'
@@ -168,6 +187,7 @@ function init()
   list            = win:recursiveGetChildById('vocationsScroll')
   currentCreature = win:recursiveGetChildById('vocationPanel')
   currentName     = win:recursiveGetChildById('nameLabel')
+  currentLevel    = win:recursiveGetChildById('levelLabel')
   changeBtn       = win:recursiveGetChildById('changeButton')
   closeBtn        = win:recursiveGetChildById('closeButton')
 
@@ -236,6 +256,7 @@ function processData(data)
     local v = data:byte(pos) or 0; pos = pos + 1; return v
   end
   local function rU16() return rU8() * 256 + rU8() end
+  local function rU32() return rU16() * 65536 + rU16() end
   local function rStr()
     local n = rU16()
     if n <= 0 then return "" end
@@ -250,16 +271,21 @@ function processData(data)
 
   for i = 1, count do
     if pos > #data then break end
-    local id        = rU16()
-    local lookType  = rU16()
-    local name      = rStr()
-    local isCurrent = (id == currentId)
+    local id          = rU16()
+    local lookType    = rU16()
+    local name        = rStr()
+    local classType   = rStr()
+    local level       = rU32()
+    local isCurrent   = (id == currentId)
+
+    local displayName = name .. " (" .. classType .. ")"
 
     if isCurrent then
       if currentCreature then currentCreature:setOutfit(makeOutfit(lookType)) end
-      if currentName then currentName:setText(name) end
+      if currentName then currentName:setText(displayName) end
+      if currentLevel then currentLevel:setText("Level " .. level) end
     end
 
-    if list then buildRow(list, id, lookType, name, isCurrent) end
+    if list then buildRow(list, id, lookType, displayName, level, isCurrent) end
   end
 end

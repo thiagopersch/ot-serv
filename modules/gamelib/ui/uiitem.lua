@@ -59,7 +59,7 @@ function UIItem:onDestroy()
 end
 
 function UIItem:onHoverChange(hovered)
-  print("DBG onHoverChange widget=", self:getId() or "no-id", "hovered=", hovered, "tooltip=", self.tooltip)
+  --print("DBG onHoverChange widget=", self:getId() or "no-id", "hovered=", hovered, "tooltip=", self.tooltip)
   UIWidget.onHoverChange(self, hovered)
 
   if self:isVirtual() or not self:isDraggable() then return end

@@ -142,7 +142,8 @@ function updateProfile()
 	end
 
 	local vocationName = ProfileData.vocation_name or ""
-	local formattedVocName = string.gsub(string.lower(vocationName), " ", "_")
+	local rawVocName = string.gsub(vocationName, "%s*%([^%)]+%)", "")
+	local formattedVocName = string.gsub(string.lower(rawVocName), " ", "_")
 	local vocationImageSrc = "/images/vocations/" .. formattedVocName .. ".png"
 
 	if not g_resources.fileExists(vocationImageSrc) then

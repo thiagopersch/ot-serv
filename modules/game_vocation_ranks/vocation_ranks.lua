@@ -113,7 +113,8 @@ function updateWindowData()
   end
 
   left:getChildById('vocNameLabel'):setText(cachedRankData.vocName)
-  local formattedVocName = string.gsub(string.lower(cachedRankData.vocName), " ", "_")
+  local rawVocName = string.gsub(cachedRankData.vocName, "%s*%([^%)]+%)", "")
+  local formattedVocName = string.gsub(string.lower(rawVocName), " ", "_")
   local vocationImageSrc = '/images/vocations/' .. formattedVocName .. '.png'
   if not g_resources.fileExists(vocationImageSrc) then
     vocationImageSrc = '/images/vocations/not_found.png'

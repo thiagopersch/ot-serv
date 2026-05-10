@@ -37,7 +37,6 @@ MainWindow
       anchors.top: vocationPanel.bottom
       anchors.horizontalCenter: parent.horizontalCenter
       margin-top: 5
-      margin-bottom: 5
       color: #88ff88
       text-auto-resize: true
       text-clip: true
@@ -45,6 +44,18 @@ MainWindow
       text-clip-mode: clip
       text-center: true
       font: verdana-11px-rounded
+
+    Label
+      id: levelLabel
+      text: ?
+      anchors.top: nameLabel.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 2
+      margin-bottom: 5
+      color: #aaaaaa
+      text-auto-resize: true
+      text-center: true
+      font: verdana-9px
 
   VerticalSeparator
     id: separator
