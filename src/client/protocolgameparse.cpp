@@ -1241,17 +1241,16 @@ void ProtocolGame::parseCreatureMove(const InputMessagePtr& msg)
         stepDuration = msg->getU16();
 
     if (!thing || !thing->isCreature()) {
-        g_logger.traceError("no creature found to move");
-        return;
-    }
-
-    if (!g_map.removeThing(thing)) {
-        g_logger.traceError("unable to remove creature");
+        g_logger.traceWarning("no creature found to move, skipping");
         return;
     }
 
     CreaturePtr creature = thing->static_self_cast<Creature>();
     creature->allowAppearWalk(stepDuration);
+
+    if (!g_map.removeThing(thing)) {
+        g_logger.traceWarning(stdext::format("unable to remove creature %d, adding at new position anyway", creature->getId()));
+    }
 
     g_map.addThing(thing, newPos, -1);
 }
