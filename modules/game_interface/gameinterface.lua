@@ -1055,10 +1055,10 @@ function refreshViewMode()
     gameMapPanel:setMarginTop(0)
   end
 
-  gameMapPanel:setVisibleDimension({ width = 21, height = 15 })
+  gameMapPanel:setVisibleDimension({ width = 31, height = 23 })
 
   if classic then
-    g_game.changeMapAwareRange(31, 21)
+    g_game.changeMapAwareRange(30, 22)
     gameMapPanel:addAnchor(AnchorLeft, 'gameLeftActionPanel', AnchorRight)
     gameMapPanel:addAnchor(AnchorRight, 'gameRightActionPanel', AnchorLeft)
     gameMapPanel:addAnchor(AnchorBottom, 'gameBottomActionPanel', AnchorTop)
@@ -1074,7 +1074,7 @@ function refreshViewMode()
       modules.game_console.switchMode(false)
     end
   else
-    g_game.changeMapAwareRange(31, 21)
+    g_game.changeMapAwareRange(30, 22)
     gameMapPanel:fill('parent')
     gameMapPanel:setKeepAspectRatio(false)
     gameMapPanel:setLimitVisibleRange(false)
