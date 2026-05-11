@@ -291,10 +291,10 @@ end
 
 function updateStretchShrink()
   if modules.client_options.getOption('dontStretchShrink') and not alternativeView then
-    gameMapPanel:setVisibleDimension({ width = 15, height = 11 })
+    gameMapPanel:setVisibleDimension({ width = 21, height = 15 })
 
     -- Set gameMapPanel size to height = 11 * 32 + 2
-    bottomSplitter:setMarginBottom(bottomSplitter:getMarginBottom() + (gameMapPanel:getHeight() - 32 * 11) - 10)
+    bottomSplitter:setMarginBottom(bottomSplitter:getMarginBottom() + (gameMapPanel:getHeight() - 32 * 15) - 10)
   end
 end
 
@@ -1055,17 +1055,17 @@ function refreshViewMode()
     gameMapPanel:setMarginTop(0)
   end
 
-  gameMapPanel:setVisibleDimension({ width = 15, height = 11 })
+  gameMapPanel:setVisibleDimension({ width = 21, height = 15 })
 
   if classic then
-    g_game.changeMapAwareRange(19, 15)
+    g_game.changeMapAwareRange(31, 21)
     gameMapPanel:addAnchor(AnchorLeft, 'gameLeftActionPanel', AnchorRight)
     gameMapPanel:addAnchor(AnchorRight, 'gameRightActionPanel', AnchorLeft)
     gameMapPanel:addAnchor(AnchorBottom, 'gameBottomActionPanel', AnchorTop)
     gameMapPanel:addAnchor(AnchorTop, 'gameTopBar', AnchorBottom)
     gameMapPanel:setKeepAspectRatio(true)
     gameMapPanel:setLimitVisibleRange(false)
-    gameMapPanel:setZoom(15)
+    gameMapPanel:setZoom(19)
     gameMapPanel:setOn(false) -- frame
 
     modules.client_topmenu.getTopMenu():setImageColor('white')
@@ -1082,7 +1082,7 @@ function refreshViewMode()
     if g_app.isMobile() then
       gameMapPanel:setZoom(11)
     else
-      gameMapPanel:setZoom(15)
+      gameMapPanel:setZoom(19)
     end
 
     modules.client_topmenu.getTopMenu():setImageColor('#ffffff66')

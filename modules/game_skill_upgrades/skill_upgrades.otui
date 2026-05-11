@@ -90,7 +90,7 @@ MainWindow
     margin-top: 8
     margin-left: 6
     margin-bottom: 6
-    width: 220
+    width: 270
     focusable: false
     vertical-scrollbar: skillsScroll
     layout:
