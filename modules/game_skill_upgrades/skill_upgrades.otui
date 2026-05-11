@@ -6,10 +6,10 @@ SkillRow < UIWidget
   border-width: 1
   border-color: alpha
   focusable: true
-  
+
   $hover:
     background-color: #ffffff11
-  
+
   $focus:
     background-color: #ffffff22
     border-color: #ffffff55
@@ -21,7 +21,7 @@ SkillRow < UIWidget
     anchors.verticalCenter: parent.verticalCenter
     text-auto-resize: true
     font: verdana-11px-monochrome
-    
+
   Label
     id: value
     anchors.left: prev.right
@@ -30,7 +30,7 @@ SkillRow < UIWidget
     text-auto-resize: true
     font: verdana-11px-monochrome
     color: #55ffff
-    
+
   Label
     id: level
     anchors.right: parent.right
@@ -39,10 +39,26 @@ SkillRow < UIWidget
     font: verdana-11px-monochrome
     color: #ffd700
 
+GroupHeader < UIWidget
+  height: 22
+  padding: 4
+  background-color: #333355
+  border-width: 1
+  border-color: #555588
+  focusable: false
+
+  Label
+    id: label
+    anchors.left: parent.left
+    anchors.verticalCenter: parent.verticalCenter
+    text-auto-resize: true
+    font: verdana-11px-monochrome
+    color: #88aaff
+
 MainWindow
   id: skillUpgradesWindow
   !text: tr('Skill Upgrades')
-  size: 520 450
+  size: 620 650
   @onEscape: modules.game_skill_upgrades.toggle()
 
   Label
@@ -51,15 +67,17 @@ MainWindow
     anchors.left: parent.left
     margin-top: 6
     margin-left: 6
+    text-auto-resize: true
     text: Available Points: 0
     color: #55ff55
     font: verdana-11px-monochrome
-    
+
   Label
     id: spentLabel
     anchors.top: prev.top
     anchors.right: parent.right
     margin-right: 6
+    text-auto-resize: true
     text: Spent Points: 0
     color: #ff5555
     font: verdana-11px-monochrome
@@ -96,7 +114,7 @@ MainWindow
     margin-left: 10
     margin-right: 6
     margin-bottom: 6
-    
+
     Label
       id: skillTitle
       anchors.top: parent.top
@@ -106,35 +124,39 @@ MainWindow
       font: verdana-11px-monochrome
       color: #ffffff
       text: Select a skill
-      
+
     Label
       id: skillDesc
-      anchors.top: prev.bottom
+      anchors.top: skillTitle.bottom
       anchors.left: parent.left
       anchors.right: parent.right
-      margin-top: 10
+      margin-top: 6
       text-wrap: true
+      text-auto-resize: true
       color: #aaaaaa
-      text: 
-      
+      text:
+
     Label
       id: skillStats
-      anchors.top: prev.bottom
+      anchors.top: skillDesc.bottom
       anchors.left: parent.left
       anchors.right: parent.right
-      margin-top: 15
+      margin-top: 8
+      text-wrap: true
+      text-auto-resize: true
       color: #ffff55
-      text: 
-      
+      text:
+
     Label
       id: upgradeCost
-      anchors.top: prev.bottom
+      anchors.top: skillStats.bottom
       anchors.left: parent.left
       anchors.right: parent.right
-      margin-top: 15
+      margin-top: 6
+      text-auto-resize: true
       color: #ffaa55
-      text: 
-      
+      text:
+
     Button
       id: upgradeButton
       anchors.bottom: resetButton.top
@@ -154,7 +176,7 @@ MainWindow
       color: #ff5555
       !tooltip: tr('Reset all skills and refund points.')
       @onClick: modules.game_skill_upgrades.doReset()
-      
+
   Button
     id: closeButton
     !text: tr('Close')

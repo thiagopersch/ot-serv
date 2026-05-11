@@ -11,6 +11,7 @@ local currentSkills = {}
 local currentValues = {}
 local selectedSkill = nil
 SKILL_INFO = {}
+SKILL_GROUPS = {}
 
 local function getUpgradeCost(level)
   return math.floor(level / 5) + 1
@@ -51,6 +52,12 @@ function terminate()
 end
 
 function online()
+  if g_game.getFeature(GameExtendedOpcode) then
+    local protocolGame = g_game.getProtocolGame()
+    if protocolGame then
+      protocolGame:sendExtendedOpcode(OPCODE_SKILLS, "request")
+    end
+  end
 end
 
 function offline()
@@ -75,6 +82,11 @@ function onExtendedOpcode(protocol, code, buffer)
 
   if buffer:sub(1, 5) == "@meta" then
     parseMeta(buffer)
+    return
+  end
+
+  if buffer:sub(1, 7) == "@groups" then
+    parseGroups(buffer)
     return
   end
 
@@ -108,7 +120,24 @@ function parseMeta(buffer)
         name = fields[2],
         desc = fields[3],
         max = tonumber(fields[4]) or 100,
-        formula = fields[5]
+        formula = fields[5],
+        group = fields[6] or "",
+        groupOrder = tonumber(fields[7]) or 0
+      }
+    end
+  end
+  updateUI()
+end
+
+function parseGroups(buffer)
+  local parts = string.explode(buffer, "|")
+  SKILL_GROUPS = {}
+  for i = 2, #parts do
+    local fields = string.explode(parts[i], ";")
+    if #fields >= 3 then
+      SKILL_GROUPS[fields[1]] = {
+        name = fields[2],
+        order = tonumber(fields[3]) or 0
       }
     end
   end
@@ -121,18 +150,53 @@ function updateUI()
 
   skillsList:destroyChildren()
 
-  local sortedKeys = {}
-  for key, _ in pairs(SKILL_INFO) do
-    table.insert(sortedKeys, key)
+  local resetBtn = detailPanel:getChildById('resetButton')
+  if resetBtn then
+    resetBtn:setEnabled(spentPoints > 0)
   end
-  table.sort(sortedKeys, function(a, b) return SKILL_INFO[a].name < SKILL_INFO[b].name end)
 
-  for _, key in ipairs(sortedKeys) do
-    local info = SKILL_INFO[key]
+  local sortedSkills = {}
+  for key, info in pairs(SKILL_INFO) do
+    table.insert(sortedSkills, {key = key, info = info})
+  end
+
+  table.sort(sortedSkills, function(a, b)
+    local aGroupOrder = a.info.groupOrder or 999
+    local bGroupOrder = b.info.groupOrder or 999
+    if aGroupOrder ~= bGroupOrder then
+      return aGroupOrder < bGroupOrder
+    end
+    return (a.info.id or 999) < (b.info.id or 999)
+  end)
+
+  local lastGroup = nil
+  local firstSkillWidget = nil
+
+  for _, entry in ipairs(sortedSkills) do
+    local key = entry.key
+    local info = entry.info
+    local group = info.group or ""
+
+    if group ~= lastGroup then
+      lastGroup = group
+      local displayName = group
+      if group ~= "" and SKILL_GROUPS[group] then
+        displayName = SKILL_GROUPS[group].name
+      elseif group ~= "" then
+        displayName = group:upper()
+      end
+
+      if displayName ~= "" then
+        local header = g_ui.createWidget('GroupHeader', skillsList)
+        header:getChildById('label'):setText(displayName)
+      end
+    end
+
     local level = currentSkills[key] or 0
     local value = currentValues[key] or 0
 
     local widget = g_ui.createWidget('SkillRow', skillsList)
+    if not firstSkillWidget then firstSkillWidget = widget end
     widget.key = key
     widget:getChildById('name'):setText(info.name)
 
@@ -160,8 +224,8 @@ function updateUI()
     end
   end
 
-  if not selectedSkill and #sortedKeys > 0 then
-    selectSkill(skillsList:getFirstChild())
+  if not selectedSkill and firstSkillWidget then
+    selectSkill(firstSkillWidget)
   end
 end
 
@@ -175,6 +239,7 @@ function selectSkill(widget)
   local level = currentSkills[key] or 0
 
   detailPanel:getChildById('skillTitle'):setText(info.name)
+
   detailPanel:getChildById('skillDesc'):setText(info.desc)
 
   local statsStr = "Rank: " .. level .. " / " .. info.max
