@@ -168,6 +168,8 @@ function updateProfile()
 	playerPanel:getChildById("fragsLabel"):setText(string.format("%s: %s", tr("Frags"), tostringex(ProfileData.frags, "--")))
 	playerPanel:getChildById("resetsLabel"):setText(string.format("%s: %s", tr("Resets"),
 		tostringex(ProfileData.resets, "--")))
+	playerPanel:getChildById("onlinePointsLabel"):setText(string.format("%s: %s", tr("Online Points"),
+		tostringex(ProfileData.online_points, "--")))
 	playerPanel:getChildById("balanceLabel"):setText(string.format("%s: %s", tr("Balance"),
 		tostringex(ProfileData.balance, "--")))
 	playerPanel:getChildById("capLabel"):setText(string.format("%s: %s", tr("Cap"), tostringex(ProfileData.cap, "--")))
@@ -382,6 +384,8 @@ function onRecvExtendedOpcode(pg, opcode, buffer)
 			index = index + 2
 		end
 	end
+
+	ProfileData.online_points = tonumber(data[index] or 0)
 
 	updateProfile()
 	show()

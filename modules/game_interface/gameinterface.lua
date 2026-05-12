@@ -489,6 +489,8 @@ function createThingMenu(menuPosition, lookThing, useThing, creatureThing)
       menu:addOption(tr('Techniques'), function() modules.game_spelllist.open() end)
       g_modules.ensureModuleLoaded("game_vocation_ranks")
       menu:addOption(tr('Vocation Upgraded'), function() modules.game_vocation_ranks.open(creatureThing) end)
+      g_modules.ensureModuleLoaded("game_skill_upgrades")
+      menu:addOption(tr('Skills Upgrades'), function() modules.game_skill_upgrades.toggle() end)
       if g_game.getFeature(GamePlayerMounts) then
         if not localPlayer:isMounted() then
           menu:addOption(tr('Mount'), function() localPlayer:mount() end)

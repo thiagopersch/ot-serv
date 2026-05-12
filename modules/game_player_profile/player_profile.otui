@@ -97,6 +97,14 @@ MainWindow
       text-align: center
       anchors.horizontalCenter: parent.horizontalCenter
     Label
+      id: onlinePointsLabel
+      font: verdana-11px-rounded
+      text-auto-resize: true
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      text-align: center
+      anchors.horizontalCenter: parent.horizontalCenter
+    Label
       id: balanceLabel
       font: verdana-11px-rounded
       text-auto-resize: true

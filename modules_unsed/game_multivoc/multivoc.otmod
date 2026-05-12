@@ -1,7 +1,0 @@
-Module
-  name: game_multivoc
-  description: Multi Vocation System
-  scripts: [ multivoc ]
-  files: [ multivoc.otui ]
-  @onLoad: init()
-  @onUnload: terminate()
