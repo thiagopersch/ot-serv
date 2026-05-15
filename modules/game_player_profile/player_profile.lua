@@ -129,128 +129,275 @@ function getFrame(rarity)
 end
 
 function updateProfile()
-	local eloImageSrc
-
-	if not ProfileData.elo_name or ProfileData.elo_name == "" then
-		eloImageSrc = g_resources.guessFilePath("assets/elo/not_found", "png")
-	else
-		eloImageSrc = g_resources.guessFilePath("assets/elo/" .. tostring(ProfileData.elo_name):lower(), "png")
-
-		if not g_resources.fileExists(eloImageSrc) then
-			eloImageSrc = g_resources.guessFilePath("assets/elo/not_found", "png")
-		end
+	if not InspectWindow then
+		return
 	end
 
-	local vocationName = ProfileData.vocation_name or ""
-	local rawVocName = string.gsub(vocationName, "%s*%([^%)]+%)", "")
-	local formattedVocName = string.gsub(string.lower(rawVocName), " ", "_")
-	local vocationImageSrc = "/images/vocations/" .. formattedVocName .. ".png"
+	local playerPanel = InspectWindow:recursiveGetChildById("playerPanel")
+	if not playerPanel then
+		return
+	end
+
+	-- VOCATION IMAGE
+	local vocationName = ProfileData.vocation_name or "not_found"
+
+	-- lowercase
+	vocationName = string.gsub(vocationName, "%s*%b()", "")
+
+	-- lowercase
+	vocationName = string.lower(vocationName)
+
+	-- remove espaços
+	vocationName = string.gsub(vocationName, "%s+", "_")
+
+	local vocationImageSrc = "/images/vocations/" .. vocationName .. ".png"
 
 	if not g_resources.fileExists(vocationImageSrc) then
 		vocationImageSrc = "/images/vocations/not_found.png"
 	end
 
-	local playerPanel = InspectWindow:getChildById("playerPanel")
-	local ageLabel = ''
-	if ProfileData.age < 2 then
-		ageLabel = 'year'
-	else
-		ageLabel = 'years'
+	local vocationImage = playerPanel:recursiveGetChildById("vocationImage")
+	if vocationImage then
+		vocationImage:setImageSource(vocationImageSrc)
 	end
 
-	playerPanel:getChildById("vocationImage"):setImageSource(vocationImageSrc)
-	playerPanel:getChildById("nameLabel"):setText(ProfileData.name or "--")
-	playerPanel:getChildById("levelLabel"):setText(string.format("%s: %s", tr("Level"), tostringex(ProfileData.level, "--")))
-	playerPanel:getChildById("vocationLabel"):setText(string.format("%s: %s", tr("Vocation"),
+	local age = ProfileData.age or 0
+	local ageLabel = age < 2 and 'year' or 'years'
+
+	playerPanel:recursiveGetChildById("nameLabel"):setText(ProfileData.name or "--")
+
+	playerPanel:recursiveGetChildById("levelLabel"):setText(string.format("%s: %s",
+		tr("Level"),
+		tostringex(ProfileData.level, "--")))
+
+	playerPanel:recursiveGetChildById("vocationLabel"):setText(string.format("%s: %s",
+		tr("Vocation"),
 		tostringex(ProfileData.vocation_name, "--")))
-	playerPanel:getChildById("ageLabel"):setText(string.format("%s: %s", tr("Age"),
-		tostringex(ProfileData.age .. " " .. ageLabel, "--")))
-	playerPanel:getChildById("fragsLabel"):setText(string.format("%s: %s", tr("Frags"), tostringex(ProfileData.frags, "--")))
-	playerPanel:getChildById("resetsLabel"):setText(string.format("%s: %s", tr("Resets"),
+
+	playerPanel:recursiveGetChildById("ageLabel"):setText(string.format("%s: %s",
+		tr("Age"),
+		tostringex(age .. " " .. ageLabel, "--")))
+
+	playerPanel:recursiveGetChildById("fragsLabel"):setText(string.format("%s: %s",
+		tr("Frags"),
+		tostringex(ProfileData.frags, "--")))
+
+	playerPanel:recursiveGetChildById("resetsLabel"):setText(string.format("%s: %s",
+		tr("Resets"),
 		tostringex(ProfileData.resets, "--")))
-	playerPanel:getChildById("onlinePointsLabel"):setText(string.format("%s: %s", tr("Online Points"),
+
+	playerPanel:recursiveGetChildById("onlinePointsLabel"):setText(string.format("%s: %s",
+		tr("Online Points"),
 		tostringex(ProfileData.online_points, "--")))
-	playerPanel:getChildById("balanceLabel"):setText(string.format("%s: %s", tr("Balance"),
+
+	playerPanel:recursiveGetChildById("balanceLabel"):setText(string.format("%s: %s",
+		tr("Balance"),
 		tostringex(ProfileData.balance, "--")))
-	playerPanel:getChildById("capLabel"):setText(string.format("%s: %s", tr("Cap"), tostringex(ProfileData.cap, "--")))
-	playerPanel:getChildById("accountLabel"):setText(string.format("%s: %s", tr("Account"),
+
+	playerPanel:recursiveGetChildById("capLabel"):setText(string.format("%s: %s",
+		tr("Cap"),
+		tostringex(ProfileData.cap, "--")))
+
+	playerPanel:recursiveGetChildById("accountLabel"):setText(string.format("%s: %s",
+		tr("Account"),
 		tr(ProfileData.premium and "Premium Account" or "Free Account")))
-	playerPanel:getChildById("townLabel"):setText(string.format("%s: %s", tr("Town"),
+
+	playerPanel:recursiveGetChildById("townLabel"):setText(string.format("%s: %s",
+		tr("Town"),
 		tostringex(ProfileData.town_name, "--")))
-	playerPanel:getChildById("guildLabel"):setText(string.format("%s: %s", tr("Guild"),
+
+	playerPanel:recursiveGetChildById("guildLabel"):setText(string.format("%s: %s",
+		tr("Guild"),
 		tostringex(ProfileData.guild_name, "--")))
 
 	local stamina = ProfileData.stamina or 0
 
-	playerPanel:getChildById("staminaLabel"):setText(string.format("%s: %s", tr("Stamina"), formatStrTime(stamina)))
-	playerPanel:getChildById("staminaBar"):setValue(stamina, 0, 2520)
+	playerPanel:recursiveGetChildById("staminaLabel"):setText(string.format("%s: %s",
+		tr("Stamina"),
+		formatStrTime(stamina)))
+
+	local staminaBar = playerPanel:recursiveGetChildById("staminaBar")
+	staminaBar:setValue(stamina, 0, 2520)
 
 	local maxHealth = ProfileData.max_health or 0
-	local healthBar = playerPanel:getChildById("healthBar")
+	local healthBar = playerPanel:recursiveGetChildById("healthBar")
 
 	healthBar:setText(maxHealth)
-	healthBar:setValue(maxHealth, 0, maxHealth)
+	healthBar:setValue(maxHealth, 0, math.max(maxHealth, 1))
 
 	local maxMana = ProfileData.max_mana or 0
-	local manaBar = playerPanel:getChildById("manaBar")
+	local manaBar = playerPanel:recursiveGetChildById("manaBar")
 
 	manaBar:setText(maxMana)
-	manaBar:setValue(maxMana, 0, maxMana)
+	manaBar:setValue(maxMana, 0, math.max(maxMana, 1))
 
+	-- ITEMS
 	if not ProfileData.equipments then
 		ProfileData.equipments = {}
 	end
 
-	local itemsPanel = InspectWindow:getChildById("itemsPanel")
-	local eyeIcon = itemsPanel:getChildById("eyeIcon")
+	local itemsPanel = InspectWindow:recursiveGetChildById("itemsPanel")
 
-	eyeIcon:setImageSource(ProfileData.showEquipments and "assets/eye_open" or "assets/eye_closed")
+	if itemsPanel then
+		local eyeIcon = itemsPanel:recursiveGetChildById("eyeIcon")
 
-	for i = 1, 10 do
-		local item = ProfileData.equipments[i]
-		local slotPanel = itemsPanel:getChildById("slot" .. i)
+		if eyeIcon then
+			eyeIcon:setImageSource(ProfileData.showEquipments and "assets/eye_open" or "assets/eye_closed")
+		end
 
-		if ProfileData.showEquipments then
-			local itemId = item and item.id or 0
-			if itemId ~= 0 then
-				slotPanel:setStyle("InventoryItem")
-				slotPanel:setItemId(itemId)
-				slotPanel:setItemCount(item.count or 0)
-				if slotPanel.setTooltipTable then
-					slotPanel:setTooltipTable("", itemId)
+		for i = 1, 10 do
+			local item = ProfileData.equipments[i]
+			local slotPanel = itemsPanel:recursiveGetChildById("slot" .. i)
+
+			if slotPanel then
+				if ProfileData.showEquipments then
+					local itemId = item and item.id or 0
+
+					if itemId ~= 0 then
+						slotPanel:setStyle("InventoryItem")
+						slotPanel:setItemId(itemId)
+						slotPanel:setItemCount(item.count or 0)
+
+						if slotPanel.setTooltipTable then
+							slotPanel:setTooltipTable("", itemId)
+						end
+					else
+						slotPanel:setStyle(InventorySlotStyles[i])
+						slotPanel:setItem(nil)
+					end
+				else
+					slotPanel:setStyle(InventorySlotStyles[i])
+					slotPanel:setItem(nil)
 				end
-			else
-				slotPanel:setStyle(InventorySlotStyles[i])
-				slotPanel:setItem(nil)
 			end
-		else
-			slotPanel:setStyle(InventorySlotStyles[i])
-			slotPanel:setItem(nil)
 		end
 	end
 
+	-- SKILLS
 	if not ProfileData.skills then
 		ProfileData.skills = {}
 	end
 
-	local skillsPanel = InspectWindow:getChildById("skillsPanel")
+	local skillsPanel = InspectWindow:recursiveGetChildById("skillsPanel")
 
-	skillsPanel:getChildById("magLevel"):setText(string.format("%s: %s", tr("Magic Level"),
-		tostringex(ProfileData.magic_level, "--")))
+	if skillsPanel then
+		skillsPanel:recursiveGetChildById("magLevel"):setText(string.format("%s: %s",
+			tr("Magic Level"),
+			tostringex(ProfileData.magic_level, "--")))
 
-	for i = 0, 6 do
-		skillsPanel:getChildById("skill" .. i):setText(string.format("%s: %s", tr(SkillIdToName[i]),
-			tostringex(ProfileData.skills[i], "--")))
+		for i = 0, 6 do
+			skillsPanel:recursiveGetChildById("skill" .. i):setText(string.format("%s: %s",
+				tr(SkillIdToName[i]),
+				tostringex(ProfileData.skills[i], "--")))
+		end
+
+		skillsPanel:recursiveGetChildById("dodgeLabel"):setText(string.format("%s: %s",
+			tr("Dodge"),
+			tostringex((ProfileData.dodge or 0) .. "/1000", "--")))
+
+		skillsPanel:recursiveGetChildById("critLabel"):setText(string.format("%s: %s",
+			tr("Critical"),
+			tostringex((ProfileData.crit or 0) .. "/1000", "--")))
 	end
 
-	skillsPanel:getChildById("dodgeLabel"):setText(string.format("%s: %s", tr("Dodge"),
-		tostringex(ProfileData.dodge .. "/1000", "--")))
-	skillsPanel:getChildById("critLabel"):setText(string.format("%s: %s", tr("Critical"),
-		tostringex(ProfileData.crit .. "/1000", "--")))
+	-- RANK
+	local rankPanel = InspectWindow:recursiveGetChildById("rankPanel")
+
+	if rankPanel then
+		local rankColor = getRankColor(ProfileData.task_rank)
+
+		rankPanel:recursiveGetChildById("rankLabel"):setText(string.format("%s: %s",
+			tr("Rank"),
+			tostringex(ProfileData.task_rank, "--")))
+
+		rankPanel:recursiveGetChildById("rankLabel"):setColor(rankColor)
+
+		rankPanel:recursiveGetChildById("pointsLabel"):setText(string.format("%s: %s",
+			tr("Task Points"),
+			tostringex(ProfileData.task_points, "0")))
+
+		local progressFill = rankPanel:recursiveGetChildById("rankProgressFill")
+		local progressBar = rankPanel:recursiveGetChildById("rankProgressBar")
+		local progressText = rankPanel:recursiveGetChildById("rankProgressText")
+
+		if ProfileData.task_next_rank and
+				ProfileData.task_next_rank ~= "" and
+				ProfileData.task_next_rank ~= ProfileData.task_rank then
+			rankPanel:recursiveGetChildById("nextRankLabel"):setText(string.format(
+				"Next: %s (%s pts)",
+				ProfileData.task_next_rank,
+				tostringex(ProfileData.task_points_to_next, "0")
+			))
+
+			if progressFill and progressBar then
+				local maxPoints = ProfileData.task_points_to_next_max
+
+				if maxPoints and maxPoints > 0 then
+					local pct = math.min(
+						(ProfileData.task_points_in_rank or 0) / maxPoints,
+						1
+					)
+
+					local barWidth = math.max(progressBar:getWidth(), 150)
+
+					progressFill:setWidth(math.floor(barWidth * pct))
+				end
+			end
+
+			if progressText then
+				progressText:setText(string.format("%s / %s",
+					tostringex(ProfileData.task_points_in_rank, "0"),
+					tostringex(ProfileData.task_points_to_next_max, "1")))
+			end
+		else
+			rankPanel:recursiveGetChildById("nextRankLabel"):setText("Max Rank!")
+
+			if progressFill then
+				progressFill:setWidth(0)
+			end
+
+			if progressText then
+				progressText:setText("MAXED")
+			end
+		end
+	end
+end
+
+local RANK_COLORS = {
+	["Unranked"] = "#666666",
+	["Citizen"] = "#aaaaaa",
+	["Veteran"] = "#cd7f32",
+	["Master"] = "#c0c0c0",
+	["Professional"] = "#ffd700",
+	["Elite"] = "#b9f2ff",
+	["Legendary"] = "#ff6b6b",
+	["Immortal"] = "#ff0000",
+	["Hero"] = "#ff4500",
+	["God of Destruction"] = "#8b00ff",
+	["God of Creation"] = "#00bfff",
+	["Supreme God"] = "#ffd700",
+	["Human"] = "#aaaaaa",
+	["Hollow"] = "#cd7f32",
+	["Shinigami"] = "#c0c0c0",
+	["Vaizard"] = "#ffd700",
+	["Arrancar"] = "#b9f2ff",
+	["Espada"] = "#ff6b6b",
+	["Captain"] = "#ff0000",
+	["Elite Captain"] = "#ff4500",
+	["General Captain"] = "#8b00ff",
+	["Head Captain"] = "#00bfff",
+	["King of Shinigami"] = "#ffd700"
+}
+
+function getRankColor(rankName)
+	if RANK_COLORS[rankName] then
+		return RANK_COLORS[rankName]
+	end
+	return "#ffffff"
 end
 
 function search()
-	local searchEdit = InspectWindow:getChildById("searchEdit")
+	local searchEdit = InspectWindow:recursiveGetChildById("searchEdit")
 	local text = searchEdit:getText()
 
 	if text ~= "" then
@@ -258,8 +405,8 @@ function search()
 		searchEdit:setText("")
 	end
 
-	local itemsPanel = InspectWindow:getChildById("itemsPanel")
-	local eyeIcon = itemsPanel:getChildById("eyeIcon")
+	local itemsPanel = InspectWindow:recursiveGetChildById("itemsPanel")
+	local eyeIcon = itemsPanel:recursiveGetChildById("eyeIcon")
 	local localPlayer = g_game.getLocalPlayer()
 
 	if string.lower(localPlayer:getName()) == string.lower(text) then
@@ -270,10 +417,10 @@ function search()
 end
 
 function updateItemSlots()
-	local itemsPanel = InspectWindow:getChildById("itemsPanel")
+	local itemsPanel = InspectWindow:recursiveGetChildById("itemsPanel")
 	for i = 1, 10 do
 		local item = ProfileData.equipments[i]
-		local slotPanel = itemsPanel:getChildById("slot" .. i)
+		local slotPanel = itemsPanel:recursiveGetChildById("slot" .. i)
 
 		if ProfileData.showEquipments then
 			local itemId = item and item.id or 0
@@ -302,8 +449,8 @@ function changePrivacy()
 
 	requestPrivacyChange(enable)
 
-	local itemsPanel = InspectWindow:getChildById("itemsPanel")
-	local eyeIcon = itemsPanel:getChildById("eyeIcon")
+	local itemsPanel = InspectWindow:recursiveGetChildById("itemsPanel")
+	local eyeIcon = itemsPanel:recursiveGetChildById("eyeIcon")
 
 	eyeIcon:setImageSource(enable and "assets/eye_open" or "assets/eye_closed")
 
@@ -315,8 +462,8 @@ function requestProfile(creatureId)
 		"1",
 		creatureId
 	}
-	local itemsPanel = InspectWindow:getChildById("itemsPanel")
-	local eyeIcon = itemsPanel:getChildById("eyeIcon")
+	local itemsPanel = InspectWindow:recursiveGetChildById("itemsPanel")
+	local eyeIcon = itemsPanel:recursiveGetChildById("eyeIcon")
 	eyeIcon:setVisible(true)
 	g_game.getProtocolGame():sendExtendedOpcode(opcode, table.concat(data, "&"))
 end
@@ -340,7 +487,10 @@ end
 
 function onRecvExtendedOpcode(pg, opcode, buffer)
 	local data = buffer:explode("&")
-	if #data < 20 then return end
+	print("[PROFILE] data count: " .. #data)
+	print("[PROFILE] data[1]: " .. tostring(data[1]))
+	print("[PROFILE] data[4]: " .. tostring(data[4]))
+	if #data < 16 then return end
 
 	ProfileData = {
 		name = data[1],
@@ -386,6 +536,19 @@ function onRecvExtendedOpcode(pg, opcode, buffer)
 	end
 
 	ProfileData.online_points = tonumber(data[index] or 0)
+
+	index = index + 1
+	ProfileData.task_rank = data[index] or "None"
+	index = index + 1
+	ProfileData.task_points = tonumber(data[index]) or 0
+	index = index + 1
+	ProfileData.task_next_rank = data[index] or ""
+	index = index + 1
+	ProfileData.task_points_to_next = tonumber(data[index]) or 0
+	index = index + 1
+	ProfileData.task_points_in_rank = tonumber(data[index]) or 0
+	index = index + 1
+	ProfileData.task_points_to_next_max = tonumber(data[index]) or 1
 
 	updateProfile()
 	show()

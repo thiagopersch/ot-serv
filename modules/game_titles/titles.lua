@@ -178,11 +178,16 @@ end
 function updateTitle(creature)
   local name = creature:getName()
   local player = g_game.getLocalPlayer()
+  if not player then return end
   local vocation = player:getVocation()
-  if not player then
-    return
-  end
-  if vocations[vocation] then
+
+  if creature == player then
+    if vocations[vocation] then
+      creature:setName(vocations[vocation].name .. '\n' .. name, vocations[vocation].color)
+    else
+      creature:setName(name, '#FFD700')
+    end
+  elseif vocations[vocation] then
     creature:setName(name .. " [" .. vocations[vocation].name .. "]", vocations[vocation].color)
   elseif monsterTitles[name] then
     creature:setTitle(monsterTitles[name].title, titleFont, monsterTitles[name].color)
