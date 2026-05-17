@@ -13,7 +13,10 @@
     "init",
     "handleProfileData",
     "AlignHCenter",
-    "g_healthBars"
+    "g_healthBars",
+    "g_map",
+    "Item",
+    "g_things"
   ],
   "Lua.diagnostics.disable": ["undefined-field"]
 }

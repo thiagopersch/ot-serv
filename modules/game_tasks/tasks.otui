@@ -8,20 +8,16 @@ TaskEntry < Panel
   phantom: false
   size: 120 170
   margin: 3
+  padding: 10
 
   $hover:
-    border: 1 white
-
-  $focus:
     border: 1 #ffd700
-    image-color: #ffffff
 
   UICreature
     id: creature
-    anchors.top: parent.top
-    anchors.horizontalCenter: parent.horizontalCenter
-    margin-top: 5
+    anchors.centerIn: parent
     size: 60 60
+    fixed-creature-size: true
 
   Panel
     id: xpBar
@@ -139,7 +135,7 @@ RankPanel < Panel
     color: #aaaaaa
 
 MainWindow
-  size: 900 900
+  size: 800 600
   id: tasksWindow
   image-source: /images/ui/window
   image-border: 4
@@ -190,6 +186,7 @@ MainWindow
     image-source: /images/ui/panel_flat
     image-border: 1
     background-color: #333333
+    tooltip: Rank progress
 
     Panel
       id: rankProgFill
@@ -222,6 +219,7 @@ MainWindow
     image-source: /images/ui/panel_flat
     image-border: 1
     background-color: #333333
+    tooltip: Quest progress
 
     Panel
       id: questProgFill
@@ -258,6 +256,7 @@ MainWindow
       anchors.left: parent.left
       anchors.bottom: parent.bottom
       width: 150
+      tooltip: Dragon Ball tasks available
       @onClick: modules.game_tasks.switchTab('dragonball')
 
     Button
@@ -268,6 +267,7 @@ MainWindow
       anchors.left: tabDragonBall.right
       anchors.bottom: parent.bottom
       width: 150
+      tooltip: Bleach tasks available
       @onClick: modules.game_tasks.switchTab('bleach')
 
   Panel
@@ -365,8 +365,8 @@ MainWindow
     anchors.right: parent.right
     anchors.bottom: separator.top
     margin-top: 3
-    image-source: /images/ui/panel_flat
-    image-border: 2
+    margin-right: 5
+    clipping: true
     padding: 4
     vertical-scrollbar: detailScroll
     layout:
@@ -374,33 +374,93 @@ MainWindow
 
     Panel
       id: detailTopRow
-      height: 180
-      padding: 4
-      layout:
-        type: horizontalBox
+      height: 200
+      padding: 2
 
       Panel
         id: detailLeftPanel
-        width: 110
+        width: 120
         padding: 4
         image-source: /images/ui/panel_flat
         image-border: 1
-        margin-right: 6
-        layout:
-          type: verticalBox
-          horizontal-align: center
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.bottom: parent.bottom
 
         UICreature
           id: detailCreature
           size: 96 96
-          margin-top: 4
+          anchors.centerIn: parent
           phantom: false
           focusable: false
 
       Panel
-        id: detailRightPanel
-        margin-top: 2
-        fit-children: true
+        id: detailTopRewards
+        width: 300
+        padding: 4
+        image-source: /images/ui/panel_flat
+        image-border: 1
+        background-color: alpha
+        anchors.top: parent.top
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+
+        Label
+          id: detailTopRewardsTitle
+          anchors.top: parent.top
+          anchors.left: parent.left
+          font: verdana-11px-rounded
+          color: #ffd700
+          text: Rewards:
+          text-auto-resize: true
+
+        Label
+          id: detailTopRewardsGold
+          anchors.top: detailTopRewardsTitle.bottom
+          anchors.left: parent.left
+          font: verdana-11px-rounded
+          color: #88ff88
+          text-auto-resize: true
+          margin-top: 2
+
+        Label
+          id: detailTopRewardsExp
+          anchors.top: detailTopRewardsGold.bottom
+          anchors.left: parent.left
+          font: verdana-11px-rounded
+          color: #aa88ff
+          text-auto-resize: true
+          margin-top: 1
+
+        HorizontalSeparator
+          id: detailTopRewardsSep
+          anchors.top: detailTopRewardsExp.bottom
+          anchors.left: parent.left
+          anchors.right: parent.right
+          margin-top: 4
+          margin-bottom: 3
+
+        ScrollablePanel
+          id: detailTopRewardsContainer
+          anchors.top: detailTopRewardsSep.bottom
+          anchors.left: parent.left
+          anchors.right: parent.right
+          anchors.bottom: parent.bottom
+          margin-top: 2
+          layout:
+            type: verticalBox
+
+      Panel
+        id: detailInfoPanel
+        padding: 4
+        margin-left: 4
+        margin-right: 4
+        image-source: /images/ui/panel_flat
+        image-border: 1
+        anchors.top: parent.top
+        anchors.left: detailLeftPanel.right
+        anchors.right: detailTopRewards.left
+        anchors.bottom: parent.bottom
         layout:
           type: verticalBox
 
@@ -423,24 +483,6 @@ MainWindow
           color: #aa88ff
           text-auto-resize: true
           margin-top: 3
-
-        Panel
-          id: detailXpBar
-          height: 10
-          margin-top: 1
-          margin-right: 4
-          image-source: /images/ui/panel_flat
-          image-border: 1
-          background-color: #222244
-
-          Panel
-            id: detailXpFill
-            image-source: /images/ui/panel_flat
-            image-color: #8844ff
-            anchors.top: parent.top
-            anchors.left: parent.left
-            anchors.bottom: parent.bottom
-            width: 0
 
         Label
           id: detailCategory
@@ -491,111 +533,87 @@ MainWindow
           text-auto-resize: true
           margin-top: 1
 
-    Label
-      id: detailStatus
-      font: verdana-11px-rounded
-      text-auto-resize: true
-      margin-top: 4
-      margin-left: 3
+        Label
+          id: detailStatus
+          font: verdana-11px-rounded
+          text-auto-resize: true
+          margin-top: 2
 
-    Label
-      id: detailProgress
-      font: verdana-11px-rounded
-      color: #aaaaaa
-      text-auto-resize: true
-      margin-top: 2
-      margin-left: 3
+        Label
+          id: detailProgress
+          font: verdana-11px-rounded
+          color: #aaaaaa
+          text-auto-resize: true
+          margin-top: 1
+
+    Panel
+      id: detailBottomRow
+      margin-top: 4
+      padding: 2
+      height: 150
+
+      Panel
+        id: detailMonstersPanel
+        padding: 4
+        image-source: /images/ui/panel_flat
+        image-border: 1
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+
+        Label
+          id: detailMonstersTitle
+          anchors.top: parent.top
+          anchors.left: parent.left
+          anchors.right: parent.right
+          height: 16
+          font: verdana-11px-rounded
+          color: #ffd700
+          text: Monsters:
+
+        VerticalScrollBar
+          id: monstersScroll
+          visible: false
+          anchors.top: detailMonstersTitle.bottom
+          anchors.right: parent.right
+          anchors.bottom: parent.bottom
+          margin-top: 2
+          width: 8
+          step: 20
+          pixel-scroll: true
+
+        ScrollablePanel
+          id: detailMonstersContainer
+          anchors.top: detailMonstersTitle.bottom
+          anchors.left: parent.left
+          anchors.right: monstersScroll.left
+          anchors.bottom: parent.bottom
+          margin-top: 2
+          vertical-scrollbar: monstersScroll
+          layout:
+            type: verticalBox
+            spacing: 2
 
     Panel
       id: detailProgressBar
       height: 14
       margin-top: 2
       margin-left: 3
-      margin-right: 3
+      margin-right: 5
       image-source: /images/ui/panel_flat
       image-border: 1
-      background-color: #333333
+      background-color: #222222
 
       Panel
         id: detailProgressFill
         image-source: /images/ui/panel_flat
-        image-color: #00cc00
+        image-border: 1
+        image-color: #44ff44
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.bottom: parent.bottom
         width: 0
-
-    HorizontalSeparator
-      margin-top: 4
-      margin-bottom: 3
-      margin-left: 3
-      margin-right: 3
-
-    Panel
-      id: detailRewardsContainer
-      fit-children: true
-      margin-left: 3
-      margin-right: 3
-      margin-top: 2
-      layout:
-        type: verticalBox
-
-    HorizontalSeparator
-      margin-top: 4
-      margin-bottom: 3
-      margin-left: 3
-      margin-right: 3
-
-    Panel
-      id: detailMonstersContainer
-      fit-children: true
-      margin-left: 3
-      margin-right: 3
-      margin-top: 2
-      layout:
-        type: verticalBox
-
-    HorizontalSeparator
-      margin-top: 4
-      margin-bottom: 3
-      margin-left: 3
-      margin-right: 3
-
-    Label
-      id: detailLocalizationTitle
-      font: verdana-11px-rounded
-      color: #ffd700
-      text-auto-resize: true
-      margin-left: 3
-      text: Map Location:
-
-    Panel
-      id: detailMapContainer
-      margin-top: 4
-      margin-left: 3
-      margin-right: 3
-      height: 140
-      image-source: /images/ui/panel_flat
-      image-border: 1
-      background-color: #333333
-
-      Panel
-        id: detailMapImage
-        anchors.top: parent.top
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        margin: 2
-        image-source:
-
-      Label
-        id: detailMapPlaceholder
-        text-auto-resize: true
-        font: verdana-11px-rounded
-        color: #888888
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenter: parent.verticalCenter
-        visible: false
 
     Panel
       id: detailButtonRow
@@ -603,15 +621,23 @@ MainWindow
       margin-top: 6
       margin-left: 3
       margin-right: 3
+      horizontal-align: center
       layout:
         type: horizontalBox
+
+      Button
+        id: backButton
+        height: 25
+        width: 55
+        text: < Back
+        @onClick: modules.game_tasks.renderTaskList()
 
       Button
         id: startTaskButton
         height: 25
         width: 110
         text: Start Task
-        image-color: #00aa00
+        margin-left: 5
         @onClick: modules.game_tasks.startTaskClick()
 
       Button
@@ -628,18 +654,8 @@ MainWindow
         height: 25
         width: 130
         text: Claim Rewards
-        image-color: #007700
         margin-left: 5
         @onClick: modules.game_tasks.claimRewardsClick()
-
-    Button
-      id: backButton
-      height: 22
-      width: 80
-      text: < Back
-      margin-top: 6
-      margin-bottom: 4
-      @onClick: modules.game_tasks.renderTaskList()
 
   VerticalScrollBar
     id: detailScroll
@@ -657,6 +673,7 @@ MainWindow
     anchors.right: parent.right
     anchors.bottom: separator.top
     margin-top: 3
+    margin-right: 5
     image-source: /images/ui/panel_flat
     image-border: 1
     padding: 4

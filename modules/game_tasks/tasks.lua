@@ -6,10 +6,11 @@ local allTasks = {}
 local playerTasks = {}
 local selectedTaskId = nil
 g_taskRankData = g_taskRankData or {}
+g_taskUI = g_taskUI or {}
 
 json = json or g_json
 
-local CARDS_PER_ROW = 5
+local CARDS_PER_ROW = 6
 
 local DIFFICULTY_COLORS = {
     easy   = "#00ff00",
@@ -122,6 +123,24 @@ function onGameStart()
         -- Hide detail scroll initially
         local ds = window:getChildById('detailScroll')
         if ds then ds:setVisible(false) end
+
+        -- Cache intermediate containers for reliable widget lookups
+        if dp then
+            g_taskUI.detail            = dp
+            g_taskUI.topRow            = dp:getChildById('detailTopRow') or findChild(dp, 'detailTopRow')
+            local tr                   = g_taskUI.topRow
+            g_taskUI.leftPanel         = tr and (tr:getChildById('detailLeftPanel') or findChild(tr, 'detailLeftPanel'))
+            g_taskUI.infoPanel         = tr and (tr:getChildById('detailInfoPanel') or findChild(tr, 'detailInfoPanel'))
+            g_taskUI.topRewards        = tr and (tr:getChildById('detailTopRewards') or findChild(tr, 'detailTopRewards'))
+            g_taskUI.buttonRow         = dp:getChildById('detailButtonRow') or findChild(dp, 'detailButtonRow')
+            g_taskUI.progressBar       = dp:getChildById('detailProgressBar') or findChild(dp, 'detailProgressBar')
+            g_taskUI.bottomRow         = dp:getChildById('detailBottomRow') or findChild(dp, 'detailBottomRow')
+            local br                   = g_taskUI.bottomRow
+            g_taskUI.monstersPanel     = br and
+                (br:getChildById('detailMonstersPanel') or findChild(br, 'detailMonstersPanel'))
+            g_taskUI.monstersContainer = br and
+                (br:getChildById('detailMonstersContainer') or findChild(br, 'detailMonstersContainer'))
+        end
     end
     scheduleEvent(sendRequest, 100)
 end
@@ -156,6 +175,9 @@ function parseOpcode(protocol, opcode, data)
         g_taskRankData = decoded.rank or {}
         renderTaskList()
         updateRankDisplay()
+        if selectedTaskId then
+            selectTask(selectedTaskId)
+        end
     elseif decoded.update then
         updateTaskProgress(decoded.update)
     elseif decoded.complete then
@@ -278,6 +300,8 @@ function renderTaskList()
     if detail then detail:setVisible(false) end
     local detailScroll = window:getChildById('detailScroll')
     if detailScroll then detailScroll:setVisible(false) end
+    local taskScroll = window:getChildById('taskScroll')
+    if taskScroll then taskScroll:setVisible(true) end
 
     local taskList = window:getChildById('taskList')
     if not taskList then return end
@@ -289,6 +313,24 @@ function renderTaskList()
     if taskCount then
         taskCount:setText('Active Tasks: ' .. getActiveTasksCount())
     end
+
+    -- Update tab labels with available task counts
+    local function countByCategory(cat)
+        local n = 0
+        for _, t in ipairs(allTasks) do
+            if t.category == cat and not t.locked then
+                local pt = findPlayerTask(t.id)
+                if not pt or pt.rewarded == 1 then
+                    n = n + 1
+                end
+            end
+        end
+        return n
+    end
+    local dbTab = window:getChildById('tabDragonBall')
+    local bTab = window:getChildById('tabBleach')
+    if dbTab then dbTab:setText('Dragon Ball (' .. countByCategory('dragonball') .. ')') end
+    if bTab then bTab:setText('Bleach (' .. countByCategory('bleach') .. ')') end
 
     -- Filtra e ordena
     local filtered = {}
@@ -303,7 +345,18 @@ function renderTaskList()
 
     if #filtered == 0 then
         local label = g_ui.createWidget('Label', taskList)
-        label:setText('No tasks available for this category.')
+        -- Check if there are ANY tasks in this category at all
+        local hasAny = false
+        for _, t in ipairs(allTasks) do
+            if t.category == currentTab then hasAny = true; break end
+        end
+        if not hasAny then
+            label:setText('No tasks available for this category.')
+        elseif currentType then
+            label:setText('No ' .. currentType .. ' tasks available.')
+        else
+            label:setText('All tasks are locked. Increase your level and rank points.')
+        end
         label:setColor('#aaaaaa')
         label:setFont('verdana-11px-rounded')
         return
@@ -364,7 +417,7 @@ function renderTaskList()
             if repLabel then
                 local rep = isRepeatable(task)
                 repLabel:setText('Repeatable: ' .. (rep and 'Yes' or 'No'))
-                repLabel:setColor(rep and '#00ff88' or '#aaaaaa')
+                repLabel:setColor(rep and '#debc09' or '#aaaaaa')
             end
 
             -- Status / progresso barra antiga (mantida para compatibilidade)
@@ -415,6 +468,18 @@ function renderTaskList()
 end
 
 -- ============================================================
+-- WIDGET HELPER (recursive walk bypassing ScrollablePanel content panel)
+-- ============================================================
+function findChild(parent, id)
+    for _, c in ipairs(parent:getChildren()) do
+        if c:getId() == id then return c end
+        local found = findChild(c, id)
+        if found then return found end
+    end
+    return nil
+end
+
+-- ============================================================
 -- PAINEL DE DETALHES
 -- ============================================================
 function selectTask(taskId)
@@ -426,25 +491,27 @@ function selectTask(taskId)
     local taskList = window:getChildById('taskList')
     if taskList then taskList:setVisible(false) end
 
-    local detail = window:getChildById('detailPanel')
+    local detail = g_taskUI.detail or window:getChildById('detailPanel')
     if not detail then return end
     detail:setVisible(true)
 
     local detailScroll = window:getChildById('detailScroll')
     if detailScroll then detailScroll:setVisible(true) end
 
+    local taskScroll = window:getChildById('taskScroll')
+    if taskScroll then taskScroll:setVisible(false) end
+
     pcall(function() detail:scrollToTop() end)
 
-    -- Helper local para setar texto
-    local function setText(id, text)
-        local w = detail:getChildById(id)
-        if w then w:setText(tostring(text or '')) end
-    end
+    -- Use cached containers, fallback to window lookup
+    local topRow         = g_taskUI.topRow or window:getChildById('detailTopRow')
+    local leftPanel      = g_taskUI.leftPanel or (topRow and topRow:getChildById('detailLeftPanel'))
+    local infoPanel      = g_taskUI.infoPanel or (topRow and topRow:getChildById('detailInfoPanel'))
 
     -- --------------------------------------------------------
     -- ESQUERDA: Looktype principal
     -- --------------------------------------------------------
-    local detailCreature = detail:getChildById('detailCreature')
+    local detailCreature = leftPanel and leftPanel:getChildById('detailCreature')
     if detailCreature then
         detailCreature:setOutfit({ type = task.lookType or 21 })
     end
@@ -452,35 +519,50 @@ function selectTask(taskId)
     -- --------------------------------------------------------
     -- DIREITA: Informações
     -- --------------------------------------------------------
+    local function setText(id, text)
+        local w = infoPanel and infoPanel:getChildById(id)
+        if not w then w = findChild(detail, id) end
+        if w then
+            w:setText(tostring(text or ''))
+            w:setVisible(true)
+        end
+    end
 
-    -- Nome
     setText('detailName', task.name or '')
 
-    -- Dificuldade
     local diffName = DIFFICULTY_NAMES[task.difficulty] or task.difficulty or ''
     setText('detailDifficulty', 'Difficulty: ' .. diffName)
-    local diffLabel = detail:getChildById('detailDifficulty')
+    local diffLabel = (infoPanel and infoPanel:getChildById('detailDifficulty')) or findChild(detail, 'detailDifficulty')
     if diffLabel then diffLabel:setColor(DIFFICULTY_COLORS[task.difficulty] or '#ffffff') end
 
     local catStr = task.category and (task.category:sub(1, 1):upper() .. task.category:sub(2)) or ''
     setText('detailCategory', 'Category: ' .. catStr)
-
     setText('detailLevel', 'Level Required: ' .. (task.levelRequired or 1))
-
     setText('detailRankRequired', 'Rank Required: ' .. (task.rankRequired or 0) .. ' pts')
 
     local killsReq = task.killsRequired or task.kills or 0
     setText('detailKillsRequired', 'Kills Required: ' .. killsReq)
-
     setText('detailPoints', 'Rank Points: +' .. (task.points or 0))
-
     setText('detailMoney', 'Gold Reward: ' .. formatMoney(task.money or 0) .. ' gold')
 
     local rep = isRepeatable(task)
-    local repLabel = detail:getChildById('detailRepeatable')
+    local repLabel = (infoPanel and infoPanel:getChildById('detailRepeatable')) or findChild(detail, 'detailRepeatable')
     if repLabel then
         repLabel:setText('Repeatable: ' .. (rep and 'Yes' or 'No'))
         repLabel:setColor(rep and '#00ff88' or '#aaaaaa')
+    end
+
+    -- --------------------------------------------------------
+    -- RECOMPENSAS (painel superior direito)
+    -- --------------------------------------------------------
+    local rewardsPanel = g_taskUI.topRewards or findChild(detail, 'detailTopRewards')
+    local goldLabel = rewardsPanel and rewardsPanel:getChildById('detailTopRewardsGold')
+    if goldLabel then
+        goldLabel:setText('Gold: ' .. formatMoney(task.money or 0))
+    end
+    local expLabel = rewardsPanel and rewardsPanel:getChildById('detailTopRewardsExp')
+    if expLabel then
+        expLabel:setText('XP: ' .. formatExp(task.exp or 0))
     end
 
     -- --------------------------------------------------------
@@ -490,27 +572,13 @@ function selectTask(taskId)
     local isActive    = playerTask ~= nil and playerTask.rewarded ~= 1
     local isCompleted = playerTask ~= nil and playerTask.completed == 1 and playerTask.rewarded == 0
 
-    local expTotal    = task.experience or 0
+    local expTotal    = task.exp or 0
     local done        = (playerTask and playerTask.done) or 0
     local kills       = killsReq > 0 and killsReq or 1
     local pctKills    = math.min(done / kills, 1)
 
-    -- Exibe XP proporcional ao progresso
     local expEarned   = math.floor(expTotal * pctKills)
-    setText('detailXpLabel', 'XP: ' .. formatExp(expEarned) .. ' / ' .. formatExp(expTotal))
-
-    local xpBar  = detail:getChildById('detailXpBar')
-    local xpFill = detail:getChildById('detailXpFill')
-    if xpBar and xpFill then
-        if isCompleted then
-            xpFill:setWidth(math.max(xpBar:getWidth() - 4, 0))
-        elseif isActive then
-            local bw = math.max(xpBar:getWidth() - 4, 1)
-            xpFill:setWidth(math.floor(bw * pctKills))
-        else
-            xpFill:setWidth(0)
-        end
-    end
+    setText('detailXpLabel', 'XP: ' .. formatExp(expTotal))
 
     -- --------------------------------------------------------
     -- PROGRESSO DE KILLS
@@ -518,7 +586,7 @@ function selectTask(taskId)
     local pct = isCompleted and 100 or (isActive and math.floor(pctKills * 100) or 0)
     setText('detailProgress', 'Progress: ' .. done .. '/' .. kills .. ' (' .. pct .. '%)')
 
-    local progBar  = detail:getChildById('detailProgressBar')
+    local progBar  = g_taskUI.progressBar or findChild(detail, 'detailProgressBar')
     local progFill = progBar and progBar:getChildById('detailProgressFill')
     if progFill and progBar then
         if isCompleted then
@@ -539,76 +607,78 @@ function selectTask(taskId)
     setText('detailStatus', statusText)
 
     -- --------------------------------------------------------
-    -- RECOMPENSAS (itens com looktype)
-    -- --------------------------------------------------------
-    renderDetailRewards(task, detail)
-
-    -- --------------------------------------------------------
     -- MONSTROS DETALHADOS + LOCALIZAÇÃO
     -- --------------------------------------------------------
     renderDetailMonsters(task, detail)
 
     -- --------------------------------------------------------
-    -- MAPA
-    -- --------------------------------------------------------
-    renderMapPreview(task, detail)
-
-    -- --------------------------------------------------------
     -- BOTÕES
     -- --------------------------------------------------------
-    local startBtn  = detail:getChildById('startTaskButton')
-    local cancelBtn = detail:getChildById('cancelTaskButton')
-    local claimBtn  = detail:getChildById('claimRewardsButton')
+    local buttonRow = g_taskUI.buttonRow or findChild(detail, 'detailButtonRow')
+    local startBtn  = buttonRow and buttonRow:getChildById('startTaskButton')
+    local cancelBtn = buttonRow and buttonRow:getChildById('cancelTaskButton')
+    local claimBtn  = buttonRow and buttonRow:getChildById('claimRewardsButton')
 
     if isCompleted then
         if startBtn then
             startBtn:setText('Completed'); startBtn:setEnabled(false); startBtn:setOpacity(0.5)
         end
         if cancelBtn then
-            cancelBtn:setEnabled(false); cancelBtn:setOpacity(0.5)
+            cancelBtn:setEnabled(false); cancelBtn:setOpacity(0.5); cancelBtn:setImageColor('#550000')
         end
         if claimBtn then
-            claimBtn:setEnabled(true); claimBtn:setOpacity(1.0); claimBtn:setImageColor('#00ff00')
+            claimBtn:setText('Claim Rewards'); claimBtn:setEnabled(true); claimBtn:setOpacity(1.0); claimBtn:setImageColor('#00aa00')
         end
     elseif isActive then
         if startBtn then
-            startBtn:setText('In Progress'); startBtn:setEnabled(false); startBtn:setOpacity(0.5)
+            startBtn:setText('In Progress'); startBtn:setEnabled(false); startBtn:setOpacity(0.5); startBtn:setImageColor('#005500')
         end
         if cancelBtn then
-            cancelBtn:setEnabled(true); cancelBtn:setOpacity(1.0); cancelBtn:setImageColor('#dfdfdf')
+            cancelBtn:setText('Cancel Task'); cancelBtn:setEnabled(true); cancelBtn:setOpacity(1.0); cancelBtn:setImageColor('#aa0000')
         end
         if claimBtn then
-            claimBtn:setEnabled(false); claimBtn:setOpacity(0.5); claimBtn:setImageColor('#004400')
+            claimBtn:setEnabled(false); claimBtn:setOpacity(0.5); claimBtn:setImageColor('#005500')
         end
     elseif task.locked then
         if startBtn then
-            startBtn:setText('Locked'); startBtn:setEnabled(false); startBtn:setOpacity(0.5)
+            startBtn:setText('Locked'); startBtn:setEnabled(false); startBtn:setOpacity(0.5); startBtn:setImageColor('#444444')
         end
         if cancelBtn then
-            cancelBtn:setEnabled(false); cancelBtn:setOpacity(0.5)
+            cancelBtn:setText('Cancel'); cancelBtn:setEnabled(false); cancelBtn:setOpacity(0.5); cancelBtn:setImageColor('#550000')
         end
         if claimBtn then
-            claimBtn:setEnabled(false); claimBtn:setOpacity(0.5); claimBtn:setImageColor('#004400')
+            claimBtn:setEnabled(false); claimBtn:setOpacity(0.5); claimBtn:setImageColor('#005500')
         end
     else
         if startBtn then
-            startBtn:setText('Start Task'); startBtn:setEnabled(true); startBtn:setOpacity(1.0); startBtn
-                :setImageColor('#00ff00')
+            startBtn:setText('Start Task');
+            startBtn:setEnabled(true);
+            startBtn:setOpacity(1.0);
+            startBtn:setImageColor('#00aa00')
         end
         if cancelBtn then
-            cancelBtn:setEnabled(false); cancelBtn:setOpacity(0.5)
+            cancelBtn:setText('Cancel'); cancelBtn:setEnabled(false); cancelBtn:setOpacity(0.5); cancelBtn:setImageColor('#550000')
         end
         if claimBtn then
-            claimBtn:setEnabled(false); claimBtn:setOpacity(0.5); claimBtn:setImageColor('#004400')
+            claimBtn:setEnabled(false);
+            claimBtn:setOpacity(0.5);
+            claimBtn:setImageColor('#005500')
         end
     end
+
+    scheduleEvent(function()
+        local currentTask = findTaskConfig(selectedTaskId)
+        if currentTask then
+            renderDetailRewards(currentTask, g_taskUI.detail or window:getChildById('detailPanel'))
+        end
+    end, 0)
 end
 
 -- ============================================================
 -- RENDERIZA RECOMPENSAS COM LOOKTYPE
 -- ============================================================
 function renderDetailRewards(task, detail)
-    local container = detail:getChildById('detailRewardsContainer')
+    local container = findChild(detail, 'detailTopRewardsContainer')
     if not container then return end
     container:destroyChildren()
 
@@ -620,45 +690,48 @@ function renderDetailRewards(task, detail)
         return
     end
 
-    -- Title
-    local titleLbl = g_ui.createWidget('Label', container)
-    titleLbl:setText('Rewards:')
-    titleLbl:setFont('verdana-11px-rounded')
-    titleLbl:setColor('#ffd700')
-    titleLbl:setTextAutoResize(true)
+    local SLOT_SIZE = 36
+    local SLOT_MARGIN = 4
 
-    -- Item row with horizontal layout
-    local itemRow = g_ui.createWidget('Panel', container)
-    itemRow:setLayout(UIHorizontalLayout.create(itemRow))
-    itemRow:setHeight(50)
+    local containerWidth = math.max(container:getWidth(), 80)
+    local itemsPerRow = math.max(math.floor(containerWidth / (SLOT_SIZE + SLOT_MARGIN)), 1)
+
+    local currentRow = nil
+    local itemCount = 0
 
     for _, item in ipairs(task.rewards.items) do
-        local itemId  = item[1]
+        local serverId = item[1]
         local itemQty = item[2] or 1
+        local col = itemCount % itemsPerRow
 
-        local slot = g_ui.createWidget('Panel', itemRow)
-        slot:setSize({ width = 50, height = 50 })
+        if col == 0 then
+            currentRow = g_ui.createWidget('Panel', container)
+            currentRow:setLayout(UIHorizontalLayout.create(currentRow))
+            currentRow:setHeight(SLOT_SIZE + SLOT_MARGIN)
+        end
+
+        local slot = g_ui.createWidget('Panel', currentRow)
+        slot:setSize({ width = SLOT_SIZE, height = SLOT_SIZE })
         slot:setMargin(2)
         slot:setImageSource('/images/ui/panel_flat')
         slot:setImageBorder(1)
-        slot:setLayout(UIVerticalLayout.create(slot))
-        slot:setPadding(2)
 
         local itemWidget = g_ui.createWidget('UIItem', slot)
-        itemWidget:setSize({ width = 32, height = 32 })
-        pcall(function()
-            local it = Item.create(itemId)
-            if it then
-                itemWidget:setItem(it)
-            end
-        end)
+        itemWidget:setSize({ width = SLOT_SIZE - 2, height = SLOT_SIZE - 2 })
+        local itemType = g_things.getItemType(serverId)
+        local clientId = (itemType and itemType:getClientId()) or serverId
+        itemWidget:setItemId(clientId)
 
         local qtyLbl = g_ui.createWidget('Label', slot)
         qtyLbl:setText('x' .. itemQty)
         qtyLbl:setFont('verdana-11px-rounded')
         qtyLbl:setColor('#ffffff')
-        qtyLbl:setTextAutoResize(true)
-        qtyLbl:setTextAlign(AlignCenter)
+        qtyLbl:setWidth(SLOT_SIZE)
+        qtyLbl:setHeight(12)
+        qtyLbl:addAnchor(AnchorTop, slot, AnchorTop)
+        qtyLbl:addAnchor(AnchorLeft, slot, AnchorLeft)
+
+        itemCount = itemCount + 1
     end
 end
 
@@ -666,128 +739,33 @@ end
 -- RENDERIZA MONSTROS DETALHADOS + LOCALIZAÇÕES
 -- ============================================================
 function renderDetailMonsters(task, detail)
-    local container = detail:getChildById('detailMonstersContainer')
+    local container = findChild(detail, 'detailMonstersContainer')
     if not container then return end
     container:destroyChildren()
 
-    local monsterDetails = task.monsterDetails
-    if not monsterDetails or #monsterDetails == 0 then
-        -- Fallback: apenas nomes da lista monsters
-        if task.monsters and #task.monsters > 0 then
-            local lbl = g_ui.createWidget('Label', container)
-            lbl:setText('Monsters: ' .. table.concat(task.monsters, ', '))
-            lbl:setFont('verdana-11px-rounded')
-            lbl:setColor('#cccccc')
-            lbl:setTextAutoResize(true)
-        end
-        return
-    end
-
-    local titleLbl = g_ui.createWidget('Label', container)
-    titleLbl:setText('Monster Details:')
-    titleLbl:setFont('verdana-11px-rounded')
-    titleLbl:setColor('#ffd700')
-    titleLbl:setTextAutoResize(true)
-
-    -- Pega looktypes dos monstros: primeiro tenta monsterExtra, senão usa task.lookType para o principal
-    local monsterLookTypes = {}
-    if task.monsterExtra and type(task.monsterExtra) == 'table' then
-        for _, me in ipairs(task.monsterExtra) do
-            monsterLookTypes[me.name] = me.lookType
-        end
-    end
-
-    for _, md in ipairs(monsterDetails) do
-        local row = g_ui.createWidget('Panel', container)
-        row:setLayout(UIHorizontalLayout.create(row))
-        row:setHeight(70)
-        row:setMarginTop(4)
-        row:setImageSource('/images/ui/panel_flat')
-        row:setImageBorder(1)
-        row:setPadding(3)
-
-        -- Looktype do monstro
-        local lookType = monsterLookTypes[md.name] or task.lookType or 21
-        local creature = g_ui.createWidget('UICreature', row)
-        creature:setSize({ width = 60, height = 60 })
-        creature:setMargin(2)
-        creature:setOutfit({ type = lookType })
-
-        -- Painel de informações do monstro
-        local infoPanel = g_ui.createWidget('Panel', row)
-        infoPanel:setLayout(UIVerticalLayout.create(infoPanel))
-        infoPanel:setMarginLeft(4)
-        infoPanel:setMarginTop(2)
-
-        local function addInfo(text, color)
-            local lbl = g_ui.createWidget('Label', infoPanel)
-            lbl:setText(text)
-            lbl:setFont('verdana-11px-rounded')
-            lbl:setColor(color or '#cccccc')
-            lbl:setTextAutoResize(true)
-            lbl:setMarginTop(1)
-        end
-
-        addInfo(md.name or 'Unknown', '#ffffff')
-        if md.level then addInfo('Level: ' .. md.level, '#aaddff') end
-        if md.size then addInfo('Size: ' .. md.size, '#cccccc') end
-        if md.location then
-            addInfo('Location: ' .. md.location, '#00ccff')
-        end
-        if md.probability then
-            addInfo('Chance: ' .. md.probability .. '%', '#00ff88')
-        end
-    end
-end
-
--- ============================================================
--- MAPA
--- ============================================================
-function renderMapPreview(task, detail)
-    if not detail then return end
-    local mapImage     = detail:getChildById('detailMapImage')
-    local mapContainer = detail:getChildById('detailMapContainer')
-    if not mapImage or not mapContainer then return end
-
-    mapContainer:setVisible(true)
-    mapImage:setVisible(true)
-
-    -- Imagem estática configurada
-    if task.image and g_resources.fileExists(task.image) then
-        mapImage:setImageSource(task.image)
-        return
-    end
-
-    -- Tenta gerar preview do minimap
-    if task.spawns and type(task.spawns) == 'table' and #task.spawns > 0 then
-        local s = task.spawns[1]
-        if s.x and s.y and s.z then
-            local minimap, ok
-            ok = pcall(function()
-                minimap = g_map.getMinimapImage({ x = s.x, y = s.y, z = s.z }, 128, 128)
-            end)
-            if ok and minimap then
-                mapImage:setImageSource(minimap)
-                return
+    if task.monsters and #task.monsters > 0 then
+        for _, m in ipairs(task.monsters) do
+            local mName
+            local mKills
+            if type(m) == "string" then
+                mName = m
+                mKills = task.kills or task.killsRequired or 0
+            else
+                mName = m.name or "Unknown"
+                mKills = m.kills or task.kills or task.killsRequired or 0
             end
+
+            local row = g_ui.createWidget('Panel', container)
+            row:setLayout(UIHorizontalLayout.create(row))
+            row:setHeight(22)
+            row:setMarginTop(1)
+
+            local lbl = g_ui.createWidget('Label', row)
+            lbl:setText(mKills .. 'x ' .. mName)
+            lbl:setFont('verdana-11px-rounded')
+            lbl:setColor('#dddddd')
+            lbl:setTextAutoResize(true)
         end
-    end
-
-    -- Fallback: texto de localização
-    local areaText = 'Unknown Location'
-    if task.monsterDetails and task.monsterDetails[1] and task.monsterDetails[1].location then
-        areaText = task.monsterDetails[1].location
-    elseif task.primaryArea then
-        areaText = task.primaryArea
-    elseif task.spawns and type(task.spawns) == 'table' and #task.spawns > 0 then
-        areaText = task.spawns[1].area or areaText
-    end
-
-    mapImage:setImageSource('')
-    local placeholder = detail:getChildById('detailMapPlaceholder')
-    if placeholder then
-        placeholder:setText(areaText)
-        placeholder:setVisible(true)
     end
 end
 
@@ -797,25 +775,19 @@ end
 function startTaskClick()
     if not selectedTaskId then return end
     startTask(selectedTaskId)
-    local detail = window and window:getChildById('detailPanel')
-    if detail then
-        local btn = detail:getChildById('startTaskButton')
-        if btn then
-            btn:setText('Started')
-            btn:setEnabled(false)
-            btn:setOpacity(0.5)
-        end
-    end
 end
 
 function cancelTaskClick()
     if not selectedTaskId then return end
-    abortTask(selectedTaskId)
+    pcall(abortTask, selectedTaskId)
 end
 
 function claimRewardsClick()
     if not selectedTaskId then return end
-    completeTask(selectedTaskId)
+    local ok, err = pcall(completeTask, selectedTaskId)
+    if not ok then
+        showInfo('Error: ' .. tostring(err), 'red')
+    end
 end
 
 -- ============================================================
@@ -841,12 +813,17 @@ function abortTask(taskId)
         {
             text = tr('Yes'),
             callback = function()
-                sendOpcode(json.encode({ action = 'cancel', taskId = taskId }))
-                selectedTaskId = nil
-                renderTaskList()
+                local ok, err = pcall(function()
+                    sendOpcode(json.encode({ action = 'cancel', taskId = taskId }))
+                    selectedTaskId = nil
+                    renderTaskList()
+                end)
+                if not ok then
+                    showInfo('Error: ' .. tostring(err), 'red')
+                end
             end
         },
-        { text = tr('No'), callback = function() end, anchor = AnchorHorizontalCenter }
+        { text = tr('No'), callback = function() end }
     })
 end
 
@@ -892,7 +869,7 @@ function showCompletePopup(completeData)
     if completeData.money and completeData.money > 0 then
         text = text .. '+' .. formatMoney(completeData.money) .. ' gold\n'
     end
-    text = text .. '\nReturn to the NPC to claim your reward.'
+    text = text .. '\nOpen the Tasks window and claim your reward.'
 
     displayGeneralBox(tr('Task Complete!'), tr(text), {
         { text = tr('OK'), callback = function() end, anchor = AnchorHorizontalCenter }
@@ -941,6 +918,7 @@ function updateRankDisplay()
             local bw = pointsToNextMax > 0 and math.floor(math.max(rankProgBar:getWidth(), 300)) or 0
             rankProgFill:setWidth(bw)
         end
+        rankProgBar:setTooltip('Rank: ' .. name .. ' (' .. points .. ' pts)\nNext: ' .. nextRankName .. ' (' .. pointsToNext .. ' pts needed)')
     end
 end
 
@@ -967,6 +945,9 @@ function updateQuestProgress()
         local avg = totalPct / activeCount
         local bw  = math.max(questProgBar:getWidth(), 300)
         questProgFill:setWidth(math.floor(bw * avg))
+        questProgBar:setTooltip('Quest Progress: ' .. math.floor(avg * 100) .. '% (' .. activeCount .. ' active tasks)')
+    else
+        questProgBar:setTooltip('No active tasks')
     end
 end
 
