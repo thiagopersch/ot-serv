@@ -5,12 +5,27 @@ local currentType = nil
 local allTasks = {}
 local playerTasks = {}
 local selectedTaskId = nil
+local currentPage = 1
+local totalPages = 1
+local totalTasks = 0
+local searchText = ""
+local searchDebounce = nil
 g_taskRankData = g_taskRankData or {}
 g_taskUI = g_taskUI or {}
+g_taskCategoryCounts = g_taskCategoryCounts or { dragonball = 0, bleach = 0 }
+
+local function detectUniverse()
+    local player = g_game.getLocalPlayer()
+    if not player then return 'dragonball' end
+    local voc = player:getVocation()
+    if voc >= 1 and voc <= 45 then return 'dragonball' end
+    if voc >= 47 and voc <= 67 then return 'bleach' end
+    return 'dragonball'
+end
 
 json = json or g_json
 
-local CARDS_PER_ROW = 6
+local CARDS_PER_ROW = 5
 
 local DIFFICULTY_COLORS = {
     easy   = "#00ff00",
@@ -107,13 +122,17 @@ function terminate()
 end
 
 function onGameStart()
+    currentPage = 1
+    totalPages = 1
+    totalTasks = 0
+    searchText = ""
+    currentTab = detectUniverse()
+    currentType = nil
     if not window then
         window = g_ui.displayUI('tasks', modules.game_interface.getRightPanel())
         window:setVisible(false)
-        currentTab = 'dragonball'
 
-        local dbTab = window:getChildById('tabDragonBall')
-        if dbTab then dbTab:setImageColor('#ffd700') end
+        updateTabVisibility()
 
         local dp = window:getChildById('detailPanel')
         local tl = window:getChildById('taskList')
@@ -131,7 +150,8 @@ function onGameStart()
             local tr                   = g_taskUI.topRow
             g_taskUI.leftPanel         = tr and (tr:getChildById('detailLeftPanel') or findChild(tr, 'detailLeftPanel'))
             g_taskUI.infoPanel         = tr and (tr:getChildById('detailInfoPanel') or findChild(tr, 'detailInfoPanel'))
-            g_taskUI.topRewards        = tr and (tr:getChildById('detailTopRewards') or findChild(tr, 'detailTopRewards'))
+            g_taskUI.topRewards        = tr and
+            (tr:getChildById('detailTopRewards') or findChild(tr, 'detailTopRewards'))
             g_taskUI.buttonRow         = dp:getChildById('detailButtonRow') or findChild(dp, 'detailButtonRow')
             g_taskUI.progressBar       = dp:getChildById('detailProgressBar') or findChild(dp, 'detailProgressBar')
             g_taskUI.bottomRow         = dp:getChildById('detailBottomRow') or findChild(dp, 'detailBottomRow')
@@ -148,7 +168,23 @@ end
 function sendRequest()
     local p = g_game.getProtocolGame()
     if p then
-        p:sendExtendedOpcode(215, '{"action":"info"}')
+        sendListRequest()
+    end
+end
+
+function sendListRequest()
+    local params = {
+        action = "list",
+        page = currentPage,
+        pageSize = 30,
+        search = searchText,
+        type = currentType or "",
+        difficulty = "",
+        category = currentTab or "dragonball"
+    }
+    local pg = g_game.getProtocolGame()
+    if pg then
+        pg:sendExtendedOpcode(215, json.encode(params))
     end
 end
 
@@ -170,9 +206,18 @@ function parseOpcode(protocol, opcode, data)
     end
 
     if decoded.allTasks then
-        allTasks       = decoded.allTasks
-        playerTasks    = decoded.playerTasks or {}
-        g_taskRankData = decoded.rank or {}
+        allTasks             = decoded.allTasks
+        playerTasks          = decoded.playerTasks or {}
+        totalPages           = decoded.totalPages or 1
+        totalTasks           = decoded.totalTasks or 0
+        currentPage          = decoded.currentPage or 1
+        g_taskRankData       = decoded.rank or {}
+        g_taskCategoryCounts = decoded.categoryCounts or { dragonball = 0, bleach = 0 }
+        if decoded.playerCategory then
+            currentTab = decoded.playerCategory
+            updateTabVisibility()
+        end
+        updatePaginationDisplay()
         renderTaskList()
         updateRankDisplay()
         if selectedTaskId then
@@ -208,42 +253,72 @@ function toggleWindow()
     if window:isVisible() then
         close()
     else
-        sendOpcode('{"action":"info"}')
+        currentPage = 1
+        searchText = ""
+        local searchInput = window:getChildById('searchInput')
+        if searchInput then searchInput:setText('') end
+        sendListRequest()
         window:setVisible(true)
         window:focus()
     end
 end
 
+function backToList()
+    selectedTaskId = nil
+    currentPage = 1
+    searchText = ""
+    local searchInput = window and window:getChildById('searchInput')
+    if searchInput then searchInput:setText('') end
+    sendListRequest()
+end
+
 function close()
-    if window then window:setVisible(false) end
+    if not window then return end
+    selectedTaskId = nil
+    currentPage = 1
+    searchText = ""
+    local searchInput = window:getChildById('searchInput')
+    if searchInput then searchInput:setText('') end
+    window:setVisible(false)
 end
 
 -- ============================================================
 -- TABS / FILTROS
 -- ============================================================
-function switchTab(category)
-    currentTab  = category
-    currentType = nil
-    if window then
-        local dbTab = window:getChildById('tabDragonBall')
-        local bTab  = window:getChildById('tabBleach')
-        if category == 'dragonball' then
-            if dbTab then dbTab:setImageColor('#ffd700') end
-            if bTab then bTab:setImageColor('#dfdfdf') end
-        else
-            if dbTab then dbTab:setImageColor('#dfdfdf') end
-            if bTab then bTab:setImageColor('#ffd700') end
-        end
+function updateTabVisibility()
+    if not window then return end
+    local dbTab = window:getChildById('tabDragonBall')
+    local bTab = window:getChildById('tabBleach')
+    if not dbTab or not bTab then return end
+    if currentTab == 'dragonball' then
+        dbTab:setImageColor('#ffd700')
+        dbTab:setVisible(true)
+        bTab:setVisible(false)
+    else
+        bTab:setImageColor('#ffd700')
+        bTab:setVisible(true)
+        dbTab:setVisible(false)
     end
+end
+
+function switchTab(category)
+    currentTab        = category
+    currentType       = nil
+    currentPage       = 1
+    searchText        = ""
+    local searchInput = window and window:getChildById('searchInput')
+    if searchInput then searchInput:setText('') end
+    updateTabVisibility()
     updateTypeFilterHighlights()
-    renderTaskList()
+    sendListRequest()
 end
 
 function setTypeFilter(filterType)
     if currentType == filterType then return end
     currentType = filterType
+    currentPage = 1
     updateTypeFilterHighlights()
-    renderTaskList()
+    sendListRequest()
 end
 
 function updateTypeFilterHighlights()
@@ -253,6 +328,58 @@ function updateTypeFilterHighlights()
         if btn then
             btn:setImageColor(tf.value == currentType and '#ffd700' or '#dfdfdf')
         end
+    end
+end
+
+-- ============================================================
+-- SEARCH
+-- ============================================================
+function onSearchChanged(text)
+    if searchText == text then return end
+    searchText = text
+    currentPage = 1
+    if searchDebounce then
+        removeEvent(searchDebounce)
+    end
+    searchDebounce = scheduleEvent(sendListRequest, 100)
+end
+
+-- ============================================================
+-- PAGINATION
+-- ============================================================
+function updatePaginationDisplay()
+    if not window then return end
+    local pageLabel = findChild(window, 'pageLabel')
+    if pageLabel then
+        pageLabel:setText('Page ' .. currentPage .. ' of ' .. totalPages)
+    end
+    local totalLabel = findChild(window, 'totalTasksLabel')
+    if totalLabel then
+        totalLabel:setText(totalTasks .. ' tasks found')
+    end
+    local prevBtn = findChild(window, 'prevPageBtn')
+    local nextBtn = findChild(window, 'nextPageBtn')
+    if prevBtn then
+        prevBtn:setEnabled(currentPage > 1)
+        prevBtn:setOpacity(currentPage > 1 and 1.0 or 0.4)
+    end
+    if nextBtn then
+        nextBtn:setEnabled(currentPage < totalPages)
+        nextBtn:setOpacity(currentPage < totalPages and 1.0 or 0.4)
+    end
+end
+
+function prevPage()
+    if currentPage > 1 then
+        currentPage = currentPage - 1
+        sendListRequest()
+    end
+end
+
+function nextPage()
+    if currentPage < totalPages then
+        currentPage = currentPage + 1
+        sendListRequest()
     end
 end
 
@@ -303,6 +430,12 @@ function renderTaskList()
     local taskScroll = window:getChildById('taskScroll')
     if taskScroll then taskScroll:setVisible(true) end
 
+    -- Show search and pagination bars
+    local searchBar = window:getChildById('searchBar')
+    if searchBar then searchBar:setVisible(true) end
+    local paginationBar = window:getChildById('paginationBar')
+    if paginationBar then paginationBar:setVisible(true) end
+
     local taskList = window:getChildById('taskList')
     if not taskList then return end
     taskList:setVisible(true)
@@ -314,44 +447,22 @@ function renderTaskList()
         taskCount:setText('Active Tasks: ' .. getActiveTasksCount())
     end
 
-    -- Update tab labels with available task counts
-    local function countByCategory(cat)
-        local n = 0
-        for _, t in ipairs(allTasks) do
-            if t.category == cat and not t.locked then
-                local pt = findPlayerTask(t.id)
-                if not pt or pt.rewarded == 1 then
-                    n = n + 1
-                end
-            end
-        end
-        return n
-    end
+    -- Update tab labels with available task counts from server
     local dbTab = window:getChildById('tabDragonBall')
     local bTab = window:getChildById('tabBleach')
-    if dbTab then dbTab:setText('Dragon Ball (' .. countByCategory('dragonball') .. ')') end
-    if bTab then bTab:setText('Bleach (' .. countByCategory('bleach') .. ')') end
-
-    -- Filtra e ordena
-    local filtered = {}
-    for _, task in ipairs(allTasks) do
-        if task.category == currentTab and (not currentType or task.type == currentType) then
-            table.insert(filtered, task)
-        end
+    if dbTab then
+        dbTab:setText('Dragon Ball (' .. (g_taskCategoryCounts.dragonball or 0) .. ')')
     end
-    table.sort(filtered, function(a, b)
-        return (DIFFICULTY_ORDER[a.difficulty] or 99) < (DIFFICULTY_ORDER[b.difficulty] or 99)
-    end)
+    if bTab then
+        bTab:setText('Bleach (' .. (g_taskCategoryCounts.bleach or 0) .. ')')
+    end
 
-    if #filtered == 0 then
+    if #allTasks == 0 then
         local label = g_ui.createWidget('Label', taskList)
-        -- Check if there are ANY tasks in this category at all
-        local hasAny = false
-        for _, t in ipairs(allTasks) do
-            if t.category == currentTab then hasAny = true; break end
-        end
-        if not hasAny then
+        if totalTasks == 0 then
             label:setText('No tasks available for this category.')
+        elseif searchText ~= "" then
+            label:setText('No tasks match your search.')
         elseif currentType then
             label:setText('No ' .. currentType .. ' tasks available.')
         else
@@ -363,13 +474,13 @@ function renderTaskList()
     end
 
     -- Renderiza cards em linhas
-    for i = 1, #filtered, CARDS_PER_ROW do
+    for i = 1, #allTasks, CARDS_PER_ROW do
         local row = g_ui.createWidget('Panel', taskList)
         row:setLayout(UIHorizontalLayout.create(row))
-        row:setHeight(170) -- altura aumentada para acomodar barra XP + repeatable
+        row:setHeight(170)
 
-        for j = i, math.min(i + CARDS_PER_ROW - 1, #filtered) do
-            local task  = filtered[j]
+        for j = i, math.min(i + CARDS_PER_ROW - 1, #allTasks) do
+            local task  = allTasks[j]
             local entry = g_ui.createWidget('TaskEntry', row)
             entry:setId(task.id)
 
@@ -465,6 +576,7 @@ function renderTaskList()
     end
 
     updateQuestProgress()
+    updatePaginationDisplay()
 end
 
 -- ============================================================
@@ -490,6 +602,12 @@ function selectTask(taskId)
     -- Toggle visibility
     local taskList = window:getChildById('taskList')
     if taskList then taskList:setVisible(false) end
+
+    -- Hide search and pagination bars in detail view
+    local searchBar = window:getChildById('searchBar')
+    if searchBar then searchBar:setVisible(false) end
+    local paginationBar = window:getChildById('paginationBar')
+    if paginationBar then paginationBar:setVisible(false) end
 
     local detail = g_taskUI.detail or window:getChildById('detailPanel')
     if not detail then return end
@@ -627,24 +745,29 @@ function selectTask(taskId)
             cancelBtn:setEnabled(false); cancelBtn:setOpacity(0.5); cancelBtn:setImageColor('#550000')
         end
         if claimBtn then
-            claimBtn:setText('Claim Rewards'); claimBtn:setEnabled(true); claimBtn:setOpacity(1.0); claimBtn:setImageColor('#00aa00')
+            claimBtn:setText('Claim Rewards'); claimBtn:setEnabled(true); claimBtn:setOpacity(1.0); claimBtn
+                :setImageColor('#00aa00')
         end
     elseif isActive then
         if startBtn then
-            startBtn:setText('In Progress'); startBtn:setEnabled(false); startBtn:setOpacity(0.5); startBtn:setImageColor('#005500')
+            startBtn:setText('In Progress'); startBtn:setEnabled(false); startBtn:setOpacity(0.5); startBtn
+                :setImageColor('#005500')
         end
         if cancelBtn then
-            cancelBtn:setText('Cancel Task'); cancelBtn:setEnabled(true); cancelBtn:setOpacity(1.0); cancelBtn:setImageColor('#aa0000')
+            cancelBtn:setText('Cancel Task'); cancelBtn:setEnabled(true); cancelBtn:setOpacity(1.0); cancelBtn
+                :setImageColor('#aa0000')
         end
         if claimBtn then
             claimBtn:setEnabled(false); claimBtn:setOpacity(0.5); claimBtn:setImageColor('#005500')
         end
     elseif task.locked then
         if startBtn then
-            startBtn:setText('Locked'); startBtn:setEnabled(false); startBtn:setOpacity(0.5); startBtn:setImageColor('#444444')
+            startBtn:setText('Locked'); startBtn:setEnabled(false); startBtn:setOpacity(0.5); startBtn:setImageColor(
+            '#444444')
         end
         if cancelBtn then
-            cancelBtn:setText('Cancel'); cancelBtn:setEnabled(false); cancelBtn:setOpacity(0.5); cancelBtn:setImageColor('#550000')
+            cancelBtn:setText('Cancel'); cancelBtn:setEnabled(false); cancelBtn:setOpacity(0.5); cancelBtn:setImageColor(
+            '#550000')
         end
         if claimBtn then
             claimBtn:setEnabled(false); claimBtn:setOpacity(0.5); claimBtn:setImageColor('#005500')
@@ -657,7 +780,8 @@ function selectTask(taskId)
             startBtn:setImageColor('#00aa00')
         end
         if cancelBtn then
-            cancelBtn:setText('Cancel'); cancelBtn:setEnabled(false); cancelBtn:setOpacity(0.5); cancelBtn:setImageColor('#550000')
+            cancelBtn:setText('Cancel'); cancelBtn:setEnabled(false); cancelBtn:setOpacity(0.5); cancelBtn:setImageColor(
+            '#550000')
         end
         if claimBtn then
             claimBtn:setEnabled(false);
@@ -715,6 +839,7 @@ function renderDetailRewards(task, detail)
         slot:setMargin(2)
         slot:setImageSource('/images/ui/panel_flat')
         slot:setImageBorder(1)
+        slot:setTooltip(getItemName(serverId))
 
         local itemWidget = g_ui.createWidget('UIItem', slot)
         itemWidget:setSize({ width = SLOT_SIZE - 2, height = SLOT_SIZE - 2 })
@@ -726,7 +851,6 @@ function renderDetailRewards(task, detail)
         qtyLbl:setText('x' .. itemQty)
         qtyLbl:setFont('verdana-11px-rounded')
         qtyLbl:setColor('#ffffff')
-        qtyLbl:setWidth(SLOT_SIZE)
         qtyLbl:setHeight(12)
         qtyLbl:addAnchor(AnchorTop, slot, AnchorTop)
         qtyLbl:addAnchor(AnchorLeft, slot, AnchorLeft)
@@ -784,6 +908,11 @@ end
 
 function claimRewardsClick()
     if not selectedTaskId then return end
+    local pt = findPlayerTask(selectedTaskId)
+    if not pt or pt.completed ~= 1 or pt.rewarded ~= 0 then
+        showInfo('Task is not completed yet.', '#ff4444')
+        return
+    end
     local ok, err = pcall(completeTask, selectedTaskId)
     if not ok then
         showInfo('Error: ' .. tostring(err), 'red')
@@ -834,7 +963,7 @@ function updateTaskProgress(updateData)
     for i, pt in ipairs(playerTasks) do
         if pt.id == updateData.taskId then
             playerTasks[i].done = updateData.kills or 0
-            if updateData.completed then playerTasks[i].completed = 1 end
+            if updateData.completed == 1 then playerTasks[i].completed = 1 end
             renderTaskList()
             if selectedTaskId == updateData.taskId then
                 selectTask(updateData.taskId)
@@ -849,7 +978,7 @@ function updateTaskProgress(updateData)
             id        = updateData.taskId,
             done      = updateData.kills or 0,
             kills     = updateData.killsRequired or 1,
-            completed = updateData.completed and 1 or 0,
+            completed = (updateData.completed == 1) and 1 or 0,
             rewarded  = 0
         })
         renderTaskList()
@@ -918,7 +1047,8 @@ function updateRankDisplay()
             local bw = pointsToNextMax > 0 and math.floor(math.max(rankProgBar:getWidth(), 300)) or 0
             rankProgFill:setWidth(bw)
         end
-        rankProgBar:setTooltip('Rank: ' .. name .. ' (' .. points .. ' pts)\nNext: ' .. nextRankName .. ' (' .. pointsToNext .. ' pts needed)')
+        rankProgBar:setTooltip('Rank: ' ..
+        name .. ' (' .. points .. ' pts)\nNext: ' .. nextRankName .. ' (' .. pointsToNext .. ' pts needed)')
     end
 end
 

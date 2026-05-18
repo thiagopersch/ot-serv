@@ -6,7 +6,7 @@ TaskEntry < Panel
   border: 1 alpha
   focusable: true
   phantom: false
-  size: 120 170
+  size: 148 170
   margin: 3
   padding: 10
 
@@ -135,7 +135,7 @@ RankPanel < Panel
     color: #aaaaaa
 
 MainWindow
-  size: 800 600
+  size: 800 750
   id: tasksWindow
   image-source: /images/ui/window
   image-border: 4
@@ -358,13 +358,43 @@ MainWindow
       width: 55
       @onClick: modules.game_tasks.setTypeFilter('unique')
 
-  ScrollablePanel
-    id: detailPanel
+  Panel
+    id: searchBar
     anchors.top: typeBar.bottom
     anchors.left: parent.left
     anchors.right: parent.right
+    height: 22
+    margin-top: 2
+    margin-left: 2
+    margin-right: 5
+
+    TextEdit
+      id: searchInput
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.bottom: parent.bottom
+      width: 200
+      font: verdana-11px-rounded
+      @onTextChange: modules.game_tasks.onSearchChanged(self:getText())
+
+    Label
+      id: searchInfo
+      anchors.top: parent.top
+      anchors.left: searchInput.right
+      anchors.right: parent.right
+      anchors.bottom: parent.bottom
+      margin-left: 5
+      font: verdana-11px-rounded
+      color: #aaaaaa
+      text: Search by task or monster name
+
+  ScrollablePanel
+    id: detailPanel
+    anchors.top: searchBar.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
     anchors.bottom: separator.top
-    margin-top: 3
+    margin-top: 2
     margin-right: 5
     clipping: true
     padding: 4
@@ -389,7 +419,7 @@ MainWindow
 
         UICreature
           id: detailCreature
-          size: 96 96
+          size: 128 96
           anchors.centerIn: parent
           phantom: false
           focusable: false
@@ -630,7 +660,7 @@ MainWindow
         height: 25
         width: 55
         text: < Back
-        @onClick: modules.game_tasks.renderTaskList()
+        @onClick: modules.game_tasks.backToList()
 
       Button
         id: startTaskButton
@@ -668,11 +698,11 @@ MainWindow
 
   ScrollablePanel
     id: taskList
-    anchors.top: typeBar.bottom
+    anchors.top: searchBar.bottom
     anchors.left: parent.left
     anchors.right: parent.right
-    anchors.bottom: separator.top
-    margin-top: 3
+    anchors.bottom: paginationBar.top
+    margin-top: 2
     margin-right: 5
     image-source: /images/ui/panel_flat
     image-border: 1
@@ -688,6 +718,59 @@ MainWindow
     anchors.bottom: taskList.bottom
     step: 80
     pixel-scroll: true
+
+  Panel
+    id: paginationBar
+    anchors.bottom: separator.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    height: 22
+    margin-top: 2
+    margin-left: 5
+    margin-right: 5
+
+    Button
+      id: prevPageBtn
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.bottom: parent.bottom
+      width: 24
+      text: <
+      font: verdana-11px-rounded
+      @onClick: modules.game_tasks.prevPage()
+
+    Label
+      id: pageLabel
+      anchors.top: parent.top
+      anchors.left: prevPageBtn.right
+      anchors.bottom: parent.bottom
+      margin-left: 8
+      margin-right: 8
+      font: verdana-11px-rounded
+      color: #ffffff
+      text: Page 0 of 0
+      text-auto-resize: true
+
+    Button
+      id: nextPageBtn
+      anchors.top: parent.top
+      anchors.left: pageLabel.right
+      anchors.bottom: parent.bottom
+      width: 24
+      text: >
+      font: verdana-11px-rounded
+      @onClick: modules.game_tasks.nextPage()
+
+    Label
+      id: totalTasksLabel
+      anchors.top: parent.top
+      anchors.left: nextPageBtn.right
+      anchors.bottom: parent.bottom
+      margin-left: 10
+      font: verdana-11px-rounded
+      color: #aaaaaa
+      text: 0 tasks found
+      text-auto-resize: true
 
   HorizontalSeparator
     id: separator
