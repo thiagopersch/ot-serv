@@ -14,6 +14,10 @@ local selectedId      = nil
 local currentVocId    = nil
 local cachedData      = ""
 
+local RANK_NAMES = { [0] = "None", [1] = "Bronze", [2] = "Silver", [3] = "Gold", [4] = "Diamond" }
+local RANK_COLORS = { [0] = "#aaaaaa", [1] = "#cd7f32", [2] = "#c0c0c0", [3] = "#ffd700", [4] = "#b9f2ff" }
+local RANK_STAR_IMAGES = { [1] = "bronze_star.png", [2] = "silver_star.png", [3] = "gold_star.png", [4] = "diamond_star.png" }
+
 local cvSelect
 local requestChange
 local toggle
@@ -43,12 +47,22 @@ end
 local function resetLeftPanel()
   if currentCreature then currentCreature:setOutfit(makeOutfit(0)) end
   if currentName then currentName:setText("?") end
+  if currentLevel then currentLevel:setText("?") end
+  if win then
+    local leftPanel = win:recursiveGetChildById('leftPanel')
+    if leftPanel then
+      local oldRankLabel = leftPanel:recursiveGetChildById('currentRankLabel')
+      if oldRankLabel then oldRankLabel:destroy() end
+      local oldStarsPanel = leftPanel:recursiveGetChildById('currentStarsPanel')
+      if oldStarsPanel then oldStarsPanel:destroy() end
+    end
+  end
 end
 
-local function buildRow(parentList, id, lookType, displayName, level, isCurrent)
+local function buildRow(parentList, id, lookType, displayName, level, isCurrent, rank, stars)
   local row = g_ui.createWidget('Panel', parentList)
   row:setId('voc_' .. id)
-  row:setHeight(64)
+  row:setHeight(84)
   row:setFocusable(true)
 
   row.vocId         = id
@@ -128,6 +142,38 @@ local function buildRow(parentList, id, lookType, displayName, level, isCurrent)
 
   local badgeText  = isCurrent and '[Current]' or '[Available]'
   local badgeColor = isCurrent and '#44bb44' or '#4488cc'
+
+  local lRank = g_ui.createWidget('Label', row)
+  lRank:setId('rankLabel')
+  lRank:setTextAutoResize(true)
+  lRank:addAnchor(AnchorHorizontalCenter, 'parent', AnchorHorizontalCenter)
+  lRank:addAnchor(AnchorTop, 'prev', AnchorBottom)
+  lRank:setMarginTop(2)
+  lRank:setTextAlign(AlignHCenter)
+  lRank:setText(rank > 0 and (RANK_NAMES[rank] or "None") or "No Rank")
+  lRank:setColor(RANK_COLORS[rank] or '#aaaaaa')
+  lRank:setFont('verdana-9px')
+  lRank:setPhantom(true)
+
+  if rank > 0 then
+    local starsPanel = g_ui.createWidget('Panel', row)
+    starsPanel:setId('starsPanel')
+    starsPanel:addAnchor(AnchorHorizontalCenter, 'parent', AnchorHorizontalCenter)
+    starsPanel:addAnchor(AnchorTop, lRank, AnchorBottom)
+    starsPanel:setMarginTop(1)
+    starsPanel:setPhantom(true)
+
+    local starImg = RANK_STAR_IMAGES[rank] or "bronze_star.png"
+    for i = 1, 5 do
+      local s = g_ui.createWidget('UIWidget', starsPanel)
+      s:setImageSource('/images/ranks/' .. starImg)
+      s:setImageColor(i <= stars and '#ffffff' or '#444444')
+      s:setSize({ width = 10, height = 10 })
+      s:addAnchor(AnchorLeft, i == 1 and 'parent' or 'prev', i == 1 and AnchorLeft or AnchorRight)
+      s:addAnchor(AnchorTop, 'parent', AnchorTop)
+      s:setPhantom(true)
+    end
+  end
 
   local lBadge     = g_ui.createWidget('Label', row)
   lBadge:setText(badgeText)
@@ -276,6 +322,8 @@ function processData(data)
     local name        = rStr()
     local classType   = rStr()
     local level       = rU32()
+    local rank        = rU16()
+    local stars       = rU16()
     local isCurrent   = (id == currentId)
 
     local displayName = name .. " (" .. classType .. ")"
@@ -284,8 +332,45 @@ function processData(data)
       if currentCreature then currentCreature:setOutfit(makeOutfit(lookType)) end
       if currentName then currentName:setText(displayName) end
       if currentLevel then currentLevel:setText("Level " .. level) end
+
+      local leftPanel = win:recursiveGetChildById('leftPanel')
+      if leftPanel then
+        local oldRankLabel = leftPanel:recursiveGetChildById('currentRankLabel')
+        if oldRankLabel then oldRankLabel:destroy() end
+        local oldStarsPanel = leftPanel:recursiveGetChildById('currentStarsPanel')
+        if oldStarsPanel then oldStarsPanel:destroy() end
+
+        local lRank = g_ui.createWidget('Label', leftPanel)
+        lRank:setId('currentRankLabel')
+        lRank:setTextAutoResize(true)
+        lRank:addAnchor(AnchorHorizontalCenter, 'parent', AnchorHorizontalCenter)
+        lRank:addAnchor(AnchorTop, currentLevel, AnchorBottom)
+        lRank:setMarginTop(4)
+        lRank:setTextAlign(AlignHCenter)
+        lRank:setText(rank > 0 and (RANK_NAMES[rank] or "None") or "No Rank")
+        lRank:setColor(RANK_COLORS[rank] or '#aaaaaa')
+        lRank:setFont('verdana-9px')
+
+        if rank > 0 then
+          local sPanel = g_ui.createWidget('Panel', leftPanel)
+          sPanel:setId('currentStarsPanel')
+          sPanel:addAnchor(AnchorHorizontalCenter, 'parent', AnchorHorizontalCenter)
+          sPanel:addAnchor(AnchorTop, lRank, AnchorBottom)
+          sPanel:setMarginTop(2)
+
+          local starImg = RANK_STAR_IMAGES[rank] or "bronze_star.png"
+          for i = 1, 5 do
+            local s = g_ui.createWidget('UIWidget', sPanel)
+            s:setImageSource('/images/ranks/' .. starImg)
+            s:setImageColor(i <= stars and '#ffffff' or '#444444')
+            s:setSize({ width = 14, height = 14 })
+            s:addAnchor(AnchorLeft, i == 1 and 'parent' or 'prev', i == 1 and AnchorLeft or AnchorRight)
+            s:addAnchor(AnchorTop, 'parent', AnchorTop)
+          end
+        end
+      end
     end
 
-    if list then buildRow(list, id, lookType, displayName, level, isCurrent) end
+    if list then buildRow(list, id, lookType, displayName, level, isCurrent, rank, stars) end
   end
 end

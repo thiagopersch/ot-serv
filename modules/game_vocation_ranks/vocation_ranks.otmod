@@ -1,6 +1,6 @@
 Module
   name: game_vocation_ranks
-  description: Vocation Rank System with Stars Display
+  description: Vocation Upgraded System with Stars Display
   author: DBOSupreme
   sandboxed: true
   autoload: true

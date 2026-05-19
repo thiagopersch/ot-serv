@@ -1,6 +1,6 @@
 MainWindow
   id: vocationRanksWindow
-  !text: tr('Vocation Ranks')
+  !text: tr('Vocation Upgraded')
   size: 550 420
   @onEscape: modules.game_vocation_ranks.destroyWindow()
   anchors.centerIn: parent

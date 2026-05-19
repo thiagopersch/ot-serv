@@ -21,7 +21,7 @@ function init()
     onGameEnd = onGameEnd
   })
   ProtocolGame.registerExtendedOpcode(VOCATION_RANK_OPCODE, onOpcode)
-  topButton = modules.client_topmenu.addRightGameToggleButton("vocationRanksBtn", tr("Vocation Ranks"),
+  topButton = modules.client_topmenu.addRightGameToggleButton("vocationRanksBtn", tr("Vocation Upgraded"),
     "/images/topbuttons/skills", toggleWindow)
 end
 
@@ -138,8 +138,8 @@ function updateWindowData()
 
   -- Right Panel (Texts and Costs)
   right:getChildById('statusLabel'):setText('')
-  right:getChildById('rankLabel'):setText('Current Rank: ' .. RANK_NAMES[cachedRankData.rankLvl])
-  right:getChildById('rankLabel'):setColor(RANK_COLORS[cachedRankData.rankLvl])
+  right:getChildById('rankLabel'):setText('Current Rank: ' .. (RANK_NAMES[cachedRankData.rankLvl] or "Unknown"))
+  right:getChildById('rankLabel'):setColor(RANK_COLORS[cachedRankData.rankLvl] or "#ffffff")
 
   -- Next Rank Progress
   local nextStars = cachedRankData.stars + 1
