@@ -121,6 +121,7 @@ RankPanel < Panel
     id: rankPoints
     font: verdana-11px-rounded
     text-align: center
+    text-auto-resize: true
     anchors.horizontalCenter: parent.horizontalCenter
     anchors.top: rankName.bottom
     margin-top: 3

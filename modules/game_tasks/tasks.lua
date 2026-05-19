@@ -922,9 +922,31 @@ end
 -- ============================================================
 -- AÇÕES DE TASK
 -- ============================================================
+function hasActiveTaskOfSameType(taskId)
+    local task = findTaskConfig(taskId)
+    if not task or not task.type then return false, nil end
+    for _, pt in ipairs(playerTasks) do
+        if pt.rewarded ~= 1 then
+            local otherTask = findTaskConfig(pt.id)
+            if otherTask and otherTask.type == task.type and pt.id ~= taskId then
+                return true, otherTask
+            end
+        end
+    end
+    return false, nil
+end
+
 function startTask(taskId)
     if not taskId then taskId = selectedTaskId end
     if not taskId then return end
+
+    local hasActive, activeTask = hasActiveTaskOfSameType(taskId)
+    if hasActive and activeTask then
+        displayInfoBox(tr('Warning'),
+            tr('You already have an active ' .. (activeTask.type or '') .. ' task:\n"' .. (activeTask.name or '') .. '"\n\nFinish it before starting a new one of the same type.'))
+        return
+    end
+
     sendOpcode(json.encode({ action = 'start', taskId = taskId }))
 end
 
@@ -938,10 +960,12 @@ function abortTask(taskId)
     if not taskId then taskId = selectedTaskId end
     if not taskId then return end
 
-    displayGeneralBox(tr('Tasks'), tr('Do you really want to abort this task?'), {
+    local popup
+    popup = displayGeneralBox(tr('Tasks'), tr('Do you really want to abort this task?'), {
         {
             text = tr('Yes'),
             callback = function()
+                popup:ok()
                 local ok, err = pcall(function()
                     sendOpcode(json.encode({ action = 'cancel', taskId = taskId }))
                     selectedTaskId = nil
@@ -952,7 +976,7 @@ function abortTask(taskId)
                 end
             end
         },
-        { text = tr('No'), callback = function() end }
+        { text = tr('No'), callback = function() popup:ok() end }
     })
 end
 
@@ -1000,8 +1024,9 @@ function showCompletePopup(completeData)
     end
     text = text .. '\nOpen the Tasks window and claim your reward.'
 
-    displayGeneralBox(tr('Task Complete!'), tr(text), {
-        { text = tr('OK'), callback = function() end, anchor = AnchorHorizontalCenter }
+    local popup
+    popup = displayGeneralBox(tr('Task Complete!'), tr(text), {
+        { text = tr('OK'), callback = function() popup:ok() end, anchor = AnchorHorizontalCenter }
     })
 end
 
