@@ -660,7 +660,11 @@ function selectTask(taskId)
 
     local killsReq = task.killsRequired or task.kills or 0
     setText('detailKillsRequired', 'Kills Required: ' .. killsReq)
-    setText('detailPoints', 'Rank Points: +' .. (task.points or 0))
+    local actualPoints = task.points
+    if g_taskRankData.pointsPerDifficulty and task.difficulty then
+        actualPoints = g_taskRankData.pointsPerDifficulty[task.difficulty] or task.points
+    end
+    setText('detailPoints', 'Rank Points: +' .. (actualPoints or 0))
     setText('detailMoney', 'Gold Reward: ' .. formatMoney(task.money or 0) .. ' gold')
 
     local rep = isRepeatable(task)
