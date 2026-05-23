@@ -46,7 +46,7 @@ Panel
     anchors.horizontalCenter: parent.horizontalCenter
     background-color: #00000890
     border: 1 #cc0c0c
-    margin-top: 80
+    margin-top: 150
     text-auto-resize: false
     text-wrap: false
 
@@ -66,6 +66,6 @@ Panel
     anchors.horizontalCenter: parent.horizontalCenter
     background-color: #00000890
     border: 1 #cc0c0c
-    margin-bottom: 50
+    margin-bottom: 180
     text-auto-resize: false
     text-wrap: false

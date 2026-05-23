@@ -88,7 +88,7 @@ function onOpcode(protocol, opcode, buffer)
 
   local function applyToLocal()
     local player = g_game.getLocalPlayer()
-    if player then
+    if player and cachedRankData then
       player:setVocationStars(cachedRankData.rankLvl, cachedRankData.stars)
     end
   end
@@ -98,7 +98,9 @@ function onOpcode(protocol, opcode, buffer)
   scheduleEvent(applyToLocal, 500)
   scheduleEvent(applyToLocal, 2000)
 
-  updateRankStarInterface(cachedRankData.rankLvl)
+  if cachedRankData then
+    updateRankStarInterface(cachedRankData.rankLvl)
+  end
 end
 
 function updateWindowData()
