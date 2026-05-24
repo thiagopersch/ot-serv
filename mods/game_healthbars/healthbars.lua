@@ -1,4 +1,5 @@
 local healthBars = {
+  -- Barras originais de vida
   { path = "/images/bars/health1",                   offsetX = 0, offsetY = 0, barOffsetX = 16, barOffsetY = 2, height = 4 },
   { path = "/images/bars/fogo",                      offsetX = 0, offsetY = 0, barOffsetX = 16, barOffsetY = 2, height = 4 },
   { path = "/images/bars/fire",                      offsetX = 0, offsetY = 0, barOffsetX = 16, barOffsetY = 2, height = 4 },
@@ -54,6 +55,23 @@ local healthBars = {
   { path = "/images/bars/Shukaku",                   offsetX = 0, offsetY = 0, barOffsetX = 16, barOffsetY = 2, height = 4 },
   { path = "/images/bars/Tsuchikage",                offsetX = 0, offsetY = 0, barOffsetX = 16, barOffsetY = 2, height = 4 },
   { path = "/images/bars/Tsuchikage Novo",           offsetX = 0, offsetY = 0, barOffsetX = 16, barOffsetY = 2, height = 4 },
+
+  -- Barras de mana movidas para healthbar (agora disponíveis como healthbar também)
+  { path = "/images/bars/mana1",                     offsetX = 0, offsetY = 0, barOffsetX = 16, barOffsetY = 2, height = 4 },
+  { path = "/images/bars/chuva",                     offsetX = 0, offsetY = 0, barOffsetX = 16, barOffsetY = 2, height = 4 },
+  { path = "/images/bars/escuro",                    offsetX = 0, offsetY = 0, barOffsetX = 16, barOffsetY = 2, height = 4 },
+  { path = "/images/bars/beta",                      offsetX = 0, offsetY = 0, barOffsetX = 16, barOffsetY = 2, height = 4 },
+  { path = "/images/bars/party",                     offsetX = 0, offsetY = 0, barOffsetX = 16, barOffsetY = 2, height = 4 },
+  { path = "/images/bars/Prata",                     offsetX = 0, offsetY = 0, barOffsetX = 16, barOffsetY = 2, height = 4 },
+  { path = "/images/bars/Pirata",                    offsetX = 0, offsetY = 0, barOffsetX = 16, barOffsetY = 2, height = 4 },
+  { path = "/images/bars/Natal",                     offsetX = 0, offsetY = 0, barOffsetX = 16, barOffsetY = 2, height = 4 },
+  { path = "/images/bars/SonGoku",                   offsetX = 0, offsetY = 0, barOffsetX = 16, barOffsetY = 2, height = 4 },
+  { path = "/images/bars/Amaterasu",                 offsetX = 0, offsetY = 0, barOffsetX = 16, barOffsetY = 2, height = 4 },
+  { path = "/images/bars/Simples",                   offsetX = 0, offsetY = 0, barOffsetX = 16, barOffsetY = 2, height = 4 },
+  { path = "/images/bars/rikudou1",                  offsetX = 0, offsetY = 0, barOffsetX = 16, barOffsetY = 2, height = 4 },
+  { path = "/images/bars/rikudou2",                  offsetX = 0, offsetY = 0, barOffsetX = 16, barOffsetY = 2, height = 4 },
+  { path = "/images/bars/pochita",                   offsetX = 0, offsetY = 0, barOffsetX = 16, barOffsetY = 2, height = 4 },
+  { path = "/images/bars/Shaolin",                   offsetX = 0, offsetY = 0, barOffsetX = 16, barOffsetY = 2, height = 4 },
 }
 
 local manaBars = {

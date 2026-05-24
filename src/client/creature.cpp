@@ -214,6 +214,22 @@ void Creature::drawInformation(const Point& point, bool useGray, const Rect& par
         }
     }
 
+    // Quando há healthbar customizada, ajusta barWidth/barHeight para
+    // que a barra preenchível não ultrapasse a imagem decorativa.
+    // getBarOffset().x = barOffsetX do Lua (margem esquerda/direita)
+    if (healthBar) {
+        TexturePtr barTexture = healthBar->getTexture();
+        Size texSize = barTexture->getSize();
+        Point barOff = healthBar->getBarOffset();
+        int usableW = texSize.width()  - barOff.x * 2;
+        int usableH = texSize.height() - barOff.y * 2;
+        if (usableW > 0) barWidth  = usableW;
+        if (usableH > 0) barHeight = usableH;
+        backgroundRect = Rect(point.x + m_informationOffset.x - (barWidth / 2.0),
+                              barY, barWidth, barHeight);
+        backgroundRect.bind(parentRect);
+    }
+
     // health rect is based on background rect
     Rect healthRect = backgroundRect.expanded(-1);
     healthRect.setWidth((m_healthPercent / 100.0) * (barWidth - 2));
@@ -254,15 +270,25 @@ void Creature::drawInformation(const Point& point, bool useGray, const Rect& par
                 if (manaBar) {
                     TexturePtr barTexture = manaBar->getTexture();
                     Size texSize = barTexture->getSize();
+                    Point barOff = manaBar->getBarOffset();
+                    int manaBarWidth  = barWidth;
+                    int manaBarHeight = barHeight;
+                    int usableW = texSize.width()  - barOff.x * 2;
+                    int usableH = texSize.height() - barOff.y * 2;
+                    if (usableW > 0) manaBarWidth  = usableW;
+                    if (usableH > 0) manaBarHeight = usableH;
+                    backgroundRect = Rect(point.x + m_informationOffset.x - (manaBarWidth / 2.0),
+                                         backgroundRect.y(), manaBarWidth, manaBarHeight);
                     int autoX = (backgroundRect.width() - texSize.width()) / 2;
                     int autoY = (backgroundRect.height() - texSize.height()) / 2;
-                    Rect barRect = Rect(backgroundRect.x() + autoX + manaBar->getOffset().x, backgroundRect.y() + autoY + manaBar->getOffset().y, texSize);
+                    Rect barRect = Rect(backgroundRect.x() + autoX + manaBar->getOffset().x,
+                                       backgroundRect.y() + autoY + manaBar->getOffset().y, texSize);
                     g_drawQueue->addTexturedRect(barRect, barTexture, Rect(0, 0, texSize));
                 }
                 g_drawQueue->addFilledRect(backgroundRect, Color::black);
 
                 Rect manaRect = backgroundRect.expanded(-1);
-                manaRect.setWidth(((float)manaPercent / 100.f) * (barWidth - 2));
+                manaRect.setWidth(((float)manaPercent / 100.f) * (backgroundRect.width() - 2));
                 g_drawQueue->addFilledRect(manaRect, Color::blue);
             }
         }
