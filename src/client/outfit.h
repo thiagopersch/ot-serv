@@ -65,6 +65,8 @@ public:
     void resetShader() { m_shader = ""; }
 
 	void setWingsOffset(Point offset) { wingsOffset = offset; }
+	void setWingsUnderOutfit(bool value) { m_wingsUnderOutfit = value; }
+	bool getWingsUnderOutfit() const { return m_wingsUnderOutfit; }
 
     int getId() const { return m_id; }
     int getAuxId() const { return m_auxId; }
@@ -80,13 +82,13 @@ public:
     std::string getShader() const { return m_shader; }
     int getHealthBar() const { return m_healthBar; }
     int getManaBar() const { return m_manaBar; }
-
 private:
     ThingCategory m_category;
     int m_id, m_auxId, m_head, m_body, m_legs, m_feet, m_addons, m_mount = 0, m_wings = 0, m_aura = 0;
     int m_healthBar = 0, m_manaBar = 0;
     std::string m_shader;
     bool m_center = false;
+    bool m_wingsUnderOutfit = true;
 };
 
 struct DrawQueueItemOutfit : public DrawQueueItemTexturedRect {

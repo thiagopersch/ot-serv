@@ -62,6 +62,10 @@ void Outfit::draw(Point dest, Otc::Direction direction, uint walkAnimationPhase,
         dest.x += ((type->getWidth() - 1) * (g_sprites.spriteSize() / 2));
     }
 
+    Point baseDest = dest;
+    Point auraDest = baseDest;
+    Point topAuraDest = baseDest;
+
     int animationPhase = walkAnimationPhase;
 
     auto wingBounce = [&] {
@@ -176,12 +180,12 @@ void Outfit::draw(Point dest, Otc::Direction direction, uint walkAnimationPhase,
                 wingAnimationPhase = (g_clock.millis() % (ticksPerFrame * phases)) / ticksPerFrame;
             }
         }
-		wingDest.x += wingsOffset.x;
-		wingDest.y += wingsOffset.y;
+        wingDest.x += wingsOffset.x;
+        wingDest.y += wingsOffset.y;
         wingsType->draw(wingDest, 0, direction, 0, wingsZPattern, wingAnimationPhase, Color::white, lightView);
     };
 
-    Point auraDest = dest;
+    auraDest = dest;
     auto drawAura = [&] {
         int auraAnimationPhase = 0;
         auto auraType = g_things.rawGetThingType(m_aura, ThingCategoryCreature);
@@ -203,7 +207,7 @@ void Outfit::draw(Point dest, Otc::Direction direction, uint walkAnimationPhase,
         auraType->draw(auraDest, 0, direction, 0, auraZPattern, auraAnimationPhase, Color::white, lightView);
     };
 
-    Point topAuraDest = dest;
+    topAuraDest = dest;
     auto drawTopAura = [&] {
         int auraAnimationPhase = 0;
         auto auraType = g_things.rawGetThingType(m_aura, ThingCategoryCreature);
@@ -226,13 +230,13 @@ void Outfit::draw(Point dest, Otc::Direction direction, uint walkAnimationPhase,
 
     if (m_aura && g_game.getFeature(Otc::GameBigAurasCenter)) {
         auto auraType = g_things.rawGetThingType(m_aura, ThingCategoryCreature);
-        int auraHeight = auraType->getHeight();
-        int auraWidth = auraType->getWidth();
-        if (auraHeight > 1 || auraWidth > 1) {
-            Point offset = Point (auraWidth > 1 ? (auraWidth - 1) * 16 : 0, auraHeight > 1 ? (auraHeight - 1) * 16 : 0);
-            topAuraDest += offset * g_sprites.getOffsetFactor();
-            auraDest += offset * g_sprites.getOffsetFactor();
-        }
+        Point outfitDisp = type->getDisplacement();
+        Point auraDisp = auraType->getDisplacement();
+
+        Point offset = (outfitDisp - auraDisp) * g_sprites.getOffsetFactor();
+
+        topAuraDest += offset;
+        auraDest += offset;
     }
 
     if (m_aura && (!g_game.getFeature(Otc::GameDrawAuraOnTop) or g_game.getFeature(Otc::GameAuraFrontAndBack)) ) {
@@ -241,34 +245,31 @@ void Outfit::draw(Point dest, Otc::Direction direction, uint walkAnimationPhase,
 
     drawMount();
 
-    if (m_wings && (direction == Otc::South || direction == Otc::East || direction == Otc::North || direction == Otc::West)) {
-        auto wingsType = g_things.rawGetThingType(m_wings, ThingCategoryCreature);
-        if (wingsType) {
-            if (type->hasBones() && wingsType->hasBones()) {
-                auto outfitBones = type->getBones(direction);
-                auto outfitWidth = type->getWidth();
-                auto wingsWidth = wingsType->getWidth();
-                int bonusOffset = std::abs(wingsWidth - outfitWidth) * 32;
-                auto wingsBones = wingsType->getBones(direction);
-                auto boneOffset = Point((outfitBones.x - wingsBones.x) + bonusOffset, (outfitBones.y - wingsBones.y) + bonusOffset);
-
-                if (m_mount > 0) {
-                    if (direction == Otc::South) {
-                        boneOffset.x -= 7;
-                        boneOffset.y -= 17;
-                    }
-                    else if (direction == Otc::East) {
-                        boneOffset.x -= 18;
-                        boneOffset.y -= 7;
-                    }
-                }
-
-                if (g_game.getFeature(Otc::GameWingOffset) && m_wings)
-                    boneOffset -= Point(6, 6);
-
-                wingDest = dest + boneOffset * g_sprites.getOffsetFactor();
-            }
+    // Recalculate aura positions after mount displacement
+    if (m_aura) {
+        auraDest = dest;
+        topAuraDest = dest;
+        if (g_game.getFeature(Otc::GameBigAurasCenter)) {
+            auto auraType = g_things.rawGetThingType(m_aura, ThingCategoryCreature);
+            Point outfitDisp = type->getDisplacement();
+            Point auraDisp = auraType->getDisplacement();
+            Point offset = (outfitDisp - auraDisp) * g_sprites.getOffsetFactor();
+            auraDest += offset;
+            topAuraDest += offset;
         }
+    }
+
+    auto drawWingsIfNeeded = [&] {
+        if (!m_wings) return;
+        if (direction != Otc::South && direction != Otc::East && direction != Otc::North && direction != Otc::West) return;
+
+        auto wingsType = g_things.rawGetThingType(m_wings, ThingCategoryCreature);
+        if (!wingsType) return;
+
+        Point outfitDisp = type->getDisplacement();
+        Point wingsDisp = wingsType->getDisplacement();
+        wingDest = dest + (outfitDisp - wingsDisp) * g_sprites.getOffsetFactor();
+
         if (g_game.getFeature(Otc::GameWingOffset) && zPattern > 0) {
             if (direction == Otc::East)
                 wingDest -= Point(6, 2) * g_sprites.getOffsetFactor();
@@ -276,7 +277,10 @@ void Outfit::draw(Point dest, Otc::Direction direction, uint walkAnimationPhase,
                 wingDest -= Point(0, 6) * g_sprites.getOffsetFactor();
         }
         drawWings();
-    }
+    };
+
+    if (m_wingsUnderOutfit)
+        drawWingsIfNeeded();
 
     Point center;
     for (int yPattern = 0; yPattern < type->getNumPatternY(); yPattern++) {
@@ -315,39 +319,8 @@ void Outfit::draw(Point dest, Otc::Direction direction, uint walkAnimationPhase,
         g_drawQueue->add(outfit);
     }
 
-    // if (m_wings && (direction == Otc::North || direction == Otc::West)) {
-    //     auto wingsType = g_things.rawGetThingType(m_wings, ThingCategoryCreature);
-    //     if (wingsType) {
-    //         if (type->hasBones() && wingsType->hasBones()) {
-    //             auto outfitBones = type->getBones(direction);
-    //             auto outfitWidth = type->getWidth();
-    //             auto wingsWidth = wingsType->getWidth();
-    //             int bonusOffset = std::abs(wingsWidth - outfitWidth) * 32;
-    //             auto wingsBones = wingsType->getBones(direction);
-    //             auto boneOffset = Point((outfitBones.x - wingsBones.x) + bonusOffset, (outfitBones.y - wingsBones.y) + bonusOffset);
-
-    //             if (m_mount > 0) {
-    //                 if (direction == Otc::North) {
-    //                     boneOffset.x -= 11;
-    //                     boneOffset.y -= 9;
-    //                 }
-    //                 else if (direction == Otc::West) {
-    //                     boneOffset.x -= 9;
-    //                     boneOffset.y -= 11;
-    //                 }
-    //             }
-
-    //             if (g_game.getFeature(Otc::GameWingOffset) && m_wings)
-    //                 boneOffset -= Point(6, 6);
-
-    //             wingDest = dest + boneOffset * g_sprites.getOffsetFactor();
-    //         }
-    //     }
-    //     if (g_game.getFeature(Otc::GameWingOffset) && zPattern > 0)
-    //         wingDest += Point(4, 6);
-
-    //     drawWings();
-    // }
+    if (!m_wingsUnderOutfit)
+        drawWingsIfNeeded();
 
     if (m_aura && (g_game.getFeature(Otc::GameDrawAuraOnTop) || g_game.getFeature(Otc::GameAuraFrontAndBack))) {
         if (g_game.getFeature(Otc::GameAuraFrontAndBack)){

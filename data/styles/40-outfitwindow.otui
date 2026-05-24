@@ -232,7 +232,7 @@ OutfitWindow < MainWindow
           anchors.left: parent.left
           anchors.right: parent.right
           text: Show Bars
-    
+
     FlatPanel
       id: panel
       anchors.top: parent.top
