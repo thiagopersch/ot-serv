@@ -422,7 +422,14 @@ void DrawQueueItemOutfitWithShader::draw()
 {
     if (!m_texture) return;
     PainterShaderProgramPtr shader = g_shaders.getShader(m_shader);
-    if (!shader) return DrawQueueItemTexturedRect::draw();
+    if (!shader) {
+        static bool logged = false;
+        if (!logged) {
+            g_logger.warning(stdext::format("Shader not found: '%s' - effects will not render", m_shader));
+            logged = true;
+        }
+        return DrawQueueItemTexturedRect::draw();
+    }
     bool useFramebuffer = m_dest.size() != m_src.size();
 
     if (useFramebuffer) {
@@ -440,6 +447,7 @@ void DrawQueueItemOutfitWithShader::draw()
         mat4(x + 1, 4) = color.aF();
     }
     g_painter->setShaderProgram(shader);
+    shader->updateTime();
     g_painter->setOffset(m_offset);
     shader->setMatrixColor(mat4);
     shader->setCenter(m_center);

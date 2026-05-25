@@ -183,10 +183,6 @@ function create(currentOutfit, outfitList, mountList, wingList, auraList, shader
     destroy()
   end
 
-  if currentOutfit.shader == "" then
-    currentOutfit.shader = "outfit_default"
-  end
-
   loadSettings()
 
   ServerData = {
@@ -587,7 +583,7 @@ function showOutfits()
     outfit.mount = 0
     outfit.aura = 0
     outfit.wings = 0
-    outfit.shader = "outfit_default"
+    outfit.shader = ""
     outfit.healthBar = 0
     outfit.manaBar = 0
     button.outfit:setOutfit(outfit)
@@ -750,12 +746,12 @@ function showShaders()
   local focused = nil
   do
     local button = g_ui.createWidget("SelectionButton", window.selectionList)
-    button:setId("outfit_default")
+    button:setId("None")
 
-    button.outfit:setOutfit({ type = tempOutfit.type, addons = tempOutfit.addons, shader = "outfit_default" })
+    button.outfit:setOutfit({ type = tempOutfit.type, addons = tempOutfit.addons, shader = "" })
     button.name:setText("None")
-    if tempOutfit.shader == "outfit_default" then
-      focused = "outfit_default"
+    if tempOutfit.shader == "" then
+      focused = "None"
     end
   end
 
@@ -966,6 +962,9 @@ end
 function onShaderSelect(list, focusedChild, unfocusedChild, reason)
   if focusedChild then
     local shaderType = focusedChild:getId()
+    if shaderType == "None" then
+      shaderType = ""
+    end
     tempOutfit.shader = shaderType
     updatePreview()
 
@@ -1111,7 +1110,7 @@ function updatePreview()
   end
 
   if not settings.showShader then
-    previewOutfit.shader = "outfit_default"
+    previewOutfit.shader = ""
   end
 
   if not settings.showBars then

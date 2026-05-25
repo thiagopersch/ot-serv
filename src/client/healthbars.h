@@ -73,8 +73,16 @@ public:
     void addHealthBackground(const std::string& path, int offsetX, int offsetY, int barOffsetX, int barOffsetY, int height);
     void addManaBackground(const std::string& path, int offsetX, int offsetY, int barOffsetX, int barOffsetY, int height);
 
-    HealthBarPtr getHealthBar(int id) { return m_healthBars[id]; }
-    HealthBarPtr getManaBar(int id) { return m_manaBars[id]; }
+    HealthBarPtr getHealthBar(int id) {
+        if (id < 0 || id >= (int)m_healthBars.size())
+            return nullptr;
+        return m_healthBars[id];
+    }
+    HealthBarPtr getManaBar(int id) {
+        if (id < 0 || id >= (int)m_manaBars.size())
+            return nullptr;
+        return m_manaBars[id];
+    }
 
     std::string getHealthBarPath(int id);
     std::string getManaBarPath(int id);
