@@ -158,8 +158,8 @@ void Creature::drawInformation(const Point& point, bool useGray, const Rect& par
     int spacing = 15; // Distancia entre os elementos
 
     // Ordem (topo para baixo): Nome > Barras > Estrelas > Topo da Sprite
-    int starSize = 14;
-    int barHeight = 6;
+    int starSize = 12;
+    int barHeight = 4;
 
     // Estrelas logo acima do topo da sprite
     int starsY = spriteTopY - starSize - spacing;
@@ -170,7 +170,7 @@ void Creature::drawInformation(const Point& point, bool useGray, const Rect& par
     // Nome acima das barras
     int nameHeight = m_nameCache.getTextSize().height();
     int textY = barY - nameHeight - spacing;
-    int barWidth = 50;
+    int barWidth = 40;
 
     Rect backgroundRect = Rect(point.x + m_informationOffset.x - (barWidth / 2.0), barY, barWidth, barHeight);
     backgroundRect.bind(parentRect);
@@ -214,20 +214,16 @@ void Creature::drawInformation(const Point& point, bool useGray, const Rect& par
         }
     }
 
-    // Quando há healthbar customizada, ajusta barWidth/barHeight para
-    // que a barra preenchível não ultrapasse a imagem decorativa.
-    // getBarOffset().x = barOffsetX do Lua (margem esquerda/direita)
+    // Fill fino (2px) dentro da healthbar decorativa — estilo Tibia original
     if (healthBar) {
-        TexturePtr barTexture = healthBar->getTexture();
-        Size texSize = barTexture->getSize();
-        Point barOff = healthBar->getBarOffset();
-        int usableW = texSize.width()  - barOff.x * 2;
-        int usableH = texSize.height() - barOff.y * 2;
-        if (usableW > 0) barWidth  = usableW;
-        if (usableH > 0) barHeight = usableH;
-        backgroundRect = Rect(point.x + m_informationOffset.x - (barWidth / 2.0),
-                              barY, barWidth, barHeight);
-        backgroundRect.bind(parentRect);
+        backgroundRect.setHeight(healthBar->getHeight());
+        backgroundRect.moveTop(backgroundRect.top() + healthBar->getBarOffset().y);
+        Size texSize = healthBar->getTexture()->getSize();
+        int innerW = texSize.width() - 2;
+        if (innerW > 0 && innerW < barWidth)
+            barWidth = innerW;
+        backgroundRect.setWidth(barWidth);
+        backgroundRect.moveLeft(point.x + m_informationOffset.x - (barWidth / 2.0));
     }
 
     // health rect is based on background rect
@@ -264,21 +260,20 @@ void Creature::drawInformation(const Point& point, bool useGray, const Rect& par
                 }
             }
             if (manaPercent >= 0) {
-                int manaSpacing = healthBar ? 4 : 1;
+                int manaSpacing = healthBar ? 1 : 1;
                 backgroundRect.moveTop(backgroundRect.bottom() + manaSpacing);
 
                 if (manaBar) {
+                    backgroundRect.setHeight(manaBar->getHeight());
+                    backgroundRect.moveTop(backgroundRect.top() + manaBar->getBarOffset().y);
+                    Size manaTexSize = manaBar->getTexture()->getSize();
+                    int manaInnerW = manaTexSize.width() - 2;
+                    if (manaInnerW > 0) {
+                        backgroundRect.setWidth(manaInnerW);
+                        backgroundRect.moveLeft(point.x + m_informationOffset.x - (manaInnerW / 2.0));
+                    }
                     TexturePtr barTexture = manaBar->getTexture();
                     Size texSize = barTexture->getSize();
-                    Point barOff = manaBar->getBarOffset();
-                    int manaBarWidth  = barWidth;
-                    int manaBarHeight = barHeight;
-                    int usableW = texSize.width()  - barOff.x * 2;
-                    int usableH = texSize.height() - barOff.y * 2;
-                    if (usableW > 0) manaBarWidth  = usableW;
-                    if (usableH > 0) manaBarHeight = usableH;
-                    backgroundRect = Rect(point.x + m_informationOffset.x - (manaBarWidth / 2.0),
-                                         backgroundRect.y(), manaBarWidth, manaBarHeight);
                     int autoX = (backgroundRect.width() - texSize.width()) / 2;
                     int autoY = (backgroundRect.height() - texSize.height()) / 2;
                     Rect barRect = Rect(backgroundRect.x() + autoX + manaBar->getOffset().x,

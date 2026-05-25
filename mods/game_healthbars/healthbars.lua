@@ -70,7 +70,7 @@ local healthBars = {
   { path = "/images/bars/Simples",                   offsetX = 0, offsetY = 0, barOffsetX = 16, barOffsetY = 2, height = 4 },
   { path = "/images/bars/rikudou1",                  offsetX = 0, offsetY = 0, barOffsetX = 16, barOffsetY = 2, height = 4 },
   { path = "/images/bars/rikudou2",                  offsetX = 0, offsetY = 0, barOffsetX = 16, barOffsetY = 2, height = 4 },
-  { path = "/images/bars/pochita",                   offsetX = 0, offsetY = 0, barOffsetX = 16, barOffsetY = 2, height = 4 },
+  { path = "/images/bars/pochita",                   offsetX = 0, offsetY = 0, barOffsetX = 10, barOffsetY = 2, height = 4 },
   { path = "/images/bars/Shaolin",                   offsetX = 0, offsetY = 0, barOffsetX = 16, barOffsetY = 2, height = 4 },
 }
 
