@@ -1,0 +1,9 @@
+Module
+  name: game_sharderselector
+  description: Shader Selector System
+  author: wtver
+  autoload: true
+  sandboxed: false
+  scripts: [ sharderselector ]
+  @onLoad: init()
+  @onUnload: terminate()

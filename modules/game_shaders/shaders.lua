@@ -33,6 +33,8 @@ function init()
   createOutfitShader("mitico")
   createOutfitShader("epico")
   createOutfitShader("especial")
+  createOutfitShader("fire_aura")
+  createOutfitShader("big_fire_aura")
 end
 
 function terminate()

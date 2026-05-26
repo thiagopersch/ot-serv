@@ -186,9 +186,31 @@ void Outfit::draw(Point dest, Otc::Direction direction, uint walkAnimationPhase,
     };
 
     auraDest = dest;
+    topAuraDest = dest;
+
+    if (m_aura) {
+        auto auraType = g_things.rawGetThingType(m_aura, ThingCategoryCreature);
+        if (auraType) {
+            Point auraDestBase = dest;
+            if (m_mount > 0 && zPattern > 0) {
+                auto mountType = g_things.rawGetThingType(m_mount, ThingCategoryCreature);
+                if (mountType) {
+                    auraDestBase -= mountType->getDisplacement() * g_sprites.getOffsetFactor();
+                    auraDestBase += type->getDisplacement() * g_sprites.getOffsetFactor();
+                }
+            }
+            Point outfitDisp = type->getDisplacement();
+            Point auraDisp = auraType->getDisplacement();
+            Point offset = (auraDisp - outfitDisp) * g_sprites.getOffsetFactor() + (auraType->getSize().toPoint() - type->getSize().toPoint()) * g_sprites.spriteSize();
+            auraDest = auraDestBase + offset;
+            topAuraDest = auraDestBase + offset;
+        }
+    }
+
     auto drawAura = [&] {
         int auraAnimationPhase = 0;
         auto auraType = g_things.rawGetThingType(m_aura, ThingCategoryCreature);
+        if (!auraType) return;
         int auraZPattern = m_mount > 0 ? std::min<int>(1, auraType->getNumPatternZ() - 1) : 0;
         auto auraAnimator = auraType->getAnimator();
         if (animate) {
@@ -207,10 +229,10 @@ void Outfit::draw(Point dest, Otc::Direction direction, uint walkAnimationPhase,
         auraType->draw(auraDest, 0, direction, 0, auraZPattern, auraAnimationPhase, Color::white, lightView);
     };
 
-    topAuraDest = dest;
     auto drawTopAura = [&] {
         int auraAnimationPhase = 0;
         auto auraType = g_things.rawGetThingType(m_aura, ThingCategoryCreature);
+        if (!auraType) return;
         auto auraAnimator = auraType->getAnimator();
         if (animate) {
             if (auraType->isAnimateAlways()) {
@@ -228,36 +250,13 @@ void Outfit::draw(Point dest, Otc::Direction direction, uint walkAnimationPhase,
         auraType->draw(topAuraDest, 1, direction, 0, 0, auraAnimationPhase, Color::white, lightView);
     };
 
-    if (m_aura && g_game.getFeature(Otc::GameBigAurasCenter)) {
-        auto auraType = g_things.rawGetThingType(m_aura, ThingCategoryCreature);
-        Point outfitDisp = type->getDisplacement();
-        Point auraDisp = auraType->getDisplacement();
-
-        Point offset = (outfitDisp - auraDisp) * g_sprites.getOffsetFactor();
-
-        topAuraDest += offset;
-        auraDest += offset;
-    }
-
-    if (m_aura && (!g_game.getFeature(Otc::GameDrawAuraOnTop) or g_game.getFeature(Otc::GameAuraFrontAndBack)) ) {
+    // Draw aura behind the creature and mount
+    if (m_aura) {
         drawAura();
+        drawTopAura();
     }
 
     drawMount();
-
-    // Recalculate aura positions after mount displacement
-    if (m_aura) {
-        auraDest = dest;
-        topAuraDest = dest;
-        if (g_game.getFeature(Otc::GameBigAurasCenter)) {
-            auto auraType = g_things.rawGetThingType(m_aura, ThingCategoryCreature);
-            Point outfitDisp = type->getDisplacement();
-            Point auraDisp = auraType->getDisplacement();
-            Point offset = (outfitDisp - auraDisp) * g_sprites.getOffsetFactor();
-            auraDest += offset;
-            topAuraDest += offset;
-        }
-    }
 
     auto drawWingsIfNeeded = [&] {
         if (!m_wings) return;
@@ -268,7 +267,9 @@ void Outfit::draw(Point dest, Otc::Direction direction, uint walkAnimationPhase,
 
         Point outfitDisp = type->getDisplacement();
         Point wingsDisp = wingsType->getDisplacement();
-        wingDest = dest + (outfitDisp - wingsDisp) * g_sprites.getOffsetFactor();
+
+        // Correct alignment: account for displacement differences and size differences
+        wingDest = dest + (wingsDisp - outfitDisp) * g_sprites.getOffsetFactor() + (wingsType->getSize().toPoint() - type->getSize().toPoint()) * g_sprites.spriteSize();
 
         if (g_game.getFeature(Otc::GameWingOffset) && zPattern > 0) {
             if (direction == Otc::East)
@@ -279,7 +280,10 @@ void Outfit::draw(Point dest, Otc::Direction direction, uint walkAnimationPhase,
         drawWings();
     };
 
-    if (m_wingsUnderOutfit)
+    bool drawWingsUnder = m_wingsUnderOutfit && (direction != Otc::North);
+
+    // Draw wings behind the creature (but in front of the mount) if they should go under
+    if (drawWingsUnder)
         drawWingsIfNeeded();
 
     Point center;
@@ -319,25 +323,9 @@ void Outfit::draw(Point dest, Otc::Direction direction, uint walkAnimationPhase,
         g_drawQueue->add(outfit);
     }
 
-    if (!m_wingsUnderOutfit)
+    // Draw wings in front of the creature if they should not go under (e.g., when facing North)
+    if (!drawWingsUnder)
         drawWingsIfNeeded();
-
-    if (m_aura && (g_game.getFeature(Otc::GameDrawAuraOnTop) || g_game.getFeature(Otc::GameAuraFrontAndBack))) {
-        if (g_game.getFeature(Otc::GameAuraFrontAndBack)){
-            if (zPattern > 0) {
-                if (direction == Otc::East)
-                    topAuraDest -= Point(12, 6) * g_sprites.getOffsetFactor();
-                else if (direction == Otc::South)
-                    topAuraDest -= Point(1, 12) * g_sprites.getOffsetFactor();
-                else
-                    topAuraDest -= Point(4, 6) * g_sprites.getOffsetFactor();
-            }
-            drawTopAura();
-        }
-        else {
-            drawAura();
-        }
-    }
 }
 
 void Outfit::draw(const Rect& dest, Otc::Direction direction, uint animationPhase, bool animate, bool ui, bool oldScaling)
