@@ -185,25 +185,17 @@ void Outfit::draw(Point dest, Otc::Direction direction, uint walkAnimationPhase,
         wingsType->draw(wingDest, 0, direction, 0, wingsZPattern, wingAnimationPhase, Color::white, lightView);
     };
 
-    auraDest = dest;
-    topAuraDest = dest;
-
+    // Pre-compensate for aura's own displacement so ThingType::draw centers it on the player.
+    // ThingType::draw internally subtracts m_displacement, so we add (outfitDisp - auraDisp)
+    // to neutralize the aura's displacement and align its visual center with the player's anchor.
     if (m_aura) {
         auto auraType = g_things.rawGetThingType(m_aura, ThingCategoryCreature);
         if (auraType) {
-            Point auraDestBase = dest;
-            if (m_mount > 0 && zPattern > 0) {
-                auto mountType = g_things.rawGetThingType(m_mount, ThingCategoryCreature);
-                if (mountType) {
-                    auraDestBase -= mountType->getDisplacement() * g_sprites.getOffsetFactor();
-                    auraDestBase += type->getDisplacement() * g_sprites.getOffsetFactor();
-                }
-            }
             Point outfitDisp = type->getDisplacement();
             Point auraDisp = auraType->getDisplacement();
-            Point offset = (auraDisp - outfitDisp) * g_sprites.getOffsetFactor() + (auraType->getSize().toPoint() - type->getSize().toPoint()) * g_sprites.spriteSize();
-            auraDest = auraDestBase + offset;
-            topAuraDest = auraDestBase + offset;
+            Point offset = (outfitDisp - auraDisp) * g_sprites.getOffsetFactor();
+            auraDest = dest + offset;
+            topAuraDest = dest + offset;
         }
     }
 
@@ -268,8 +260,10 @@ void Outfit::draw(Point dest, Otc::Direction direction, uint walkAnimationPhase,
         Point outfitDisp = type->getDisplacement();
         Point wingsDisp = wingsType->getDisplacement();
 
-        // Correct alignment: account for displacement differences and size differences
-        wingDest = dest + (wingsDisp - outfitDisp) * g_sprites.getOffsetFactor() + (wingsType->getSize().toPoint() - type->getSize().toPoint()) * g_sprites.spriteSize();
+        // Pre-compensate for wings' own displacement so ThingType::draw centers them on the player.
+        // ThingType::draw internally subtracts m_displacement, so we add (outfitDisp - wingsDisp)
+        // to neutralize the wings' displacement and align their visual center with the player's anchor.
+        wingDest = dest + (outfitDisp - wingsDisp) * g_sprites.getOffsetFactor();
 
         if (g_game.getFeature(Otc::GameWingOffset) && zPattern > 0) {
             if (direction == Otc::East)
