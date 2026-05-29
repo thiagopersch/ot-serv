@@ -75,6 +75,13 @@ function hide()
   if win then win:hide() end
 end
 
+function destroy()
+  if win then
+    win:destroy()
+    win = nil
+  end
+end
+
 function show()
   if not win then return end
   win:show()
@@ -140,7 +147,14 @@ local function buildList(data)
 end
 
 local function ensureWindow()
-  if win then return true end
+  if win then
+    local root = g_ui.getRootWidget()
+    if root and root:recursiveGetChildById('shaderSelectorWindow') then
+      return true
+    end
+    win = nil
+    print("[sharderselector] window was destroyed, recreating")
+  end
   win = g_ui.displayUI('sharderselector')
   if not win then
     print("[sharderselector] displayUI failed")
@@ -177,8 +191,6 @@ local function onOpcode(protocol, opcode, buffer)
 end
 
 function init()
-  if win then return end
-  ensureWindow()
   connect(g_game, {
     onGameStart = function()
       if gameConnected then return end
