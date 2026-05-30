@@ -16,7 +16,9 @@
     "g_healthBars",
     "g_map",
     "Item",
-    "g_things"
+    "g_things",
+    "setAuraAutoOffset",
+    "setWingAutoOffset"
   ],
   "Lua.diagnostics.disable": ["undefined-field"]
 }

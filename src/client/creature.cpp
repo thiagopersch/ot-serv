@@ -105,6 +105,7 @@ void Creature::draw(const Point& dest, bool animate, LightView* lightView)
         animationOffset -= getDisplacement();
 
     m_outfit.setWingsOffset(getWingsOffset());
+    m_outfit.setAuraOffset(getAuraOffset());
     size_t drawQueueSize = g_drawQueue->size();
     m_outfit.draw(dest - jumpOffset + animationOffset, m_walking ? m_walkDirection : m_direction, m_walkAnimationPhase, true, lightView);
     if (m_marked) {

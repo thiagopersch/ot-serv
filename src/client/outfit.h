@@ -26,13 +26,23 @@
 #include <framework/util/color.h>
 #include "thingtypemanager.h"
 #include <framework/graphics/drawqueue.h>
+#include <unordered_map>
+
+struct OffsetConfig {
+    Point offset;
+    bool isFront;
+};
 
 class Outfit
 {
+public:
+    // Static Lua-configurable offset configs (keyed by looktype)
+    static std::unordered_map<int, OffsetConfig> s_auraOffsets;
+    static std::unordered_map<int, OffsetConfig> s_wingOffsets;
 
 protected:
     Point wingsOffset;
-
+    Point auraOffset;
 
 public:
     Outfit();
@@ -65,6 +75,7 @@ public:
     void resetShader() { m_shader = ""; }
 
 	void setWingsOffset(Point offset) { wingsOffset = offset; }
+	void setAuraOffset(Point offset) { auraOffset = offset; }
 	void setWingsUnderOutfit(bool value) { m_wingsUnderOutfit = value; }
 	bool getWingsUnderOutfit() const { return m_wingsUnderOutfit; }
 

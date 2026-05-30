@@ -422,7 +422,7 @@ local function onExtendedOpcode(protocol, opcode, buffer)
     return
   end
 
-  -- ── a_equipped — aura equipada após confirmação ───────────────────────────
+  -- ── a_equipped — aura equipada após confirmação (game_auraoffset gerencia o offset) ──
   if action == "a_equipped" then
     return
   end

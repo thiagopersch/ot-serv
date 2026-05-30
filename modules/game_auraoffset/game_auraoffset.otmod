@@ -1,0 +1,9 @@
+Module
+  name: game_auraoffset
+  description: Configura offsets de posicao de auras e wings por looktype
+  author: wodbo
+  sandboxed: false
+  autoload: true
+  scripts: [game_auraoffset]
+  @onLoad: init()
+  @onUnload: terminate()

@@ -99,12 +99,14 @@ public:
 
     uint32 getId() { return m_id; }
 	Point getWingsOffset() { return m_wingsOffset; }    void setWingsOffset(int x, int y) {        m_wingsOffset.x = x;        m_wingsOffset.y = y;    }
+	Point getAuraOffset() { return m_auraOffset; }      void setAuraOffset(int x, int y) {        m_auraOffset.x = x;        m_auraOffset.y = y;      }
     std::string getName() { return m_name; }
     uint8 getHealthPercent() { return m_healthPercent; }
     int8 getManaPercent() { return m_manaPercent; }
     Otc::Direction getDirection() { return m_direction; }
     Otc::Direction getWalkDirection() { return m_walkDirection; }
 	int getWings() { return m_outfit.getWings(); }
+	int getAura()  { return m_outfit.getAura(); }
 
     Outfit getOutfit() { return m_outfit; }
     Light getLight() { return m_light; }
@@ -246,6 +248,7 @@ protected:
     Color m_informationColor;
     bool m_useCustomInformationColor = false;
 	Point m_wingsOffset;
+	Point m_auraOffset;
     Point m_informationOffset;
     Color m_outfitColor;
     ScheduledEventPtr m_outfitColorUpdateEvent;

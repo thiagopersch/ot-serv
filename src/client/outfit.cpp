@@ -41,6 +41,9 @@ Outfit::Outfit()
     resetClothes();
 }
 
+std::unordered_map<int, OffsetConfig> Outfit::s_auraOffsets;
+std::unordered_map<int, OffsetConfig> Outfit::s_wingOffsets;
+
 void Outfit::draw(Point dest, Otc::Direction direction, uint walkAnimationPhase, bool animate, LightView* lightView, bool ui)
 {
     // direction correction
@@ -182,20 +185,34 @@ void Outfit::draw(Point dest, Otc::Direction direction, uint walkAnimationPhase,
         }
         wingDest.x += wingsOffset.x;
         wingDest.y += wingsOffset.y;
+        {
+            auto it = s_wingOffsets.find(m_wings);
+            if (it != s_wingOffsets.end()) {
+                wingDest.x += it->second.offset.x;
+                wingDest.y += it->second.offset.y;
+            }
+        }
         wingsType->draw(wingDest, 0, direction, 0, wingsZPattern, wingAnimationPhase, Color::white, lightView);
     };
 
     // Pre-compensate for aura's own displacement so ThingType::draw centers it on the player.
     // ThingType::draw internally subtracts m_displacement, so we add (outfitDisp - auraDisp)
     // to neutralize the aura's displacement and align its visual center with the player's anchor.
+    bool auraIsFront = false;
+    Point autoAuraOffset;
     if (m_aura) {
         auto auraType = g_things.rawGetThingType(m_aura, ThingCategoryCreature);
         if (auraType) {
             Point outfitDisp = type->getDisplacement();
             Point auraDisp = auraType->getDisplacement();
             Point offset = (outfitDisp - auraDisp) * g_sprites.getOffsetFactor();
-            auraDest = dest + offset;
-            topAuraDest = dest + offset;
+            auto it = s_auraOffsets.find(m_aura);
+            if (it != s_auraOffsets.end()) {
+                autoAuraOffset = it->second.offset;
+                auraIsFront = it->second.isFront;
+            }
+            auraDest = dest + offset + auraOffset + autoAuraOffset;
+            topAuraDest = dest + offset + auraOffset + autoAuraOffset;
         }
     }
 
@@ -242,8 +259,8 @@ void Outfit::draw(Point dest, Otc::Direction direction, uint walkAnimationPhase,
         auraType->draw(topAuraDest, 1, direction, 0, 0, auraAnimationPhase, Color::white, lightView);
     };
 
-    // Draw aura behind the creature and mount
-    if (m_aura) {
+    // Draw aura behind the creature and mount (unless configured as front)
+    if (m_aura && !auraIsFront) {
         drawAura();
         drawTopAura();
     }
@@ -315,6 +332,12 @@ void Outfit::draw(Point dest, Otc::Direction direction, uint walkAnimationPhase,
             outfit = new DrawQueueItemOutfitWithShader(outfitParams->dest, outfitParams->texture, outfitParams->src, outfitParams->offset, center, colors, m_shader, m_center);
         }
         g_drawQueue->add(outfit);
+    }
+
+    // Draw aura in front of creature if configured
+    if (m_aura && auraIsFront) {
+        drawAura();
+        drawTopAura();
     }
 
     // Draw wings in front of the creature if they should not go under (e.g., when facing North)

@@ -367,6 +367,14 @@ void Client::registerLuaFunctions()
     g_lua.bindGlobalFunction("getAngleFromPos", Position::getAngleFromPositions);
     g_lua.bindGlobalFunction("getDirectionFromPos", Position::getDirectionFromPositions);
 
+    // Lua-configurable auto-offsets for aura and wing positioning (keyed by looktype)
+    g_lua.bindGlobalFunction("setAuraAutoOffset", [](int looktype, int x, int y, bool isFront) {
+        Outfit::s_auraOffsets[looktype] = {Point(x, y), isFront};
+    });
+    g_lua.bindGlobalFunction("setWingAutoOffset", [](int looktype, int x, int y, bool isFront) {
+        Outfit::s_wingOffsets[looktype] = {Point(x, y), isFront};
+    });
+
     g_lua.registerClass<ProtocolGame, Protocol>();
     g_lua.bindClassStaticFunction<ProtocolGame>("create", []{ return ProtocolGamePtr(new ProtocolGame); });
     g_lua.bindClassMemberFunction<ProtocolGame>("login", &ProtocolGame::login);
@@ -543,7 +551,10 @@ void Client::registerLuaFunctions()
     g_lua.bindClassMemberFunction<Creature>("jump", &Creature::jump);
     g_lua.bindClassMemberFunction<Creature>("setWingsOffset", &Creature::setWingsOffset);
     g_lua.bindClassMemberFunction<Creature>("getWingsOffset", &Creature::getWingsOffset);
+    g_lua.bindClassMemberFunction<Creature>("setAuraOffset", &Creature::setAuraOffset);
+    g_lua.bindClassMemberFunction<Creature>("getAuraOffset", &Creature::getAuraOffset);
     g_lua.bindClassMemberFunction<Creature>("getWings", &Creature::getWings);
+    g_lua.bindClassMemberFunction<Creature>("getAura", &Creature::getAura);
     g_lua.bindClassMemberFunction<Creature>("getPrewalkingPosition", &Creature::getPrewalkingPosition);
     g_lua.bindClassMemberFunction<Creature>("setInformationColor", &Creature::setInformationColor);
     g_lua.bindClassMemberFunction<Creature>("resetInformationColor", &Creature::resetInformationColor);
