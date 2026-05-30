@@ -7,4 +7,4 @@ Module
   dependencies: [ game_interface ]
   scripts: [ auraselector ]
   @onLoad: init()
-  @onUnload: terminate()
+  @onUnload: aura_terminate()

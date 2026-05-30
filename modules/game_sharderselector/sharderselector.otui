@@ -37,6 +37,7 @@ MainWindow
       anchors.left: parent.left
       anchors.right: parent.right
       anchors.bottom: parent.bottom
+      anchors.bottom: unlockedCountLabel.top
       margin: 5
       text-align: center
       text-auto-resize: true

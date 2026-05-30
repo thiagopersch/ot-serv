@@ -153,11 +153,9 @@ local function ensureWindow()
       return true
     end
     win = nil
-    print("[sharderselector] window was destroyed, recreating")
   end
   win = g_ui.displayUI('sharderselector')
   if not win then
-    print("[sharderselector] displayUI failed")
     return false
   end
   win:hide()
@@ -181,10 +179,7 @@ local function onOpcode(protocol, opcode, buffer)
     if rest then
       local status, data = pcall(function() return json.decode(rest) end)
       if status and type(data) == "table" then
-        local ok, err = pcall(buildList, data)
-        if not ok then
-          print("[sharderselector] buildList error:", err)
-        end
+        pcall(buildList, data)
       end
     end
   end

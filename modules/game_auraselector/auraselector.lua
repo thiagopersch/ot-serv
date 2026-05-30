@@ -5,7 +5,6 @@
 -- =============================================================================
 
 local OPCODE = 249
-local LOG_TAG = "[AuraSelector]"
 
 -- Estado local — isolado por módulo, sem variáveis globais
 local win = nil
@@ -18,37 +17,11 @@ local opcodeRegistered = false
 local lastOpcodeTime = 0
 local OPCODE_THROTTLE_MS = 500
 
--- =============================================================================
--- LOGGING (console + g_logger + arquivo)
--- =============================================================================
-local logFileHandle
-local function log(msg)
-  local text = LOG_TAG .. " " .. tostring(msg)
-  print(text)
-  pcall(function() g_logger.info(text) end)
-  if not logFileHandle then
-    pcall(function()
-      local logsDir = g_resources.getWriteDir() .. "/logs"
-      if not g_resources.directoryExists(logsDir) then
-        g_resources.makeDir(logsDir)
-      end
-      logFileHandle = io.open(logsDir .. "/aura_selector.log", "a")
-    end)
-  end
-  if logFileHandle then
-    pcall(function()
-      logFileHandle:write(os.date("[%Y-%m-%d %H:%M:%S] ") .. text .. "\n")
-      logFileHandle:flush()
-    end)
-  end
-end
-
 -- Exibe modal no client com fallback para displayInfoBox
 local function showModal(title, msg)
   if not msg or #msg == 0 then return end
   local ok, err = pcall(displayInfoBox, title, msg)
   if not ok then
-    log("showModal error: " .. tostring(err))
     pcall(g_game.showMessageBox, title, msg)
   end
 end
@@ -98,7 +71,7 @@ local function setUnlockedCount()
   if not lbl then return end
   local count = #unlockedAuras
   if count > 0 then
-    lbl:setText(count .. ' desbloqueada(s)')
+    lbl:setText(count .. ' unlocked')
     lbl:setColor('#8888cc')
   else
     lbl:setText('')
@@ -116,10 +89,7 @@ local function setPreviewOutfit(auraLooktype)
   local prev = win:recursiveGetChildById('preview')
   if not prev then return end
   local outfit = makeAuraPreviewOutfit(auraLooktype)
-  local ok, err = pcall(function() prev:setOutfit(outfit) end)
-  if not ok then
-    log("setPreviewOutfit error: " .. tostring(err))
-  end
+  pcall(function() prev:setOutfit(outfit) end)
 end
 
 local function setLoadingState(loading)
@@ -143,7 +113,6 @@ local function setErrorState(msg)
   if errorPnl   then errorPnl:setVisible(true) end
   if errorLbl   then errorLbl:setText(msg or "An error occurred.") end
   if list       then list:setVisible(false) end
-  log("ERROR STATE: " .. tostring(msg))
 end
 
 -- =============================================================================
@@ -181,10 +150,7 @@ local function clearList()
 end
 
 local function buildList(data)
-  if not win then
-    log("buildList: win is nil")
-    return
-  end
+  if not win then return end
 
   setLoadingState(false)
 
@@ -198,12 +164,22 @@ local function buildList(data)
 
   local list = win:recursiveGetChildById('auraList')
   if not list then
-    log("buildList: 'auraList' widget not found")
     setErrorState("UI error: auraList not found.")
     return
   end
 
   list.onChildFocusChange = nil
+
+  local width = list:getWidth()
+  if width > 0 then
+    local spacing = 5
+    local cellWidth = math.floor((width - spacing) / 2)
+    local grid = list:getLayout()
+    if grid then
+      grid:setCellWidth(cellWidth)
+      grid:setCellHeight(145)
+    end
+  end
 
   for _, aura in ipairs(data) do
     local ok, btn = pcall(function()
@@ -211,7 +187,7 @@ local function buildList(data)
     end)
 
     if not ok or not btn then
-      log("buildList: failed to create AuraButton for aura " .. tostring(aura.id) .. ": " .. tostring(btn))
+      -- skip failed button creation
     else
       btn:setId(tostring(aura.id))
 
@@ -228,7 +204,7 @@ local function buildList(data)
       local nameLabel = btn:recursiveGetChildById('name')
       if nameLabel then
         if isUnlocked(aura.id) then
-          nameLabel:setText(aura.name .. "\n[Desbloqueada]")
+          nameLabel:setText(aura.name .. "\n[Unlocked]")
           nameLabel:setColor('#55aa55')
           btn:setBackgroundColor('#1a2a1a')
         else
@@ -255,13 +231,29 @@ local function buildList(data)
   end
 
   setUnlockedCount()
-  log("buildList: " .. #data .. " auras adicionadas")
+
+  if width <= 0 then
+    addEvent(function()
+      if not win then return end
+      local l = win:recursiveGetChildById('auraList')
+      if not l then return end
+      local w2 = l:getWidth()
+      if w2 <= 0 then return end
+      local spacing = 5
+      local cellWidth = math.floor((w2 - spacing) / 2)
+      local grid = l:getLayout()
+      if grid then
+        grid:setCellWidth(cellWidth)
+        grid:setCellHeight(145)
+      end
+    end)
+  end
 end
 
 -- =============================================================================
 -- JANELA — show / hide / destroy
 -- =============================================================================
-function destroy()
+function aura_destroy()
   if win then
     win:destroy()
     win = nil
@@ -269,75 +261,55 @@ function destroy()
   selectedAuraId = nil
 end
 
-function show()
-  if not win then
-    log("show: win is nil")
-    return
-  end
-  win:show()
-  win:raise()
-  win:focus()
+function aura_show()
+  if not win then return end
+  pcall(function() win:show() end)
+  pcall(function() win:raise() end)
+  pcall(function() win:focus() end)
 end
 
-function hide()
+function aura_hide()
   if win then win:hide() end
   selectedAuraId = nil
 end
 
-function retry()
-  log("retry: fechando janela — servidor deve reenviar a_open")
-  hide()
+function aura_retry()
+  aura_hide()
 end
 
 -- =============================================================================
 -- AÇÕES DO JOGADOR — confirm / cancel
 -- =============================================================================
-function confirm()
-  if confirmDebounce then
-    log("confirm: debounce ativo, ignorando")
-    return
-  end
-  if not selectedAuraId then
-    log("confirm: nenhuma aura selecionada")
-    return
-  end
+function aura_confirm()
+  if confirmDebounce then return end
+  if not selectedAuraId then return end
 
   -- Throttle de opcode
   local now = g_clock.millis()
-  if now - lastOpcodeTime < OPCODE_THROTTLE_MS then
-    log("confirm: throttle ativo")
-    return
-  end
+  if now - lastOpcodeTime < OPCODE_THROTTLE_MS then return end
   lastOpcodeTime = now
 
   confirmDebounce = true
   addEvent(function() confirmDebounce = false end, 1000)
 
   local pg = g_game.getProtocolGame()
-  if not pg then
-    log("confirm: sem protocolo de jogo")
-    return
-  end
+  if not pg then return end
 
-  log("confirm: enviando a_pick|" .. selectedAuraId)
   local ok, err = pcall(function()
     pg:sendExtendedOpcode(OPCODE, "a_pick|" .. selectedAuraId)
-  end)
-  if not ok then
-    log("confirm: sendExtendedOpcode falhou: " .. tostring(err))
   end
-  hide()
+  )
+  aura_hide()
 end
 
-function cancel()
-  log("cancel: enviando a_cancel")
+function aura_cancel()
   local pg = g_game.getProtocolGame()
   if pg then
     pcall(function()
       pg:sendExtendedOpcode(OPCODE, "a_cancel")
     end)
   end
-  hide()
+  aura_hide()
 end
 
 -- =============================================================================
@@ -347,16 +319,16 @@ local function setupButtons()
   if not win then return end
   local confirmBtn = win:recursiveGetChildById('confirmButton')
   if confirmBtn then
-    confirmBtn.onClick = confirm
+    confirmBtn.onClick = aura_confirm
     confirmBtn:setEnabled(false)
   end
   local cancelBtn = win:recursiveGetChildById('cancelButton')
-  if cancelBtn then cancelBtn.onClick = cancel end
+  if cancelBtn then cancelBtn.onClick = aura_cancel end
   local retryBtn = win:recursiveGetChildById('retryButton')
-  if retryBtn then retryBtn.onClick = retry end
+  if retryBtn then retryBtn.onClick = aura_retry end
 
   -- ESC fecha sem consumir item
-  win.onEscape = cancel
+  win.onEscape = aura_cancel
 end
 
 -- =============================================================================
@@ -370,20 +342,17 @@ local function ensureWindow()
       return true
     end
     win = nil
-    log("janela foi destruída externamente, recriando")
   end
 
   local ok, created = pcall(function()
     return g_ui.displayUI('auraselector')
   end)
   if not ok or not created then
-    log("displayUI('auraselector') falhou: " .. tostring(created))
     return false
   end
   win = created
   win:hide()
   setupButtons()
-  log("janela criada com sucesso")
   return true
 end
 
@@ -401,45 +370,35 @@ end
 
 local function onExtendedOpcode(protocol, opcode, buffer)
   if opcode ~= OPCODE then return end
-  if not buffer or #buffer == 0 then
-    log("buffer vazio ignorado")
-    return
-  end
-
-  -- Log truncado para não poluir console
-  log("recebido: " .. buffer:sub(1, 100) .. (#buffer > 100 and "..." or ""))
+  if not buffer or #buffer == 0 then return end
 
   local action, rest = splitAction(buffer)
 
   -- ── a_open — abre a janela com lista de auras ──────────────────────────────
   if action == "a_open" then
     if not ensureWindow() then
-      log("a_open: falha ao criar janela")
-      showModal("Aura Selector", "Falha ao abrir a janela de seleção. Verifique os arquivos do cliente.")
+      showModal("Aura Selector", "Failed to open the selection window. Check your client files.")
       return
     end
-
     setLoadingState(true)
-    show()
+    aura_show()
 
     if not rest or #rest == 0 then
-      setErrorState("Dados de aura vazios recebidos do servidor.")
+      setErrorState("Empty aura data received from server.")
       return
     end
 
     local ok, data = pcall(json.decode, rest)
     if not ok or type(data) ~= "table" then
-      log("a_open: falha no JSON decode: " .. tostring(data))
-      setErrorState("Falha ao parsear dados de aura. Tente novamente.")
+      setErrorState("Failed to parse aura data. Please try again.")
       return
     end
 
     if #data == 0 then
-      setErrorState("Nenhuma aura disponível no momento.")
+      setErrorState("No auras available at this time.")
       return
     end
 
-    log("a_open: " .. #data .. " auras recebidas do servidor")
     buildList(data)
     return
   end
@@ -455,7 +414,6 @@ local function onExtendedOpcode(protocol, opcode, buffer)
         end
       end
     end
-    log("a_sync: " .. #unlockedAuras .. " auras desbloqueadas")
 
     -- Atualiza visualmente a lista se a janela estiver aberta
     if win and win:isVisible() and #auraList > 0 then
@@ -466,10 +424,6 @@ local function onExtendedOpcode(protocol, opcode, buffer)
 
   -- ── a_equipped — aura equipada após confirmação ───────────────────────────
   if action == "a_equipped" then
-    local looktype = tonumber(rest)
-    log("a_equipped: looktype=" .. tostring(looktype))
-    -- O servidor atualiza o outfit via doCreatureChangeOutfit, o client recebe
-    -- automaticamente pelo protocolo normal. Apenas logamos.
     return
   end
 
@@ -478,16 +432,12 @@ local function onExtendedOpcode(protocol, opcode, buffer)
     showModal("Aura Selector", rest or "")
     return
   end
-
-  log("ação desconhecida: '" .. tostring(action) .. "'")
 end
 
 -- =============================================================================
 -- INIT / TERMINATE
 -- =============================================================================
 function init()
-  log("init")
-
   -- Garante que não há opcode duplicado registrado
   pcall(function()
     ProtocolGame.unregisterExtendedOpcode(OPCODE)
@@ -512,9 +462,6 @@ function init()
       end)
       if ok then
         opcodeRegistered = true
-        log("opcode " .. OPCODE .. " registrado")
-      else
-        log("falha ao registrar opcode: " .. tostring(err))
       end
 
       -- Notifica o servidor para limpar estado pendente
@@ -532,30 +479,22 @@ function init()
       selectedAuraId = nil
       auraList = {}
       confirmDebounce = false
-      hide()
+      aura_hide()
       pcall(function()
         ProtocolGame.unregisterExtendedOpcode(OPCODE)
       end)
       opcodeRegistered = false
     end
   })
-
-  -- Pré-carrega a janela para evitar lag na primeira abertura
-  ensureWindow()
-  log("init concluído")
 end
 
-function terminate()
-  log("terminate")
+function aura_terminate()
   pcall(function()
     ProtocolGame.unregisterExtendedOpcode(OPCODE)
   end)
   opcodeRegistered = false
 
-  if win then
-    win:destroy()
-    win = nil
-  end
+  aura_destroy()
 
   auraList = {}
   unlockedAuras = {}
