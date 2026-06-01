@@ -79,15 +79,17 @@ local RANK_COLORS = {
     }
 }
 
-local TYPE_FILTERS = {
-    { id = "typeAll",        value = nil },
-    { id = "typeKill",       value = "kill" },
-    { id = "typeDelivery",   value = "delivery" },
-    { id = "typeSaga",       value = "saga" },
-    { id = "typeDaily",      value = "daily" },
-    { id = "typeBoss",       value = "boss" },
-    { id = "typeRepeatable", value = "repeatable" },
-    { id = "typeUnique",     value = "unique" }
+local TYPE_FILTER_OPTIONS = {
+    { label = "All Tasks",   value = nil },
+    { label = "Kill",        value = "kill" },
+    { label = "Delivery",    value = "delivery" },
+    { label = "Saga",        value = "saga" },
+    { label = "General",     value = "general" },
+    { label = "Daily",       value = "daily" },
+    { label = "Boss",        value = "boss" },
+    { label = "Repeatable",  value = "repeatable" },
+    { label = "Unique",      value = "unique" },
+    { label = "Completed",   value = "completed" }
 }
 
 -- ============================================================
@@ -132,6 +134,7 @@ function onGameStart()
         window = g_ui.displayUI('tasks', modules.game_interface.getRightPanel())
         window:setVisible(false)
 
+        initTypeFilterCombo()
         updateTabVisibility()
 
         local dp = window:getChildById('detailPanel')
@@ -176,7 +179,7 @@ function sendListRequest()
     local params = {
         action = "list",
         page = currentPage,
-        pageSize = 30,
+        pageSize = 20,
         search = searchText,
         type = currentType or "",
         difficulty = "",
@@ -255,7 +258,8 @@ function toggleWindow()
     else
         currentPage = 1
         searchText = ""
-        local searchInput = window:getChildById('searchInput')
+        local searchBar = window:getChildById('searchBar')
+        local searchInput = searchBar and searchBar:getChildById('searchInput')
         if searchInput then searchInput:setText('') end
         sendListRequest()
         window:setVisible(true)
@@ -264,10 +268,11 @@ function toggleWindow()
 end
 
 function backToList()
-    selectedTaskId = nil
+    deselectTask()
     currentPage = 1
     searchText = ""
-    local searchInput = window and window:getChildById('searchInput')
+    local searchBar = window and window:getChildById('searchBar')
+    local searchInput = searchBar and searchBar:getChildById('searchInput')
     if searchInput then searchInput:setText('') end
     sendListRequest()
 end
@@ -277,7 +282,8 @@ function close()
     selectedTaskId = nil
     currentPage = 1
     searchText = ""
-    local searchInput = window:getChildById('searchInput')
+    local searchBar = window:getChildById('searchBar')
+    local searchInput = searchBar and searchBar:getChildById('searchInput')
     if searchInput then searchInput:setText('') end
     window:setVisible(false)
 end
@@ -301,15 +307,59 @@ function updateTabVisibility()
     end
 end
 
+function initTypeFilterCombo()
+    if not window then return end
+    local searchBar = window:getChildById('searchBar')
+    local combo = searchBar and searchBar:getChildById('typeFilter')
+    if not combo then return end
+    combo:clearOptions()
+    for _, opt in ipairs(TYPE_FILTER_OPTIONS) do
+        combo:addOption(opt.label, opt.value)
+    end
+end
+
+function onTypeFilterChanged()
+    local searchBar = window and window:getChildById('searchBar')
+    local combo = searchBar and searchBar:getChildById('typeFilter')
+    if not combo then return end
+    local option = combo:getCurrentOption()
+    if not option then return end
+    local data = option.data
+    if currentType == data then return end
+    deselectTask()
+    setTypeFilter(data)
+end
+
+function deselectTask()
+    selectedTaskId = nil
+    if not window then return end
+    local detail = window:getChildById('detailPanel')
+    if detail then detail:setVisible(false) end
+    local detailScroll = window:getChildById('detailScroll')
+    if detailScroll then detailScroll:setVisible(false) end
+    local taskScroll = window:getChildById('taskScroll')
+    if taskScroll then taskScroll:setVisible(true) end
+    local taskList = window:getChildById('taskList')
+    if taskList then taskList:setVisible(true) end
+    local searchBar = window:getChildById('searchBar')
+    if searchBar then searchBar:setVisible(true) end
+    local paginationBar = window:getChildById('paginationBar')
+    if paginationBar then paginationBar:setVisible(true) end
+end
+
 function switchTab(category)
+    if category ~= detectUniverse() then return end
+    deselectTask()
     currentTab        = category
     currentType       = nil
     currentPage       = 1
     searchText        = ""
-    local searchInput = window and window:getChildById('searchInput')
+    local searchBar   = window and window:getChildById('searchBar')
+    local searchInput = searchBar and searchBar:getChildById('searchInput')
     if searchInput then searchInput:setText('') end
     updateTabVisibility()
-    updateTypeFilterHighlights()
+    local combo = searchBar and searchBar:getChildById('typeFilter')
+    if combo then combo:setCurrentOption('All Tasks', true) end
     sendListRequest()
 end
 
@@ -317,18 +367,7 @@ function setTypeFilter(filterType)
     if currentType == filterType then return end
     currentType = filterType
     currentPage = 1
-    updateTypeFilterHighlights()
     sendListRequest()
-end
-
-function updateTypeFilterHighlights()
-    if not window then return end
-    for _, tf in ipairs(TYPE_FILTERS) do
-        local btn = window:getChildById(tf.id)
-        if btn then
-            btn:setImageColor(tf.value == currentType and '#ffd700' or '#dfdfdf')
-        end
-    end
 end
 
 -- ============================================================
@@ -487,29 +526,12 @@ function renderTaskList()
             local playerTask  = findPlayerTask(task.id)
             local isActive    = playerTask ~= nil and playerTask.rewarded ~= 1
             local isCompleted = playerTask ~= nil and playerTask.completed == 1 and playerTask.rewarded == 0
+            local isRewarded  = task.isRewarded or (playerTask ~= nil and playerTask.rewarded == 1)
 
             -- Looktype do monstro
             local creature    = entry:getChildById('creature')
             if creature then
                 creature:setOutfit({ type = task.lookType or 21 })
-            end
-
-            -- Barra de XP (progresso de experiência)
-            local xpFill = entry:getChildById('xpFill')
-            local xpBar  = entry:getChildById('xpBar')
-            if xpFill and xpBar then
-                if isActive and playerTask then
-                    local total = task.killsRequired or task.kills or 1
-                    local done  = playerTask.done or 0
-                    local pct   = math.min(done / total, 1)
-                    local bw    = math.max(xpBar:getWidth() - 4, 1)
-                    xpFill:setWidth(math.floor(bw * pct))
-                elseif isCompleted then
-                    local bw = math.max(xpBar:getWidth() - 4, 0)
-                    xpFill:setWidth(bw)
-                else
-                    xpFill:setWidth(0)
-                end
             end
 
             -- Dificuldade
@@ -519,9 +541,15 @@ function renderTaskList()
                 badge:setColor(DIFFICULTY_COLORS[task.difficulty] or '#ffffff')
             end
 
-            -- Nome
+            -- Nome e Tipo
             local nameLabel = entry:getChildById('name')
             if nameLabel then nameLabel:setText(task.name) end
+
+            local typeLabel = entry:getChildById('taskType')
+            if typeLabel then
+                local t = task.type or "unknown"
+                typeLabel:setText('Type: ' .. t:sub(1,1):upper() .. t:sub(2))
+            end
 
             -- Repeatable
             local repLabel = entry:getChildById('repeatable')
@@ -531,36 +559,24 @@ function renderTaskList()
                 repLabel:setColor(rep and '#debc09' or '#aaaaaa')
             end
 
-            -- Status / progresso barra antiga (mantida para compatibilidade)
-            local progressFill = entry:getChildById('progressFill')
-            local progressBar  = entry:getChildById('progress')
-
+            -- Status
             local statusLabel  = entry:getChildById('status')
             if statusLabel then
                 if isCompleted then
                     statusLabel:setText('COMPLETED')
                     statusLabel:setColor('#00ff00')
-                    if progressFill and progressBar then
-                        progressFill:setWidth(math.max(progressBar:getWidth() - 4, 0))
-                    end
                 elseif isActive then
                     statusLabel:setText('Active')
                     statusLabel:setColor('#00ccff')
-                    if progressFill and progressBar and playerTask then
-                        local total = task.killsRequired or task.kills or 1
-                        local done  = playerTask.done or 0
-                        local pct   = math.min(done / total, 1)
-                        local bw    = math.max(progressBar:getWidth() - 4, 1)
-                        progressFill:setWidth(math.floor(bw * pct))
-                    end
+                elseif isRewarded and not isRepeatable(task) then
+                    statusLabel:setText('Finished')
+                    statusLabel:setColor('#aaaaaa')
                 elseif task.locked then
                     statusLabel:setText('Locked')
                     statusLabel:setColor('#666666')
-                    if progressFill then progressFill:setWidth(0) end
                 else
                     statusLabel:setText('Available')
                     statusLabel:setColor('#00ff00')
-                    if progressFill then progressFill:setWidth(0) end
                 end
             end
 
@@ -568,8 +584,11 @@ function renderTaskList()
                 selectTask(task.id)
             end
             entry.onDoubleClick = function()
-                if not isActive and not task.locked then
-                    startTask(task.id)
+                if not isActive and not task.locked and not (isRewarded and not isRepeatable(task)) then
+                    local hasSameTypeActive = hasActiveTaskOfSameType(task.id)
+                    if not hasSameTypeActive then
+                        startTask(task.id)
+                    end
                 end
             end
         end
@@ -699,19 +718,25 @@ function selectTask(taskId)
     local kills       = killsReq > 0 and killsReq or 1
     local pctKills    = math.min(done / kills, 1)
 
+    local isRewarded = task.isRewarded or (playerTask ~= nil and playerTask.rewarded == 1)
+    if isRewarded then
+        pctKills = 1
+        done = kills
+    end
+
     local expEarned   = math.floor(expTotal * pctKills)
     setText('detailXpLabel', 'XP: ' .. formatExp(expTotal))
 
     -- --------------------------------------------------------
     -- PROGRESSO DE KILLS
     -- --------------------------------------------------------
-    local pct = isCompleted and 100 or (isActive and math.floor(pctKills * 100) or 0)
+    local pct = (isCompleted or isRewarded) and 100 or (isActive and math.floor(pctKills * 100) or 0)
     setText('detailProgress', 'Progress: ' .. done .. '/' .. kills .. ' (' .. pct .. '%)')
 
     local progBar  = g_taskUI.progressBar or findChild(detail, 'detailProgressBar')
     local progFill = progBar and progBar:getChildById('detailProgressFill')
     if progFill and progBar then
-        if isCompleted then
+        if isCompleted or isRewarded then
             progFill:setWidth(math.max(progBar:getWidth() - 4, 0))
         elseif isActive then
             local bw = math.max(progBar:getWidth() - 4, 1)
@@ -722,10 +747,18 @@ function selectTask(taskId)
     end
 
     -- Status
-    local statusText = isCompleted and 'Status: Completed'
-        or (isActive and 'Status: Active')
-        or (task.locked and 'Status: Locked')
-        or 'Status: Available'
+    local statusText = ''
+    if isCompleted then
+        statusText = 'Status: Completed'
+    elseif isActive then
+        statusText = 'Status: Active'
+    elseif isRewarded and not isRepeatable(task) then
+        statusText = 'Status: Finished'
+    elseif task.locked then
+        statusText = 'Status: Locked'
+    else
+        statusText = 'Status: Available'
+    end
     setText('detailStatus', statusText)
 
     -- --------------------------------------------------------
@@ -764,6 +797,16 @@ function selectTask(taskId)
         if claimBtn then
             claimBtn:setEnabled(false); claimBtn:setOpacity(0.5); claimBtn:setImageColor('#005500')
         end
+    elseif isRewarded and not isRepeatable(task) then
+        if startBtn then
+            startBtn:setText('Finished'); startBtn:setEnabled(false); startBtn:setOpacity(0.5); startBtn:setImageColor('#444444')
+        end
+        if cancelBtn then
+            cancelBtn:setText('Cancel'); cancelBtn:setEnabled(false); cancelBtn:setOpacity(0.5); cancelBtn:setImageColor('#550000')
+        end
+        if claimBtn then
+            claimBtn:setEnabled(false); claimBtn:setOpacity(0.5); claimBtn:setImageColor('#005500')
+        end
     elseif task.locked then
         if startBtn then
             startBtn:setText('Locked'); startBtn:setEnabled(false); startBtn:setOpacity(0.5); startBtn:setImageColor(
@@ -777,11 +820,19 @@ function selectTask(taskId)
             claimBtn:setEnabled(false); claimBtn:setOpacity(0.5); claimBtn:setImageColor('#005500')
         end
     else
+        local hasSameTypeActive = hasActiveTaskOfSameType(taskId)
         if startBtn then
-            startBtn:setText('Start Task');
-            startBtn:setEnabled(true);
-            startBtn:setOpacity(1.0);
-            startBtn:setImageColor('#00aa00')
+            if hasSameTypeActive then
+                startBtn:setText('Already Active');
+                startBtn:setEnabled(false);
+                startBtn:setOpacity(0.5);
+                startBtn:setImageColor('#888888')
+            else
+                startBtn:setText('Start Task');
+                startBtn:setEnabled(true);
+                startBtn:setOpacity(1.0);
+                startBtn:setImageColor('#00aa00')
+            end
         end
         if cancelBtn then
             cancelBtn:setText('Cancel'); cancelBtn:setEnabled(false); cancelBtn:setOpacity(0.5); cancelBtn:setImageColor(
@@ -972,8 +1023,8 @@ function abortTask(taskId)
                 popup:ok()
                 local ok, err = pcall(function()
                     sendOpcode(json.encode({ action = 'cancel', taskId = taskId }))
-                    selectedTaskId = nil
-                    renderTaskList()
+                    showInfo('Task canceled successfully', '#00ff00')
+                    backToList()
                 end)
                 if not ok then
                     showInfo('Error: ' .. tostring(err), 'red')

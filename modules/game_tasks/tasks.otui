@@ -15,59 +15,17 @@ TaskEntry < Panel
 
   UICreature
     id: creature
-    anchors.centerIn: parent
-    size: 60 60
+    anchors.top: parent.top
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 5
+    size: 55 55
     fixed-creature-size: true
-
-  Panel
-    id: xpBar
-    anchors.top: creature.bottom
-    anchors.left: parent.left
-    anchors.right: parent.right
-    margin-top: 2
-    margin-left: 2
-    margin-right: 2
-    height: 5
-    image-source: /images/ui/panel_flat
-    image-border: 1
-    background-color: #222244
-
-    Panel
-      id: xpFill
-      image-source: /images/ui/panel_flat
-      image-color: #8844ff
-      anchors.top: parent.top
-      anchors.left: parent.left
-      anchors.bottom: parent.bottom
-      width: 0
-
-  Panel
-    id: progress
-    anchors.top: xpBar.bottom
-    anchors.left: parent.left
-    anchors.right: parent.right
-    margin-top: 1
-    margin-left: 2
-    margin-right: 2
-    height: 5
-    image-source: /images/ui/panel_flat
-    image-border: 1
-    background-color: #333333
-
-    Panel
-      id: progressFill
-      image-source: /images/ui/panel_flat
-      image-color: #00ccff
-      anchors.top: parent.top
-      anchors.left: parent.left
-      anchors.bottom: parent.bottom
-      width: 0
 
   Label
     id: difficultyBadge
-    anchors.top: progress.bottom
+    anchors.top: creature.bottom
     anchors.horizontalCenter: parent.horizontalCenter
-    margin-top: 2
+    margin-top: 4
     font: verdana-11px-rounded
     text-wrap: true
     text-auto-resize: true
@@ -78,15 +36,27 @@ TaskEntry < Panel
     anchors.top: difficultyBadge.bottom
     anchors.left: parent.left
     anchors.right: parent.right
-    margin-top: 1
+    margin-top: 2
     text-align: center
     text-wrap: true
     text-auto-resize: true
     font: verdana-11px-rounded
 
   Label
-    id: status
+    id: taskType
     anchors.top: name.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 1
+    text-align: center
+    text-wrap: true
+    text-auto-resize: true
+    font: verdana-11px-rounded
+    color: #aaddff
+
+  Label
+    id: status
+    anchors.top: taskType.bottom
     anchors.left: parent.left
     anchors.right: parent.right
     margin-top: 1
@@ -272,100 +242,12 @@ MainWindow
       @onClick: modules.game_tasks.switchTab('bleach')
 
   Panel
-    id: typeBar
+    id: searchBar
     anchors.top: tabBar.bottom
     anchors.left: parent.left
     anchors.right: parent.right
-    height: 22
-    margin-top: 2
-
-    Button
-      id: typeAll
-      text: All
-      font: verdana-11px-rounded
-      anchors.top: parent.top
-      anchors.left: parent.left
-      anchors.bottom: parent.bottom
-      width: 55
-      @onClick: modules.game_tasks.setTypeFilter(nil)
-
-    Button
-      id: typeKill
-      text: Kill
-      font: verdana-11px-rounded
-      anchors.top: parent.top
-      anchors.left: typeAll.right
-      anchors.bottom: parent.bottom
-      width: 55
-      @onClick: modules.game_tasks.setTypeFilter('kill')
-
-    Button
-      id: typeDelivery
-      text: Delivery
-      font: verdana-11px-rounded
-      anchors.top: parent.top
-      anchors.left: typeKill.right
-      anchors.bottom: parent.bottom
-      width: 60
-      @onClick: modules.game_tasks.setTypeFilter('delivery')
-
-    Button
-      id: typeSaga
-      text: Saga
-      font: verdana-11px-rounded
-      anchors.top: parent.top
-      anchors.left: typeDelivery.right
-      anchors.bottom: parent.bottom
-      width: 55
-      @onClick: modules.game_tasks.setTypeFilter('saga')
-
-    Button
-      id: typeDaily
-      text: Daily
-      font: verdana-11px-rounded
-      anchors.top: parent.top
-      anchors.left: typeSaga.right
-      anchors.bottom: parent.bottom
-      width: 55
-      @onClick: modules.game_tasks.setTypeFilter('daily')
-
-    Button
-      id: typeBoss
-      text: Boss
-      font: verdana-11px-rounded
-      anchors.top: parent.top
-      anchors.left: typeDaily.right
-      anchors.bottom: parent.bottom
-      width: 55
-      @onClick: modules.game_tasks.setTypeFilter('boss')
-
-    Button
-      id: typeRepeatable
-      text: Repeatable
-      font: verdana-11px-rounded
-      anchors.top: parent.top
-      anchors.left: typeBoss.right
-      anchors.bottom: parent.bottom
-      width: 70
-      @onClick: modules.game_tasks.setTypeFilter('repeatable')
-
-    Button
-      id: typeUnique
-      text: Unique
-      font: verdana-11px-rounded
-      anchors.top: parent.top
-      anchors.left: typeRepeatable.right
-      anchors.bottom: parent.bottom
-      width: 55
-      @onClick: modules.game_tasks.setTypeFilter('unique')
-
-  Panel
-    id: searchBar
-    anchors.top: typeBar.bottom
-    anchors.left: parent.left
-    anchors.right: parent.right
-    height: 22
-    margin-top: 2
+    height: 24
+    margin-top: 3
     margin-left: 2
     margin-right: 5
 
@@ -374,20 +256,25 @@ MainWindow
       anchors.top: parent.top
       anchors.left: parent.left
       anchors.bottom: parent.bottom
-      width: 200
+      anchors.right: typeFilter.left
+      margin-right: 4
       font: verdana-11px-rounded
+      !placeholder: tr('Search here...')
+      placeholder-color: #666666
+      placeholder-font: verdana-11px-rounded
       @onTextChange: modules.game_tasks.onSearchChanged(self:getText())
 
-    Label
-      id: searchInfo
+    ComboBox
+      id: typeFilter
       anchors.top: parent.top
-      anchors.left: searchInput.right
       anchors.right: parent.right
       anchors.bottom: parent.bottom
-      margin-left: 5
-      font: verdana-11px-rounded
-      color: #aaaaaa
-      text: Search by task or monster name
+      width: 160
+      menu-scroll: true
+      menu-height: 184
+      menu-scroll-step: 23
+      text-offset: 5 2
+      @onOptionChange: modules.game_tasks.onTypeFilterChanged()
 
   ScrollablePanel
     id: detailPanel
