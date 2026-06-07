@@ -85,15 +85,29 @@ function onOpenAutoLoot()
 end
 
 function createListLoot(buffer)
+  local parts = buffer:split('|')
+  if #parts >= 2 then
+    maxSlot = tonumber(parts[1]) or 30
+    buffer = parts[2]
+  else
+    maxSlot = tonumber(parts[1]) or 30
+    buffer = ''
+  end
+
   local _listloot = {}
-  for i, v in ipairs(buffer:split('@')) do
-    table.insert(_listloot, {
-      itemId = v:split('-')[1],
-      itemName = v:split('-')[2]
-    })
+  if buffer ~= '' then
+    for i, v in ipairs(buffer:split('@')) do
+      local itemData = v:split('-')
+      if #itemData >= 2 then
+        table.insert(_listloot, {
+          itemId = itemData[1],
+          itemName = itemData[2]
+        })
+      end
+    end
   end
   for i, loot in ipairs(_listloot) do
-    itemSelected:setItemId(loot.itemId)
+    itemSelected:setItemId(tonumber(loot.itemId) or 0)
     edtItemName:setText(loot.itemName)
     addSlotLoot()
     addLoot(false)
@@ -104,8 +118,14 @@ end
 function addLoot(sendLoot)
   selectedSlot = listLoot:getFocusedChild()
   if selectedSlot then
-    local itemId = itemSelected:getItemId() == 0 and g_things.findItemTypeByName(edtItemName:getText()):getClientId() or
-        itemSelected:getItemId()
+    local itemId = itemSelected:getItemId()
+    if itemId == 0 then
+      local itemType = g_things.findItemTypeByName(edtItemName:getText())
+      if itemType then
+        itemId = itemType:getClientId()
+      end
+    end
+
     if itemId == 0 then
       displayErrorBox('Item nao encontrado', 'Verifique o nome do item e digite novamente!')
       return
