@@ -22,7 +22,7 @@ function init()
   })
   ProtocolGame.registerExtendedOpcode(VOCATION_RANK_OPCODE, onOpcode)
   topButton = modules.client_topmenu.addRightGameToggleButton("vocationRanksBtn", tr("Vocation Upgraded"),
-    "/images/topbuttons/skills", toggleWindow)
+    "/images/topbuttons/tier", toggleWindow)
 end
 
 function terminate()

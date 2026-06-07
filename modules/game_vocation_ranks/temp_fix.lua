@@ -1,2 +1,0 @@
--- Find and fix the string.find and string.sub calls
--- The issue is that the calls use colons instead of commas in the arguments

@@ -32,7 +32,7 @@ function init()
   detailPanel = skillUpgradesWindow:getChildById('detailPanel')
 
   skillUpgradesButton = modules.client_topmenu.addRightGameToggleButton('skillUpgradesButton', tr('Skill Upgrades'),
-    '/images/topbuttons/skills', toggle)
+    '/images/topbuttons/skill_upgrades', toggle)
 
   if g_game.isOnline() then
     online()
@@ -157,7 +157,7 @@ function updateUI()
 
   local sortedSkills = {}
   for key, info in pairs(SKILL_INFO) do
-    table.insert(sortedSkills, {key = key, info = info})
+    table.insert(sortedSkills, { key = key, info = info })
   end
 
   table.sort(sortedSkills, function(a, b)
@@ -284,29 +284,29 @@ end
 function doReset()
   confirmWindow = displayGeneralBox(tr('Reset Skills'),
     tr("Are you sure you want to reset all your skills?\nThis will refund your points but requires 1 Reset Item."), {
-    {
-      text = tr('Yes'),
-      callback = function()
-        local msg = "reset|"
-        if g_game.getFeature(GameExtendedOpcode) then
-          local protocolGame = g_game.getProtocolGame()
-          if protocolGame then
-            protocolGame:sendExtendedOpcode(OPCODE_SKILLS, msg)
+      {
+        text = tr('Yes'),
+        callback = function()
+          local msg = "reset|"
+          if g_game.getFeature(GameExtendedOpcode) then
+            local protocolGame = g_game.getProtocolGame()
+            if protocolGame then
+              protocolGame:sendExtendedOpcode(OPCODE_SKILLS, msg)
+            end
+          end
+          if confirmWindow then
+            confirmWindow:destroy()
+            confirmWindow = nil
           end
         end
-        if confirmWindow then
-          confirmWindow:destroy()
-          confirmWindow = nil
+      },
+      {
+        text = tr('No'),
+        callback = function()
+          if confirmWindow then
+            confirmWindow:destroy()
+            confirmWindow = nil
+          end
         end
-      end
-    },
-    {
-      text = tr('No'),
-      callback = function()
-        if confirmWindow then
-          confirmWindow:destroy()
-          confirmWindow = nil
-        end
-      end
-    } })
+      } })
 end

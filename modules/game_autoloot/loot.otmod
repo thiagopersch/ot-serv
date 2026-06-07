@@ -4,7 +4,7 @@ Module
   author: Luis
   sandboxed: true
   scripts: [ loot ]
-  autoload: true
+  autoload: false
   autoload-priority: 1001
   @onLoad: init()
   @onUnload: terminate()

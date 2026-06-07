@@ -101,7 +101,8 @@ MainWindow
           self:setColor('green')
         end
         g_settings.set('autoLoot', not autoLoot)
-        g_game.talk('!autoloot '..(autoLoot and 'off' or 'on'))
+        local pg = g_game.getProtocolGame()
+        if pg then pg:sendExtendedOpcode(157, autoLoot and 'off' or 'on') end
       end
 
   Label
