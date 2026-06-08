@@ -7,36 +7,36 @@
 ------------------------------------------------------------------------
 -- CONFIG
 ------------------------------------------------------------------------
-local CONFIG = {
-    OPCODE          = 250,
-    CARDS_PER_ROW   = 5,
-    ROWS_PER_PAGE   = 10,
-    CARDS_PER_PAGE  = 50,
-    CARD_WIDTH      = 104,
-    CARD_HEIGHT     = 120,
-    GRID_SPACING    = 4,
-    WINDOW_WIDTH    = 860,
-    WINDOW_HEIGHT   = 640,
-    ICON_PATH       = '/images/topbuttons/prey',
-    TOOLTIP         = 'Bestiary',
-    TAB_MONSTERS    = 'monsters',
-    TAB_BOSSES      = 'bosses',
+local CONFIG             = {
+    OPCODE         = 250,
+    CARDS_PER_ROW  = 5,
+    ROWS_PER_PAGE  = 10,
+    CARDS_PER_PAGE = 50,
+    CARD_WIDTH     = 104,
+    CARD_HEIGHT    = 120,
+    GRID_SPACING   = 4,
+    WINDOW_WIDTH   = 860,
+    WINDOW_HEIGHT  = 640,
+    ICON_PATH      = '/images/topbuttons/prey',
+    TOOLTIP        = 'Bestiary',
+    TAB_MONSTERS   = 'monsters',
+    TAB_BOSSES     = 'bosses',
 }
 
-local LOOT_RARITY = {
+local LOOT_RARITY        = {
     { key = 'Common',    color = '#a0a0a0', min = 50000, max = 999999 },
-    { key = 'Uncommon',  color = '#ffffff', min = 10000, max = 49999  },
-    { key = 'Semi-Rare', color = '#4a8ef5', min = 1000,  max = 9999  },
-    { key = 'Rare',      color = '#b060ff', min = 100,   max = 999   },
-    { key = 'Very Rare', color = '#ffb840', min = 0,     max = 99    },
+    { key = 'Uncommon',  color = '#ffffff', min = 10000, max = 49999 },
+    { key = 'Semi-Rare', color = '#4a8ef5', min = 1000,  max = 9999 },
+    { key = 'Rare',      color = '#b060ff', min = 100,   max = 999 },
+    { key = 'Very Rare', color = '#ffb840', min = 0,     max = 99 },
 }
 
-local ELEMENTS_ORDER = {
+local ELEMENTS_ORDER     = {
     'physical', 'earth', 'fire', 'ice', 'energy',
     'holy', 'death', 'lifeDrain', 'manaDrain',
 }
 
-local ELEMENT_DISPLAY = {
+local ELEMENT_DISPLAY    = {
     physical  = 'Physical',
     earth     = 'Earth',
     fire      = 'Fire',
@@ -51,22 +51,22 @@ local ELEMENT_DISPLAY = {
 ------------------------------------------------------------------------
 -- MODULE STATE
 ------------------------------------------------------------------------
-local window        = nil
-local button        = nil
-local cardPool      = {}
+local window             = nil
+local button             = nil
+local cardPool           = {}
 
-local bestiaryData  = nil
-local currentTab    = CONFIG.TAB_MONSTERS
-local searchQuery   = ''
-local currentPage   = 1
-local totalPages    = 1
-local filteredList  = {}
-local selectedMonster = nil
-local selectedCard  = nil
+local bestiaryData       = nil
+local currentTab         = CONFIG.TAB_MONSTERS
+local searchQuery        = ''
+local currentPage        = 1
+local totalPages         = 1
+local filteredList       = {}
+local selectedMonster    = nil
+local selectedCard       = nil
 
 -- Chunked-transfer state (server splits large JSON with S/P/E prefixes)
-local chunkBuffer   = nil   -- assembles partial JSON
-local chunkMode     = false -- true while receiving multi-part payload
+local chunkBuffer        = nil   -- assembles partial JSON
+local chunkMode          = false -- true while receiving multi-part payload
 
 ------------------------------------------------------------------------
 -- TABLE DECLARATIONS (forward-declare before any function bodies)
@@ -168,7 +168,7 @@ function BestiaryUI.open()
         -- Data already in cache – render immediately
         BestiaryController.refresh()
     else
-        -- Ask server; refresh() will be called when data arrives
+        BestiaryUI.showLoading()
         BestiaryNetwork.requestData()
     end
 end
@@ -201,7 +201,7 @@ function BestiaryUI.createCardPool()
         end
         card.index = i
         card.monsterData = nil
-        card:hide()  -- hide until data is set
+        card:hide() -- hide until data is set
         table.insert(cardPool, card)
     end
     print('[Bestiary] Pool criado: ' .. #cardPool .. ' cards')
@@ -241,7 +241,7 @@ function BestiaryUI.renderGrid()
     totalPages   = math.max(1, math.ceil(#filteredList / CONFIG.CARDS_PER_PAGE))
 
     if currentPage > totalPages then currentPage = totalPages end
-    if currentPage < 1          then currentPage = 1 end
+    if currentPage < 1 then currentPage = 1 end
 
     local startIdx = (currentPage - 1) * CONFIG.CARDS_PER_PAGE + 1
 
@@ -260,12 +260,12 @@ function BestiaryUI.renderGrid()
             local icon = card:recursiveGetChildById('icon')
             if icon then
                 icon:setOutfit({
-                    type    = monster.lookType   or 0,
-                    head    = monster.lookHead   or 0,
-                    body    = monster.lookBody   or 0,
-                    legs    = monster.lookLegs   or 0,
-                    feet    = monster.lookFeet   or 0,
-                    addons  = monster.lookAddons or 0,
+                    type   = monster.lookType or 0,
+                    head   = monster.lookHead or 0,
+                    body   = monster.lookBody or 0,
+                    legs   = monster.lookLegs or 0,
+                    feet   = monster.lookFeet or 0,
+                    addons = monster.lookAddons or 0,
                 })
             end
 
@@ -294,8 +294,8 @@ function BestiaryUI.renderGrid()
 
     -- Ensure gridPanel has the correct height (fallback for layouts that
     -- don't auto-resize their parent with fit-children)
-    local visibleCount = math.min(#filteredList - (currentPage-1)*CONFIG.CARDS_PER_PAGE,
-                                   CONFIG.CARDS_PER_PAGE)
+    local visibleCount = math.min(#filteredList - (currentPage - 1) * CONFIG.CARDS_PER_PAGE,
+        CONFIG.CARDS_PER_PAGE)
     BestiaryUI.updateGridHeight(math.max(0, visibleCount))
 
     BestiaryUI.updatePagination()
@@ -310,6 +310,22 @@ function BestiaryUI.updateScroll()
     end
 end
 
+function BestiaryUI.showLoading()
+    if not window then return end
+    local loadingLabel = window:recursiveGetChildById('loadingLabel')
+    local scrollPanel = window:recursiveGetChildById('scrollPanel')
+    if loadingLabel then loadingLabel:show() end
+    if scrollPanel then scrollPanel:hide() end
+end
+
+function BestiaryUI.hideLoading()
+    if not window then return end
+    local loadingLabel = window:recursiveGetChildById('loadingLabel')
+    local scrollPanel = window:recursiveGetChildById('scrollPanel')
+    if loadingLabel then loadingLabel:hide() end
+    if scrollPanel then scrollPanel:show() end
+end
+
 function BestiaryUI.updatePagination()
     if not window then return end
     local pageLabel = window:recursiveGetChildById('pageLabel')
@@ -317,8 +333,8 @@ function BestiaryUI.updatePagination()
     local nextBtn   = window:recursiveGetChildById('nextPageBtn')
 
     if pageLabel then pageLabel:setText(tr('Page %d of %d', currentPage, totalPages)) end
-    if prevBtn   then prevBtn:setEnabled(currentPage > 1) end
-    if nextBtn   then nextBtn:setEnabled(currentPage < totalPages) end
+    if prevBtn then prevBtn:setEnabled(currentPage > 1) end
+    if nextBtn then nextBtn:setEnabled(currentPage < totalPages) end
 end
 
 function BestiaryUI.renderDetail(monster)
@@ -336,13 +352,17 @@ function BestiaryUI.renderDetail(monster)
 
     local sprite = detailPanel:recursiveGetChildById('detailSprite')
     if sprite then
+        local outfitType = monster.lookType or 0
+        if outfitType == 0 and monster.lookTypeEx and monster.lookTypeEx > 0 then
+            outfitType = monster.lookTypeEx
+        end
         sprite:setOutfit({
-            type    = monster.lookType   or 0,
-            head    = monster.lookHead   or 0,
-            body    = monster.lookBody   or 0,
-            legs    = monster.lookLegs   or 0,
-            feet    = monster.lookFeet   or 0,
-            addons  = monster.lookAddons or 0,
+            type   = outfitType,
+            head   = monster.lookHead or 0,
+            body   = monster.lookBody or 0,
+            legs   = monster.lookLegs or 0,
+            feet   = monster.lookFeet or 0,
+            addons = monster.lookAddons or 0,
         })
     end
 
@@ -352,8 +372,8 @@ function BestiaryUI.renderDetail(monster)
     local progress = detailPanel:recursiveGetChildById('detailProgress')
     if progress then progress:setPercent(100) end
 
-    local progressLabel = detailPanel:recursiveGetChildById('detailProgressLabel')
-    if progressLabel then progressLabel:setText('2500 / 2500') end
+    -- local progressLabel = detailPanel:recursiveGetChildById('detailProgressLabel')
+    -- if progressLabel then progressLabel:setText(monster.count .. ' / ' .. monster.requiredKills) end
 
     BestiaryUI.renderStats(detailPanel, monster)
     BestiaryUI.renderResistances(detailPanel, monster)
@@ -363,6 +383,12 @@ function BestiaryUI.renderDetail(monster)
     BestiaryUI.forceDetailContentLayout(detailPanel)
     -- Then compute the correct height for the scrollable area
     BestiaryUI.updateDetailContentHeight(detailPanel)
+
+    -- Scroll detail view to top (delayed for layout to settle)
+    addEvent(function()
+        local ds = detailPanel:recursiveGetChildById('detailScroll')
+        if ds then pcall(function() ds:scrollToTop() end) end
+    end)
 end
 
 function BestiaryUI.forceDetailContentLayout(detailPanel)
@@ -400,7 +426,14 @@ function BestiaryUI.updateDetailContentHeight(detailPanel)
     end
     measureRecursive(detailContent)
 
-    detailContent:setHeight(maxBottom + 16)
+    local contentH = maxBottom + 16
+    detailContent:setHeight(contentH)
+
+    -- Engine auto-hides via $!on style on the scrollbar
+    local detailScroll = detailPanel:recursiveGetChildById('detailScroll')
+    if detailScroll then
+        detailScroll:updateScrollBars()
+    end
 end
 
 function BestiaryUI.renderStats(detailPanel, monster)
@@ -409,10 +442,11 @@ function BestiaryUI.renderStats(detailPanel, monster)
         local w = detailPanel:recursiveGetChildById(id)
         if w then w:setText(tostring(val)) end
     end
-    setVal('statHealthValue', monster.health      or 0)
-    setVal('statExpValue',    monster.experience   or 0)
-    setVal('statSpeedValue',  monster.speed        or 0)
-    setVal('statArmorValue',  monster.armor        or 0)
+    setVal('statHealthValue', monster.health or 0)
+    setVal('statExpValue', monster.experience or 0)
+    setVal('statSpeedValue', monster.speed or 0)
+    setVal('statArmorValue', monster.armor or 0)
+    setVal('statRaceValue', monster.race or 'unknown')
 end
 
 function BestiaryUI.renderResistances(detailPanel, monster)
@@ -438,11 +472,16 @@ function BestiaryUI.renderResistances(detailPanel, monster)
                     local pct = BestiaryParser.calculatePercent(val)
                     if pct >= 0 then
                         fill:setBackgroundColor('#40b040')
-                        fill:setWidth(math.floor(pct * 1.4))
                     else
                         fill:setBackgroundColor('#b04040')
-                        fill:setWidth(math.floor(math.abs(pct) * 1.4))
                     end
+
+                    -- Compute fill width as percentage of actual track width
+                    local track = fill:getParent()
+                    local trackW = track and track:getWidth() or 100
+                    if trackW <= 0 then trackW = 100 end
+                    local fillW = math.floor(math.min(math.abs(pct) / 100 * trackW, trackW))
+                    fill:setWidth(fillW)
                 end
 
                 local sign = (val > 0 and '+') or ''
@@ -493,35 +532,38 @@ function BestiaryUI.renderLoot(detailPanel, monster)
                     local cols = 6
                     local cellSize = 34
                     local rows = math.ceil(#items / cols)
-                    local panelH = rows * cellSize + math.max(0, rows-1) * 2
+                    local panelH = rows * cellSize + math.max(0, rows - 1) * 2
                     itemsPanel:setHeight(panelH)
 
+                    -- Set category total height so verticalBox allocates space
+                    local catH = 18 + 2 + panelH -- rarityLabel + margin-top + grid
+                    catWidget:setHeight(catH)
+
                     for _, item in ipairs(items) do
-                        local itemWidget = g_ui.createWidget('UIItem', itemsPanel)
-                        if itemWidget then
-                            itemWidget:setSize({width=32, height=32})
-                            itemWidget:setItemId(item.clientId or item.id or 0)
-                            itemWidget:setOpacity(1.0)
+                        local slot = g_ui.createWidget('BestiaryLootSlot', itemsPanel)
+                        if slot then
+                            local itemWidget = slot:getChildById('lootItem')
+                            if itemWidget then
+                                itemWidget:setItemId(item.clientId or item.id or 0)
+                                itemWidget:setOpacity(1.0)
 
-                            -- countmax overlay on bottom-right corner
-                            local cm = item.countmax or 1
-                            if cm > 1 then
-                                local cl = g_ui.createWidget('Label', itemWidget)
-                                if cl then
-                                    cl:setText('x' .. tostring(cm))
-                                    cl:setFont('verdana-9px')
-                                    cl:setColor('white')
-                                    cl:setRect({x=12, y=18, width=20, height=14})
+                                local cm = item.countmax or 1
+                                if cm > 1 then
+                                    local cl = slot:getChildById('countLabel')
+                                    if cl then
+                                        cl:setText('x' .. tostring(cm))
+                                        cl:show()
+                                    end
                                 end
-                            end
 
-                            local pct = (item.chance or 0) / 1000
-                            itemWidget:setTooltip(
-                                string.format('%s\n%.2f%%',
-                                    item.name or 'unknown',
-                                    pct
+                                local pct = (item.chance or 0) / 100000 * 100
+                                itemWidget:setTooltip(
+                                    string.format('%s\n%.2f%%',
+                                        item.name or 'unknown',
+                                        pct
+                                    )
                                 )
-                            )
+                            end
                         end
                     end
                 end
@@ -550,10 +592,10 @@ function BestiaryController.refresh()
     if not window then return end
 
     -- Reset state
-    selectedMonster = nil
-    selectedCard    = nil
-    currentPage     = 1
-    searchQuery     = ''
+    selectedMonster   = nil
+    selectedCard      = nil
+    currentPage       = 1
+    searchQuery       = ''
 
     local searchField = window:recursiveGetChildById('searchField')
     if searchField then searchField:setText('') end
@@ -562,8 +604,9 @@ function BestiaryController.refresh()
     local tabMonsters = window:recursiveGetChildById('tabMonsters')
     local tabBosses   = window:recursiveGetChildById('tabBosses')
     if tabMonsters then pcall(function() tabMonsters:setChecked(currentTab == CONFIG.TAB_MONSTERS) end) end
-    if tabBosses   then pcall(function() tabBosses:setChecked(currentTab == CONFIG.TAB_BOSSES) end) end
+    if tabBosses then pcall(function() tabBosses:setChecked(currentTab == CONFIG.TAB_BOSSES) end) end
 
+    BestiaryUI.hideLoading()
     BestiaryUI.renderGrid()
 
     local detailPanel = window:recursiveGetChildById('detailPanel')
@@ -603,8 +646,8 @@ function BestiaryController.normalizeText(text)
     local normalized = text
     local replacements = {
         { '[àáâãäå]', 'a' }, { '[èéêë]', 'e' }, { '[ìíîï]', 'i' },
-        { '[òóôõö]',  'o' }, { '[ùúûü]', 'u' }, { '[ñ]', 'n'    },
-        { '[ç]', 'c'       }, { '[ýÿ]',  'y'  },
+        { '[òóôõö]',  'o' }, { '[ùúûü]', 'u' }, { '[ñ]', 'n' },
+        { '[ç]', 'c' }, { '[ýÿ]', 'y' },
     }
     for _, pair in ipairs(replacements) do
         normalized = normalized:gsub(pair[1], pair[2])
@@ -662,7 +705,6 @@ function BestiaryNetwork.onReceiveRaw(protocol, opcode, buffer)
         chunkBuffer = buffer:sub(2)
         chunkMode   = true
         return
-
     elseif prefix == 'P' then
         -- Middle part
         if chunkMode and chunkBuffer then
@@ -674,14 +716,13 @@ function BestiaryNetwork.onReceiveRaw(protocol, opcode, buffer)
             chunkMode   = false
         end
         return
-
     elseif prefix == 'E' then
         -- End part – assemble full JSON
         if chunkMode and chunkBuffer then
-            chunkBuffer = chunkBuffer .. buffer:sub(2)
+            chunkBuffer    = chunkBuffer .. buffer:sub(2)
             local fullJson = chunkBuffer
-            chunkBuffer = nil
-            chunkMode   = false
+            chunkBuffer    = nil
+            chunkMode      = false
             BestiaryNetwork.processJson(fullJson)
         else
             print('[Bestiary] AVISO: chunk E recebido sem S anterior, ignorando')
@@ -713,7 +754,7 @@ function BestiaryNetwork.processJson(jsonStr)
     end
 
     local monCount  = data.totalMonsters or (data.monsters and #data.monsters) or 0
-    local bossCount = data.totalBosses   or (data.bosses   and #data.bosses)   or 0
+    local bossCount = data.totalBosses or (data.bosses and #data.bosses) or 0
     print(string.format('[Bestiary] Dados recebidos: %d monstros, %d bosses', monCount, bossCount))
 
     BestiaryCache.set(data)
@@ -729,16 +770,16 @@ end
 ------------------------------------------------------------------------
 function onTabClick(tab)
     if tab == currentTab then return end
-    currentTab    = tab
-    currentPage   = 1
-    selectedMonster = nil
-    selectedCard  = nil
+    currentTab        = tab
+    currentPage       = 1
+    selectedMonster   = nil
+    selectedCard      = nil
 
     local tabMonsters = window and window:recursiveGetChildById('tabMonsters')
     local tabBosses   = window and window:recursiveGetChildById('tabBosses')
 
     if tabMonsters then pcall(function() tabMonsters:setChecked(tab == CONFIG.TAB_MONSTERS) end) end
-    if tabBosses   then pcall(function() tabBosses:setChecked(tab == CONFIG.TAB_BOSSES) end) end
+    if tabBosses then pcall(function() tabBosses:setChecked(tab == CONFIG.TAB_BOSSES) end) end
 
     BestiaryUI.renderGrid()
 
@@ -801,13 +842,23 @@ end
 ------------------------------------------------------------------------
 -- MODULE LIFECYCLE
 ------------------------------------------------------------------------
+local function toggle()
+    if BestiaryUI.isOpen() then
+        BestiaryUI.close()
+        if button then button:setOn(false) end
+    else
+        BestiaryUI.open()
+        if button then button:setOn(true) end
+    end
+end
+
 function init()
     BestiaryController.init()
 
     local imgPath   = CONFIG.ICON_PATH
     local imgExists = g_resources.fileExists(imgPath .. '.png')
-                   or g_resources.fileExists(imgPath .. '.gif')
-                   or g_resources.fileExists(imgPath .. '.jpg')
+        or g_resources.fileExists(imgPath .. '.gif')
+        or g_resources.fileExists(imgPath .. '.jpg')
     if not imgExists then
         imgPath = '/images/topbuttons/battle'
     end
@@ -834,25 +885,15 @@ function terminate()
     end
 end
 
-function toggle()
-    if BestiaryUI.isOpen() then
-        BestiaryUI.close()
-        if button then button:setOn(false) end
-    else
-        BestiaryUI.open()
-        if button then button:setOn(true) end
-    end
-end
-
 ------------------------------------------------------------------------
 -- EXPOSED FOR OTUI BINDING
 ------------------------------------------------------------------------
 modules.game_bestiary = {
-    onTabClick    = onTabClick,
+    onTabClick     = onTabClick,
     onSearchChange = onSearchChange,
-    onCardClick   = onCardClick,
-    onCardHover   = onCardHover,
-    onPrevPage    = onPrevPage,
-    onNextPage    = onNextPage,
-    onWindowClose = onWindowClose,
+    onCardClick    = onCardClick,
+    onCardHover    = onCardHover,
+    onPrevPage     = onPrevPage,
+    onNextPage     = onNextPage,
+    onWindowClose  = onWindowClose,
 }

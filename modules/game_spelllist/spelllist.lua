@@ -43,7 +43,7 @@ local filters         = {
 
 
 
-function copySpellWords(spellId)
+local function copySpellWords(spellId)
   local info = SpellInfo[SpelllistProfile][spellId]
   if info and info.words then
     g_window.setClipboardText(info.words)
@@ -235,15 +235,13 @@ function init()
     end
 
     if not spelllistButton:isOn() then
-      toggle()
+      modules.game_spelllist.toggle()
     end
   end)
 
-
-
   local function requestSpelllist()
     if spelllistButton:isOn() then
-      toggle()
+      modules.game_spelllist.toggle()
     else
       g_game.talk("!spells")
     end
@@ -453,7 +451,7 @@ function updateSpellInformation(widget)
   descriptionValueLabel:setText(description)
 end
 
-function toggle()
+local function toggle()
   if spelllistButton:isOn() then
     spelllistButton:setOn(false)
     spelllistWindow:hide()
@@ -465,7 +463,7 @@ function toggle()
   end
 end
 
-function open()
+local function open()
   if not spelllistButton:isOn() then
     g_game.talk("!spells")
   else
@@ -474,7 +472,7 @@ function open()
   end
 end
 
-function toggleFilter(widget, selectedWidget)
+local function toggleFilter(widget, selectedWidget)
   if widget == groupRadioGroup then
     local boxId = selectedWidget:getId()
     if boxId == 'groupBoxAny' then
@@ -526,3 +524,10 @@ function resetWindow()
 
   updateSpelllist()
 end
+
+modules.game_spelllist = {
+    copySpellWords      = copySpellWords,
+    toggle              = toggle,
+    toggleFilter        = toggleFilter,
+    open                = open,
+}

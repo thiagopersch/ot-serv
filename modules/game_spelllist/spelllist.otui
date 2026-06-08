@@ -42,7 +42,7 @@ FilterButton < Button
   width: 64
   anchors.left: prev.right
   anchors.top: spellList.bottom
-  @onClick: toggleFilter(self)
+    @onClick: modules.game_spelllist.toggleFilter(self)
   margin: 5 0 0 6
   color: #630000
   $on:
@@ -52,7 +52,7 @@ MainWindow
   id: spelllistWindow
   !text: tr('Spell List')
   size: 900 700
-  @onEscape: toggle()
+  @onEscape: modules.game_spelllist.toggle()
 
   TextList
     id: spellList
@@ -71,7 +71,7 @@ MainWindow
     width: 64
     anchors.right: parent.right
     anchors.bottom: parent.bottom
-    @onClick: toggle()
+    @onClick: modules.game_spelllist.toggle()
 
   VerticalScrollBar
     id: spellsScrollBar
