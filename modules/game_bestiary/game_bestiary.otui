@@ -226,7 +226,7 @@ MainWindow
             size: 80 80
             outfit-center: true
             center: true
-            animate: true
+            animate: false
 
           Label
             id: detailName

@@ -171,6 +171,7 @@ function updateUI()
 
   local lastGroup = nil
   local firstSkillWidget = nil
+  local selectedWidget = nil
 
   for _, entry in ipairs(sortedSkills) do
     local key = entry.key
@@ -219,12 +220,14 @@ function updateUI()
     end
 
     if selectedSkill == key then
-      widget:focus()
-      selectSkill(widget)
+      selectedWidget = widget
     end
   end
 
-  if not selectedSkill and firstSkillWidget then
+  if selectedWidget then
+    selectedWidget:focus()
+    selectSkill(selectedWidget)
+  elseif not selectedSkill and firstSkillWidget then
     selectSkill(firstSkillWidget)
   end
 end
