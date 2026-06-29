@@ -36,7 +36,6 @@ SpellInfoValueLabel < Label
   text-auto-resize: true
   anchors.right: parent.right
   margin-left: 10
-  margin-top: 5
 
 FilterButton < Button
   width: 64
@@ -86,17 +85,6 @@ MainWindow
     anchors.left: spellList.right
     anchors.top: spellList.top
     !text: tr('Name') .. ':'
-
-  Label
-    anchors.left: parent.left
-    anchors.top: spellList.bottom
-    !text: tr('Filters') .. ':'
-    margin-top: 8
-
-  FilterButton
-    id: buttonFilterLevel
-    !text: tr('Level')
-    !tooltip: tr('Hide spells for higher exp. levels')
 
 
 
@@ -208,12 +196,12 @@ MainWindow
     id: labelGroupFilter
     anchors.top: labelDescriptionValue.bottom
     anchors.left: spellList.right
-    width: 200
+    width: 300
     font: verdana-11px-monochrome
     !text: tr('Spell Groups Filter')
     text-align: center
     margin-top: 25
-    margin-left: 50
+    margin-left: 20
 
   CheckBox
     id: groupBoxAny
@@ -252,13 +240,13 @@ MainWindow
     id: groupBoxBuffs
     anchors.left: groupBoxAny.right
     anchors.top: groupBoxAny.top
-    margin-left: 20
+    margin-left: 10
     !text: tr('Buffs')
     width: 75
 
   CheckBox
     id: groupBoxSuporte
-    anchors.left: prev.left
+    anchors.left: groupBoxBuffs.left
     anchors.top: prev.bottom
     margin-top: 5
     !text: tr('Suporte')
@@ -266,7 +254,7 @@ MainWindow
 
   CheckBox
     id: groupBoxEspecial
-    anchors.left: prev.left
+    anchors.left: groupBoxBuffs.left
     anchors.top: prev.bottom
     margin-top: 5
     !text: tr('Especial')
@@ -274,8 +262,22 @@ MainWindow
 
   CheckBox
     id: groupBoxCombos
-    anchors.left: prev.left
+    anchors.left: groupBoxBuffs.left
     anchors.top: prev.bottom
     margin-top: 5
     !text: tr('Combos')
     width: 75
+
+  Button
+    id: buttonFilterLevel
+    anchors.left: groupBoxCombos.right
+    anchors.top: groupBoxAny.top
+    margin-left: 20
+    width: 64
+    !text: tr('Level')
+    !tooltip: tr('Hide spells for higher exp. levels')
+    @onClick: modules.game_spelllist.toggleFilter(self)
+    color: #630000
+    $on:
+      color: green
+

@@ -26,158 +26,72 @@ groupBoxCombos         = nil
 groupRadioGroup        = nil
 
 
-FILTER_GROUP_ANY      = 0
-FILTER_GROUP_ATTACKS  = 1
-FILTER_GROUP_DEFENSES = 2
-FILTER_GROUP_HEALINGS = 3
-FILTER_GROUP_BUFFS    = 4
-FILTER_GROUP_SUPORTE  = 5
-FILTER_GROUP_ESPECIAL = 6
-FILTER_GROUP_COMBOS   = 7
+FILTER_GROUP_ANY       = 0
+FILTER_GROUP_ATTACKS   = 1
+FILTER_GROUP_DEFENSES  = 2
+FILTER_GROUP_HEALINGS  = 3
+FILTER_GROUP_BUFFS     = 4
+FILTER_GROUP_SUPORTE   = 5
+FILTER_GROUP_ESPECIAL  = 6
+FILTER_GROUP_COMBOS    = 7
 
 -- Filter Settings
-local filters         = {
+local filters          = {
   level   = false,
   groupId = FILTER_GROUP_ANY
 }
 
+-- Chunked-transfer state (server splits large JSON with S/P/E prefixes)
+local spellChunkBuffer = nil
+local spellChunkMode   = false
 
 
 local function copySpellWords(spellId)
   local info = SpellInfo[SpelllistProfile][spellId]
   if info and info.words then
     g_window.setClipboardText(info.words)
-    modules.game_textmessage.displayGameMessage('Spell -> ' .. info.words .. ' <- copiada!')
+    modules.game_textmessage.displayGameMessage('Spell -> ' .. info.words .. ' <- copy!')
   end
 end
 
-function loadSpellsFromXML()
-  local xmlPath = "c:\\Users\\thiag\\Projetos\\server-tibia\\data\\spells\\spells.xml"
-  local file = io.open(xmlPath, "r")
-  if not file then
-    perror("game_spelllist: Could not open spells.xml at " .. xmlPath)
+function loadSpellsFromJSON(data)
+  if not data or not data.spellInfo or not data.spellOrder then
     return
   end
-  local content = file:read("*a")
-  file:close()
-
-  -- Remove comments safely
-  content = string.gsub(content, "<!%-%-.-%-%->", "")
 
   local newSpellInfo = {}
-  local newSpellOrder = {}
+  local newSpellOrder = data.spellOrder
 
-  local i = 1
-  while true do
-    local s, e = string.find(content, "<instant", i)
-    if not s then break end
+  for name, info in pairs(data.spellInfo) do
+    local oldInfo = SpellInfo['Default'] and SpellInfo['Default'][name]
+    local iconStr = oldInfo and oldInfo.icon or 'energystrike'
 
-    local attrEnd = string.find(content, ">", e)
-    if not attrEnd then break end
-
-    local attributes = string.sub(content, e + 1, attrEnd - 1)
-    local isSelfClosing = string.match(attributes, "/%s*$")
-
-    local body = ""
-    if isSelfClosing then
-      attributes = string.gsub(attributes, "/%s*$", "")
-      i = attrEnd + 1
-    else
-      local bodyEndStart, bodyEndEnd = string.find(content, "</%s*instant%s*>", attrEnd)
-      if bodyEndStart then
-        body = string.sub(content, attrEnd + 1, bodyEndStart - 1)
-        i = bodyEndEnd + 1
-      else
-        break
-      end
-    end
-
-    local spellName = string.match(attributes, 'name="(.-)"')
-    local spellWords = string.match(attributes, 'words="(.-)"')
-    local spellLevel = tonumber(string.match(attributes, 'lvl="(%d+)"')) or
-        tonumber(string.match(attributes, 'level="(%d+)"')) or 0
-    local spellMana = tonumber(string.match(attributes, 'mana="(%d+)"')) or 0
-    local spellPrem = (string.match(attributes, 'prem="(%d+)"') == "1") and true or false
-    local spellExhaustion = tonumber(string.match(attributes, 'exhaustion="(%d+)"')) or 2000
-    local spellDescription = string.match(attributes, 'description="(.-)"')
-
-    local vocations = {}
-    for vocIdStr in string.gmatch(body, '<vocation%s+id="(.-)"') do
-      if string.find(vocIdStr, "-") then
-        local startVoc, endVoc = string.match(vocIdStr, "(%d+)-(%d+)")
-        if startVoc and endVoc then
-          for j = tonumber(startVoc), tonumber(endVoc) do
-            table.insert(vocations, j)
-          end
-        end
-      else
-        local num = tonumber(vocIdStr)
-        if num then table.insert(vocations, num) end
-      end
-    end
-
-    local assignedGroups = {}
-    local groupStr = string.match(attributes, 'group="(.-)"')
-    local valueStr = string.match(attributes, 'value="(.-)"')
-    if groupStr then
-      for gl in string.gmatch(groupStr:lower(), "%a+") do
-        if gl == "attack" or gl == "attacks" then
-          assignedGroups[1] = spellExhaustion
-        elseif gl == "defense" or gl == "defenses" then
-          assignedGroups[2] = spellExhaustion
-        elseif gl == "healing" or gl == "healings" then
-          assignedGroups[3] = spellExhaustion
-        elseif gl == "buffs" or gl == "buff" then
-          assignedGroups[4] = spellExhaustion
-        elseif gl == "support" or gl == "suporte" then
-          assignedGroups[5] = spellExhaustion
-        elseif gl == "especial" or gl == "special" or gl == "specials" then
-          assignedGroups[6] = spellExhaustion
-        elseif gl == "combo" or gl == "combos" then
-          assignedGroups[7] = spellExhaustion
-        end
-      end
-    elseif valueStr then
-      local folder = string.match(valueStr, "^(.-)/")
-      if folder then
-        folder = folder:lower()
-        if folder == "support" or folder == "buffs" then
-          assignedGroups[4] = spellExhaustion
-        elseif folder == "healing" then
-          assignedGroups[3] = spellExhaustion
-        elseif folder == "monsters" or folder == "cannons" then
-          assignedGroups[5] = spellExhaustion
-        else
-          assignedGroups[1] = spellExhaustion
+    -- Convert group string keys back to numeric keys
+    local group = {}
+    if info.group then
+      for k, v in pairs(info.group) do
+        local numericKey = tonumber(k)
+        if numericKey then
+          group[numericKey] = v
         end
       end
     end
 
-    if not next(assignedGroups) then
-      assignedGroups[1] = spellExhaustion
-    end
-
-    if spellName and spellWords then
-      local oldInfo = SpellInfo['Default'] and SpellInfo['Default'][spellName]
-      local iconStr = oldInfo and oldInfo.icon or 'energystrike'
-
-      newSpellInfo[spellName] = {
-        id = oldInfo and oldInfo.id or 0,
-        words = spellWords,
-        level = spellLevel,
-        mana = spellMana,
-        prem = spellPrem,
-        soul = oldInfo and oldInfo.soul or 0,
-        parameter = false,
-        exhaustion = spellExhaustion,
-        description = spellDescription,
-        type = 'Instant',
-        icon = iconStr,
-        group = assignedGroups,
-        vocations = vocations
-      }
-      table.insert(newSpellOrder, spellName)
-    end
+    newSpellInfo[name] = {
+      id = oldInfo and oldInfo.id or 0,
+      words = info.words,
+      level = info.level,
+      mana = info.mana,
+      prem = info.prem,
+      soul = oldInfo and oldInfo.soul or 0,
+      parameter = false,
+      exhaustion = info.exhaustion,
+      description = info.description,
+      type = 'Instant',
+      icon = iconStr,
+      group = group,
+      vocations = info.vocations or {}
+    }
   end
 
   if next(newSpellInfo) then
@@ -216,18 +130,61 @@ end
 
 local serverVocation = nil
 
+local function toggleFilter(widget, selectedWidget)
+  if widget == groupRadioGroup then
+    local boxId = selectedWidget:getId()
+    if boxId == 'groupBoxAny' then
+      filters.groupId = FILTER_GROUP_ANY
+    elseif boxId == 'groupBoxAttacks' then
+      filters.groupId = FILTER_GROUP_ATTACKS
+    elseif boxId == 'groupBoxDefenses' then
+      filters.groupId = FILTER_GROUP_DEFENSES
+    elseif boxId == 'groupBoxHealings' then
+      filters.groupId = FILTER_GROUP_HEALINGS
+    elseif boxId == 'groupBoxBuffs' then
+      filters.groupId = FILTER_GROUP_BUFFS
+    elseif boxId == 'groupBoxSuporte' then
+      filters.groupId = FILTER_GROUP_SUPORTE
+    elseif boxId == 'groupBoxEspecial' then
+      filters.groupId = FILTER_GROUP_ESPECIAL
+    elseif boxId == 'groupBoxCombos' then
+      filters.groupId = FILTER_GROUP_COMBOS
+    end
+  else
+    local id = widget:getId()
+    if id == 'buttonFilterLevel' then
+      filters.level = not (filters.level)
+      widget:setOn(filters.level)
+    end
+  end
+
+  updateSpelllist()
+end
+
 function init()
   connect(g_game, {
     onGameStart = online,
     onGameEnd   = offline
   })
 
-  ProtocolGame.registerExtendedOpcode(123, function(protocol, opcode, buffer)
-    if buffer and buffer ~= "" then
-      serverVocation = tonumber(buffer)
+  local function processSpellJSON(jsonStr)
+    local firstChar = jsonStr:match('^%s*(.)')
+    if firstChar ~= '{' and firstChar ~= '[' then
+      perror('game_spelllist: payload invalido, primeiros chars: ' .. jsonStr:sub(1, 40))
+      return
     end
 
-    loadSpellsFromXML()
+    local ok, data = pcall(json.decode, jsonStr)
+    if not ok or not data then
+      perror('game_spelllist: Error decoding spelllist JSON: ' .. tostring(data))
+      return
+    end
+
+    if data.vocation then
+      serverVocation = tonumber(data.vocation)
+    end
+
+    loadSpellsFromJSON(data)
 
     if spellList then
       changeSpelllistProfile(SpelllistProfile)
@@ -237,6 +194,44 @@ function init()
     if not spelllistButton:isOn() then
       modules.game_spelllist.toggle()
     end
+  end
+
+  ProtocolGame.registerExtendedOpcode(123, function(protocol, opcode, buffer)
+    if not buffer or buffer == '' then return end
+
+    local prefix = buffer:sub(1, 1)
+
+    if prefix == 'S' then
+      spellChunkBuffer = buffer:sub(2)
+      spellChunkMode   = true
+      return
+    elseif prefix == 'P' then
+      if spellChunkMode and spellChunkBuffer then
+        spellChunkBuffer = spellChunkBuffer .. buffer:sub(2)
+      else
+        perror('game_spelllist: chunk P recebido sem S anterior')
+        spellChunkBuffer = nil
+        spellChunkMode   = false
+      end
+      return
+    elseif prefix == 'E' then
+      if spellChunkMode and spellChunkBuffer then
+        local fullJson   = spellChunkBuffer .. buffer:sub(2)
+        spellChunkBuffer = nil
+        spellChunkMode   = false
+        processSpellJSON(fullJson)
+      else
+        perror('game_spelllist: chunk E recebido sem S anterior')
+        spellChunkBuffer = nil
+        spellChunkMode   = false
+      end
+      return
+    end
+
+    -- Single-packet (no prefix)
+    spellChunkBuffer = nil
+    spellChunkMode   = false
+    processSpellJSON(buffer)
   end)
 
   local function requestSpelllist()
@@ -472,37 +467,6 @@ local function open()
   end
 end
 
-local function toggleFilter(widget, selectedWidget)
-  if widget == groupRadioGroup then
-    local boxId = selectedWidget:getId()
-    if boxId == 'groupBoxAny' then
-      filters.groupId = FILTER_GROUP_ANY
-    elseif boxId == 'groupBoxAttacks' then
-      filters.groupId = FILTER_GROUP_ATTACKS
-    elseif boxId == 'groupBoxDefenses' then
-      filters.groupId = FILTER_GROUP_DEFENSES
-    elseif boxId == 'groupBoxHealings' then
-      filters.groupId = FILTER_GROUP_HEALINGS
-    elseif boxId == 'groupBoxBuffs' then
-      filters.groupId = FILTER_GROUP_BUFFS
-    elseif boxId == 'groupBoxSuporte' then
-      filters.groupId = FILTER_GROUP_SUPORTE
-    elseif boxId == 'groupBoxEspecial' then
-      filters.groupId = FILTER_GROUP_ESPECIAL
-    elseif boxId == 'groupBoxCombos' then
-      filters.groupId = FILTER_GROUP_COMBOS
-    end
-  else
-    local id = widget:getId()
-    if id == 'buttonFilterLevel' then
-      filters.level = not (filters.level)
-      widget:setOn(filters.level)
-    end
-  end
-
-  updateSpelllist()
-end
-
 function resizeWindow()
   spelllistWindow:setWidth(SpelllistSettings['Default'].spellWindowWidth +
     SpelllistSettings[SpelllistProfile].iconSize.width - 32)
@@ -526,8 +490,8 @@ function resetWindow()
 end
 
 modules.game_spelllist = {
-    copySpellWords      = copySpellWords,
-    toggle              = toggle,
-    toggleFilter        = toggleFilter,
-    open                = open,
+  copySpellWords = copySpellWords,
+  toggle         = toggle,
+  toggleFilter   = toggleFilter,
+  open           = open,
 }
