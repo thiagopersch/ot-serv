@@ -23,6 +23,15 @@ SpellListLabel < Label
     !tooltip: tr('Click here to copy the spell!')
     @onClick: modules.game_spelllist.copySpellWords(self:getParent():getId())
 
+  Label
+    id: levelLabel
+    anchors.left: copyButton.right
+    anchors.verticalCenter: copyButton.verticalCenter
+    margin-left: 8
+    font: verdana-11px-monochrome
+    color: #ffd700
+    text-auto-resize: true
+
 SpellInfoLabel < Label
   width: 70
   font: verdana-11px-monochrome

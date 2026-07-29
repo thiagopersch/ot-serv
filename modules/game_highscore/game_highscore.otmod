@@ -1,0 +1,12 @@
+Module
+  name: game_highscore
+  description: Highscore / Ranking window
+  author: DBOSupreme
+  sandboxed: true
+  autoload: true
+  scripts: [highscore]
+  @onLoad: init()
+  @onUnload: terminate()
+  dependencies:
+    - game_interface
+    - client_topmenu

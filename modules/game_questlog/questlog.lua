@@ -1,8 +1,15 @@
+json = json or g_json
+
 local outfitNames = nil
 local questlogWindow = nil
 local questlogButton = nil
 local taskDescription = nil
 local currentQuestId = nil
+
+local function requestQuestLog()
+  local pg = g_game.getProtocolGame()
+  if pg then pg:sendExtendedOpcode(135, json.encode({ action = "list" })) end
+end
 
 function init()
   questlogWindow = g_ui.displayUI('questlog')
@@ -95,47 +102,50 @@ function showQuestDetails(questId)
   local markButton = questlogWindow:recursiveGetChildById("markButton")
   if markButton then
     markButton:setVisible(true)
+    markButton:setText(quest.completed and tr('Resgatar') or tr('Incompleta'))
+    markButton:setEnabled(quest.completed == true)
   end
 end
 
+-- Resgata a recompensa da quest concluída (data/talkactions/scripts/resgatarquest.lua).
 function markQuest()
   if currentQuestId then
     local quest = quests[currentQuestId]
-    if quest then
-      g_game.talk("!marcar " .. quest.name)
-    else
+    if quest and quest.completed then
+      g_game.talk("!resgatarquest " .. currentQuestId)
     end
   end
 end
 
 function onReceiveQuestData(protocol, opcode, buffer)
-  if opcode == 135 then
-    loadQuestList()
-    quests = {}
-    local choiceList = questlogWindow:recursiveGetChildById('moduleList')
-    if not choiceList then
-      return
-    end
-    local data = buffer:split(",")
-    if data[1] == "#questlog#" then
-      for i = 2, #data - 1, 4 do -- Ajustado para 4 (id, name, description, completa)
-        local questId = tonumber(data[i])
-        local questName = data[i + 1]
-        local questDescription = data[i + 2] or "No description available."
-        local completa = tonumber(data[i + 3]) or 0
-        if questId and questName then
-          quests[questId] = { name = questName, description = questDescription }
-          local label = g_ui.createWidget('ModuleListLabel', choiceList)
-          local number = string.format("#%03d", questId)
-          label:setText(number .. " - " .. questName)
-          if completa == 1 then
-            label:setColor("#00FF00") -- Verde se completa = 1
-          end
-          label.onDoubleClick = function() showQuestDetails(questId) end
-        else
-        end
+  if opcode ~= 135 then return end
+
+  local success, decoded = pcall(json.decode, buffer)
+  if not success or not decoded then return end
+
+  loadQuestList()
+  quests = {}
+  local choiceList = questlogWindow:recursiveGetChildById('moduleList')
+  if not choiceList then
+    return
+  end
+
+  for _, quest in ipairs(decoded.quests or {}) do
+    local questId = quest.id
+    local questName = quest.name
+    if questId and questName then
+      quests[questId] = {
+        name = questName,
+        description = quest.description or "No description available.",
+        completed = quest.completed == true,
+      }
+      local label = g_ui.createWidget('ModuleListLabel', choiceList)
+      local number = string.format("#%03d", questId)
+      label:setText(number .. " - " .. questName)
+      if quest.completed then
+        label:setColor("#00FF00")
       end
-    else
+      label.onDoubleClick = function() showQuestDetails(questId) end
     end
   end
 end
@@ -146,13 +156,13 @@ function onoff()
   else
     questlogButton:setOn(true)
     questlogWindow:show()
-    g_game.talk("!sendquestlog")
+    requestQuestLog()
   end
 end
 
 function loadQuestLog()
   if questlogWindow:isVisible() then
-    g_game.talk("!sendquestlog")
+    requestQuestLog()
   end
 end
 

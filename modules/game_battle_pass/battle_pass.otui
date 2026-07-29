@@ -1,0 +1,102 @@
+BattlePassMissionRow < Label
+  height: 22
+  padding: 2
+  color: #dfdfdf
+  background-color: alpha
+  font: verdana-11px-monochrome
+
+BattlePassRewardSlot < UIWidget
+  size: 42 42
+  border-width: 1
+  border-color: #55555588
+  background-color: #22222299
+  focusable: true
+
+  $hover:
+    border-color: #ffffff88
+
+  $on:
+    border-color: #55ff5588
+
+MainWindow
+  id: battlePassWindow
+  !text: tr('Battle Pass')
+  size: 700 560
+  @onEscape: modules.game_battle_pass.toggle()
+
+  Label
+    id: titleLabel
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    text-align: center
+    font: verdana-11px-monochrome
+    color: #ffd700
+    text: Battle Pass
+
+  ProgressBar
+    id: xpBar
+    anchors.top: titleLabel.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 6
+    height: 18
+
+  Button
+    id: goldPassButton
+    anchors.top: xpBar.bottom
+    anchors.left: parent.left
+    margin-top: 8
+    width: 140
+    !text: tr('Buy Gold Pass')
+    @onClick: modules.game_battle_pass.buyGoldPass()
+
+  UIScrollArea
+    id: rewardsScroll
+    anchors.top: goldPassButton.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 10
+    height: 130
+    vertical-scrollbar: rewardsScrollBar
+    layout:
+      type: horizontalBox
+      spacing: 6
+
+  VerticalScrollBar
+    id: rewardsScrollBar
+    anchors.top: rewardsScroll.top
+    anchors.bottom: rewardsScroll.bottom
+    anchors.right: parent.right
+
+  Label
+    id: missionsLabel
+    anchors.top: rewardsScroll.bottom
+    anchors.left: parent.left
+    margin-top: 10
+    font: verdana-11px-monochrome
+    color: #88aaff
+    text: Missions
+
+  UIScrollArea
+    id: missionsList
+    anchors.top: missionsLabel.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: closeButton.top
+    margin-top: 4
+    margin-bottom: 6
+    focusable: false
+    layout:
+      type: verticalBox
+      spacing: 2
+
+  Button
+    id: closeButton
+    !text: tr('Close')
+    anchors.bottom: parent.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-bottom: 6
+    width: 100
+    image-color: #cc3333
+    @onClick: modules.game_battle_pass.toggle()

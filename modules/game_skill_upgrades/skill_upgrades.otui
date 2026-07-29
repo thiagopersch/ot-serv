@@ -58,7 +58,7 @@ GroupHeader < UIWidget
 MainWindow
   id: skillUpgradesWindow
   !text: tr('Skill Upgrades')
-  size: 620 650
+  size: 760 650
   @onEscape: modules.game_skill_upgrades.toggle()
 
   Label
@@ -184,5 +184,5 @@ MainWindow
     anchors.horizontalCenter: parent.horizontalCenter
     margin-bottom: 6
     width: 100
-    background-color: #aa2222
+    image-color: #cc3333
     @onClick: modules.game_skill_upgrades.toggle()

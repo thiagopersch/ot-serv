@@ -1,0 +1,11 @@
+Module
+  name: game_chest
+  description: Chest reward popup
+  author: DBOSupreme
+  sandboxed: true
+  autoload: true
+  scripts: [chest]
+  @onLoad: init()
+  @onUnload: terminate()
+  dependencies:
+    - game_interface

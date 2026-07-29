@@ -64,7 +64,7 @@ function updateFeatures(version)
     g_game.enableFeature(GameOutfitShaders)
     g_game.enableFeature(GameBigAurasCenter)
 
-    --g_game.enableFeature(GameCountU16)
+    g_game.enableFeature(GameCountU16)
     -- g_game.enableFeature(GameDoubleHealth)
     -- g_game.enableFeature(GameCreaturesMana)
     -- g_game.enableFeature(GameDoubleLevel)

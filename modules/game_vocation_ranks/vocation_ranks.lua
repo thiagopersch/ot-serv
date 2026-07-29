@@ -172,8 +172,8 @@ function updateWindowData()
   right:getChildById('fragSpecLabel'):setText(string.format('Specific Fragments: %d / %d', specCount, specNeed))
   right:getChildById('fragSpecLabel'):setColor(specColor)
 
-  local bonusText = string.format("HP: +%s\nMana: +%s\nAtk: +%s\nDef: +%s\nMag: +%s",
-    cachedRankData.bHp, cachedRankData.bMana, cachedRankData.bMelee, cachedRankData.bShield, cachedRankData.bMagic)
+  local bonusText = string.format("Per star: +%s HP, +%s Mana, +%s%% Damage",
+    cachedRankData.bHp, cachedRankData.bMana, cachedRankData.bMelee)
   right:getChildById('bonusValueLabel'):setText(bonusText)
 end
 

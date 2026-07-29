@@ -1,0 +1,32 @@
+MainWindow
+  id: chestRewardWindow
+  !text: tr('Chest opened!')
+  size: 220 130
+  @onEscape: destroy()
+
+  UIItem
+    id: rewardIcon
+    anchors.top: parent.top
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 10
+    size: 32 32
+    virtual: true
+
+  Label
+    id: rewardLabel
+    anchors.top: rewardIcon.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 8
+    text-align: center
+    text-wrap: true
+    font: verdana-11px-monochrome
+    color: #ffd700
+
+  Button
+    !text: tr('Nice!')
+    anchors.bottom: parent.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-bottom: 8
+    width: 80
+    @onClick: modules.game_chest.closePopup()

@@ -216,6 +216,17 @@ function updateProfile()
 		tr("Stamina"),
 		formatStrTime(stamina)))
 
+	local donateLabel = playerPanel:recursiveGetChildById("donateTierLabel")
+	if donateLabel then
+		local bonusSuffix = ProfileData.donate_bonus_pct > 0
+			and string.format(" (+%d%% XP/loot)", ProfileData.donate_bonus_pct)
+			or ""
+		donateLabel:setText(string.format("%s: %s%s",
+			tr("Donate"),
+			tostringex(ProfileData.donate_tier, "--"),
+			bonusSuffix))
+	end
+
 	local staminaBar = playerPanel:recursiveGetChildById("staminaBar")
 	staminaBar:setValue(stamina, 0, 2520)
 
@@ -293,11 +304,11 @@ function updateProfile()
 
 		skillsPanel:recursiveGetChildById("dodgeLabel"):setText(string.format("%s: %s",
 			tr("Dodge"),
-			tostringex((ProfileData.dodge or 0) .. "/1000", "--")))
+			tostringex((ProfileData.dodge or 0) .. "/" .. (ProfileData.dodge_cap or 1000), "--")))
 
 		skillsPanel:recursiveGetChildById("critLabel"):setText(string.format("%s: %s",
 			tr("Critical"),
-			tostringex((ProfileData.crit or 0) .. "/1000", "--")))
+			tostringex((ProfileData.crit or 0) .. "/" .. (ProfileData.critical_cap or 1000), "--")))
 	end
 
 	-- RANK
@@ -549,6 +560,19 @@ function onRecvExtendedOpcode(pg, opcode, buffer)
 	ProfileData.task_points_in_rank = tonumber(data[index]) or 0
 	index = index + 1
 	ProfileData.task_points_to_next_max = tonumber(data[index]) or 1
+
+	index = index + 1
+	ProfileData.donate_tier = data[index] or "Madeira"
+	index = index + 1
+	ProfileData.donate_bonus_pct = tonumber(data[index]) or 0
+	index = index + 1
+	ProfileData.infinite_bless = (tonumber(data[index]) or 0) ~= 0
+
+	-- Cap de dodge/critical configurável em /admin/settings (antes fixo em 1000 aqui).
+	index = index + 1
+	ProfileData.dodge_cap = tonumber(data[index]) or 1000
+	index = index + 1
+	ProfileData.critical_cap = tonumber(data[index]) or 1000
 
 	updateProfile()
 	show()

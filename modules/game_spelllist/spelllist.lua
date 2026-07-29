@@ -323,8 +323,9 @@ function initializeSpelllist()
 
     local tmpLabel = g_ui.createWidget('SpellListLabel', spellList)
     tmpLabel:setId(spell)
-    tmpLabel:setText(spell .. '\n\'' .. info.words .. '\'')
+    tmpLabel:setText(info.words)
     tmpLabel:setPhantom(false)
+    tmpLabel:getChildById('levelLabel'):setText('Lv. ' .. info.level)
 
     local iconId = tonumber(info.icon)
     if not iconId and SpellIcons[info.icon] then

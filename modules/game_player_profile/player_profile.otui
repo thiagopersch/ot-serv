@@ -241,10 +241,18 @@ MainWindow
         anchors.horizontalCenter: parent.horizontalCenter
         margin-top: 3
 
+      Label
+        id: donateTierLabel
+        font: verdana-11px-rounded
+        text-auto-resize: true
+        anchors.top: staminaLabel.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        margin-top: 3
+
       ProgressBar
         id: staminaBar
         width: 120
-        anchors.top: staminaLabel.bottom
+        anchors.top: donateTierLabel.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         margin-top: 3
         background-color: #3bd309

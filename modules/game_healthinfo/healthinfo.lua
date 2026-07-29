@@ -92,6 +92,9 @@ Icons[PlayerStates.Hungry] = {
   'condition_hungry'
 }
 
+GameServerOpcodes = GameServerOpcodes or {}
+GameServerOpcodes.ClientConfig = 160
+
 healthInfoWindow = nil
 healthBar = nil
 manaBar = nil
@@ -101,6 +104,8 @@ capLabel = nil
 healthTooltip = 'Your character health is %d out of %d.'
 manaTooltip = 'Your character mana is %d out of %d.'
 experienceTooltip = 'You have %d%% to advance to level %d.'
+
+lifeManaPercentMode = false
 
 overlay = nil
 healthCircleFront = nil
@@ -121,6 +126,7 @@ function init()
   })
 
   connect(g_game, { onGameEnd = offline })
+  ProtocolGame.registerExtendedOpcode(GameServerOpcodes.ClientConfig, onServerOpcode)
 
   healthInfoWindow = g_ui.loadUI('healthinfo', modules.game_interface.getRightPanel())
   healthInfoWindow:disableResize()
@@ -190,6 +196,7 @@ function terminate()
 
   disconnect(g_game, { onGameEnd = offline })
   disconnect(overlay, { onGeometryChange = onOverlayGeometryChange })
+  ProtocolGame.unregisterExtendedOpcode(GameServerOpcodes.ClientConfig)
 
   healthInfoWindow:destroy()
   if healthInfoButton then
@@ -233,6 +240,18 @@ function offline()
   healthInfoWindow:recursiveGetChildById('conditionPanel'):destroyChildren()
 end
 
+function onServerOpcode(protocol, opcode, buffer)
+  if opcode ~= GameServerOpcodes.ClientConfig then return end
+
+  lifeManaPercentMode = buffer == '1'
+
+  local localPlayer = g_game.getLocalPlayer()
+  if localPlayer then
+    onHealthChange(localPlayer, localPlayer:getHealth(), localPlayer:getMaxHealth())
+    onManaChange(localPlayer, localPlayer:getMana(), localPlayer:getMaxMana())
+  end
+end
+
 -- hooked events
 function onMiniWindowClose()
   if healthInfoButton then
@@ -245,11 +264,14 @@ function onHealthChange(localPlayer, health, maxHealth)
     maxHealth = health
   end
 
-  healthBar:setText(comma_value(health) .. ' / ' .. comma_value(maxHealth))
+  local healthText = lifeManaPercentMode and (math.floor(g_game.getLocalPlayer():getHealthPercent()) .. '%')
+      or (comma_value(health) .. ' / ' .. comma_value(maxHealth))
+
+  healthBar:setText(healthText)
   healthBar:setTooltip(tr(healthTooltip, health, maxHealth))
   healthBar:setValue(health, 0, maxHealth)
 
-  topHealthBar:setText(comma_value(health) .. ' / ' .. comma_value(maxHealth))
+  topHealthBar:setText(healthText)
   topHealthBar:setTooltip(tr(healthTooltip, health, maxHealth))
   topHealthBar:setValue(health, 0, maxHealth)
 
@@ -279,11 +301,15 @@ function onManaChange(localPlayer, mana, maxMana)
     maxMana = mana
   end
 
-  manaBar:setText(comma_value(mana) .. ' / ' .. comma_value(maxMana))
+  local manaPercent = maxMana > 0 and math.floor(mana * 100 / maxMana) or 0
+  local manaText = lifeManaPercentMode and (manaPercent .. '%')
+      or (comma_value(mana) .. ' / ' .. comma_value(maxMana))
+
+  manaBar:setText(manaText)
   manaBar:setTooltip(tr(manaTooltip, mana, maxMana))
   manaBar:setValue(mana, 0, maxMana)
 
-  topManaBar:setText(comma_value(mana) .. ' / ' .. comma_value(maxMana))
+  topManaBar:setText(manaText)
   topManaBar:setTooltip(tr(manaTooltip, mana, maxMana))
   topManaBar:setValue(mana, 0, maxMana)
 
