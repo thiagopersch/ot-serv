@@ -113,6 +113,7 @@ MainWindow
       id: bonusValueLabel
       text: (loading...)
       text-auto-resize: true
+      text-wrap: true
       text-align: left
       color: #dddddd
       font: verdana-11px-rounded

@@ -137,7 +137,7 @@ function onOpcode(protocol, opcode, buffer)
 
   currentPage = data.page or 1
   totalPages = data.pages or 1
-  window:getChildById('pageLabel'):setText('Page ' .. currentPage .. ' / ' .. totalPages)
+  window:recursiveGetChildById('pageLabel'):setText('Page ' .. currentPage .. ' / ' .. totalPages)
 
   local resultList = window:getChildById('resultList')
   resultList:destroyChildren()
@@ -145,11 +145,20 @@ function onOpcode(protocol, opcode, buffer)
   for _, entry in ipairs(data.data or {}) do
     local row = g_ui.createWidget('HighscoreRow', resultList)
     local vocName = VOCATION_NAMES[entry.vocation] or 'None'
-    local onlineMark = (entry.online == 1) and '*' or ' '
-    row:setText(string.format('%-4d %s%-24s %-18s %d',
-      entry.rank or 0, onlineMark, entry.name or '', vocName, entry.experience or 0))
-    if entry.online == 1 then
-      row:setColor('#55ff55')
-    end
+    local nameColor = (entry.online == 1) and '#55ff55' or '#dfdfdf'
+
+    row:getChildById('outfit'):setOutfit({
+      type = entry.lookType or 0,
+      head = entry.lookHead or 0,
+      body = entry.lookBody or 0,
+      legs = entry.lookLegs or 0,
+      feet = entry.lookFeet or 0,
+      addons = entry.lookAddons or 0,
+    })
+    row:getChildById('rankLabel'):setText(tostring(entry.rank or 0))
+    row:getChildById('nameLabel'):setText(entry.name or '')
+    row:getChildById('nameLabel'):setColor(nameColor)
+    row:getChildById('levelLabel'):setText(tostring(entry.level or 0))
+    row:getChildById('vocLabel'):setText(vocName)
   end
 end

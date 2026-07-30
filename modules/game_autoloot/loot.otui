@@ -18,27 +18,28 @@ MainWindow
     id: titleLabel
     anchors.top: parent.top
     anchors.left: parent.left
-    anchors.right: parent.right
+    anchors.right: closeButton.left
     text-align: center
     font: verdana-11px-monochrome
     color: #ffd700
     text: Autoloot
+
+  Button
+    id: closeButton
+    !text: tr('Close')
+    anchors.top: parent.top
+    anchors.right: parent.right
+    width: 60
+    image-color: #cc3333
+    @onClick: toggle()
 
   CheckBox
     id: moneyCheckbox
     anchors.top: titleLabel.bottom
     anchors.left: parent.left
     margin-top: 8
-    !text: tr('Auto-collect money')
+    !text: tr('Collect money')
     @onClick: modules.game_autoloot.toggleMoney()
-
-  CheckBox
-    id: moneyDestCheckbox
-    anchors.top: moneyCheckbox.top
-    anchors.left: moneyCheckbox.right
-    margin-left: 20
-    !text: tr('Send directly to bank')
-    @onClick: modules.game_autoloot.toggleMoneyDest()
 
   Label
     id: slotsLabel

@@ -1,6 +1,6 @@
 Module
   name: game_chest
-  description: Chest reward popup
+  description: Chest selection window
   author: DBOSupreme
   sandboxed: true
   autoload: true
@@ -9,3 +9,4 @@ Module
   @onUnload: terminate()
   dependencies:
     - game_interface
+    - client_topmenu

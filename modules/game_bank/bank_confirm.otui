@@ -68,6 +68,16 @@ Window
       text-align: center
       !text: '$0'
 
+    Label
+      id: errorLabel
+      margin-top: 5
+      font: verdana-11px-rounded
+      color: #ff5555
+      text-auto-resize: true
+      text-wrap: true
+      text-align: center
+      visible: false
+
   Button
     id: confirmBtn
     anchors.bottom: parent.bottom

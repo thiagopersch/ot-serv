@@ -18,7 +18,7 @@ function init()
   window = g_ui.displayUI('loot')
   window:hide()
 
-  connect(window:getChildById('searchEdit'), {
+  connect(window:recursiveGetChildById('searchEdit'), {
     onTextChange = function() renderLeftGrid() end
   })
 end
@@ -51,6 +51,9 @@ function toggle()
     window:show()
     window:raise()
     window:focus()
+
+    local pg = g_game.getProtocolGame()
+    if pg then pg:sendExtendedOpcode(157, 'catalog') end
   end
 end
 
@@ -103,7 +106,6 @@ function parseState(buffer)
   if window then
     window:getChildById('slotsLabel'):setText(#items .. '/' .. maxSlots)
     window:getChildById('moneyCheckbox'):setChecked(moneyEnabled)
-    window:getChildById('moneyDestCheckbox'):setChecked(moneyToBank)
   end
 
   renderRightGrid(items)
@@ -112,10 +114,10 @@ end
 
 function renderLeftGrid()
   if not window then return end
-  local leftGrid = window:getChildById('leftGrid')
+  local leftGrid = window:recursiveGetChildById('leftGrid')
   leftGrid:destroyChildren()
 
-  local query = window:getChildById('searchEdit'):getText():lower()
+  local query = window:recursiveGetChildById('searchEdit'):getText():lower()
   for _, item in ipairs(catalog) do
     if not selectedIds[item.id] and (query == '' or item.name:lower():find(query, 1, true)) then
       local slot = g_ui.createWidget('AutolootItemSlot', leftGrid)
@@ -131,7 +133,7 @@ end
 
 function renderRightGrid(items)
   if not window then return end
-  local rightGrid = window:getChildById('rightGrid')
+  local rightGrid = window:recursiveGetChildById('rightGrid')
   rightGrid:destroyChildren()
 
   for _, item in ipairs(items) do
@@ -148,9 +150,4 @@ end
 function toggleMoney()
   local pg = g_game.getProtocolGame()
   if pg then pg:sendExtendedOpcode(157, 'money') end
-end
-
-function toggleMoneyDest()
-  local pg = g_game.getProtocolGame()
-  if pg then pg:sendExtendedOpcode(157, 'moneydest') end
 end

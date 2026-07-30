@@ -607,6 +607,15 @@ MainWindow
     step: 80
     pixel-scroll: true
 
+  Label
+    id: loadingLabel
+    !text: tr('Loading...')
+    anchors.horizontalCenter: taskList.horizontalCenter
+    anchors.verticalCenter: taskList.verticalCenter
+    color: #ffffff
+    font: verdana-11px-rounded
+    visible: false
+
   Panel
     id: paginationBar
     anchors.bottom: separator.top

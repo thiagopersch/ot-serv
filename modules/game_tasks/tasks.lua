@@ -14,6 +14,22 @@ g_taskRankData = g_taskRankData or {}
 g_taskUI = g_taskUI or {}
 g_taskCategoryCounts = g_taskCategoryCounts or { dragonball = 0, bleach = 0 }
 
+local function showLoading()
+    if not window then return end
+    local loadingLabel = window:getChildById('loadingLabel')
+    local taskList = window:getChildById('taskList')
+    if loadingLabel then loadingLabel:show() end
+    if taskList then taskList:hide() end
+end
+
+local function hideLoading()
+    if not window then return end
+    local loadingLabel = window:getChildById('loadingLabel')
+    local taskList = window:getChildById('taskList')
+    if loadingLabel then loadingLabel:hide() end
+    if taskList then taskList:show() end
+end
+
 local function detectUniverse()
     local player = g_game.getLocalPlayer()
     if not player then return 'dragonball' end
@@ -176,6 +192,7 @@ function sendRequest()
 end
 
 function sendListRequest()
+    showLoading()
     local params = {
         action = "list",
         page = currentPage,
@@ -209,6 +226,7 @@ function parseOpcode(protocol, opcode, data)
     end
 
     if decoded.allTasks then
+        hideLoading()
         allTasks             = decoded.allTasks
         playerTasks          = decoded.playerTasks or {}
         totalPages           = decoded.totalPages or 1

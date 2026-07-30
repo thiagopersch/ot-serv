@@ -1,20 +1,57 @@
 HighscoreCategoryButton < Button
+  width: 150
   height: 24
-  anchors.left: parent.left
-  anchors.right: parent.right
   text-align: left
   $on:
     color: #55ff55
 
-HighscoreRow < Label
-  height: 20
+HighscoreRow < Panel
+  height: 28
   padding: 2
-  color: #dfdfdf
   background-color: alpha
-  font: verdana-11px-monochrome
 
   $hover:
     background-color: #ffffff11
+
+  UICreature
+    id: outfit
+    anchors.left: parent.left
+    anchors.verticalCenter: parent.verticalCenter
+    size: 24 24
+    fixed-creature-size: true
+
+  Label
+    id: rankLabel
+    anchors.left: outfit.right
+    anchors.verticalCenter: parent.verticalCenter
+    margin-left: 4
+    width: 30
+    color: #dfdfdf
+    font: verdana-11px-monochrome
+
+  Label
+    id: nameLabel
+    anchors.left: rankLabel.right
+    anchors.verticalCenter: parent.verticalCenter
+    width: 220
+    color: #dfdfdf
+    font: verdana-11px-monochrome
+
+  Label
+    id: levelLabel
+    anchors.left: nameLabel.right
+    anchors.verticalCenter: parent.verticalCenter
+    width: 60
+    color: #dfdfdf
+    font: verdana-11px-monochrome
+
+  Label
+    id: vocLabel
+    anchors.left: levelLabel.right
+    anchors.right: parent.right
+    anchors.verticalCenter: parent.verticalCenter
+    color: #dfdfdf
+    font: verdana-11px-monochrome
 
 MainWindow
   id: highscoreWindow
@@ -42,7 +79,7 @@ MainWindow
     id: titleLabel
     anchors.top: parent.top
     anchors.left: categoryPanel.right
-    anchors.right: parent.right
+    anchors.right: closeButton.left
     text-align: center
     font: verdana-11px-monochrome
     color: #ffd700
@@ -56,9 +93,9 @@ MainWindow
     margin-top: 6
     font: verdana-11px-monochrome
     color: #aaaaaa
-    text: Rank                Name                          Vocation            Value
+    text: Rank        Name                                       Level   Vocation
 
-  TextList
+  UIScrollArea
     id: resultList
     anchors.top: headerLabel.bottom
     anchors.left: categoryPanel.right
@@ -66,8 +103,21 @@ MainWindow
     anchors.bottom: pagePanel.top
     margin-top: 4
     margin-bottom: 6
+    margin-right: 12
     padding: 1
     focusable: false
+    vertical-scrollbar: resultScrollBar
+    layout:
+      type: verticalBox
+      spacing: 1
+
+  VerticalScrollBar
+    id: resultScrollBar
+    anchors.top: resultList.top
+    anchors.right: parent.right
+    anchors.bottom: resultList.bottom
+    step: 28
+    pixel-scroll: true
 
   Panel
     id: pagePanel
@@ -96,3 +146,12 @@ MainWindow
       width: 64
       !text: tr('Next')
       @onClick: modules.game_highscore.nextPage()
+
+  Button
+    id: closeButton
+    !text: tr('Close')
+    anchors.top: parent.top
+    anchors.right: parent.right
+    width: 60
+    image-color: #cc3333
+    @onClick: modules.game_highscore.toggle()

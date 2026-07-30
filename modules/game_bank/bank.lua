@@ -29,6 +29,14 @@ local function formatNumber(value)
   return formatted
 end
 
+-- Strips everything but digits and reapplies thousand separators as the user types.
+local function formatAmountInput(text)
+  local digits = (text or ""):gsub("%D", "")
+  digits = digits:gsub("^0+(%d)", "%1")
+  if digits == "" then return "" end
+  return formatNumber(tonumber(digits))
+end
+
 local function updateUI(data)
   if not bankWindow then return end
 
@@ -133,8 +141,20 @@ local function showConfirm(type, title)
   local confirmBtn = confirmWindow:recursiveGetChildById('confirmBtn')
   local nameLabel = confirmWindow:recursiveGetChildById('nameLabel')
   local valueLabel = confirmWindow:recursiveGetChildById('valueLabel')
+  local errorLabel = confirmWindow:recursiveGetChildById('errorLabel')
 
-  if type == 'transfer' or type == 'transfer_all' then
+  local isTransfer = (type == 'transfer' or type == 'transfer_all')
+
+  local function showError(message)
+    errorLabel:setText(message)
+    errorLabel:show()
+  end
+
+  local function clearError()
+    errorLabel:hide()
+  end
+
+  if isTransfer then
     nameInput:show()
     nameLabel:show()
     if type == 'transfer_all' then
@@ -145,41 +165,62 @@ local function showConfirm(type, title)
   end
 
   valueInput.onTextChange = function(widget, text)
-    local val = tonumber(text) or 0
+    if isTransfer then clearError() end
+    local formatted = formatAmountInput(text)
+    if formatted ~= text then
+      widget:setText(formatted)
+      widget:setCursorPos(-1)
+    end
+    local val = tonumber((formatted:gsub(",", ""))) or 0
     previewLabel:setText('$' .. formatNumber(val))
   end
 
+  if isTransfer then
+    nameInput.onTextChange = function() clearError() end
+  end
+
   confirmBtn.onClick = function()
-    local amountText = valueInput:getText()
+    local amountText = (valueInput:getText():gsub(",", ""))
     local amount = tonumber(amountText) or 0
     local name = nameInput:getText()
 
+    if isTransfer then
+      if not name or name:len() == 0 then
+        showError(tr('Player name is required.'))
+        return
+      end
+      if type == 'transfer' and (not amountText or amountText == "") then
+        showError(tr('Amount is required.'))
+        return
+      end
+    end
+
     if type ~= 'transfer_all' then
       if amount <= 0 then
-        displayFailureMessage(tr('Please enter a valid amount greater than zero.'))
+        if isTransfer then
+          showError(tr('Please enter a valid amount greater than zero.'))
+        else
+          displayFailureMessage(tr('Please enter a valid amount greater than zero.'))
+        end
         return
       end
     end
 
     if not checkCooldown() then return end
 
-    if type == 'transfer' or type == 'transfer_all' then
-      if not name or name:len() < 2 then
-        displayFailureMessage(tr('Player not found or name is too short.'))
-        return
-      end
-    end
-
     if type == 'deposit' then
       sendDeposit(amount)
+      confirmWindow:destroy()
     elseif type == 'withdraw' then
       sendWithdraw(amount)
+      confirmWindow:destroy()
     elseif type == 'transfer' then
+      clearError()
       sendTransfer(name, amount)
     elseif type == 'transfer_all' then
+      clearError()
       sendTransferAll(name)
     end
-    confirmWindow:destroy()
   end
 end
 
@@ -190,11 +231,20 @@ local function onExtendedJSONOpcode(protocol, opcode, data)
     updateUI(data)
   elseif data.action == "transaction_result" then
     updateUI(data)
-    if data.message then
-      local title = data.status == "success" and tr("Success") or tr("Error")
-      local infoBox = displayInfoBox(title, data.message)
-      infoBox:raise()
-      infoBox:focus()
+
+    -- Deposit/withdraw (single or all) update silently — only the balance display changes.
+    -- Transfer/transfer_all keep the dialog open and show the result inline (in red on failure).
+    if confirmWindow and (confirmWindow.actionType == 'transfer' or confirmWindow.actionType == 'transfer_all') then
+      if data.status == "success" then
+        confirmWindow:destroy()
+        confirmWindow = nil
+      elseif data.message then
+        local errorLabel = confirmWindow:recursiveGetChildById('errorLabel')
+        if errorLabel then
+          errorLabel:setText(data.message)
+          errorLabel:show()
+        end
+      end
     end
   end
 end

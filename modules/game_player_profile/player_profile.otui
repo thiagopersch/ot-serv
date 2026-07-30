@@ -3,9 +3,9 @@ MainWindow
   !text: tr("Profile")
   font: verdana-11px-rounded
   color: white
-  size: 500 600
-  minimum-size: 500 600
-  maximum-size: 500 600
+  size: 500 680
+  minimum-size: 500 680
+  maximum-size: 500 680
   @onEscape: modules.game_player_profile.close()
   @onEnter: modules.game_player_profile.search()
 
@@ -102,7 +102,7 @@ MainWindow
       border-color-bottom: #7b7b7b
       margin-top: 5
       width: 240
-      height: 410
+      height: 480
 
       UIWidget
         id: vocationImage
@@ -271,6 +271,7 @@ MainWindow
     padding-left: 22
     anchors.top: parent.top
     anchors.right: parent.right
+    margin-top: 10
     margin-bottom: 10
     margin-right: 70
 
@@ -489,4 +490,6 @@ MainWindow
     width: 56
     anchors.right: parent.right
     anchors.bottom: parent.bottom
+    margin-right: 10
+    margin-bottom: 10
     @onClick: modules.game_player_profile.close()
