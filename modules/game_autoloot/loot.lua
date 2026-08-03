@@ -151,3 +151,8 @@ function toggleMoney()
   local pg = g_game.getProtocolGame()
   if pg then pg:sendExtendedOpcode(157, 'money') end
 end
+
+function clearAll()
+  local pg = g_game.getProtocolGame()
+  if pg then pg:sendExtendedOpcode(157, 'clean') end
+end

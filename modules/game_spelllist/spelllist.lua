@@ -59,6 +59,18 @@ function loadSpellsFromJSON(data)
     return
   end
 
+  -- Nomes reais das vocações, parametrizados no servidor (vocations.xml) e enviados junto com
+  -- as spells — sobrescreve/completa a tabela estática VocationNames (gamelib/spells.lua), que
+  -- pode não cobrir todas as vocações do servidor.
+  if type(data.vocationNames) == 'table' then
+    for idStr, name in pairs(data.vocationNames) do
+      local id = tonumber(idStr)
+      if id and type(name) == 'string' and name ~= '' then
+        VocationNames[id] = name
+      end
+    end
+  end
+
   local newSpellInfo = {}
   local newSpellOrder = data.spellOrder
 

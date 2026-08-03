@@ -1,12 +1,13 @@
 AutolootItemSlot < UIItem
   size: 34 34
+  background-color: #101214
   border-width: 1
-  border-color: #55555588
+  border-color: #45494f
   virtual: true
   focusable: true
 
   $hover:
-    border-color: #ffffff88
+    border-color: #6faaff
 
 MainWindow
   id: gw_AutoLoot
@@ -20,8 +21,8 @@ MainWindow
     anchors.left: parent.left
     anchors.right: closeButton.left
     text-align: center
-    font: verdana-11px-monochrome
-    color: #ffd700
+    font: terminus-14px-bold
+    color: #ffcc00
     text: Autoloot
 
   Button
@@ -37,15 +38,25 @@ MainWindow
     id: moneyCheckbox
     anchors.top: titleLabel.bottom
     anchors.left: parent.left
-    margin-top: 8
-    !text: tr('Collect money')
+    margin-top: 10
+
     @onClick: modules.game_autoloot.toggleMoney()
+
+  Label
+    id: moneyLabel
+    anchors.verticalCenter: moneyCheckbox.verticalCenter
+    anchors.left: moneyCheckbox.right
+    margin-left: 6
+    font: terminus-10px
+    color: #dfdfdf
+    !text: tr('Collect money')
 
   Label
     id: slotsLabel
     anchors.top: moneyCheckbox.top
     anchors.right: parent.right
-    font: verdana-11px-monochrome
+    font: terminus-10px
+    color: #9a9a9a
     text: 0/30
 
   Panel
@@ -56,13 +67,16 @@ MainWindow
     margin-top: 10
     margin-bottom: 6
     width: 290
+    image-source: /images/ui/panel_flat
+    image-border: 1
+    padding: 6
 
     Label
       id: leftTitle
       anchors.top: parent.top
       anchors.left: parent.left
-      font: verdana-11px-monochrome
-      color: #88aaff
+      font: terminus-10px
+      color: #ffcc00
       text: Available items
 
     TextEdit
@@ -72,6 +86,7 @@ MainWindow
       anchors.right: parent.right
       margin-top: 4
       !tooltip: tr('Search by name')
+      !placeholder: tr('Search item...')
 
     UIScrollArea
       id: leftGrid
@@ -101,14 +116,26 @@ MainWindow
     margin-top: 10
     margin-bottom: 6
     margin-left: 10
+    image-source: /images/ui/panel_flat
+    image-border: 1
+    padding: 6
 
     Label
       id: rightTitle
       anchors.top: parent.top
       anchors.left: parent.left
-      font: verdana-11px-monochrome
-      color: #88aaff
-      text: Being collected (click to remove)
+      anchors.right: clearAllButton.left
+      font: terminus-10px
+      color: #ffcc00
+      text: Autoloot items (click to remove)
+
+    Button
+      id: clearAllButton
+      !text: tr('Clear items')
+      anchors.top: parent.top
+      anchors.right: parent.right
+      width: 70
+      @onClick: modules.game_autoloot.clearAll()
 
     UIScrollArea
       id: rightGrid

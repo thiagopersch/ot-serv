@@ -18,19 +18,20 @@ SpellListLabel < Label
     size: 45 20
     anchors.right: parent.right
     anchors.verticalCenter: parent.verticalCenter
-    margin-right: 50
+    margin-right: 8
     !text: tr('Copy')
     !tooltip: tr('Click here to copy the spell!')
     @onClick: modules.game_spelllist.copySpellWords(self:getParent():getId())
 
   Label
     id: levelLabel
-    anchors.left: copyButton.right
+    width: 50
+    anchors.right: copyButton.left
     anchors.verticalCenter: copyButton.verticalCenter
-    margin-left: 8
+    margin-right: 8
+    text-align: right
     font: verdana-11px-monochrome
     color: #ffd700
-    text-auto-resize: true
 
 SpellInfoLabel < Label
   width: 70
