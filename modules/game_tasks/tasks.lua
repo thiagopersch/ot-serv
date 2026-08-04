@@ -222,11 +222,12 @@ function parseOpcode(protocol, opcode, data)
     local decoded = data
     if type(data) == 'string' then
         local ok, result = pcall(json.decode, data)
-        if ok then decoded = result else return end
+        if ok then decoded = result else hideLoading() return end
     end
 
+    hideLoading()
+
     if decoded.allTasks then
-        hideLoading()
         allTasks             = decoded.allTasks
         playerTasks          = decoded.playerTasks or {}
         totalPages           = decoded.totalPages or 1
@@ -526,7 +527,11 @@ function renderTaskList()
             label:setText('All tasks are locked. Increase your level and rank points.')
         end
         label:setColor('#aaaaaa')
-        label:setFont('verdana-11px-rounded')
+        label:setFont('sans-bold-16px-rounded')
+        label:setWidth(taskList:getWidth())
+        label:setTextAlign(AlignCenter)
+        label:setTextWrap(true)
+        label:setMarginTop(30)
         return
     end
 

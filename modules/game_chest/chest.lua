@@ -75,7 +75,7 @@ function onOpcode(protocol, opcode, buffer)
     updateWindow()
   elseif data.action == 'result' then
     if data.success then
-      showRewardPopup(data.itemId, data.count, data.name)
+      showRewardPopup(data.rewards or {})
     elseif window then
       window:getChildById('hintLabel'):setText(data.message or tr('Could not open the chest.'))
     end
@@ -96,7 +96,35 @@ local function renderSlot(slot, chest)
 
   slot:setVisible(true)
   nameLabel:setText(chest.name or '')
-  icon:getChildById('keyIcon'):setItemId(chest.keyItemId or 0)
+  icon:getChildById('keyIcon'):setItemId(chest.keyClientId or chest.keyItemId or 0)
+end
+
+local lastCenterChestId = nil
+
+local REWARD_SLOT_SIZE = 30
+local REWARD_SLOT_SPACING = 4
+local REWARD_PREVIEW_MAX_WIDTH = 300
+
+local function renderRewardsPreview(chest)
+  local preview = window:getChildById('rewardsPreview')
+  if not preview then return end
+  preview:destroyChildren()
+
+  local rewards = (chest and chest.rewards) or {}
+  for _, reward in ipairs(rewards) do
+    local slot = g_ui.createWidget('ChestRewardPreviewSlot', preview)
+    slot:setItemId(reward.clientId or reward.itemId or 0)
+    slot:setTooltip(string.format('%s (up to %d)', reward.name or '', reward.count or 1))
+  end
+
+  -- `horizontalBox` empacota os filhos a partir da borda esquerda do container — com menos
+  -- slots do que o necessário pra preencher os 300px declarados no otui, eles ficavam visualmente
+  -- à esquerda em vez de centralizados sob "Possible rewards". Encolhe o próprio container pra
+  -- largura real do conteúdo; como `anchors.horizontalCenter` recalcula a partir da largura atual,
+  -- isso recentraliza o grupo de slots sem precisar de layout customizado.
+  local count = #rewards
+  local contentWidth = count > 0 and (count * REWARD_SLOT_SIZE + (count - 1) * REWARD_SLOT_SPACING) or REWARD_PREVIEW_MAX_WIDTH
+  preview:setWidth(math.min(contentWidth, REWARD_PREVIEW_MAX_WIDTH))
 end
 
 function updateWindow()
@@ -115,6 +143,16 @@ function updateWindow()
   renderSlot(centerSlot, centerChest)
   renderSlot(leftSlot, sideChests[1])
   renderSlot(rightSlot, sideChests[2])
+  renderRewardsPreview(centerChest)
+
+  -- Transição visual ao trocar o baú central (clique num lateral) — sem isso a troca é
+  -- instantânea e passa despercebida.
+  local centerChestId = centerChest and centerChest.id or nil
+  if centerChestId ~= lastCenterChestId then
+    centerSlot:setOpacity(0)
+    g_effects.fadeIn(centerSlot, 200)
+  end
+  lastCenterChestId = centerChestId
 
   -- Side slots swap into the center on click; the center slot has no click behavior of its own.
   local function makeSelectHandler(chest)
@@ -154,11 +192,19 @@ function closeRewardPopup()
   end
 end
 
-function showRewardPopup(itemId, count, name)
+function showRewardPopup(rewards)
+  if not rewards or #rewards == 0 then return end
   closeRewardPopup()
   rewardPopup = g_ui.displayUI('chest_reward')
-  rewardPopup:getChildById('rewardLabel'):setText(string.format(tr('You received\n%dx %s'), count or 1, name or ''))
-  rewardPopup:getChildById('rewardIcon'):setItemId(itemId or 0)
+
+  local parts = {}
+  for _, item in ipairs(rewards) do
+    table.insert(parts, string.format('%dx %s', item.count or 1, item.name or 'Unknown'))
+  end
+
+  rewardPopup:getChildById('rewardLabel'):setText(
+    string.format('Congratulations!\nYou received %s', table.concat(parts, ', ')))
+  rewardPopup:getChildById('rewardIcon'):setItemId(rewards[1].clientId or rewards[1].itemId or 0)
 
   scheduleEvent(closeRewardPopup, 6000)
 end

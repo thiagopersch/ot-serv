@@ -98,6 +98,29 @@ function buyLevel()
   pg:sendExtendedOpcode(OPCODE, json.encode({ action = 'buyLevel' }))
 end
 
+--- `id` deve ser o clientId (id do .dat/.otb do cliente) — o servidor manda tanto o itemId
+-- (server id, usado em doPlayerAddItem) quanto o clientId (usado aqui e em UIItem:setItemId).
+-- `ItemType:getName()` não existe nesse build do OTC (só getServerId/getClientId/isWritable
+-- estão vinculados em luafunctions_client.cpp) — chamar direto sempre lança "attempt to call
+-- method 'getName' (a nil value)". Mesmo padrão já usado (e funcional) em
+-- modules/game_tasks/tasks.lua:getItemName: resolve o clientId e cria um Item de verdade
+-- (Item:getName() esse sim está vinculado).
+local function getItemName(id)
+  if type(id) ~= 'number' or id == 0 then return 'Unknown' end
+  local itemType = g_things.getItemType(id)
+  if itemType then
+    local clientId = itemType:getClientId()
+    if clientId and clientId > 0 then
+      local item = Item.create(clientId)
+      if item then
+        local name = item:getName()
+        if name and name ~= '' then return name end
+      end
+    end
+  end
+  return 'Unknown'
+end
+
 function confirmBuyLevel()
   if not cachedData then return end
   local season = cachedData.season
@@ -106,8 +129,8 @@ function confirmBuyLevel()
   end
 
   displayGeneralBox(tr('Buy level'),
-    tr('Do you want to buy the next Battle Pass level for %d of item #%d?', season.levelPurchaseCost,
-      season.levelPurchaseItemId), {
+    string.format('Do you want to buy the next Battle Pass level for %d of %s?', season.levelPurchaseCost,
+      getItemName(season.levelPurchaseClientId or season.levelPurchaseItemId)), {
       { text = tr('Yes'), callback = buyLevel },
       { text = tr('No'),  callback = function() end },
       anchor = AnchorHorizontalCenter
@@ -132,14 +155,12 @@ function updateWindow()
   local progress = cachedData.progress
 
   window:getChildById('passNameLabel'):setText(progress.hasGoldPass and tr('Gold Pass') or tr('Bronze Pass'))
-  window:getChildById('passBadge'):setImageSource(progress.hasGoldPass and '/images/battle_pass/badge_gold' or
-    '/images/battle_pass/badge_bronze')
 
   local lastDay = lastDayOfMonth(season.month, season.year)
   window:getChildById('passExpiresLabel'):setText(string.format('%s %02d/%02d/%04d', tr('Acaba em:'), lastDay,
     season.month, season.year))
 
-  window:getChildById('levelNumberLabel'):setText(tostring(progress.level))
+  window:recursiveGetChildById('levelNumberLabel'):setText(tostring(progress.level))
 
   local xpBar = window:getChildById('xpBar')
   if progress.level >= season.maxLevel then
@@ -184,6 +205,30 @@ function updateWindow()
   end
 end
 
+local BATTLE_PASS_RARITY_ORDER = { comum = 0, incomum = 1, raro = 2, super_raro = 3, lendario = 4, mitico = 5 }
+
+--- Ordena os itens de um mesmo level+trilha: respeita o `order` configurado no CRUD do site
+-- quando presente; caso contrário cai para level (já agrupado) -> raridade -> nome do item.
+local function sortLevelRewards(rewards)
+  local hasExplicitOrder = false
+  for _, reward in ipairs(rewards) do
+    if (reward.order or 0) ~= 0 then
+      hasExplicitOrder = true
+      break
+    end
+  end
+
+  table.sort(rewards, function(a, b)
+    if hasExplicitOrder then
+      return (a.order or 0) < (b.order or 0)
+    end
+    local ra, rb = BATTLE_PASS_RARITY_ORDER[a.rarity] or 0, BATTLE_PASS_RARITY_ORDER[b.rarity] or 0
+    if ra ~= rb then return ra < rb end
+    return getItemName(a.clientId or a.itemId) < getItemName(b.clientId or b.itemId)
+  end)
+  return rewards
+end
+
 function renderRewardTrack(scroll, track, season, progress)
   if not scroll then return end
   scroll:destroyChildren()
@@ -194,26 +239,35 @@ function renderRewardTrack(scroll, track, season, progress)
   for _, l in ipairs(claimedList) do claimedSet[l] = true end
 
   for level = 1, season.maxLevel do
-    local reward = rewards[track .. '_' .. level]
-    if reward then
-      local slot = g_ui.createWidget('BattlePassRewardSlot', scroll)
-      slot:setItemId(reward.itemId)
-      slot:setItemCount(reward.count)
+    local levelRewards = rewards[track .. '_' .. level]
+    if levelRewards and #levelRewards > 0 then
+      sortLevelRewards(levelRewards)
+
+      local column = g_ui.createWidget('BattlePassRewardColumn', scroll)
 
       local reachable = progress.level >= level
       local claimed = claimedSet[level] == true
 
-      if claimed then
-        slot:setOn(true)
-        slot:setTooltip(string.format('%s %d - %s', tr('Level'), level, tr('claimed')))
-        slot.onClick = nil
-      elseif reachable then
-        slot:setTooltip(string.format('%s %d - %s', tr('Level'), level, tr('click to claim')))
-        slot.onClick = function() claim(level, track) end
-      else
-        slot:setOpacity(0.4)
-        slot:setTooltip(string.format('%s %d', tr('Level'), level))
-        slot.onClick = nil
+      for _, reward in ipairs(levelRewards) do
+        local slot = g_ui.createWidget('BattlePassRewardSlot', column)
+        slot:setItemId(reward.clientId or reward.itemId)
+        slot:setItemCount(reward.count)
+
+        local itemLabel = string.format('%dx %s', reward.count, getItemName(reward.clientId or reward.itemId))
+        local statusLabel
+        if claimed then
+          slot:setOn(true)
+          statusLabel = string.format('%s %d - %s', tr('Level'), level, tr('claimed'))
+          slot.onClick = nil
+        elseif reachable then
+          statusLabel = string.format('%s %d - %s', tr('Level'), level, tr('click to claim'))
+          slot.onClick = function() claim(level, track) end
+        else
+          slot:setOpacity(0.4)
+          statusLabel = string.format('%s %d', tr('Level'), level)
+          slot.onClick = nil
+        end
+        slot:setTooltip(itemLabel .. '\n' .. statusLabel)
       end
     end
   end
@@ -223,7 +277,7 @@ function updateMissionsWindow()
   if not missionsWindow or not cachedData then return end
   local progress = cachedData.progress
 
-  local grid = missionsWindow:getChildById('missionsGrid')
+  local grid = missionsWindow:recursiveGetChildById('missionsGrid')
   grid:destroyChildren()
 
   for _, mission in ipairs(cachedData.missions or {}) do
@@ -234,9 +288,13 @@ function updateMissionsWindow()
     local card = g_ui.createWidget('BattlePassMissionCard', grid)
     card:getChildById('cardTitle'):setText(mission.description)
     local creature = card:getChildById('cardCreature')
-    creature:setOutfit({ type = mission.lookType or 21 })
-    creature:setTooltip(string.format('%d %s %d %s', current, tr('of'), required, mission.target.monster or ''))
-    card:getChildById('cardXp'):setText('+' .. tostring(mission.xpReward or 0))
+    -- `mission.lookType` vem sempre como number (0 quando o monstro não foi encontrado na tabela
+    -- `monsters`) — `or 21` nunca disparava porque 0 é truthy em Lua, deixando a criatura vazia.
+    local lookType = (mission.lookType and mission.lookType > 0) and mission.lookType or 21
+    creature:setOutfit({ type = lookType })
+    card:setTooltip(string.format('%s\n%d %s %d %s', mission.description, current, tr('of'), required,
+      mission.target.monster or ''))
+    card:getChildById('cardXp'):setText('+' .. tostring(mission.xpReward or 0) .. ' XP')
     card:getChildById('cardProgress'):setText(string.format('%d %s %d', current, tr('de'), required))
 
     local check = card:getChildById('cardCheck')

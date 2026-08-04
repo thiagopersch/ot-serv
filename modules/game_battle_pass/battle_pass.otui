@@ -19,6 +19,13 @@ BattlePassRewardSlot < UIItem
   $on:
     border-color: #55ff5588
 
+BattlePassRewardColumn < UIWidget
+  width: 42
+  focusable: false
+  layout:
+    type: verticalBox
+    spacing: 4
+
 MainWindow
   id: battlePassWindow
   !text: tr('Battle Pass')
@@ -50,14 +57,13 @@ MainWindow
     anchors.left: parent.left
     margin-top: 10
     size: 40 40
-    image-source: /images/battle_pass/badge_bronze
 
   Label
     id: passNameLabel
     anchors.top: passBadge.top
     anchors.left: passBadge.right
     margin-left: 8
-    font: terminus-10px
+    font: verdana-9px-bold
     color: #dfdfdf
     text: Bronze Pass
 
@@ -67,8 +73,9 @@ MainWindow
     anchors.left: passBadge.right
     margin-left: 8
     margin-top: 2
-    font: terminus-10px
+    font: verdana-9px-bold
     color: #9a9a9a
+    text-auto-resize: true
     text: Acaba em --/--/----
 
   UIWidget
@@ -77,7 +84,6 @@ MainWindow
     anchors.left: parent.left
     margin-top: 14
     size: 58 58
-    image-source: /images/battle_pass/level_circle
 
     Label
       id: levelNumberLabel
@@ -90,7 +96,7 @@ MainWindow
       id: levelExpBadge
       anchors.bottom: parent.top
       anchors.horizontalCenter: parent.horizontalCenter
-      font: terminus-10px
+      font: verdana-9px-bold
       color: #dfdfdf
       text: EXP
 
@@ -100,6 +106,7 @@ MainWindow
     anchors.bottom: levelCircle.bottom
     anchors.left: levelCircle.right
     anchors.right: lvUpButton.left
+    background-color: #333333
     margin-left: 10
     margin-right: 10
 
@@ -146,14 +153,13 @@ MainWindow
     anchors.bottom: missionsButton.bottom
     margin-top: 6
     width: 150
-    image-source: /images/battle_pass/logo
 
   Label
     id: rewardsTitle
     anchors.top: missionsButton.bottom
     anchors.left: parent.left
     margin-top: 14
-    font: terminus-10px
+    font: terminus-14px-bold
     color: #ffcc00
     text: Rewards
 
@@ -162,7 +168,7 @@ MainWindow
     anchors.top: rewardsTitle.bottom
     anchors.left: parent.left
     margin-top: 8
-    font: terminus-10px
+    font: verdana-9px-bold
     color: #dfdfdf
     text: Bronze Pass
 
@@ -180,7 +186,7 @@ MainWindow
     anchors.left: parent.left
     anchors.right: parent.right
     margin-top: 4
-    height: 60
+    height: 96
     horizontal-scrollbar: bronzeTrackScrollBar
     layout:
       type: horizontalBox
@@ -192,12 +198,16 @@ MainWindow
     anchors.left: bronzeTrackScroll.left
     anchors.right: bronzeTrackScroll.right
 
+    Label
+      id: valueLabel
+      visible: false
+
   Label
     id: goldTrackLabel
     anchors.top: bronzeTrackScrollBar.bottom
     anchors.left: parent.left
     margin-top: 10
-    font: terminus-10px
+    font: verdana-9px-bold
     color: #dfdfdf
     text: Gold Pass
 
@@ -215,7 +225,7 @@ MainWindow
     anchors.left: parent.left
     anchors.right: parent.right
     margin-top: 4
-    height: 60
+    height: 96
     horizontal-scrollbar: goldTrackScrollBar
     layout:
       type: horizontalBox
@@ -227,18 +237,13 @@ MainWindow
     anchors.left: goldTrackScroll.left
     anchors.right: goldTrackScroll.right
 
-  Label
-    id: missionsLabel
-    anchors.top: goldTrackScrollBar.bottom
-    anchors.left: parent.left
-    margin-top: 12
-    font: terminus-10px
-    color: #88aaff
-    text: Missions
+    Label
+      id: valueLabel
+      visible: false
 
   UIScrollArea
     id: missionsList
-    anchors.top: missionsLabel.bottom
+    anchors.top: goldTrackScrollBar.bottom
     anchors.left: parent.left
     anchors.right: parent.right
     anchors.bottom: closeWindowButton.top

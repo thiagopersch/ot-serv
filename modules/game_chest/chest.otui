@@ -22,10 +22,18 @@ ChestNameLabel < Label
   font: verdana-11px-monochrome
   color: #dfdfdf
 
+ChestRewardPreviewSlot < UIItem
+  size: 30 30
+  background-color: #101214
+  border-width: 1
+  border-color: #45494f
+  virtual: true
+  focusable: true
+
 MainWindow
   id: chestWindow
   !text: tr('Chests')
-  size: 420 260
+  size: 420 320
   @onEscape: modules.game_chest.toggle()
 
   Panel
@@ -70,6 +78,27 @@ MainWindow
       anchors.right: parent.right
       margin-top: 34
       color: #ffd700
+
+  Label
+    id: rewardsPreviewLabel
+    anchors.top: slotCenter.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 8
+    font: verdana-11px-monochrome
+    color: #9a9a9a
+    text: Possible rewards
+
+  UIScrollArea
+    id: rewardsPreview
+    anchors.top: rewardsPreviewLabel.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 4
+    width: 300
+    height: 34
+    focusable: false
+    layout:
+      type: horizontalBox
+      spacing: 4
 
   Panel
     id: slotRight

@@ -4,6 +4,7 @@ BattlePassMissionCard < UIWidget
   border-width: 1
   border-color: #3a3f47
   focusable: false
+  clipping: true
 
   Label
     id: cardTitle
@@ -24,6 +25,8 @@ BattlePassMissionCard < UIWidget
     anchors.horizontalCenter: parent.horizontalCenter
     margin-top: 4
     size: 48 48
+    outfit-center: true
+    fixed-creature-size: true
 
   Label
     id: cardXp
@@ -92,7 +95,6 @@ MainWindow
     UIWidget
       id: bannerImage
       anchors.fill: parent
-      image-source: /images/battle_pass/banner
 
   Panel
     id: objectivesPanel
@@ -108,7 +110,7 @@ MainWindow
       id: objectivesTitle
       anchors.top: parent.top
       anchors.horizontalCenter: parent.horizontalCenter
-      font: terminus-10px
+      font: verdana-9px-bold
       color: #dfdfdf
       text: Objetivos
 

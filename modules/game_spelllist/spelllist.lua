@@ -3,11 +3,9 @@ local SpelllistProfile = 'Default'
 spelllistWindow        = nil
 spelllistButton        = nil
 spellList              = nil
-nameValueLabel         = nil
 formulaValueLabel      = nil
 vocationValueLabel     = nil
 groupValueLabel        = nil
-typeValueLabel         = nil
 cooldownValueLabel     = nil
 levelValueLabel        = nil
 manaValueLabel         = nil
@@ -107,6 +105,12 @@ function loadSpellsFromJSON(data)
   end
 
   if next(newSpellInfo) then
+    table.sort(newSpellOrder, function(a, b)
+      local levelA = newSpellInfo[a] and newSpellInfo[a].level or 0
+      local levelB = newSpellInfo[b] and newSpellInfo[b].level or 0
+      return levelA < levelB
+    end)
+
     SpellInfo['Default'] = newSpellInfo
     SpelllistSettings['Default'].spellOrder = newSpellOrder
   end
@@ -261,11 +265,9 @@ function init()
     '/images/topbuttons/spelllist', requestSpelllist, false, 4)
   spelllistButton:setOn(false)
 
-  nameValueLabel        = spelllistWindow:getChildById('labelNameValue')
   formulaValueLabel     = spelllistWindow:getChildById('labelFormulaValue')
   vocationValueLabel    = spelllistWindow:getChildById('labelVocationValue')
   groupValueLabel       = spelllistWindow:getChildById('labelGroupValue')
-  typeValueLabel        = spelllistWindow:getChildById('labelTypeValue')
   cooldownValueLabel    = spelllistWindow:getChildById('labelCooldownValue')
   levelValueLabel       = spelllistWindow:getChildById('labelLevelValue')
   manaValueLabel        = spelllistWindow:getChildById('labelManaValue')
@@ -348,7 +350,7 @@ function initializeSpelllist()
       perror('Spell icon \'' .. info.icon .. '\' not found.')
     end
 
-    tmpLabel:setHeight(SpelllistSettings[SpelllistProfile].iconSize.height + 4)
+    tmpLabel:setHeight(SpelllistSettings[SpelllistProfile].iconSize.height + 8)
     tmpLabel:setTextOffset(topoint((SpelllistSettings[SpelllistProfile].iconSize.width + 10) ..
       ' ' .. (SpelllistSettings[SpelllistProfile].iconSize.height - 32) / 2 + 3))
     tmpLabel:setImageSource(SpelllistSettings[SpelllistProfile].iconFile)
@@ -405,11 +407,9 @@ end
 function updateSpellInformation(widget)
   local spell       = widget:getId()
 
-  local name        = ''
   local formula     = ''
   local vocation    = ''
   local group       = ''
-  local type        = ''
   local cooldown    = ''
   local level       = ''
   local mana        = ''
@@ -419,7 +419,6 @@ function updateSpellInformation(widget)
   if SpellInfo[SpelllistProfile][spell] then
     local info = SpellInfo[SpelllistProfile][spell]
 
-    name       = spell
     formula    = info.words
 
     for i = 1, #info.vocations do
@@ -431,27 +430,27 @@ function updateSpellInformation(widget)
       end
     end
 
+    if vocation:len() == 0 then
+      vocation = tr('Available for all vocations')
+    end
+
     cooldown = (info.exhaustion / 1000) .. 's'
     local groupNames = { 'Attacks', 'Defenses', 'Healings', 'Buffs', 'Suporte', 'Especial', 'Combos' }
     for groupId, groupName in ipairs(groupNames) do
       if info.group[groupId] then
-        group    = group .. (group:len() == 0 and '' or ' / ') .. groupName
-        cooldown = cooldown .. ' / ' .. (info.group[groupId] / 1000) .. 's'
+        group = group .. (group:len() == 0 and '' or ' / ') .. groupName
       end
     end
 
-    type        = info.type
     level       = info.level
     mana        = info.mana .. ' / ' .. info.soul
     premium     = (info.premium and 'yes' or 'no')
     description = info.description or '-'
   end
 
-  nameValueLabel:setText(name)
   formulaValueLabel:setText(formula)
   vocationValueLabel:setText(vocation)
   groupValueLabel:setText(group)
-  typeValueLabel:setText(type)
   cooldownValueLabel:setText(cooldown)
   levelValueLabel:setText(level)
   manaValueLabel:setText(mana)

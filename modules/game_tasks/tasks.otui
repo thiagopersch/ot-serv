@@ -113,7 +113,6 @@ MainWindow
   image-border-top: 25
   padding: 5
 
-  @onEnter: modules.game_tasks.toggleWindow()
   @onEscape: modules.game_tasks.close()
 
   Label
@@ -259,6 +258,7 @@ MainWindow
       anchors.right: typeFilter.left
       margin-right: 4
       font: verdana-11px-rounded
+      color: #dfdfdf
       !placeholder: tr('Search here...')
       placeholder-color: #666666
       placeholder-font: verdana-11px-rounded

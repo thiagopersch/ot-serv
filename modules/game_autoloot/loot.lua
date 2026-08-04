@@ -34,14 +34,24 @@ function onGameStart()
   local pg = g_game.getProtocolGame()
   if pg then
     pg:sendExtendedOpcode(157, 'catalog')
-    pg:sendExtendedOpcode(157, '')
+    pg:sendExtendedOpcode(157, 'state')
   end
 end
 
 function offline()
   catalog = {}
   selectedIds = {}
-  if window then window:hide() end
+  if window then
+    window:hide()
+    local leftGrid = window:recursiveGetChildById('leftGrid')
+    local rightGrid = window:recursiveGetChildById('rightGrid')
+    if leftGrid then leftGrid:destroyChildren() end
+    if rightGrid then rightGrid:destroyChildren() end
+    local slotsLabel = window:recursiveGetChildById('slotsLabel')
+    if slotsLabel then slotsLabel:setText('0/' .. maxSlots) end
+    local moneyCheckbox = window:recursiveGetChildById('moneyCheckbox')
+    if moneyCheckbox then moneyCheckbox:setChecked(false) end
+  end
 end
 
 function toggle()

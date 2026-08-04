@@ -381,8 +381,13 @@ function BestiaryUI.renderDetail(monster)
 
     -- Force anchor layout to recalc positions after dynamic children added
     BestiaryUI.forceDetailContentLayout(detailPanel)
-    -- Then compute the correct height for the scrollable area
-    BestiaryUI.updateDetailContentHeight(detailPanel)
+    -- Compute the correct height for the scrollable area on the NEXT tick — resistPanel/lootPanel
+    -- use grid/verticalBox `fit-children` layouts that the engine hasn't necessarily resolved yet
+    -- in this same frame, so measuring synchronously here could read stale/zero heights and
+    -- undersize detailContent, letting real content render past the clip (visible overflow).
+    addEvent(function()
+        BestiaryUI.updateDetailContentHeight(detailPanel)
+    end)
 
     -- Scroll detail view to top (delayed for layout to settle)
     addEvent(function()
@@ -409,7 +414,7 @@ function BestiaryUI.updateDetailContentHeight(detailPanel)
     if not detailContent then return end
 
     -- Recursively find the deepest visible child's bottom edge
-    local maxBottom = 200
+    local maxBottom = 0
     local function measureRecursive(widget, offsetY)
         offsetY = offsetY or 0
         local children = widget:getChildren()

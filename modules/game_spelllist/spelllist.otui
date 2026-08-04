@@ -3,10 +3,10 @@ SpellListLabel < Label
   background-color: alpha
   text-offset: 42 3
   focusable: true
-  height: 36
+  height: 40
   image-clip: 0 0 32 32
   image-size: 32 32
-  image-offset: 2 2
+  image-offset: 4 4
   image-source: /images/game/spells/defaultspells
 
   $focus:
@@ -15,20 +15,22 @@ SpellListLabel < Label
 
   Button
     id: copyButton
-    size: 45 20
+    size: 20 20
     anchors.right: parent.right
     anchors.verticalCenter: parent.verticalCenter
-    margin-right: 8
-    !text: tr('Copy')
+    margin-right: 20
+    icon-source: /images/topbuttons/copy
+    icon-size: 10 10
+    icon-align: center
     !tooltip: tr('Click here to copy the spell!')
     @onClick: modules.game_spelllist.copySpellWords(self:getParent():getId())
 
   Label
     id: levelLabel
-    width: 50
+    width: 44
     anchors.right: copyButton.left
-    anchors.verticalCenter: copyButton.verticalCenter
-    margin-right: 8
+    anchors.verticalCenter: parent.verticalCenter
+    margin-right: 10
     text-align: right
     font: verdana-11px-monochrome
     color: #ffd700
@@ -91,23 +93,10 @@ MainWindow
     pixels-scroll: true
 
   SpellInfoLabel
-    id: labelName
+    id: labelFormula
     anchors.left: spellList.right
     anchors.top: spellList.top
     !text: tr('Name') .. ':'
-
-
-
-  SpellInfoValueLabel
-    id: labelNameValue
-    anchors.left: labelName.right
-    anchors.top: labelName.top
-
-  SpellInfoLabel
-    id: labelFormula
-    anchors.left: spellList.right
-    anchors.top: labelNameValue.bottom
-    !text: tr('Formula') .. ':'
 
   SpellInfoValueLabel
     id: labelFormulaValue
@@ -137,20 +126,9 @@ MainWindow
     anchors.top: labelGroup.top
 
   SpellInfoLabel
-    id: labelType
-    anchors.left: spellList.right
-    anchors.top: labelGroupValue.bottom
-    !text: tr('Type') .. ':'
-
-  SpellInfoValueLabel
-    id: labelTypeValue
-    anchors.left: labelType.right
-    anchors.top: labelType.top
-
-  SpellInfoLabel
     id: labelCooldown
     anchors.left: spellList.right
-    anchors.top: labelTypeValue.bottom
+    anchors.top: labelGroupValue.bottom
     !text: tr('Cooldown') .. ':'
 
   SpellInfoValueLabel

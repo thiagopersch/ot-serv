@@ -210,6 +210,7 @@ MainWindow
         anchors.left: parent.left
         anchors.right: parent.right
         vertical-scrollbar: detailScrollBar
+        clipping: true
         // detailContent usa anchor layout (sem layout: definido)
         // Cada filho ancora no anterior — altura definida por Lua
         Panel
@@ -223,9 +224,9 @@ MainWindow
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
             margin-top: 8
-            size: 80 80
+            size: 96 96
             outfit-center: true
-            center: true
+            fixed-creature-size: true
             animate: false
 
           Label
@@ -435,6 +436,7 @@ BestiaryCard < Panel
   background-color: #252525
   border-width: 1
   border-color: #404040
+  clipping: true
   $checked:
     background-color: #3a3a3a
     border-color: #7777ff
@@ -451,7 +453,7 @@ BestiaryCard < Panel
     margin-top: 8
     size: 64 64
     outfit-center: true
-    center: true
+    fixed-creature-size: true
 
   Label
     id: nameLabel

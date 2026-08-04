@@ -100,6 +100,7 @@ MainWindow
         type: grid
         cell-size: 36 36
         cell-spacing: 2
+        num-columns: 10
 
     VerticalScrollBar
       id: leftScrollBar
@@ -149,6 +150,7 @@ MainWindow
         type: grid
         cell-size: 36 36
         cell-spacing: 2
+        num-columns: 10
 
     VerticalScrollBar
       id: rightScrollBar
