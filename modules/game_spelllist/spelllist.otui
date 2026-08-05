@@ -16,12 +16,16 @@ SpellListLabel < Label
   Button
     id: copyButton
     size: 20 20
+    padding: 0
     anchors.right: parent.right
     anchors.verticalCenter: parent.verticalCenter
     margin-right: 20
     icon-source: /images/topbuttons/copy
-    icon-size: 10 10
-    icon-align: center
+    // icon-size (and icon-width/icon-height) marks m_iconRect as "valid" in UIWidget::drawIcon,
+    // which makes it skip icon-align entirely and draw from the widget's top-left corner instead
+    // — so centering a sized icon has to be done via icon-rect's explicit offset (button is 20x20,
+    // icon is 10x10 -> (20-10)/2 = 5 on each axis).
+    icon-rect: 5 5 10 10
     !tooltip: tr('Click here to copy the spell!')
     @onClick: modules.game_spelllist.copySpellWords(self:getParent():getId())
 

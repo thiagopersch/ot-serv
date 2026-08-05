@@ -47,7 +47,7 @@ MainWindow
     anchors.verticalCenter: moneyCheckbox.verticalCenter
     anchors.left: moneyCheckbox.right
     margin-left: 6
-    font: terminus-10px
+    font: verdana-9px
     color: #dfdfdf
     !text: tr('Collect money')
 
@@ -55,7 +55,7 @@ MainWindow
     id: slotsLabel
     anchors.top: moneyCheckbox.top
     anchors.right: parent.right
-    font: terminus-10px
+    font: verdana-9px
     color: #9a9a9a
     text: 0/30
 
@@ -75,7 +75,7 @@ MainWindow
       id: leftTitle
       anchors.top: parent.top
       anchors.left: parent.left
-      font: terminus-10px
+      font: verdana-9px
       color: #ffcc00
       text: Available items
 
@@ -100,7 +100,7 @@ MainWindow
         type: grid
         cell-size: 36 36
         cell-spacing: 2
-        num-columns: 10
+        num-columns: 7
 
     VerticalScrollBar
       id: leftScrollBar
@@ -126,7 +126,7 @@ MainWindow
       anchors.top: parent.top
       anchors.left: parent.left
       anchors.right: clearAllButton.left
-      font: terminus-10px
+      font: verdana-9px
       color: #ffcc00
       text: Autoloot items (click to remove)
 
@@ -150,7 +150,7 @@ MainWindow
         type: grid
         cell-size: 36 36
         cell-spacing: 2
-        num-columns: 10
+        num-columns: 7
 
     VerticalScrollBar
       id: rightScrollBar

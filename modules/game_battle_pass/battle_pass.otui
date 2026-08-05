@@ -63,7 +63,7 @@ MainWindow
     anchors.top: passBadge.top
     anchors.left: passBadge.right
     margin-left: 8
-    font: verdana-9px-bold
+    font: verdana-11px-rounded
     color: #dfdfdf
     text: Bronze Pass
 
@@ -73,7 +73,7 @@ MainWindow
     anchors.left: passBadge.right
     margin-left: 8
     margin-top: 2
-    font: verdana-9px-bold
+    font: verdana-9px
     color: #9a9a9a
     text-auto-resize: true
     text: Acaba em --/--/----
@@ -96,7 +96,7 @@ MainWindow
       id: levelExpBadge
       anchors.bottom: parent.top
       anchors.horizontalCenter: parent.horizontalCenter
-      font: verdana-9px-bold
+      font: verdana-9px
       color: #dfdfdf
       text: EXP
 
@@ -105,18 +105,10 @@ MainWindow
     anchors.top: levelCircle.top
     anchors.bottom: levelCircle.bottom
     anchors.left: levelCircle.right
-    anchors.right: lvUpButton.left
+    anchors.right: parent.right
     background-color: #333333
     margin-left: 10
     margin-right: 10
-
-  Button
-    id: lvUpButton
-    !text: tr('Lv. +')
-    anchors.verticalCenter: levelCircle.verticalCenter
-    anchors.right: parent.right
-    width: 70
-    @onClick: modules.game_battle_pass.confirmBuyLevel()
 
   Button
     id: missionsButton
@@ -139,7 +131,7 @@ MainWindow
 
   Button
     id: refreshPassButton
-    !text: tr('Atualizar Passe')
+    !text: tr('Upgrade pass')
     anchors.top: missionsButton.top
     anchors.left: goldPassButton.right
     margin-left: 8
@@ -168,7 +160,7 @@ MainWindow
     anchors.top: rewardsTitle.bottom
     anchors.left: parent.left
     margin-top: 8
-    font: verdana-9px-bold
+    font: verdana-9px
     color: #dfdfdf
     text: Bronze Pass
 
@@ -198,7 +190,7 @@ MainWindow
     anchors.left: bronzeTrackScroll.left
     anchors.right: bronzeTrackScroll.right
 
-    Label
+    ScrollBarValueLabel
       id: valueLabel
       visible: false
 
@@ -207,7 +199,7 @@ MainWindow
     anchors.top: bronzeTrackScrollBar.bottom
     anchors.left: parent.left
     margin-top: 10
-    font: verdana-9px-bold
+    font: verdana-9px
     color: #dfdfdf
     text: Gold Pass
 
@@ -237,22 +229,9 @@ MainWindow
     anchors.left: goldTrackScroll.left
     anchors.right: goldTrackScroll.right
 
-    Label
+    ScrollBarValueLabel
       id: valueLabel
       visible: false
-
-  UIScrollArea
-    id: missionsList
-    anchors.top: goldTrackScrollBar.bottom
-    anchors.left: parent.left
-    anchors.right: parent.right
-    anchors.bottom: closeWindowButton.top
-    margin-top: 4
-    margin-bottom: 6
-    focusable: false
-    layout:
-      type: verticalBox
-      spacing: 2
 
   Button
     id: closeWindowButton

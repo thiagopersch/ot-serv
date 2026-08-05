@@ -14,9 +14,10 @@ BattlePassMissionCard < UIWidget
     margin-top: 4
     margin-left: 4
     margin-right: 4
-    height: 26
+    height: 34
     text-align: center
-    font: terminus-10px
+    text-wrap: true
+    font: verdana-9px
     color: #dfdfdf
 
   UICreature
@@ -34,7 +35,7 @@ BattlePassMissionCard < UIWidget
     anchors.left: parent.left
     margin-top: 6
     margin-left: 6
-    font: terminus-10px
+    font: verdana-9px
     color: #ffcc00
 
   Label
@@ -53,7 +54,7 @@ BattlePassMissionCard < UIWidget
     anchors.right: parent.right
     margin-bottom: 4
     text-align: center
-    font: terminus-10px
+    font: verdana-9px
     color: #9a9a9a
 
 MainWindow
@@ -82,35 +83,19 @@ MainWindow
     @onClick: modules.game_battle_pass.closeMissions()
 
   Panel
-    id: bannerPanel
-    anchors.top: missionsHeader.bottom
-    anchors.left: parent.left
-    anchors.bottom: backButton.top
-    margin-top: 10
-    margin-bottom: 10
-    width: 220
-    image-source: /images/ui/panel_flat
-    image-border: 1
-
-    UIWidget
-      id: bannerImage
-      anchors.fill: parent
-
-  Panel
     id: objectivesPanel
     anchors.top: missionsHeader.bottom
-    anchors.left: bannerPanel.right
+    anchors.left: parent.left
     anchors.right: parent.right
     anchors.bottom: backButton.top
     margin-top: 10
     margin-bottom: 10
-    margin-left: 10
 
     Label
       id: objectivesTitle
       anchors.top: parent.top
       anchors.horizontalCenter: parent.horizontalCenter
-      font: verdana-9px-bold
+      font: verdana-9px
       color: #dfdfdf
       text: Objetivos
 
@@ -126,6 +111,7 @@ MainWindow
         type: grid
         cell-size: 122 152
         cell-spacing: 4
+        num-columns: 5
 
     VerticalScrollBar
       id: missionsScrollBar
@@ -135,9 +121,10 @@ MainWindow
 
   Button
     id: backButton
-    !text: tr('BACK')
+    !text: tr('Close')
     anchors.bottom: parent.bottom
     anchors.right: parent.right
     margin-bottom: 6
     width: 80
+    image-color: #cc3333
     @onClick: modules.game_battle_pass.closeMissions()

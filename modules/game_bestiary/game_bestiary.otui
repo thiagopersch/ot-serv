@@ -225,6 +225,7 @@ MainWindow
             anchors.top: parent.top
             margin-top: 8
             size: 96 96
+            clipping: true
             outfit-center: true
             fixed-creature-size: true
             animate: false
@@ -452,6 +453,7 @@ BestiaryCard < Panel
     anchors.top: parent.top
     margin-top: 8
     size: 64 64
+    clipping: true
     outfit-center: true
     fixed-creature-size: true
 
