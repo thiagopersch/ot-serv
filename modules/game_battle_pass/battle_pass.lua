@@ -191,12 +191,46 @@ local function notifyMissionProgress(data)
   previousMissionProgress = progress.missionProgress
 end
 
+-- Popup modal (precisa ser fechado, sempre chama atenção) disparado pelo servidor quando uma
+-- mission é concluída (`action = "missionComplete"`, separado do `action = "update"` de
+-- notifyMissionProgress/cachedData) — texto sempre em inglês americano, não usa tr().
+local function showMissionCompleteBox(data)
+  local message = string.format('You completed the mission:\n%s\n\n+%d XP earned.',
+    data.description or '', data.xpReward or 0)
+
+  if data.hasClaimable then
+    message = message .. '\n\nYou have a reward available to claim in the Battle Pass!'
+    local box
+    local function openBattlePass()
+      box:ok()
+      if not window then toggle() end
+    end
+    local function close()
+      box:cancel()
+    end
+    box = displayGeneralBox('Mission Complete', message, {
+      { text = 'Open Battle Pass', callback = openBattlePass },
+      { text = 'Close',            callback = close },
+      anchor = AnchorHorizontalCenter
+    }, openBattlePass, close)
+  else
+    displayInfoBox('Mission Complete', message)
+  end
+end
+
 function onOpcode(protocol, opcode, buffer)
   if opcode ~= OPCODE then return end
   if not buffer or buffer == '' then return end
 
   local ok, data = pcall(json.decode, buffer)
-  if not ok or type(data) ~= 'table' or data.action ~= 'update' then return end
+  if not ok or type(data) ~= 'table' then return end
+
+  if data.action == 'missionComplete' then
+    showMissionCompleteBox(data)
+    return
+  end
+
+  if data.action ~= 'update' then return end
 
   notifyMissionProgress(data)
 
@@ -218,19 +252,14 @@ function updateWindow()
 
   window:recursiveGetChildById('levelNumberLabel'):setText(tostring(progress.level))
 
-  -- Mostra progresso de missões (concluídas / total), não mais XP de level — o "Lv. +" que
-  -- controlava level foi removido do módulo (redundante com o botão "Upgrade pass").
+  -- Barra única mostrando o progresso de XP rumo ao próximo level do battle pass (XP vem das
+  -- missões completadas, via BattlePassLib.addXp no servidor) — no máximo (level de topo) a
+  -- barra fica cheia e sem XP restante a acumular.
   local xpBar = window:getChildById('xpBar')
-  local missions = cachedData.missions or {}
-  local completedCount = 0
-  for _, mission in ipairs(missions) do
-    local current = progress.missionProgress[tostring(mission.id)] or 0
-    local required = mission.target.amount or 1
-    if current >= required then completedCount = completedCount+1 end
-  end
-  local missionPercent = #missions > 0 and math.floor((completedCount / #missions) * 100) or 0
-  xpBar:setPercent(missionPercent)
-  xpBar:setText(completedCount .. ' / ' .. #missions .. ' missions completed')
+  local atMaxLevel = progress.level >= season.maxLevel
+  local xpPercent = atMaxLevel and 100 or (season.xpPerLevel > 0 and math.floor((progress.xp / season.xpPerLevel) * 100) or 0)
+  xpBar:setPercent(xpPercent)
+  xpBar:setText(atMaxLevel and tr('Max level') or (progress.xp .. ' / ' .. season.xpPerLevel .. ' XP'))
 
   local goldPassButton = window:getChildById('goldPassButton')
   if progress.hasGoldPass then

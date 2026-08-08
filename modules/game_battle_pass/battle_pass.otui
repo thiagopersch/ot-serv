@@ -102,8 +102,8 @@ MainWindow
 
   ProgressBar
     id: xpBar
-    anchors.top: levelCircle.top
-    anchors.bottom: levelCircle.bottom
+    height: 16
+    anchors.verticalCenter: levelCircle.verticalCenter
     anchors.left: levelCircle.right
     anchors.right: parent.right
     background-color: #333333
