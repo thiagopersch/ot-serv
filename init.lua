@@ -1,5 +1,5 @@
 -- CONFIG
-APP_NAME = "DBO Supreme"  -- important, change it, it's name for config dir and files in appdata
+APP_NAME = "WodBleach"  -- important, change it, it's name for config dir and files in appdata
 APP_VERSION = 860         -- client version for updater and login to identify outdated client
 DEFAULT_LAYOUT = "Mobile" -- on android it's forced to "mobile", check code bellow
 
