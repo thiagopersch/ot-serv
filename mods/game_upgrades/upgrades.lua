@@ -34,7 +34,7 @@ function terminate()
     }
   )
 
-  ProtocolGame.unregisterExtendedOpcode(UPGRADES_CODE, onUpgradesExtendedOpcode)
+  ProtocolGame.unregisterExtendedOpcode(UPGRADES_CODE)
 
   destroyUpgradesWindow()
 end
@@ -120,7 +120,7 @@ end
 
 function onUpgradesFetchOffers(data)
   upgradeOffers[data.category] = data.offers
-  
+
   -- Process custom image files - handle both cases: either imageFile is set directly or upgradeType with clientId=0
   for i, offer in ipairs(data.offers) do
     if offer.imageFile then
@@ -129,7 +129,7 @@ function onUpgradesFetchOffers(data)
       offer.imageFile = offer.upgradeType
     end
   end
-  
+
   -- If this is for the currently selected category, refresh the display
   local currentCategory = nil
   if upgradesWindow and upgradesWindow:isVisible() then
@@ -155,7 +155,7 @@ function onUpgradesUpdatePoints(data)
   -- Find the points info bar elements
   local totalPointsValue = upgradesWindow:recursiveGetChildById("totalPointsValue")
   local spendablePointsValue = upgradesWindow:recursiveGetChildById("spendablePointsValue")
-  
+
   -- Create or update the item widget for points icon (kept for compatibility)
   local pointsIcon = upgradesWindow:recursiveGetChildById("pointsIcon")
   if not pointsIcon then
@@ -167,17 +167,17 @@ function onUpgradesUpdatePoints(data)
     pointsIcon:setMarginTop(20)
     pointsIcon:setSize({width = 32, height = 32})
   end
-  
+
   -- Check if we received a table with both types of points
   if type(data) == "table" and data.total ~= nil and data.spendable ~= nil then
     -- Format both point values
     local totalValue = comma_value(data.total)
     local spendableValue = comma_value(data.spendable)
-    
+
     -- Update the new points display bar
     totalPointsValue:setText(totalValue)
     spendablePointsValue:setText(spendableValue)
-    
+
     -- Keep the old display updated too for backward compatibility
     local pointsWidget = upgradesWindow:recursiveGetChildById("upgradePoints")
     if pointsWidget then
@@ -190,11 +190,11 @@ function onUpgradesUpdatePoints(data)
   else
     -- Fallback to the old method showing just one value
     local pointsValue = comma_value(data)
-    
+
     -- For backward compatibility, show the same value in both fields
     totalPointsValue:setText(pointsValue)
     spendablePointsValue:setText(pointsValue)
-    
+
     -- Keep the old display updated too
     local pointsWidget = upgradesWindow:recursiveGetChildById("upgradePoints")
     if pointsWidget then
@@ -216,7 +216,7 @@ function purchaseUpgrade()
   -- Store the current category
   local currentCategory = upgradesWindow:getChildById("categories"):getFocusedChild():getId()
   selectedUpgradeOffer.savedCategory = currentCategory
-  
+
   -- Send purchase request directly without confirmation dialog
   local protocolGame = g_game.getProtocolGame()
   if protocolGame then
@@ -235,7 +235,7 @@ function onUpgradesMsg(data)
     local protocolGame = g_game.getProtocolGame()
     if protocolGame then
       protocolGame:sendExtendedOpcode(UPGRADES_CODE, json.encode({
-        action = "fetch_category", 
+        action = "fetch_category",
         data = {category = currentCategory}
       }))
     end
@@ -245,7 +245,7 @@ function onUpgradesMsg(data)
   if (type == "info" and data.close) or type == "error" then
     upgradesWindow:getChildById("purchaseButton"):disable()
     upgradesWindow:getChildById("offers"):focusChild(nil)
-    
+
     -- Add slight delay before hiding to allow server to send updated offers
     scheduleEvent(function()
       hideUpgradesWindow()
@@ -264,10 +264,10 @@ function changeUpgradeCategory(widget, newCategory)
   if not upgradesOffersGrid then
     upgradesOffersGrid = upgradesWindow:recursiveGetChildById("offers")
   end
-  
+
   -- Clear existing offers
   upgradesOffersGrid:destroyChildren()
-  
+
   -- Check if we have offers for this category
   if upgradeOffers[id] then
     addUpgradeOffers(upgradeOffers[id])
@@ -276,7 +276,7 @@ function changeUpgradeCategory(widget, newCategory)
     local protocolGame = g_game.getProtocolGame()
     if protocolGame then
       protocolGame:sendExtendedOpcode(UPGRADES_CODE, json.encode({
-        action = "fetch_category", 
+        action = "fetch_category",
         data = {category = id}
       }))
     end
@@ -306,7 +306,7 @@ function upgradeOfferFocus(widget, offerWidget)
       child:getChildById("levelLabel"):setColor("#FFFFFF")
     end
   end
-  
+
   if offerWidget then
     local category = upgradesWindow:getChildById("categories"):getFocusedChild():getChildById("name"):getText()
     local title = offerWidget:getChildById("offerNameHidden"):getText()
@@ -314,13 +314,13 @@ function upgradeOfferFocus(widget, offerWidget)
     local price = priceLabel:split(" upgrade points")[1]:gsub("%,", "")
     local goldCostLabel = offerWidget:getChildById("goldCost"):getText()
     local goldCost = goldCostLabel:split(" gold")[1]:gsub("%,", "")
-    
+
     -- Highlight the currently selected offer
     offerWidget:getChildById("levelLabel"):setColor("#FFFF00")
-    
+
     selectedUpgradeOffer = {
-      category = category, 
-      title = title, 
+      category = category,
+      title = title,
       price = tonumber(price),
       goldCost = tonumber(goldCost),
       upgradeType = offerWidget:getChildById("upgradeType"):getText()
@@ -338,8 +338,8 @@ function purchaseUpgradeDouble(offerWidget)
     local goldCostLabel = offerWidget:getChildById("goldCost"):getText()
     local goldCost = goldCostLabel:split(" gold")[1]:gsub("%,", "")
     selectedUpgradeOffer = {
-      category = category, 
-      title = title, 
+      category = category,
+      title = title,
       price = tonumber(price),
       goldCost = tonumber(goldCost),
       clientId = tonumber(offerWidget:getId()),
@@ -365,29 +365,29 @@ function addUpgradeOffers(offerData)
   if not offerData or type(offerData) ~= "table" then
     return
   end
-  
+
   -- Clear any existing offers if needed
   if upgradesOffersGrid:getChildCount() > 0 then
     upgradesOffersGrid:destroyChildren()
   end
-  
+
   -- Add each offer to the grid
   for i = 1, #offerData do
     local offer = offerData[i]
     local panel = g_ui.createWidget("UpgradeOfferWidget")
     panel:setTooltip(offer.description)
-    
+
     local nameHidden = panel:recursiveGetChildById("offerNameHidden")
     local upgradeType = g_ui.createWidget("Label", panel)
     upgradeType:setId("upgradeType")
     upgradeType:setText(offer.upgradeType)
     upgradeType:hide()
-    
+
     -- Set the level label
     local levelLabel = panel:recursiveGetChildById("levelLabel")
     local currentLevel = offer.currentLevel or 0
     levelLabel:setText("Level " .. currentLevel)
-    
+
     -- Make the title just the base name without the level
     local baseName = offer.title:match("(.+) %(Level")
     if baseName and baseName:len() > 20 then
@@ -401,12 +401,12 @@ function addUpgradeOffers(offerData)
     local priceLabel = panel:recursiveGetChildById("offerPrice")
     local price = comma_value(offer.price)
     priceLabel:setText(string.format(priceLabel.baseText, price))
-    
+
     local goldCost = panel:recursiveGetChildById("goldCost")
     goldCost:setText(comma_value(offer.goldCost) .. " gold")
-    
+
     local offerTypePanel = panel:getChildById("offerTypePanel")
-    
+
     -- Check if this is a custom image upgrade
     if offer.imageFile then
       -- Create a UIWidget for the custom image
@@ -425,7 +425,7 @@ function addUpgradeOffers(offerData)
 
     upgradesOffersGrid:addChild(panel)
   end
-  
+
   -- Reset selection
   selectedUpgradeOffer = nil
   upgradesWindow:getChildById("purchaseButton"):disable()
@@ -492,28 +492,28 @@ function showUpgradesWindow()
   if not upgradesWindow or not upgradesButton then
     return
   end
-  
+
   -- First focus the category
   local categoriesPanel = upgradesWindow:getChildById("categories")
   if categoriesPanel and categoriesPanel:getChildCount() > 0 then
     categoriesPanel:getChildByIndex(1):focus()
-    
+
     -- Get the current focused category
     local focusedChild = categoriesPanel:getFocusedChild()
     if focusedChild then
       local categoryId = focusedChild:getId()
-      
+
       -- Request a fresh update of this category's offers when opening the window
       local protocolGame = g_game.getProtocolGame()
       if protocolGame then
         protocolGame:sendExtendedOpcode(UPGRADES_CODE, json.encode({
-          action = "fetch_category", 
+          action = "fetch_category",
           data = {category = categoryId}
         }))
       end
     end
   end
-  
+
   -- Show the window
   upgradesWindow:show()
   upgradesWindow:raise()
@@ -530,10 +530,10 @@ end
 function onUpgradesRefreshOffers(data)
   -- Log for debugging
   g_logger.debug("Refreshing offers for category: " .. data.category)
-  
+
   -- Update stored offers data with new data
   upgradeOffers[data.category] = data.offers
-  
+
   -- Process custom image files - handle both cases: either imageFile is set directly or upgradeType with clientId=0
   for i, offer in ipairs(data.offers) do
     if offer.imageFile then
@@ -542,27 +542,27 @@ function onUpgradesRefreshOffers(data)
       offer.imageFile = offer.upgradeType
     end
   end
-  
+
   -- If category is currently displayed, refresh the view
   local currentCategory = nil
   if upgradesWindow and upgradesWindow:isVisible() then
     local categoriesPanel = upgradesWindow:getChildById("categories")
     if categoriesPanel and categoriesPanel:getFocusedChild() then
       currentCategory = categoriesPanel:getFocusedChild():getId()
-      
+
       -- Make sure the grid exists
       if not upgradesOffersGrid then
         upgradesOffersGrid = upgradesWindow:recursiveGetChildById("offers")
       end
-      
+
       if data.category == currentCategory and upgradesOffersGrid then
         -- Log the refresh to help debug
         g_logger.info("Refreshing upgrades display for category: " .. currentCategory)
-        
+
         -- Clear and rebuild the offers grid
         upgradesOffersGrid:destroyChildren()
         addUpgradeOffers(upgradeOffers[currentCategory])
-        
+
         -- Clear selection after refresh
         selectedUpgradeOffer = nil
         upgradesWindow:getChildById("purchaseButton"):disable()
@@ -575,10 +575,10 @@ function comma_value(n)
   if n == nil then
     return "0"
   end
-  
+
   -- Convert to string if it's a number
   local str_n = tostring(n)
-  
+
   -- Apply the comma formatting
   local left, num, right = string.match(str_n, "^([^%d]*%d)(%d*)(.-)$")
   if left and num then
@@ -586,4 +586,4 @@ function comma_value(n)
   else
     return str_n
   end
-end 
+end

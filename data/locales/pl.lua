@@ -181,7 +181,6 @@ locale = {
     ["Logging out..."] = "Wylogowuje...",
     ["Login"] = "Zaloguj",
     ["Login Error"] = "Blad Logowania",
-    ["Login Error"] = "Blad Logowania",
     ["Logout"] = "Wyloguj",
     ["Look"] = "Spojrz",
     ["Magic Level"] = "Poziom Magiczny",
