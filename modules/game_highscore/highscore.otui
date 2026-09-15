@@ -1,12 +1,5 @@
-HighscoreCategoryButton < Button
-  width: 150
-  height: 24
-  text-align: left
-  $on:
-    color: #55ff55
-
 HighscoreRow < Panel
-  height: 28
+  height: 56
   padding: 2
   background-color: alpha
 
@@ -17,15 +10,15 @@ HighscoreRow < Panel
     id: outfit
     anchors.left: parent.left
     anchors.verticalCenter: parent.verticalCenter
-    size: 24 24
+    size: 48 48
     fixed-creature-size: true
 
   Label
     id: rankLabel
     anchors.left: outfit.right
     anchors.verticalCenter: parent.verticalCenter
-    margin-left: 4
-    width: 30
+    margin-left: 8
+    width: 40
     color: #dfdfdf
     font: verdana-11px-monochrome
 
@@ -33,7 +26,7 @@ HighscoreRow < Panel
     id: nameLabel
     anchors.left: rankLabel.right
     anchors.verticalCenter: parent.verticalCenter
-    width: 220
+    width: 200
     color: #dfdfdf
     font: verdana-11px-monochrome
 
@@ -53,52 +46,96 @@ HighscoreRow < Panel
     color: #dfdfdf
     font: verdana-11px-monochrome
 
+HighscoreHeaderRow < Panel
+  height: 20
+  padding: 2
+
+  UIWidget
+    id: outfitHeaderSpacer
+    anchors.left: parent.left
+    size: 48 1
+
+  Label
+    id: rankHeader
+    anchors.left: outfitHeaderSpacer.right
+    anchors.verticalCenter: parent.verticalCenter
+    margin-left: 8
+    width: 40
+    color: #aaaaaa
+    font: verdana-11px-monochrome
+    text: Rank
+
+  Label
+    id: nameHeader
+    anchors.left: rankHeader.right
+    anchors.verticalCenter: parent.verticalCenter
+    width: 200
+    color: #aaaaaa
+    font: verdana-11px-monochrome
+    text: Name
+
+  Label
+    id: levelHeader
+    anchors.left: nameHeader.right
+    anchors.verticalCenter: parent.verticalCenter
+    width: 60
+    color: #aaaaaa
+    font: verdana-11px-monochrome
+    text: Level
+
+  Label
+    id: vocHeader
+    anchors.left: levelHeader.right
+    anchors.right: parent.right
+    anchors.verticalCenter: parent.verticalCenter
+    color: #aaaaaa
+    font: verdana-11px-monochrome
+    text: Vocation
+
 MainWindow
   id: highscoreWindow
   !text: tr('Highscores')
   size: 620 560
   @onEscape: modules.game_highscore.toggle()
 
-  Panel
-    id: categoryPanel
+  Label
+    id: categoryLabel
     anchors.top: parent.top
     anchors.left: parent.left
-    anchors.bottom: parent.bottom
-    width: 150
-    margin-right: 6
+    anchors.verticalCenter: categoryCombo.verticalCenter
+    !text: tr('Rank by:')
+    font: verdana-11px-monochrome
+    color: #dfdfdf
 
-    UIScrollArea
-      id: categoryList
-      anchors.fill: parent
-      focusable: false
-      layout:
-        type: verticalBox
-        spacing: 2
+  ComboBox
+    id: categoryCombo
+    anchors.top: parent.top
+    anchors.left: categoryLabel.right
+    margin-left: 8
+    width: 170
 
   Label
     id: titleLabel
-    anchors.top: parent.top
-    anchors.left: categoryPanel.right
+    anchors.verticalCenter: categoryCombo.verticalCenter
+    anchors.left: categoryCombo.right
     anchors.right: closeButton.left
-    text-align: center
+    margin-left: 10
+    text-align: left
     font: verdana-11px-monochrome
     color: #ffd700
     text: Level
 
-  Label
-    id: headerLabel
-    anchors.top: titleLabel.bottom
-    anchors.left: categoryPanel.right
+  HighscoreHeaderRow
+    id: headerRow
+    anchors.top: categoryCombo.bottom
+    anchors.left: parent.left
     anchors.right: parent.right
-    margin-top: 6
-    font: verdana-11px-monochrome
-    color: #aaaaaa
-    text: Rank        Name                                       Level   Vocation
+    margin-top: 8
 
   UIScrollArea
     id: resultList
-    anchors.top: headerLabel.bottom
-    anchors.left: categoryPanel.right
+    anchors.top: headerRow.bottom
+    anchors.left: parent.left
     anchors.right: parent.right
     anchors.bottom: pagePanel.top
     margin-top: 4
@@ -121,7 +158,7 @@ MainWindow
 
   Panel
     id: pagePanel
-    anchors.left: categoryPanel.right
+    anchors.left: parent.left
     anchors.right: parent.right
     anchors.bottom: parent.bottom
     height: 26

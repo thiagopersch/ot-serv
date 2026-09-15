@@ -7,7 +7,6 @@ local CATEGORIES = {
   { id = 3, name = "Club Fighting" },
   { id = 4, name = "Sword Fighting" },
   { id = 5, name = "Axe Fighting" },
-  { id = 6, name = "Distance Fighting" },
   { id = 7, name = "Shielding" },
 }
 
@@ -30,7 +29,6 @@ local VOCATION_NAMES = {
 
 local window = nil
 local topButton = nil
-local categoryButtons = {}
 local currentCategory = 0
 local currentPage = 1
 local totalPages = 1
@@ -60,17 +58,15 @@ function toggle()
   end
 
   window = g_ui.displayUI('highscore')
-  local categoryList = window:getChildById('categoryList')
-  categoryButtons = {}
+  local combo = window:getChildById('categoryCombo')
+  combo:clearOptions()
   for _, cat in ipairs(CATEGORIES) do
-    local btn = g_ui.createWidget('HighscoreCategoryButton', categoryList)
-    btn:setText(cat.name)
-    btn.categoryId = cat.id
-    btn.onClick = function()
-      selectCategory(cat.id)
-    end
-    categoryButtons[cat.id] = btn
+    combo:addOption(cat.name, cat.id)
   end
+  combo.onOptionChange = function(widget, option, data)
+    selectCategory(data)
+  end
+  combo:setCurrentOptionByData(currentCategory, true)
 
   selectCategory(currentCategory)
 end
@@ -80,19 +76,20 @@ function destroyWindow()
     window:destroy()
     window = nil
   end
-  categoryButtons = {}
 end
 
 function selectCategory(categoryId)
   currentCategory = categoryId
   currentPage = 1
 
-  for id, btn in pairs(categoryButtons) do
-    btn:setOn(id == categoryId)
-  end
-
   if window then
-    local cat = CATEGORIES[categoryId + 1]
+    local combo = window:getChildById('categoryCombo')
+    combo:setCurrentOptionByData(categoryId, true)
+
+    local cat
+    for _, c in ipairs(CATEGORIES) do
+      if c.id == categoryId then cat = c break end
+    end
     window:getChildById('titleLabel'):setText(cat and cat.name or '')
   end
 
