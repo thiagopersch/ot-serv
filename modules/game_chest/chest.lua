@@ -97,6 +97,11 @@ local function renderSlot(slot, chest)
   slot:setVisible(true)
   nameLabel:setText(chest.name or '')
   icon:getChildById('keyIcon'):setItemId(chest.keyClientId or chest.keyItemId or 0)
+
+  local keyCount = chest.keyCount or 0
+  local keyCountLabel = icon:getChildById('keyCountLabel')
+  keyCountLabel:setText('x' .. keyCount)
+  keyCountLabel:setColor(keyCount > 0 and '#ffd700' or '#ff5555')
 end
 
 local lastCenterChestId = nil

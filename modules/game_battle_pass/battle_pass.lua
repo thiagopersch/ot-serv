@@ -316,13 +316,11 @@ function renderRewardTrack(scroll, track, season, progress)
     if levelRewards and #levelRewards > 0 then
       sortLevelRewards(levelRewards)
 
-      local column = g_ui.createWidget('BattlePassRewardColumn', scroll)
-
       local reachable = progress.level >= level
       local claimed = claimedSet[level] == true
 
       for _, reward in ipairs(levelRewards) do
-        local slot = g_ui.createWidget('BattlePassRewardSlot', column)
+        local slot = g_ui.createWidget('BattlePassRewardSlot', scroll)
         slot:setItemId(reward.clientId or reward.itemId)
         slot:setItemCount(reward.count)
 

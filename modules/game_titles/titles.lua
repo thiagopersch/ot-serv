@@ -5,18 +5,22 @@ local playerTitles = {
 }
 
 local npcTitles = {
-  ["Afonso"] = { title = "[Backpack Buyer]", color = "#DAA520" },
-  ["Zoruta"] = { title = "[Clubs Buyer]", color = "#DAA520" },
-  ["Frodo"] = { title = "[Foods Buyer]", color = "#DAA520" },
-  ["Gukoa"] = { title = "[Legs Buyer]", color = "#DAA520" },
-  ["Razo"] = { title = "[Helmets Buyer]", color = "#DAA520" },
-  ["Gidan"] = { title = "[Bows and Crossbows Buyer]", color = "#DAA520" },
-  ["Samanta"] = { title = "[Armors Buyer]", color = "#DAA520" },
-  ["Rivertall"] = { title = "[Gloves Buyer]", color = "#DAA520" },
-  ["Dobao"] = { title = "[Swords Buyer]", color = "#DAA520" },
-  ["Kayfas"] = { title = "[Maces Buyer]", color = "#DAA520" },
-  ["Cakev"] = { title = "[Shields Buyer]", color = "#DAA520" },
+  ["Afonso"] = { title = "[BAKCPACK]", color = "#DAA520" },
+  ["Dagze"] = { title = "[POTIONS / SENZU]", color = "#DAA520" },
+  ["Dobao"] = { title = "[RINGS]", color = "#DAA520" },
+  ["Gidan"] = { title = "[FIGURIES / DOLLS ]", color = "#DAA520" },
+  ["Gukoa"] = { title = "[LEGS]", color = "#DAA520" },
+  ["Hawk"] = { title = "[FOODS]", color = "#DAA520" },
+  ["Kayfas"] = { title = "[WEAPONS]", color = "#DAA520" },
+  ["Lucius Corvinus"] = { title = "[SHIELDS]", color = "#DAA520" },
+  ["Merlin"] = { title = "[BOOTS]", color = "#DAA520" },
+  ["Razo"] = { title = "[HELMETS]", color = "#DAA520" },
+  ["Rivertall"] = { title = "[UTILS]", color = "#DAA520" },
+  ["Taskerman"] = { title = "[MISSIONS]", color = "#DAA520" },
+  ["Samanta"] = { title = "[ARMORS]", color = "#DAA520" },
+  ["Waylon"] = { title = "[TRAVEL]", color = "#DAA520" },
   ["Zaratustra"] = { title = "[PROFETA VIAJANTE]", color = "#DAA520" },
+  ["Zoruta"] = { title = "[AMULETS]", color = "#DAA520" },
 }
 
 local vocations = {

@@ -13,6 +13,13 @@ ChestSlot < UIWidget
     margin-bottom: -8
     virtual: true
 
+  Label
+    id: keyCountLabel
+    anchors.bottom: keyIcon.bottom
+    anchors.right: keyIcon.right
+    font: verdana-11px-monochrome
+    color: #ffd700
+
 ChestKeyIcon < UIItem
   size: 28 28
   virtual: true

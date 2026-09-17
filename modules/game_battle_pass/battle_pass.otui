@@ -19,16 +19,6 @@ BattlePassRewardSlot < UIItem
   $on:
     border-color: #55ff5588
 
-BattlePassRewardColumn < UIWidget
-  width: 88
-  focusable: false
-  layout:
-    type: grid
-    cell-size: 42 42
-    cell-spacing: 4
-    num-columns: 2
-    flow: true
-
 MainWindow
   id: battlePassWindow
   !text: tr('Battle Pass')

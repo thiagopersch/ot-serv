@@ -29,7 +29,6 @@ local ServerPackets = {
 	TournamentLeaderBoard = 0xC5,
 	CyclopediaCharacterInfo = 0xDA,
 	Tutorial = 0xDC,
-	Highscores = 0xB1,
 	Inspection = 0x76,
 	TeamFinderList = 0x2D,
 	TeamFinderLeader = 0x2C
@@ -163,44 +162,6 @@ function registerProtocol()
 			msg:getString() -- Description
 		end
 	end
-  end)
-
-  registerOpcode(ServerPackets.Highscores, function(protocol, msg)
-	msg:getU8()
-	local size = msg:getU8() -- Worlds
-	for i = 1, size do
-		msg:getString() --  World name
-	end
-	msg:getString() -- Selected world
-	local size_2 = msg:getU8() -- Vocations
-	for u = 1, size_2 do
-		msg:getU32() -- Id
-		msg:getString() -- Name
-	end
-	msg:getU32() -- Vocation selected Id
-	local size_3 = msg:getU8() -- Categories
-	for j = 1, size_3 do
-		msg:getU8() -- Id
-		msg:getString() -- Name
-	end
-	msg:getU8() -- Category selected Id
-	msg:getU16() -- Pages
-	msg:getU16() -- Selected page
-	local size_4 = msg:getU8() -- Entries
-	for l = 1, size_4 do
-		msg:getU32() -- Rank
-		msg:getString() -- Character name
-		msg:getString() -- Character title
-		msg:getU8() -- Vocation
-		msg:getString() -- World
-		msg:getU16() -- Level
-		msg:getU8() -- Is player? then highlight
-		msg:getU64() -- Points
-	end
-	msg:getU8()
-	msg:getU8()
-	msg:getU8()
-	msg:getU32() -- Last update
   end)
 
   registerOpcode(ServerPackets.Tutorial, function(protocol, msg)
