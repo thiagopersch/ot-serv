@@ -10,7 +10,7 @@ local npcTitles = {
   ["Dobao"] = { title = "[RINGS]", color = "#DAA520" },
   ["Gidan"] = { title = "[FIGURIES / DOLLS ]", color = "#DAA520" },
   ["Gukoa"] = { title = "[LEGS]", color = "#DAA520" },
-  ["Hawk"] = { title = "[FOODS]", color = "#DAA520" },
+  ["Hawk, Capitão das Sobras"] = { title = "[FOODS]", color = "#DAA520" },
   ["Kayfas"] = { title = "[WEAPONS]", color = "#DAA520" },
   ["Lucius Corvinus"] = { title = "[SHIELDS]", color = "#DAA520" },
   ["Merlin"] = { title = "[BOOTS]", color = "#DAA520" },

@@ -325,20 +325,16 @@ function renderRewardTrack(scroll, track, season, progress)
         slot:setItemCount(reward.count)
 
         local itemLabel = string.format('%dx %s', reward.count, resolveItemName(reward.name, reward.clientId or reward.itemId))
-        local statusLabel
         if claimed then
           slot:setOn(true)
-          statusLabel = string.format('%s %d - %s', tr('Level'), level, tr('claimed'))
           slot.onClick = nil
         elseif reachable then
-          statusLabel = string.format('%s %d - %s', tr('Level'), level, tr('click to claim'))
           slot.onClick = function() claim(level, track) end
         else
           slot:setOpacity(0.4)
-          statusLabel = string.format('%s %d', tr('Level'), level)
           slot.onClick = nil
         end
-        slot:setTooltip(itemLabel .. '\n' .. statusLabel)
+        slot:setTooltip(itemLabel)
       end
     end
   end
