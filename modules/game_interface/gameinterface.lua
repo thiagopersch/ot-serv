@@ -1067,7 +1067,7 @@ function refreshViewMode()
     gameMapPanel:addAnchor(AnchorTop, 'gameTopBar', AnchorBottom)
     gameMapPanel:setKeepAspectRatio(true)
     gameMapPanel:setLimitVisibleRange(false)
-    gameMapPanel:setZoom(21)
+    gameMapPanel:setZoom(25)
     gameMapPanel:setOn(false) -- frame
 
     modules.client_topmenu.getTopMenu():setImageColor('white')
@@ -1084,7 +1084,7 @@ function refreshViewMode()
     if g_app.isMobile() then
       gameMapPanel:setZoom(11)
     else
-      gameMapPanel:setZoom(21)
+      gameMapPanel:setZoom(25)
     end
 
     modules.client_topmenu.getTopMenu():setImageColor('#ffffff66')
@@ -1112,7 +1112,7 @@ end
 
 local FULL_HD_WIDTH = 1920
 local FULL_HD_HEIGHT = 1080
-local WIDE_MONITOR_WIDTH_RATIO = 0.9
+local WIDE_MONITOR_WIDTH_RATIO = 1.0
 
 function getTargetWidthRatio()
   local display = g_window.getDisplaySize()
