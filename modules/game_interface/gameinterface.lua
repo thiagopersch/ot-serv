@@ -1060,14 +1060,14 @@ function refreshViewMode()
   gameMapPanel:setVisibleDimension({ width = 31, height = 23 })
 
   if classic then
-    g_game.changeMapAwareRange(32, 24)
+    g_game.changeMapAwareRange(54, 22)
     gameMapPanel:addAnchor(AnchorLeft, 'gameLeftActionPanel', AnchorRight)
     gameMapPanel:addAnchor(AnchorRight, 'gameRightActionPanel', AnchorLeft)
     gameMapPanel:addAnchor(AnchorBottom, 'gameBottomActionPanel', AnchorTop)
     gameMapPanel:addAnchor(AnchorTop, 'gameTopBar', AnchorBottom)
     gameMapPanel:setKeepAspectRatio(true)
     gameMapPanel:setLimitVisibleRange(false)
-    gameMapPanel:setZoom(23)
+    gameMapPanel:setZoom(21)
     gameMapPanel:setOn(false) -- frame
 
     modules.client_topmenu.getTopMenu():setImageColor('white')
@@ -1076,7 +1076,7 @@ function refreshViewMode()
       modules.game_console.switchMode(false)
     end
   else
-    g_game.changeMapAwareRange(32, 24)
+    g_game.changeMapAwareRange(54, 22)
     gameMapPanel:fill('parent')
     gameMapPanel:setKeepAspectRatio(false)
     gameMapPanel:setLimitVisibleRange(false)
@@ -1084,7 +1084,7 @@ function refreshViewMode()
     if g_app.isMobile() then
       gameMapPanel:setZoom(11)
     else
-      gameMapPanel:setZoom(23)
+      gameMapPanel:setZoom(21)
     end
 
     modules.client_topmenu.getTopMenu():setImageColor('#ffffff66')
@@ -1110,12 +1110,25 @@ function limitZoom()
   limitedZoom = true
 end
 
+local FULL_HD_WIDTH = 1920
+local FULL_HD_HEIGHT = 1080
+local WIDE_MONITOR_WIDTH_RATIO = 0.9
+
+function getTargetWidthRatio()
+  local display = g_window.getDisplaySize()
+  if display.width > FULL_HD_WIDTH or display.height > FULL_HD_HEIGHT then
+    return WIDE_MONITOR_WIDTH_RATIO
+  end
+  return 1.0
+end
+
 function updateSize()
   if g_app.isMobile() then return end
 
   local classic = g_settings.getBoolean("classicView")
   local height = gameMapPanel:getHeight()
   local width = gameMapPanel:getWidth()
+  local ratio = getTargetWidthRatio()
 
   if not classic then
     local rheight = gameRootPanel:getHeight()
@@ -1139,7 +1152,9 @@ function updateSize()
       gameMapPanel:setMarginLeft(0)
       gameMapPanel:setMarginRight(0)
     else
-      local margin = math.max(0, math.floor((rwidth - maxWidth) / 2))
+      local targetWidth = rwidth * ratio
+      local finalWidth = math.min(maxWidth, targetWidth)
+      local margin = math.max(0, math.floor((rwidth - finalWidth) / 2))
       gameMapPanel:setMarginLeft(margin)
       gameMapPanel:setMarginRight(margin)
     end
@@ -1154,6 +1169,19 @@ function updateSize()
   else
     if modules.game_stats then
       modules.game_stats.ui:setMarginTop(0)
+    end
+    if ratio < 1.0 then
+      -- use gameLeftPanels/gameRightPanels (siblings, unaffected by gameMapPanel's own
+      -- margin) as the stable reference, since gameMapPanel:getWidth() already reflects
+      -- whatever margin was applied on the previous updateSize() call and would otherwise
+      -- keep shrinking every time onGeometryChange fires again
+      local availableWidth = gameRootPanel:getWidth() - gameLeftPanels:getWidth() - gameRightPanels:getWidth()
+      local margin = math.max(0, math.floor(availableWidth * (1 - ratio) / 2))
+      gameMapPanel:setMarginLeft(margin)
+      gameMapPanel:setMarginRight(margin)
+    else
+      gameMapPanel:setMarginLeft(0)
+      gameMapPanel:setMarginRight(0)
     end
   end
 
