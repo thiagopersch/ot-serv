@@ -102,14 +102,13 @@ MainWindow
     id: categoryLabel
     anchors.top: parent.top
     anchors.left: parent.left
-    anchors.verticalCenter: categoryCombo.verticalCenter
     !text: tr('Rank by:')
     font: verdana-11px-monochrome
     color: #dfdfdf
 
   ComboBox
     id: categoryCombo
-    anchors.top: parent.top
+    anchors.verticalCenter: categoryLabel.verticalCenter
     anchors.left: categoryLabel.right
     margin-left: 8
     width: 170
