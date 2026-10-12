@@ -67,7 +67,10 @@ local defaultOptions = {
 
   profile = 1,
 
-  antialiasing = true
+  antialiasing = true,
+  hdSprites = true,
+  effectsOpacity = 100,
+  missilesOpacity = 100
 }
 
 local optionsWindow
@@ -360,6 +363,16 @@ function setOption(key, value, force)
     generalPanel:getChildById('walkCtrlTurnDelayLabel'):setText(tr('Walk delay after ctrl turn: %s ms', value))
   elseif key == "antialiasing" then
     g_app.setSmooth(value)
+  elseif key == 'hdSprites' then
+    if modules.game_things then
+      modules.game_things.setHdMode(value)
+    end
+  elseif key == 'effectsOpacity' then
+    graphicsPanel:getChildById('effectsOpacityLabel'):setText(tr('Effects opacity: %s%%', value))
+    g_map.setEffectsOpacity(value / 100)
+  elseif key == 'missilesOpacity' then
+    graphicsPanel:getChildById('missilesOpacityLabel'):setText(tr('Missiles opacity: %s%%', value))
+    g_map.setMissilesOpacity(value / 100)
   end
 
   -- change value for keybind updates

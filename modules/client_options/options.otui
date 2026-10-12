@@ -16,7 +16,7 @@ OptionPanel < Panel
 MainWindow
   id: optionsWindow
   !text: tr('Options')
-  size: 490 500
+  size: 490 600
   $mobile:
     size: 490 360
 

@@ -633,7 +633,7 @@ Rect ThingType::getDrawSize(const Point& dest, int layer, int xPattern, int yPat
 
     Point textureOffset = m_texturesFramesOffsets[animationPhase][frameIndex];
     Rect textureRect = m_texturesFramesRects[animationPhase][frameIndex];
-    return Rect(dest + textureOffset - m_displacement - (m_size.toPoint() - Point(1, 1)) * g_sprites.spriteSize(), textureRect.size());
+    return Rect(dest + textureOffset - m_displacement * g_sprites.getOffsetFactor() - (m_size.toPoint() - Point(1, 1)) * g_sprites.spriteSize(), textureRect.size());
 }
 
 void ThingType::drawWithShader(const Point& dest, int layer, int xPattern, int yPattern, int zPattern, int animationPhase, const std::string& shader, Color color, LightView* lightView)
@@ -760,7 +760,7 @@ const TexturePtr& ThingType::getTexture(int animationPhase)
                             for (int h = 0; h < m_size.height(); ++h) {
                                 for (int w = 0; w < m_size.width(); ++w) {
                                     uint spriteIndex = getSpriteIndex(w, h, spriteMask ? 1 : l, x, y, z, animationPhase);
-                                    ImagePtr spriteImage = g_sprites.getSpriteImage(m_spritesIndex[spriteIndex]);
+                                    ImagePtr spriteImage = g_sprites.getSpriteImage(m_spritesIndex[spriteIndex], spriteMask);
                                     if (!spriteImage) {
                                         continue;
                                     }
@@ -799,7 +799,8 @@ const TexturePtr& ThingType::getTexture(int animationPhase)
 
 Size ThingType::getBestTextureDimension(int w, int h, int count)
 {
-    const int MAX = g_sprites.spriteSize();
+    // max texture dimension in sprite cells (32 cells * 64px = 2048px in HD mode)
+    const int MAX = 32;
 
     int k = 1;
     while(k < w)

@@ -27,6 +27,7 @@
 #include <framework/core/filestream.h>
 #include <framework/graphics/apngloader.h>
 #include <framework/util/qrcodegen.h>
+#include <framework/graphics/xbrz/xbrz.h>
 
 Image::Image(const Size& size, int bpp, uint8 *pixels)
 {
@@ -151,6 +152,35 @@ ImagePtr Image::upscale()
                 }
             }
         }
+    }
+
+    return newImage;
+}
+
+ImagePtr Image::scaleXbrz(int factor)
+{
+    VALIDATE(m_bpp == 4);
+    VALIDATE(factor >= 2 && factor <= xbrz::SCALE_FACTOR_MAX);
+
+    // xbrz works with 0xAARRGGBB words, our buffer is RGBA bytes
+    const int count = getPixelCount();
+    std::vector<uint32_t> src(count);
+    for (int i = 0; i < count; ++i) {
+        const uint8* p = &m_pixels[i * 4];
+        src[i] = ((uint32_t)p[3] << 24) | ((uint32_t)p[0] << 16) | ((uint32_t)p[1] << 8) | (uint32_t)p[2];
+    }
+
+    std::vector<uint32_t> dst((size_t)count * factor * factor);
+    xbrz::scale(factor, src.data(), dst.data(), getWidth(), getHeight(), xbrz::ColorFormat::ARGB);
+
+    ImagePtr newImage(new Image(m_size * factor));
+    uint8* out = newImage->getPixelData();
+    for (size_t i = 0; i < dst.size(); ++i) {
+        const uint32_t c = dst[i];
+        out[i * 4 + 0] = (c >> 16) & 0xFF;
+        out[i * 4 + 1] = (c >> 8) & 0xFF;
+        out[i * 4 + 2] = c & 0xFF;
+        out[i * 4 + 3] = (c >> 24) & 0xFF;
     }
 
     return newImage;

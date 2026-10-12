@@ -116,7 +116,7 @@ void Tile::drawBottom(const Point& dest, LightView* lightView)
     }
 
     if (lightView && hasTranslucentLight()) {
-        lightView->addLight(dest + Point(16, 16), 215, 1);
+        lightView->addLight(dest + Point(1, 1) * (g_sprites.spriteSize() / 2), 215, 1);
     }
 }
 
@@ -251,7 +251,8 @@ void Tile::drawWidget(Point dest)
     dest.x -= m_widget->getMarginRight();
     dest.y += m_widget->getMarginTop();
     dest.y -= m_widget->getMarginBottom();
-    dest_rect = Rect(dest - Point(dest_rect.width() / 2 - g_sprites.spriteSize(), dest_rect.height() / 2 - g_sprites.spriteSize()), dest_rect.width(), dest_rect.height());
+    // dest is in screen pixels, keep the classic 32px tile
+    dest_rect = Rect(dest - Point(dest_rect.width() / 2 - 32, dest_rect.height() / 2 - 32), dest_rect.width(), dest_rect.height());
     m_widget->setRect(dest_rect);
     m_widget->draw(dest_rect, Fw::ForegroundPane);
 }

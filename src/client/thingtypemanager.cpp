@@ -35,6 +35,7 @@
 #include <framework/xml/tinyxml.h>
 #include <framework/otml/otml.h>
 #include <framework/util/stats.h>
+#include <framework/graphics/atlas.h>
 
 ThingTypeManager g_things;
 
@@ -91,6 +92,18 @@ void ThingTypeManager::check()
             m_checkIndex[i] = 0;
         }
     }
+}
+
+void ThingTypeManager::unloadTextures()
+{
+    // used when the sprite source changes (e.g. HD mode toggled), textures are rebuilt on demand
+    for (size_t i = 0; i < ThingLastCategory; ++i) {
+        for (auto& thingType : m_thingTypes[i]) {
+            if (thingType->isLoaded())
+                thingType->unload();
+        }
+    }
+    g_atlas.requestReset();
 }
 
 #ifdef WITH_ENCRYPTION

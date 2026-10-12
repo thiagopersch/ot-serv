@@ -40,6 +40,7 @@ public:
     void blit(const Point& dest, const ImagePtr& other);
     void paste(const ImagePtr& other);
     ImagePtr upscale();
+    ImagePtr scaleXbrz(int factor);
     void resize(const Size& size) { m_size = size; m_pixels.resize(size.area() * m_bpp, 0); }
     bool nextMipmap();
 

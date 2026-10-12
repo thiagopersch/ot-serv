@@ -327,6 +327,7 @@ set(SOURCE_FILES
 	framework/graphics/shader.cpp
 	framework/graphics/shaderprogram.cpp
 	framework/graphics/shadermanager.cpp
+	framework/graphics/xbrz/xbrz.cpp
 	framework/graphics/textrender.cpp
 	framework/graphics/texture.cpp
 	framework/graphics/texturemanager.cpp

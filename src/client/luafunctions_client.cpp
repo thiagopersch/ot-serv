@@ -66,6 +66,7 @@ void Client::registerLuaFunctions()
     g_lua.bindSingletonFunction("g_things", "loadXml", &ThingTypeManager::loadXml, &g_things);
     g_lua.bindSingletonFunction("g_things", "loadOtml", &ThingTypeManager::loadOtml, &g_things);
     g_lua.bindSingletonFunction("g_things", "isDatLoaded", &ThingTypeManager::isDatLoaded, &g_things);
+    g_lua.bindSingletonFunction("g_things", "unloadTextures", &ThingTypeManager::unloadTextures, &g_things);
     g_lua.bindSingletonFunction("g_things", "isOtbLoaded", &ThingTypeManager::isOtbLoaded, &g_things);
     g_lua.bindSingletonFunction("g_things", "getDatSignature", &ThingTypeManager::getDatSignature, &g_things);
     g_lua.bindSingletonFunction("g_things", "getContentRevision", &ThingTypeManager::getContentRevision, &g_things);
@@ -112,6 +113,11 @@ void Client::registerLuaFunctions()
     g_lua.bindSingletonFunction("g_sprites", "isLoaded", &SpriteManager::isLoaded, &g_sprites);
     g_lua.bindSingletonFunction("g_sprites", "getSprSignature", &SpriteManager::getSignature, &g_sprites);
     g_lua.bindSingletonFunction("g_sprites", "getSpritesCount", &SpriteManager::getSpritesCount, &g_sprites);
+    g_lua.bindSingletonFunction("g_sprites", "spriteSize", &SpriteManager::spriteSize, &g_sprites);
+    g_lua.bindSingletonFunction("g_sprites", "getOffsetFactor", &SpriteManager::getOffsetFactor, &g_sprites);
+    g_lua.bindSingletonFunction("g_sprites", "isHdMod", &SpriteManager::isHdMod, &g_sprites);
+    g_lua.bindSingletonFunction("g_sprites", "setUpscale", &SpriteManager::setUpscale, &g_sprites);
+    g_lua.bindSingletonFunction("g_sprites", "isUpscale", &SpriteManager::isUpscale, &g_sprites);
 
     g_lua.registerSingletonClass("g_map");
     g_lua.bindSingletonFunction("g_map", "isLookPossible", &Map::isLookPossible, &g_map);
@@ -165,6 +171,10 @@ void Client::registerLuaFunctions()
     g_lua.bindSingletonFunction("g_map", "isForcingAnimations", &Map::isForcingAnimations, &g_map);
     g_lua.bindSingletonFunction("g_map", "isShowingAnimations", &Map::isShowingAnimations, &g_map);
     g_lua.bindSingletonFunction("g_map", "setShowAnimations", &Map::setShowAnimations, &g_map);
+    g_lua.bindSingletonFunction("g_map", "setEffectsOpacity", &Map::setEffectsOpacity, &g_map);
+    g_lua.bindSingletonFunction("g_map", "getEffectsOpacity", &Map::getEffectsOpacity, &g_map);
+    g_lua.bindSingletonFunction("g_map", "setMissilesOpacity", &Map::setMissilesOpacity, &g_map);
+    g_lua.bindSingletonFunction("g_map", "getMissilesOpacity", &Map::getMissilesOpacity, &g_map);
     g_lua.bindSingletonFunction("g_map", "findItemsById", &Map::findItemsById, &g_map);
     g_lua.bindSingletonFunction("g_map", "getAwareRange", &Map::getAwareRangeAsSize, &g_map);
     g_lua.bindSingletonFunction("g_map", "findEveryPath", &Map::findEveryPath, &g_map);

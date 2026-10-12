@@ -328,6 +328,7 @@
     <ClCompile Include="..\src\framework\graphics\graphics.cpp" />
     <ClCompile Include="..\src\framework\graphics\hardwarebuffer.cpp" />
     <ClCompile Include="..\src\framework\graphics\image.cpp" />
+    <ClCompile Include="..\src\framework\graphics\xbrz\xbrz.cpp" />
     <ClCompile Include="..\src\framework\graphics\painter.cpp" />
     <ClCompile Include="..\src\framework\graphics\paintershaderprogram.cpp" />
     <ClCompile Include="..\src\framework\graphics\shader.cpp" />
@@ -479,6 +480,9 @@
     <ClInclude Include="..\src\framework\graphics\deptharray.h" />
     <ClInclude Include="..\src\framework\graphics\drawcache.h" />
     <ClInclude Include="..\src\framework\graphics\drawqueue.h" />
+    <ClInclude Include="..\src\framework\graphics\xbrz\xbrz.h" />
+    <ClInclude Include="..\src\framework\graphics\xbrz\xbrz_config.h" />
+    <ClInclude Include="..\src\framework\graphics\xbrz\xbrz_tools.h" />
     <ClInclude Include="..\src\framework\graphics\fontmanager.h" />
     <ClInclude Include="..\src\framework\graphics\framebuffer.h" />
     <ClInclude Include="..\src\framework\graphics\framebuffermanager.h" />

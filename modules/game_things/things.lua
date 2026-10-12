@@ -1,5 +1,6 @@
 filename = nil
 loaded = false
+local loadedSprPath = nil
 
 function setFileName(name) filename = name end
 
@@ -41,6 +42,8 @@ function load()
             datPath) .. '\n'
     end
   end
+  -- HD mode: .spr sprites are upscaled with xBRZ 2x (64x64). Applied on sprite load.
+  g_sprites.setUpscale(g_settings.getBoolean('hdSprites', true))
   local sprSuccess, sprResult = pcall(function()
     return g_sprites.loadSpr(sprPath)
   end)
@@ -52,6 +55,9 @@ function load()
   end
 
   loaded = (errorMessage:len() == 0)
+  if sprSuccess and sprResult then
+    loadedSprPath = sprPath
+  end
 
   if errorMessage:len() > 0 then
     local messageBox = displayErrorBox(tr('Error'), errorMessage)
@@ -66,4 +72,18 @@ function load()
 
   g_things.loadOtb('/items/items.otb')
   -- g_things.loadXml('/items/items.xml')
+end
+
+-- Toggles the xBRZ HD mode at runtime: reloads the .spr and drops cached textures
+function setHdMode(enabled)
+  if not loaded or not loadedSprPath then return end -- applied by load() on next login
+  if g_sprites.isHdMod() then return end -- .cwm pack is already HD
+  if g_sprites.isUpscale() == enabled and g_sprites.isLoaded() then return end
+
+  g_sprites.setUpscale(enabled)
+  local ok, result = pcall(function() return g_sprites.loadSpr(loadedSprPath) end)
+  if not ok or not result then
+    g_logger.error('Failed to reload sprites for HD mode: ' .. tostring(result))
+  end
+  g_things.unloadTextures()
 end

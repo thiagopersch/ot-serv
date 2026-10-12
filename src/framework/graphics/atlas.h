@@ -11,6 +11,7 @@ public:
     void init();
     void terminate();
     void reload();
+    void requestReset() { m_doReset = true; } // reset on next cache() call, safe outside the graphics context
 
     Point cache(uint64_t hash, const Size& size, bool& draw);
     Point cacheFont(const TexturePtr& fontTexture);

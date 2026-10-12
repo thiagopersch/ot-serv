@@ -35,6 +35,11 @@ OptionPanel
     id: antialiasing
     !text: tr('Antialiasing')
 
+  OptionCheckBox
+    id: hdSprites
+    !text: tr('HD Mode (smooth sprites)')
+    !tooltip: tr('Less pixelated sprites (xBRZ 2x). Uses more video memory.')
+
   Label
     margin-top: 12
     id: optimizationLevelLabel
@@ -85,6 +90,32 @@ OptionPanel
 
   OptionScrollbar
     id: ambientLight
+    margin-top: 3
+    minimum: 0
+    maximum: 100
+
+  Label
+    id: effectsOpacityLabel
+    margin-top: 6
+    @onSetup: |
+      local value = modules.client_options.getOption('effectsOpacity')
+      self:setText(tr('Effects opacity: %s%%', value))
+
+  OptionScrollbar
+    id: effectsOpacity
+    margin-top: 3
+    minimum: 0
+    maximum: 100
+
+  Label
+    id: missilesOpacityLabel
+    margin-top: 6
+    @onSetup: |
+      local value = modules.client_options.getOption('missilesOpacity')
+      self:setText(tr('Missiles opacity: %s%%', value))
+
+  OptionScrollbar
+    id: missilesOpacity
     margin-top: 3
     minimum: 0
     maximum: 100

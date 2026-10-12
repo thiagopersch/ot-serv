@@ -63,8 +63,12 @@ void Missile::draw(const Point& dest, bool animate, LightView* lightView)
         yPattern = 1;
     }
 
+    const float opacity = g_map.getMissilesOpacity();
+    if (opacity <= 0.0f)
+        return;
+
     float fraction = m_animationTimer.ticksElapsed() / m_duration;
-    rawGetThingType()->draw(dest + m_delta * fraction, 0, xPattern, yPattern, 0, 0, Color::white, lightView);
+    rawGetThingType()->draw(dest + m_delta * fraction, 0, xPattern, yPattern, 0, 0, Color(1.0f, 1.0f, 1.0f, opacity), lightView);
 }
 
 void Missile::setPath(const Position& fromPosition, const Position& toPosition)

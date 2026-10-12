@@ -45,15 +45,16 @@ void SpriteManager::terminate()
 bool SpriteManager::loadSpr(std::string file)
 {
     try {
-        m_spritesCount = 0;
-        m_signature = 0;
-        m_loaded = false;
-        m_sprites.clear();
+        unload();
 
         auto cwmFile = g_resources.guessFilePath(file, "cwm");
         if (g_resources.fileExists(cwmFile)) {
             m_isHdMod = true;
-            return loadCwmSpr(cwmFile);
+            if (loadCwmSpr(cwmFile))
+                return true;
+
+            g_logger.warning(stdext::format("Invalid CWM '%s', trying to load SPR instead", cwmFile));
+            unload();
         }
 
         auto sprFile = g_resources.guessFilePath(file, "spr");
@@ -117,7 +118,7 @@ void SpriteManager::saveSpr(std::string fileName)
 
                 uint16 dataSize = m_spritesFile->getU16();
                 fin->addU16(dataSize);
-                std::vector<char> spriteData(m_spriteSize * m_spriteSize);
+                std::vector<char> spriteData(dataSize);
                 m_spritesFile->read(spriteData.data(), dataSize);
                 fin->write(spriteData.data(), dataSize);
 
@@ -137,7 +138,7 @@ void SpriteManager::saveSpr64(std::string fileName)
 {
     if (!m_loaded)
         stdext::throw_exception("failed to save, spr is not loaded");
-    if (!m_spritesFile || m_spriteSize != 32)
+    if (!m_spritesFile || m_sourceSpriteSize != 32)
         stdext::throw_exception("not allowed");
 
     try {
@@ -156,7 +157,7 @@ void SpriteManager::saveSpr64(std::string fileName)
             fin->addU32(0);
 
         for (int i = 1; i <= m_spritesCount; i++) {
-            ImagePtr sprite = getSpriteImage(i);
+            ImagePtr sprite = decodeSpriteCasual(i);
             if (!sprite) {
                 continue;
             }
@@ -230,7 +231,7 @@ void SpriteManager::encryptSprites(std::string fileName)
         fin->addU32(m_spritesCount);
 
         for (int i = 1; i <= m_spritesCount; i++) {
-            ImagePtr sprite = getSpriteImage(i);
+            ImagePtr sprite = m_isHdMod ? getSpriteImageHd(i) : decodeSpriteCasual(i);
             if (!sprite) {
                 fin->addU16(0);
                 continue;
@@ -300,7 +301,7 @@ void SpriteManager::dumpSprites(std::string dir)
     }
     g_resources.makeDir(dir);
     for (int i = 1; i <= m_spritesCount; i++) {
-        auto img = getSpriteImage(i);
+        auto img = m_isHdMod ? getSpriteImageHd(i) : decodeSpriteCasual(i);
         if (!img) continue;
         img->savePNG(dir + "/" + std::to_string(i) + ".png");
     }
@@ -310,25 +311,32 @@ void SpriteManager::dumpSprites(std::string dir)
 
 void SpriteManager::unload()
 {
+    m_loaded = false;
+    m_isHdMod = false;
     m_spritesCount = 0;
     m_signature = 0;
+    m_spritesOffset = 0;
+    m_spriteSize = 32;
+    m_sourceSpriteSize = 32;
     m_spritesFile = nullptr;
     m_sprites.clear();
+    m_cachedData.clear();
 }
 
-ImagePtr SpriteManager::getSpriteImage(int id)
+ImagePtr SpriteManager::getSpriteImage(int id, bool nearest)
 {
     if (m_isHdMod) {
         return getSpriteImageHd(id);
     }
     else {
-        return getSpriteImageCasual(id);
+        return getSpriteImageCasual(id, nearest);
     }
 }
 
 bool SpriteManager::loadCasualSpr(std::string file)
 {
-    m_spriteSize = 32u;
+    m_sourceSpriteSize = 32;
+    m_spriteSize = m_upscale ? m_sourceSpriteSize * 2 : m_sourceSpriteSize;
     try {
         file = g_resources.guessFilePath(file, "spr");
 
@@ -375,7 +383,13 @@ bool SpriteManager::loadCwmSpr(std::string file)
         }
 
         m_spriteSize = spritesFile->getU16();
-        m_cachedData = std::move(PngUnpacker::unpack(spritesFile));
+        if (m_spriteSize < 32 || m_spriteSize % 32 != 0) {
+            g_logger.error(stdext::format("Invalid CWM sprite size %d - %s", m_spriteSize, file));
+            return false;
+        }
+        m_sourceSpriteSize = m_spriteSize;
+
+        m_cachedData = PngUnpacker::unpack(spritesFile);
         m_spritesCount = m_cachedData.size();
 
         if (m_spritesCount == 0) {
@@ -384,20 +398,34 @@ bool SpriteManager::loadCwmSpr(std::string file)
         }
 
         m_loaded = true;
+        g_lua.callGlobalField("g_sprites", "onLoadSpr", file);
         return true;
     }
-    catch (stdext::exception& e) {
+    catch (std::exception& e) {
         g_logger.error(stdext::format("Failed to load sprites from '%s': %s", file, e.what()));
         return false;
     }
-
-    return false;
 }
 
-ImagePtr SpriteManager::getSpriteImageCasual(int id)
+ImagePtr SpriteManager::getSpriteImageCasual(int id, bool nearest)
+{
+    ImagePtr image = decodeSpriteCasual(id);
+    if (!image || m_spriteSize == m_sourceSpriteSize)
+        return image;
+
+    try {
+        return nearest ? image->upscale() : image->scaleXbrz(m_spriteSize / m_sourceSpriteSize);
+    }
+    catch (std::exception& e) {
+        g_logger.error(stdext::format("Failed to upscale sprite id %d: %s", id, e.what()));
+        return nullptr;
+    }
+}
+
+ImagePtr SpriteManager::decodeSpriteCasual(int id)
 {
     try {
-        int spriteDataSize = m_spriteSize * m_spriteSize * 4;
+        int spriteDataSize = m_sourceSpriteSize * m_sourceSpriteSize * 4;
 
         if (!m_sprites.empty()) {
             if (id >= (int)m_sprites.size())
@@ -416,7 +444,7 @@ ImagePtr SpriteManager::getSpriteImageCasual(int id)
 
             bool hasAlpha = (buffer[1] == 1);
 
-            ImagePtr image(new Image(Size(m_spriteSize, m_spriteSize)));
+            ImagePtr image(new Image(Size(m_sourceSpriteSize, m_sourceSpriteSize)));
             uint8* pixels = image->getPixelData();
             int writePos = 0;
 
@@ -465,7 +493,7 @@ ImagePtr SpriteManager::getSpriteImageCasual(int id)
 
         uint16 pixelDataSize = m_spritesFile->getU16();
 
-        ImagePtr image(new Image(Size(m_spriteSize, m_spriteSize)));
+        ImagePtr image(new Image(Size(m_sourceSpriteSize, m_sourceSpriteSize)));
 
         uint8* pixels = image->getPixelData();
         int writePos = 0;
@@ -506,16 +534,27 @@ ImagePtr SpriteManager::getSpriteImageCasual(int id)
 
 ImagePtr SpriteManager::getSpriteImageHd(int id)
 {
-    if (id == 0 || !m_loaded)
+    if (id <= 0 || !m_loaded)
         return nullptr;
 
-    if (m_cachedData.find(id) == m_cachedData.end())
-    {
+    auto it = m_cachedData.find(id);
+    if (it == m_cachedData.end())
         return nullptr;
-    }
 
     try {
-        return Image::loadPNG(m_cachedData[id].data(), m_cachedData[id].size());
-    } catch (...) {}
+        ImagePtr image = Image::loadPNG(it->second.data(), it->second.size());
+        if (!image)
+            return nullptr;
+
+        if (image->getSize() != Size(m_spriteSize, m_spriteSize)) {
+            g_logger.error(stdext::format("HD sprite %d has invalid size %dx%d, expected %dx%d", id,
+                                          image->getWidth(), image->getHeight(), m_spriteSize, m_spriteSize));
+            return nullptr;
+        }
+        return image;
+    }
+    catch (std::exception& e) {
+        g_logger.error(stdext::format("Failed to decode HD sprite %d: %s", id, e.what()));
+    }
     return nullptr;
 }

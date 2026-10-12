@@ -183,14 +183,12 @@ void Outfit::draw(Point dest, Otc::Direction direction, uint walkAnimationPhase,
                 wingAnimationPhase = (g_clock.millis() % (ticksPerFrame * phases)) / ticksPerFrame;
             }
         }
-        wingDest.x += wingsOffset.x;
-        wingDest.y += wingsOffset.y;
+        // Lua offsets are authored for 32px sprites
+        wingDest += wingsOffset * g_sprites.getOffsetFactor();
         {
             auto it = s_wingOffsets.find(m_wings);
-            if (it != s_wingOffsets.end()) {
-                wingDest.x += it->second.offset.x;
-                wingDest.y += it->second.offset.y;
-            }
+            if (it != s_wingOffsets.end())
+                wingDest += it->second.offset * g_sprites.getOffsetFactor();
         }
         wingsType->draw(wingDest, 0, direction, 0, wingsZPattern, wingAnimationPhase, Color::white, lightView);
     };
@@ -211,8 +209,10 @@ void Outfit::draw(Point dest, Otc::Direction direction, uint walkAnimationPhase,
                 autoAuraOffset = it->second.offset;
                 auraIsFront = it->second.isFront;
             }
-            auraDest = dest + offset + auraOffset + autoAuraOffset;
-            topAuraDest = dest + offset + auraOffset + autoAuraOffset;
+            // Lua offsets are authored for 32px sprites
+            Point scaledAuraOffset = (auraOffset + autoAuraOffset) * g_sprites.getOffsetFactor();
+            auraDest = dest + offset + scaledAuraOffset;
+            topAuraDest = dest + offset + scaledAuraOffset;
         }
     }
 

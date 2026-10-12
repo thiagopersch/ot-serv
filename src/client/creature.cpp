@@ -150,9 +150,10 @@ void Creature::drawInformation(const Point& point, bool useGray, const Rect& par
         fillColor = m_informationColor;
 
     // Calcular topo da sprite dinamicamente
-    int spriteHeight = getExactSize();
+    // exact size is in sprite pixels, point is in screen pixels (32px base)
+    int spriteHeight = getExactSize() / g_sprites.getOffsetFactor();
     if (spriteHeight == 0) {
-        spriteHeight = g_sprites.spriteSize();
+        spriteHeight = 32;
     }
     // point.y é a base da sprite (pés), subtrair altura para obter o topo
     int spriteTopY = point.y + m_informationOffset.y - spriteHeight;
@@ -435,7 +436,7 @@ void Creature::jump(int height, int duration)
         return;
 
     m_jumpTimer.restart();
-    m_jumpHeight = height;
+    m_jumpHeight = height * g_sprites.getOffsetFactor();
     m_jumpDuration = duration;
 
     updateJump();

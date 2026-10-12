@@ -36,6 +36,7 @@ public:
     void init();
     void terminate();
     void check();
+    void unloadTextures();
 
     bool loadDat(std::string file);
     bool loadOtml(std::string file);

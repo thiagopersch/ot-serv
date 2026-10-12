@@ -54,7 +54,11 @@ void Effect::draw(const Point& dest, int offsetX, int offsetY, bool animate, Lig
     if(yPattern < 0)
         yPattern += getNumPatternY();
 
-    rawGetThingType()->draw(dest, 0, xPattern, yPattern, 0, m_animationPhase, Color::white, lightView);
+    const float opacity = g_map.getEffectsOpacity();
+    if (opacity <= 0.0f)
+        return;
+
+    rawGetThingType()->draw(dest, 0, xPattern, yPattern, 0, m_animationPhase, Color(1.0f, 1.0f, 1.0f, opacity), lightView);
 }
 
 void Effect::onAppear()

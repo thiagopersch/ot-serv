@@ -48,25 +48,33 @@ public:
     uint32 getSignature() { return m_signature; }
     int getSpritesCount() { return m_spritesCount; }
 
-    ImagePtr getSpriteImage(int id);
+    // nearest: upscale with pixel doubling instead of xBRZ (used for outfit color masks)
+    ImagePtr getSpriteImage(int id, bool nearest = false);
     bool isLoaded() { return m_loaded; }
 
     int spriteSize() { return m_spriteSize; }
-    float getOffsetFactor() const { return static_cast<float>(m_spriteSize) / 32.0f; }
-    bool isHdMod() const { return m_isHdMod; }
+    float getOffsetFactor() { return static_cast<float>(m_spriteSize) / 32.0f; }
+    bool isHdMod() { return m_isHdMod; }
+
+    // xBRZ 2x upscale for .spr files, applied on the next loadSpr
+    void setUpscale(bool upscale) { m_upscale = upscale; }
+    bool isUpscale() { return m_upscale; }
 
 private:
     bool loadCasualSpr(std::string file);
     bool loadCwmSpr(std::string file);
 
-    ImagePtr getSpriteImageCasual(int id);
+    ImagePtr decodeSpriteCasual(int id);
+    ImagePtr getSpriteImageCasual(int id, bool nearest);
     ImagePtr getSpriteImageHd(int id);
     bool m_loaded = false;
     bool m_isHdMod = false;
+    bool m_upscale = true;
     uint32 m_signature;
     int m_spritesCount;
-    int m_spritesOffset;
-    int m_spriteSize;
+    int m_spritesOffset = 0;
+    int m_spriteSize = 32;
+    int m_sourceSpriteSize = 32;
     FileStreamPtr m_spritesFile;
     std::vector<std::vector<uint8_t>> m_sprites;
     std::unordered_map<uint32, std::string> m_cachedData;

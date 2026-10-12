@@ -118,6 +118,9 @@ void MapView::drawMapBackground(const Rect& rect, const TilePtr& crosshairTile) 
         m_minimumAmbientLight = 0.05f;
     }
 
+    // sprite size may change after geometry was set (e.g. spr loaded with HD upscale)
+    m_optimizedSize = m_drawDimension * g_sprites.spriteSize();
+
     Rect srcRect = calcFramebufferSource(rect.size());
     g_drawQueue->setFrameBuffer(rect, m_optimizedSize, srcRect);
 

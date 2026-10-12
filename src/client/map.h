@@ -228,6 +228,12 @@ public:
     bool isShowingAnimations();
     void setShowAnimations(bool show);
 
+    // 0.0 (invisible) .. 1.0 (opaque)
+    void setEffectsOpacity(float opacity) { m_effectsOpacity = std::clamp(opacity, 0.0f, 1.0f); }
+    float getEffectsOpacity() { return m_effectsOpacity; }
+    void setMissilesOpacity(float opacity) { m_missilesOpacity = std::clamp(opacity, 0.0f, 1.0f); }
+    float getMissilesOpacity() { return m_missilesOpacity; }
+
     std::map<Position, ItemPtr> findItemsById(uint16 clientId, uint32 max);
 
     // known creature related
@@ -289,6 +295,8 @@ private:
     std::unordered_map<Position, std::string, PositionHasher> m_waypoints;
 
     uint8 m_animationFlags;
+    float m_effectsOpacity = 1.0f;
+    float m_missilesOpacity = 1.0f;
     uint32 m_zoneFlags;
     std::map<uint32, Color> m_zoneColors;
     float m_zoneOpacity;

@@ -203,13 +203,15 @@ void DrawQueue::setFrameBuffer(const Rect& dest, const Size& size, const Rect& s
     m_frameBufferSize = size;
     m_frameBufferDest = dest;
     m_frameBufferSrc = src;
+    // HD sprites (64px) need framebuffers bigger than 2048px, use up to 4096 when the GPU supports it
+    const int maxFrameBufferSize = std::clamp<int>(g_graphics.getMaxTextureSize(), 2048, 4096);
     size_t max_size = std::max<int>(m_frameBufferSize.width(), m_frameBufferSize.height());
-    while(max_size > 2048u) {
+    while(max_size > (size_t)maxFrameBufferSize) {
         max_size /= 2;
         m_scaling /= 2.f;
     }
     if (m_scaling < 0.99f) {
-        m_frameBufferSize = Size(2048, 2048);
+        m_frameBufferSize = Size(maxFrameBufferSize, maxFrameBufferSize);
         m_frameBufferSrc = m_frameBufferSrc * m_scaling;
     }
 }
