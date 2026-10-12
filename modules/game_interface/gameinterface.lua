@@ -150,14 +150,11 @@ function show()
   updateStretchShrink()
   logoutButton:setTooltip(tr('Logout'))
 
+  -- always limit the visible range: depending on isGM() made the result depend on when the
+  -- GM actions packet arrived (first login showed 49x25 tiles on FHD, relog showed 33x25)
   addEvent(function()
-    if not limitedZoom or g_game.isGM() then
-      gameMapPanel:setMaxZoomOut(25)
-      gameMapPanel:setLimitVisibleRange(false)
-    else
-      gameMapPanel:setMaxZoomOut(25)
-      gameMapPanel:setLimitVisibleRange(true)
-    end
+    gameMapPanel:setMaxZoomOut(25)
+    gameMapPanel:setLimitVisibleRange(true)
   end)
 end
 
@@ -1079,7 +1076,7 @@ function refreshViewMode()
     g_game.changeMapAwareRange(54, 22)
     gameMapPanel:fill('parent')
     gameMapPanel:setKeepAspectRatio(false)
-    gameMapPanel:setLimitVisibleRange(false)
+    gameMapPanel:setLimitVisibleRange(true)
     gameMapPanel:setOn(true)
     if g_app.isMobile() then
       gameMapPanel:setZoom(11)
