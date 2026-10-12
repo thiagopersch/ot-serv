@@ -132,6 +132,16 @@ function UIMinimap:addFlag(pos, icon, description, temporary)
   flag.onDestroy = function() table.removevalue(self.flags, flag) end
   table.insert(self.flags, flag)
   self:centerInPosition(flag, pos)
+  if self.flagsHidden then
+    flag:hide()
+  end
+end
+
+function UIMinimap:setFlagsVisible(show)
+  self.flagsHidden = not show
+  for _,flag in pairs(self.flags) do
+    flag:setVisible(show)
+  end
 end
 
 function UIMinimap:addAlternativeWidget(widget, pos, maxZoom)

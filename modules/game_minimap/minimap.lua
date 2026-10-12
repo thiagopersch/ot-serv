@@ -5,6 +5,8 @@ fullmapView = false
 loaded = false
 oldZoom = nil
 oldPos = nil
+showCoords = true
+showFlags = true
 
 function init()
   minimapWindow = g_ui.loadUI('minimap', modules.game_interface.getRightPanel())
@@ -17,6 +19,11 @@ function init()
   end
 
   minimapWidget = minimapWindow:recursiveGetChildById('minimap')
+
+  showCoords = g_settings.getBoolean('minimapShowCoords', true)
+  showFlags = g_settings.getBoolean('minimapShowFlags', true)
+  applyCoordsVisibility()
+  applyFlagsVisibility()
 
   local gameRootPanel = modules.game_interface.getRootPanel()
   g_keyboard.bindKeyPress('Alt+Left', function() minimapWidget:move(1,0) end, gameRootPanel)
@@ -43,6 +50,10 @@ function init()
 end
 
 function terminate()
+  if fullmapView then
+    toggleFullMap()
+  end
+
   if g_game.isOnline() then
     saveMap()
   end
@@ -93,6 +104,9 @@ function online()
 end
 
 function offline()
+  if fullmapView then
+    toggleFullMap()
+  end
   saveMap()
 end
 
@@ -132,6 +146,7 @@ function updateCameraPosition()
   if not player then return end
   local pos = player:getPosition()
   if not pos then return end
+  updatePositionLabel(pos)
   if not minimapWidget:isDragging() then
     if not fullmapView then
       minimapWidget:setCameraPosition(player:getPosition())
@@ -140,15 +155,57 @@ function updateCameraPosition()
   end
 end
 
+function updatePositionLabel(pos)
+  local label = minimapWidget:getChildById('positionLabel')
+  if not label or not pos then return end
+  label:setText(string.format('%d, %d, %d', pos.x, pos.y, pos.z))
+end
+
+function applyCoordsVisibility()
+  local label = minimapWidget:getChildById('positionLabel')
+  if label then
+    label:setVisible(showCoords)
+  end
+  local button = minimapWidget:getChildById('coordsButton')
+  if button then
+    button:setOn(showCoords)
+  end
+end
+
+function applyFlagsVisibility()
+  minimapWidget:setFlagsVisible(showFlags)
+  local button = minimapWidget:getChildById('flagsButton')
+  if button then
+    button:setOn(showFlags)
+  end
+end
+
+function toggleCoords()
+  showCoords = not showCoords
+  g_settings.set('minimapShowCoords', showCoords)
+  applyCoordsVisibility()
+end
+
+function toggleFlags()
+  showFlags = not showFlags
+  g_settings.set('minimapShowFlags', showFlags)
+  applyFlagsVisibility()
+end
+
 function toggleFullMap()
+  local exitButton = minimapWidget:getChildById('exitFullWidget')
   if not fullmapView then
     fullmapView = true
     minimapWindow:hide()
     minimapWidget:setParent(modules.game_interface.getRootPanel())
     minimapWidget:fill('parent')
     minimapWidget:setAlternativeWidgetsVisible(true)
+    if exitButton then exitButton:show() end
+    g_keyboard.bindKeyDown('Escape', toggleFullMap)
   else
     fullmapView = false
+    g_keyboard.unbindKeyDown('Escape', toggleFullMap)
+    if exitButton then exitButton:hide() end
     minimapWidget:setParent(minimapWindow:getChildById('contentsPanel'))
     minimapWidget:fill('parent')
     minimapWindow:show()
