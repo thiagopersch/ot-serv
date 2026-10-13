@@ -1,0 +1,344 @@
+RarityTabButton < Button
+  height: 22
+  width: 74
+  margin-right: 2
+  font: verdana-11px-antialised
+  color: #bfbfbf
+
+  $checked:
+    color: #ffd700
+
+RarityListRow < UIWidget
+  height: 42
+  focusable: true
+  phantom: false
+  background-color: #00000000
+  border-width: 1
+  border-color: #00000000
+  padding: 4
+
+  $hover !focus:
+    background-color: #ffffff12
+
+  $focus:
+    background-color: #ffffff22
+    border-color: #ffd70088
+
+  UIItem
+    id: item
+    size: 34 34
+    anchors.left: parent.left
+    anchors.verticalCenter: parent.verticalCenter
+    virtual: true
+    phantom: true
+
+  Label
+    id: name
+    anchors.left: item.right
+    anchors.right: parent.right
+    anchors.top: parent.top
+    margin-left: 6
+    margin-top: 2
+    text-auto-resize: false
+    font: verdana-11px-antialised
+    color: #e6e6e6
+    phantom: true
+
+  Label
+    id: rarity
+    anchors.left: name.left
+    anchors.right: parent.right
+    anchors.top: name.bottom
+    margin-top: 3
+    font: verdana-11px-antialised
+    phantom: true
+
+RarityMaterialRow < Panel
+  height: 36
+  margin-bottom: 2
+  background-color: #0000004a
+  padding: 2
+
+  UIItem
+    id: item
+    size: 32 32
+    anchors.left: parent.left
+    anchors.verticalCenter: parent.verticalCenter
+    virtual: true
+
+  Label
+    id: name
+    anchors.left: item.right
+    anchors.right: count.left
+    anchors.verticalCenter: parent.verticalCenter
+    margin-left: 8
+    font: verdana-11px-antialised
+    color: #e6e6e6
+
+  Label
+    id: count
+    width: 90
+    anchors.right: parent.right
+    anchors.verticalCenter: parent.verticalCenter
+    margin-right: 6
+    text-align: right
+    font: verdana-11px-antialised
+
+RaritySlot < UIItem
+  size: 48 48
+  virtual: true
+  background-color: #00000066
+  border-width: 1
+  border-color: #555555
+
+MainWindow
+  id: rarityCraftWindow
+  !text: tr('CRAFT')
+  size: 780 540
+  @onEscape: modules.game_rarity_craft.hide()
+
+  Button
+    id: closeButton
+    !text: tr('X')
+    anchors.top: parent.top
+    anchors.right: parent.right
+    width: 24
+    height: 22
+    image-color: #cc3333
+    @onClick: modules.game_rarity_craft.hide()
+
+  Panel
+    id: tabBar
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: closeButton.left
+    margin-right: 6
+    height: 22
+    layout:
+      type: horizontalBox
+
+  HorizontalSeparator
+    id: tabSeparator
+    anchors.top: tabBar.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 6
+
+  TextEdit
+    id: searchEdit
+    anchors.top: tabSeparator.bottom
+    anchors.left: parent.left
+    width: 160
+    margin-top: 8
+    placeholder: Search name or ID...
+    @onTextChange: modules.game_rarity_craft.onSearchChange()
+
+  ComboBox
+    id: filterCombo
+    anchors.top: searchEdit.top
+    anchors.left: searchEdit.right
+    width: 100
+    margin-left: 6
+
+  Panel
+    id: listPanel
+    anchors.top: searchEdit.bottom
+    anchors.left: parent.left
+    anchors.bottom: parent.bottom
+    width: 266
+    margin-top: 6
+    background-color: #00000055
+    border-width: 1
+    border-color: #2b2b2b
+
+    ScrollablePanel
+      id: itemList
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.right: itemListScroll.left
+      anchors.bottom: parent.bottom
+      margin: 2
+      vertical-scrollbar: itemListScroll
+      layout:
+        type: verticalBox
+
+    VerticalScrollBar
+      id: itemListScroll
+      anchors.top: parent.top
+      anchors.bottom: parent.bottom
+      anchors.right: parent.right
+      step: 42
+      pixels-scroll: true
+
+    Label
+      id: emptyListLabel
+      anchors.centerIn: parent
+      text: No items found.
+      color: #8a8a8a
+      visible: false
+
+  Panel
+    id: detailPanel
+    anchors.top: tabSeparator.bottom
+    anchors.left: listPanel.right
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    margin-top: 8
+    margin-left: 8
+    background-color: #00000055
+    border-width: 1
+    border-color: #2b2b2b
+    padding: 10
+
+    Label
+      id: emptyDetailLabel
+      anchors.centerIn: parent
+      text: Select an item from the list.
+      color: #8a8a8a
+
+    Panel
+      id: content
+      anchors.fill: parent
+      visible: false
+
+      Label
+        id: titleLabel
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+        text-align: center
+        font: verdana-11px-rounded
+        color: #ffd700
+
+      RaritySlot
+        id: preview
+        size: 64 64
+        anchors.top: titleLabel.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        margin-top: 8
+
+      Label
+        id: ownedLabel
+        anchors.top: preview.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        margin-top: 4
+        text-align: center
+        font: verdana-11px-antialised
+        color: #8a8a8a
+
+      Panel
+        id: rarityRow
+        anchors.top: ownedLabel.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        size: 400 76
+        margin-top: 8
+
+        RaritySlot
+          id: currentSlot
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-left: 60
+
+        Label
+          id: currentName
+          anchors.top: currentSlot.bottom
+          anchors.horizontalCenter: currentSlot.horizontalCenter
+          margin-top: 4
+          text-auto-resize: true
+          font: verdana-11px-rounded
+
+        Label
+          id: currentBonus
+          anchors.top: currentName.bottom
+          anchors.horizontalCenter: currentSlot.horizontalCenter
+          text-auto-resize: true
+          font: verdana-11px-antialised
+          color: #bfbfbf
+
+        Label
+          id: arrow
+          anchors.verticalCenter: currentSlot.verticalCenter
+          anchors.horizontalCenter: parent.horizontalCenter
+          text: >>>
+          font: verdana-11px-rounded
+          color: #ffd700
+
+        RaritySlot
+          id: nextSlot
+          anchors.top: parent.top
+          anchors.right: parent.right
+          margin-right: 60
+
+        Label
+          id: nextName
+          anchors.top: nextSlot.bottom
+          anchors.horizontalCenter: nextSlot.horizontalCenter
+          margin-top: 4
+          text-auto-resize: true
+          font: verdana-11px-rounded
+
+        Label
+          id: nextBonus
+          anchors.top: nextName.bottom
+          anchors.horizontalCenter: nextSlot.horizontalCenter
+          text-auto-resize: true
+          font: verdana-11px-antialised
+          color: #bfbfbf
+
+      Label
+        id: materialsTitle
+        anchors.top: rarityRow.bottom
+        anchors.left: parent.left
+        margin-top: 10
+        text: Required materials
+        font: verdana-11px-rounded
+        color: #dfdfdf
+
+      Panel
+        id: materialsList
+        anchors.top: materialsTitle.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: chanceLabel.top
+        margin-top: 4
+        margin-bottom: 6
+        layout:
+          type: verticalBox
+
+      Label
+        id: maxRarityLabel
+        anchors.top: materialsTitle.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        margin-top: 20
+        text-align: center
+        text: This item is already at max rarity.
+        color: #ffd700
+        visible: false
+
+      Label
+        id: chanceLabel
+        anchors.left: parent.left
+        anchors.bottom: guaranteeCheck.top
+        margin-bottom: 6
+        text-auto-resize: true
+        font: verdana-11px-antialised
+        color: #dfdfdf
+
+      CheckBox
+        id: guaranteeCheck
+        anchors.left: parent.left
+        anchors.right: evolveButton.left
+        anchors.verticalCenter: evolveButton.verticalCenter
+        margin-right: 10
+        text: Guarantee 100% success
+        @onCheckChange: modules.game_rarity_craft.onGuaranteeChange()
+
+      Button
+        id: evolveButton
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        size: 110 28
+        text: Upgrade
+        @onClick: modules.game_rarity_craft.onEvolveClick()

@@ -1,0 +1,12 @@
+Module
+  name: game_rarity_craft
+  description: Janela CRAFT - evolucao de raridade de itens
+  author: WodBleach
+  sandboxed: true
+  autoload: true
+  scripts: [rarity_craft]
+  @onLoad: init()
+  @onUnload: terminate()
+  dependencies:
+    - game_interface
+    - client_topmenu
