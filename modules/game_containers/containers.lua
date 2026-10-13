@@ -142,7 +142,7 @@ function onContainerOpen(container, previousContainer)
     if child ~= lastHoveredContainerChild then
       lastHoveredContainerChild = child
       if child and child:getTooltip() then
-        g_tooltip.display(child:getTooltip())
+        g_tooltip.display(child:getTooltip(), child)
       else
         g_tooltip.hide()
       end

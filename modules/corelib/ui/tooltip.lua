@@ -79,9 +79,14 @@ function g_tooltip.terminate()
   g_tooltip = nil
 end
 
-function g_tooltip.display(text)
+-- widget (opcional): dono do tooltip; ele some quando o mouse sai desse widget
+function g_tooltip.display(text, widget)
   if text == nil or text:len() == 0 then return end
   if not toolTipLabel then return end
+
+  if widget then
+    currentHoveredWidget = widget
+  end
 
   toolTipLabel:setText(text)
   toolTipLabel:resizeToText()
@@ -99,10 +104,18 @@ end
 
 function g_tooltip.hide()
   g_effects.fadeOut(toolTipLabel, 100)
-  
+
   disconnect(rootWidget, {
     onMouseMove = moveToolTip,
-  })  
+  })
+end
+
+-- esconde o tooltip somente se ele pertence ao widget (ex.: item removido do slot)
+function g_tooltip.hideFor(widget)
+  if widget and widget == currentHoveredWidget then
+    g_tooltip.hide()
+    currentHoveredWidget = nil
+  end
 end
 
 

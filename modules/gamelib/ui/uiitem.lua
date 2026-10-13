@@ -196,7 +196,12 @@ function UIItem:onItemChange()
   self:setTooltip(tooltip)
   self:updateRarityBorder()
 
-  if self:isHovered() and tooltip then
-    g_tooltip.display(tooltip)
+  if tooltip then
+    if self:isHovered() then
+      g_tooltip.display(tooltip, self)
+    end
+  else
+    -- o item saiu do slot: some com o tooltip que ainda estava na tela
+    g_tooltip.hideFor(self)
   end
 end
