@@ -181,7 +181,7 @@ local function notifyMissionProgress(data)
       local previous = previousMissionProgress[key] or 0
 
       if current > previous and current < required then
-        modules.game_textmessage.displayGameMessage(string.format(
+        modules.game_textmessage.displayScreenMessage(string.format(
           'Keep killing %s [%d of %d] to complete the Battle Pass mission',
           mission.target.monster or mission.description, current, required))
       end

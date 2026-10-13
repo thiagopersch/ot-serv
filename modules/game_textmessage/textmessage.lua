@@ -42,7 +42,8 @@ MessageSettings = {
   bottomWhite   = { color = '#ffffff', consoleTab = 'Server Log', screenTarget = 'statusLabel', consoleOption = 'showEventMessagesInConsole' },
   status        = { color = '#ffffff', consoleTab = 'Server Log', screenTarget = 'statusLabel', consoleOption = 'showStatusMessagesInConsole' },
   statusSmall   = { color = '#ffffff', screenTarget = 'statusLabel' },
-  private       = { color = '#5ff7f7', screenTarget = 'privateLabel' }
+  private       = { color = '#5ff7f7', screenTarget = 'privateLabel' },
+  centerWhiteScreen = { color = '#ffffff', screenTarget = 'middleCenterLabel' } -- so tela, sem Server Log
 }
 
 MessageTypes = {
@@ -81,6 +82,7 @@ MessageTypes = {
   [MessageModes.Report] = MessageSettings.consoleRed,
   [MessageModes.HotkeyUse] = MessageSettings.centerGreen,
 
+  [253] = MessageSettings.centerWhiteScreen,
   [254] = MessageSettings.private
 }
 
@@ -177,6 +179,11 @@ function displayMessage(mode, text)
     removeEvent(label.hideEvent)
     label.hideEvent = scheduleEvent(function() label:setVisible(false) end, calculateVisibleTime(text))
   end
+end
+
+-- Mesmo visual do displayGameMessage, mas sem registrar no Server Log
+function displayScreenMessage(text)
+  displayMessage(253, text)
 end
 
 function displayPrivateMessage(text)

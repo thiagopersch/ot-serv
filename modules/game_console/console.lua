@@ -519,9 +519,12 @@ function getCurrentTab()
   return consoleTabBar:getCurrentTab()
 end
 
+-- Canais do sistema abertos pelo servidor no login (Loot, Tasks, Bosses, Deaths, Battle Pass): nao roubam o foco
+local SYSTEM_CHANNELS = { [10] = true, [11] = true, [12] = true, [13] = true, [14] = true }
+
 function addChannel(name, id)
   channels[id] = name
-  local focus = not table.find(ignoredChannels, id)
+  local focus = not table.find(ignoredChannels, id) and not SYSTEM_CHANNELS[id]
   local tab = addTab(name, focus)
   tab.channelId = id
   return tab
@@ -616,12 +619,43 @@ function getNewHighlightedText(text, color, highlightColor)
   return tmpData
 end
 
+-- Trechos "{texto|#RRGGBB}" enviados pelo servidor (canais do sistema) viram texto colorido.
+-- Retorna o texto sem a marcacao e a lista para setColoredText (ou nil se nao houver marcacao).
+function getMarkupColoredText(text, color)
+  if not text:find('{[^{}|]+|#%x%x%x%x%x%x}') then return text, nil end
+  local plain, data, pos = {}, {}, 1
+  while true do
+    local s, e, part, partColor = text:find('{([^{}|]+)|(#%x%x%x%x%x%x)}', pos)
+    if not s then break end
+    if s > pos then
+      local before = text:sub(pos, s - 1)
+      table.insert(plain, before)
+      table.insert(data, before)
+      table.insert(data, color)
+    end
+    table.insert(plain, part)
+    table.insert(data, part)
+    table.insert(data, partColor)
+    pos = e + 1
+  end
+  if pos <= #text then
+    local rest = text:sub(pos)
+    table.insert(plain, rest)
+    table.insert(data, rest)
+    table.insert(data, color)
+  end
+  return table.concat(plain), data
+end
+
 function addTabText(text, speaktype, tab, creatureName)
   if not tab or tab.locked or not text or #text == 0 then return end
 
   if modules.client_options.getOption('showTimestampsInConsole') then
     text = os.date('%H:%M') .. ' ' .. text
   end
+
+  local markupData
+  text, markupData = getMarkupColoredText(text, speaktype.color)
 
   local panel = consoleTabBar:getTabPanel(tab)
   local consoleBuffer = panel:getChildById('consoleBuffer')
@@ -638,6 +672,9 @@ function addTabText(text, speaktype, tab, creatureName)
   label:setId('consoleLabel' .. consoleBuffer:getChildCount())
   label:setText(text)
   label:setColor(speaktype.color)
+  if markupData then
+    label:setColoredText(markupData)
+  end
   consoleTabBar:blinkTab(tab)
 
   if speaktype.npcChat and (g_game.getCharacterName() ~= creatureName or g_game.getCharacterName() == 'Account Manager') then
