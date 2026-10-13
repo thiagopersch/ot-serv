@@ -15,6 +15,7 @@ OptionPanel
 
   OptionCheckBox
     id: vsync
+    enabled: false
     !text: tr('Enable vertical synchronization')
     !tooltip: tr('Limits FPS (usually to 60)')
 

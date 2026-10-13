@@ -246,6 +246,8 @@ function setOption(key, value, force)
     return
   end
 
+  if key == 'vsync' then value = true end -- vsync is always on, the checkbox is locked
+
   if not force and options[key] == value then return end
   local gameMapPanel = modules.game_interface.getMapPanel()
 
