@@ -1,5 +1,8 @@
+// Grade fixa de 6 colunas: 6 * 38 + 5 * 6 = 258px. A scrollbar fica ancorada na borda direita
+// do painel, então sempre sobra um respiro entre o último slot e ela.
 AutolootItemSlot < UIItem
-  size: 34 34
+  size: 38 38
+  padding: 3
   background-color: #101214
   border-width: 1
   border-color: #45494f
@@ -9,9 +12,22 @@ AutolootItemSlot < UIItem
   $hover:
     border-color: #6faaff
 
+AutolootGrid < UIScrollArea
+  width: 258
+  layout:
+    type: grid
+    cell-size: 38 38
+    cell-spacing: 6
+    num-columns: 6
+
+AutolootPanelTitle < Label
+  font: verdana-11px-rounded
+  color: #ffcc00
+  text-auto-resize: true
+
 MainWindow
   id: gw_AutoLoot
-  size: 620 480
+  size: 640 480
   !text: tr('Autoloot')
   @onEscape: toggle()
 
@@ -47,16 +63,20 @@ MainWindow
     anchors.verticalCenter: moneyCheckbox.verticalCenter
     anchors.left: moneyCheckbox.right
     margin-left: 6
-    font: verdana-9px
+    font: verdana-11px-rounded
     color: #dfdfdf
+    text-auto-resize: true
     !text: tr('Collect money')
 
   Label
     id: slotsLabel
-    anchors.top: moneyCheckbox.top
+    anchors.top: closeButton.bottom
     anchors.right: parent.right
-    font: verdana-9px
+    margin-top: 4
+    font: verdana-11px-rounded
     color: #9a9a9a
+    text-align: right
+    text-auto-resize: true
     text: 0/30
 
   Panel
@@ -66,94 +86,87 @@ MainWindow
     anchors.bottom: parent.bottom
     margin-top: 10
     margin-bottom: 6
-    width: 290
+    width: 300
     image-source: /images/ui/panel_flat
     image-border: 1
     padding: 6
 
-    Label
+    AutolootPanelTitle
       id: leftTitle
       anchors.top: parent.top
       anchors.left: parent.left
-      font: verdana-9px
-      color: #ffcc00
-      text: Available items
+      !text: tr('Available items')
+
+    ComboBox
+      id: categoryCombo
+      anchors.top: leftTitle.bottom
+      anchors.right: parent.right
+      margin-top: 4
+      size: 104 22
+      !tooltip: tr('Filter by type')
 
     TextEdit
       id: searchEdit
-      anchors.top: leftTitle.bottom
+      anchors.top: categoryCombo.top
       anchors.left: parent.left
-      anchors.right: parent.right
-      margin-top: 4
+      anchors.right: categoryCombo.left
+      margin-right: 4
       !tooltip: tr('Search by name')
       !placeholder: tr('Search item...')
 
-    UIScrollArea
+    AutolootGrid
       id: leftGrid
       anchors.top: searchEdit.bottom
       anchors.left: parent.left
-      anchors.right: parent.right
       anchors.bottom: parent.bottom
       margin-top: 6
       vertical-scrollbar: leftScrollBar
-      layout:
-        type: grid
-        cell-size: 36 36
-        cell-spacing: 2
-        num-columns: 7
 
     VerticalScrollBar
       id: leftScrollBar
       anchors.top: leftGrid.top
       anchors.bottom: leftGrid.bottom
       anchors.right: parent.right
+      // uma linha da grade por tick (cell 38 + spacing 6); o default é 1px
+      step: 44
 
   Panel
     id: rightPanel
     anchors.top: moneyCheckbox.bottom
-    anchors.left: leftPanel.right
     anchors.right: parent.right
     anchors.bottom: parent.bottom
     margin-top: 10
     margin-bottom: 6
-    margin-left: 10
+    width: 300
     image-source: /images/ui/panel_flat
     image-border: 1
     padding: 6
-
-    Label
-      id: rightTitle
-      anchors.top: parent.top
-      anchors.left: parent.left
-      anchors.right: clearAllButton.left
-      font: verdana-9px
-      color: #ffcc00
-      text: Autoloot items (click to remove)
 
     Button
       id: clearAllButton
       !text: tr('Clear items')
       anchors.top: parent.top
       anchors.right: parent.right
-      width: 70
+      width: 80
       @onClick: modules.game_autoloot.clearAll()
 
-    UIScrollArea
-      id: rightGrid
-      anchors.top: rightTitle.bottom
+    AutolootPanelTitle
+      id: rightTitle
+      anchors.verticalCenter: clearAllButton.verticalCenter
       anchors.left: parent.left
-      anchors.right: parent.right
+      !text: tr('Autoloot items (click to remove)')
+
+    AutolootGrid
+      id: rightGrid
+      anchors.top: clearAllButton.bottom
+      anchors.left: parent.left
       anchors.bottom: parent.bottom
       margin-top: 6
       vertical-scrollbar: rightScrollBar
-      layout:
-        type: grid
-        cell-size: 36 36
-        cell-spacing: 2
-        num-columns: 7
 
     VerticalScrollBar
       id: rightScrollBar
       anchors.top: rightGrid.top
       anchors.bottom: rightGrid.bottom
       anchors.right: parent.right
+      step: 44
