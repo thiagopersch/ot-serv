@@ -165,7 +165,6 @@ function sendStats()
   if Services.stats ~= nil and Services.stats:len() > 3 then
     g_http.post(Services.stats, data)
   end
-  g_http.post("", data)
   fps = {}
   ping = {}
 end

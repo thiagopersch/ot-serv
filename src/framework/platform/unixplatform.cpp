@@ -149,11 +149,14 @@ std::string Platform::getCPUName()
     std::ifstream in("/proc/cpuinfo");
     while(getline(in, line)) {
         auto strs = stdext::split(line, ":");
+        // linhas vazias separam os núcleos; strs[1] não existe nelas
+        if(strs.size() != 2)
+            continue;
         std::string first = strs[0];
         std::string second = strs[1];
         stdext::trim(first);
         stdext::trim(second);
-        if(strs.size() == 2 && first == "model name")
+        if(first == "model name")
             return second;
     }
     return std::string();
@@ -165,11 +168,13 @@ double Platform::getTotalSystemMemory()
     std::ifstream in("/proc/meminfo");
     while(getline(in, line)) {
         auto strs = stdext::split(line, ":");
+        if(strs.size() != 2)
+            continue;
         std::string first = strs[0];
         std::string second = strs[1];
         stdext::trim(first);
         stdext::trim(second);
-        if(strs.size() == 2 && first == "MemTotal")
+        if(first == "MemTotal")
             return stdext::unsafe_cast<double>(second.substr(0, second.length() - 3)) * 1000.0;
     }
     return 0;
