@@ -1,0 +1,11 @@
+Module
+  name: game_dialog
+  description:
+  author: peixola
+  website:
+  sandboxed: true
+  autoload: true
+  autoload-priority: 1000
+  scripts: [ dialog ]
+  @onLoad: init()
+  @onUnload: terminate()

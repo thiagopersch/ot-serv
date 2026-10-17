@@ -1,0 +1,196 @@
+MainWindow
+  id: vocationRanksWindow
+  !text: tr('Vocation Upgraded')
+  size: 550 420
+  @onEscape: modules.game_vocation_ranks.destroyWindow()
+  anchors.centerIn: parent
+
+  Panel
+    id: leftPanel
+    width: 220
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.bottom: closeBtn.top
+    margin-top: 8
+    margin-left: 8
+    margin-bottom: 8
+
+    UIWidget
+      id: vocImage
+      size: 192 192
+      anchors.top: parent.top
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 8
+      image-smooth: true
+
+    Label
+      id: nameLabel
+      text-auto-resize: true
+      text-align: center
+      color: #ffffff
+      font: verdana-11px-rounded
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 10
+
+    Label
+      id: vocNameLabel
+      text-auto-resize: true
+      text-align: center
+      color: #dfdfdf
+      font: verdana-11px-rounded
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 4
+
+    Panel
+      id: currentStarsPanel
+      height: 24
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 10
+      width: 100
+
+  VerticalSeparator
+    id: vSep
+    anchors.top: parent.top
+    anchors.bottom: closeBtn.top
+    anchors.left: leftPanel.right
+    margin-top: 8
+    margin-bottom: 8
+
+  Panel
+    id: rightPanel
+    anchors.top: parent.top
+    anchors.left: vSep.right
+    anchors.right: parent.right
+    anchors.bottom: closeBtn.top
+    margin-top: 8
+    margin-left: 12
+    margin-right: 12
+    margin-bottom: 8
+
+    Label
+      id: rankLabel
+      text: Current Rank: Loading...
+      text-align: center
+      color: #ffd700
+      font: verdana-11px-rounded
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 6
+
+    Label
+      id: nextRankLabel
+      text: Next Progress: Loading...
+      text-align: center
+      color: #cd7f32
+      font: verdana-11px-rounded
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 4
+
+    HorizontalSeparator
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 10
+
+    Label
+      id: bonusTitleLabel
+      text: Bonus Per Star:
+      text-align: left
+      color: #ffffff
+      font: verdana-11px-rounded
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 10
+
+    Label
+      id: bonusValueLabel
+      text: (loading...)
+      text-auto-resize: true
+      text-wrap: true
+      text-align: left
+      color: #dddddd
+      font: verdana-11px-rounded
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 4
+      margin-left: 8
+
+    HorizontalSeparator
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 10
+
+    Label
+      id: fragTitleLabel
+      text: Fragments in Bag:
+      text-align: left
+      color: #ffffff
+      font: verdana-11px-rounded
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 10
+
+    Label
+      id: fragUnivLabel
+      text: Universal: 0 / 0
+      text-align: left
+      color: #ff5555
+      font: verdana-11px-rounded
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 5
+      margin-left: 8
+
+    Label
+      id: fragSpecLabel
+      text: Specific: 0 / 0
+      text-align: left
+      color: #ff5555
+      font: verdana-11px-rounded
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 4
+      margin-left: 8
+
+    Button
+      id: upgradeBtn
+      !text: tr('Upgrade Vocation')
+      anchors.bottom: statusLabel.top
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-bottom: 6
+      height: 24
+      @onClick: modules.game_vocation_ranks.onUpgrade()
+
+    Label
+      id: statusLabel
+      text:
+      text-align: center
+      color: #aaaaaa
+      font: verdana-11px-rounded
+      anchors.bottom: parent.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-bottom: 2
+
+  Button
+    id: closeBtn
+    !text: tr('Close')
+    width: 100
+    anchors.bottom: parent.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-bottom: 8
+    @onClick: modules.game_vocation_ranks.destroyWindow()
+

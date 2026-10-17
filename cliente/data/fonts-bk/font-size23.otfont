@@ -1,0 +1,6 @@
+Font
+  name: font-size23
+  texture: font-size23
+  height: 31
+  glyph-size: 28 32
+  space-width: 5

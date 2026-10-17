@@ -1,0 +1,160 @@
+ChestSlot < UIWidget
+  size: 74 74
+  image-source: /modules/game_chest/chest/chest1
+  focusable: true
+
+  $hover:
+    image-color: #ffffffcc
+
+  ChestKeyIcon
+    id: keyIcon
+    anchors.bottom: parent.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-bottom: -8
+    virtual: true
+
+  Label
+    id: keyCountLabel
+    anchors.bottom: keyIcon.bottom
+    anchors.right: keyIcon.right
+    font: verdana-11px-monochrome
+    color: #ffd700
+
+ChestKeyIcon < UIItem
+  size: 28 28
+  virtual: true
+
+ChestNameLabel < Label
+  text-align: center
+  font: verdana-11px-monochrome
+  color: #dfdfdf
+
+ChestRewardPreviewSlot < UIItem
+  size: 30 30
+  background-color: #101214
+  border-width: 1
+  border-color: #45494f
+  virtual: true
+  focusable: true
+
+MainWindow
+  id: chestWindow
+  !text: tr('Chests')
+  size: 420 320
+  @onEscape: modules.game_chest.toggle()
+
+  Panel
+    id: slotLeft
+    size: 100 130
+    anchors.left: parent.left
+    anchors.verticalCenter: parent.verticalCenter
+    margin-left: 10
+    focusable: false
+
+    ChestSlot
+      id: chestIcon
+      anchors.top: parent.top
+      anchors.horizontalCenter: parent.horizontalCenter
+      size: 58 58
+
+    ChestNameLabel
+      id: nameLabel
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 26
+
+  Panel
+    id: slotCenter
+    size: 130 160
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.top: parent.top
+    margin-top: 10
+    focusable: false
+
+    ChestSlot
+      id: chestIcon
+      anchors.top: parent.top
+      anchors.horizontalCenter: parent.horizontalCenter
+      size: 84 84
+
+    ChestNameLabel
+      id: nameLabel
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 34
+      color: #ffd700
+
+  Label
+    id: rewardsPreviewLabel
+    anchors.top: slotCenter.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 8
+    font: verdana-11px-monochrome
+    color: #9a9a9a
+    text: Possible rewards
+
+  UIScrollArea
+    id: rewardsPreview
+    anchors.top: rewardsPreviewLabel.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 4
+    width: 300
+    height: 34
+    focusable: false
+    layout:
+      type: horizontalBox
+      spacing: 4
+
+  Panel
+    id: slotRight
+    size: 100 130
+    anchors.right: parent.right
+    anchors.verticalCenter: parent.verticalCenter
+    margin-right: 10
+    focusable: false
+
+    ChestSlot
+      id: chestIcon
+      anchors.top: parent.top
+      anchors.horizontalCenter: parent.horizontalCenter
+      size: 58 58
+
+    ChestNameLabel
+      id: nameLabel
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 26
+
+  Label
+    id: hintLabel
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: openButton.top
+    margin-bottom: 8
+    text-align: center
+    text-wrap: true
+    font: verdana-11px-monochrome
+    color: #ff5555
+
+  Button
+    id: openButton
+    !text: tr('Abrir')
+    anchors.bottom: parent.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-bottom: 8
+    width: 100
+    @onClick: modules.game_chest.openCenterChest()
+
+  Button
+    id: closeButton
+    !text: tr('Fechar')
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    margin-bottom: 8
+    margin-right: 10
+    width: 90
+    image-color: #cc3333
+    @onClick: modules.game_chest.toggle()

@@ -1,0 +1,156 @@
+TeleportCheckpointEntry < UIWidget
+  height: 24
+  focusable: true
+  background-color: alpha
+
+  $hover:
+    background-color: #2a2a2a
+
+  $on:
+    background-color: #3a3a3a
+
+  Label
+    id: nameLabel
+    anchors.left: parent.left
+    anchors.verticalCenter: parent.verticalCenter
+    anchors.right: lockIcon.left
+    margin-left: 6
+    margin-right: 4
+    font: verdana-11px-monochrome
+    color: #dfdfdf
+
+  Label
+    id: lockIcon
+    anchors.right: parent.right
+    anchors.verticalCenter: parent.verticalCenter
+    margin-right: 6
+    font: verdana-11px-monochrome
+    color: #ff5555
+    text: [locked]
+    visible: false
+
+RedButton < Button
+  image-color: #cc0000
+  color: #ffffff
+
+TeleportCheckpointMinimap < UIMinimap
+  draggable: false
+  cross: true
+  color: black
+  border-width: 1
+  border-color: #000000
+  phantom: false
+
+MainWindow
+  id: teleportCheckpointWindow
+  !text: tr('Teleport Checkpoint')
+  size: 520 340
+  @onEscape: modules.game_teleport_checkpoint.close()
+
+  RedButton
+    id: xButton
+    !text: 'X'
+    size: 18 18
+    anchors.top: parent.top
+    anchors.right: parent.right
+    @onClick: modules.game_teleport_checkpoint.close()
+
+  Label
+    id: selectedNameLabel
+    anchors.left: leftPanel.right
+    anchors.right: xButton.left
+    anchors.verticalCenter: xButton.verticalCenter
+    margin-left: 10
+    margin-right: 4
+    text-align: center
+    font: verdana-11px-monochrome
+    color: #ffd700
+    text: Select a destination
+
+  Panel
+    id: leftPanel
+    width: 160
+    anchors.top: parent.top
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    focusable: false
+
+    Label
+      id: listTitle
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.right: parent.right
+      font: verdana-11px-monochrome
+      color: #9a9a9a
+      text: Destinations
+
+    UIScrollArea
+      id: pointList
+      anchors.top: listTitle.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      anchors.bottom: parent.bottom
+      margin-top: 6
+      margin-bottom: 6
+      vertical-scrollbar: pointListScrollBar
+      layout:
+        type: verticalBox
+        spacing: 2
+
+    VerticalScrollBar
+      id: pointListScrollBar
+      anchors.top: pointList.top
+      anchors.bottom: pointList.bottom
+      anchors.right: parent.right
+      step: 24
+      pixels-scroll: true
+
+  Panel
+    id: rightPanel
+    anchors.top: xButton.bottom
+    anchors.bottom: buyButton.top
+    anchors.left: leftPanel.right
+    anchors.right: parent.right
+    margin-top: 6
+    margin-left: 10
+    margin-bottom: 8
+    focusable: false
+
+    TeleportCheckpointMinimap
+      id: minimap
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.right: parent.right
+      anchors.bottom: parent.bottom
+
+  Button
+    id: buyButton
+    !text: tr('Buy')
+    anchors.bottom: parent.bottom
+    anchors.left: leftPanel.right
+    margin-left: 10
+    margin-bottom: 8
+    width: 100
+    visible: false
+    @onClick: modules.game_teleport_checkpoint.buySelected()
+
+  Button
+    id: teleportButton
+    !text: tr('Teleport')
+    anchors.bottom: parent.bottom
+    anchors.left: leftPanel.right
+    margin-left: 10
+    margin-bottom: 8
+    width: 130
+    enabled: false
+    visible: false
+    @onClick: modules.game_teleport_checkpoint.teleportSelected()
+
+  RedButton
+    id: closeButton
+    !text: tr('Close')
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    margin-bottom: 8
+    width: 90
+    @onClick: modules.game_teleport_checkpoint.close()

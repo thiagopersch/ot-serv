@@ -1,0 +1,11 @@
+Module
+  name: game_dailyreward
+  description: Daily Reward System
+  author: Antigravity
+  autoload: true
+  autoload-priority: 1000
+  sandboxed: true
+  dependencies: [ game_interface, client_topmenu ]
+  scripts: [ dailyreward.lua ]
+  @onLoad: init()
+  @onUnload: terminate()

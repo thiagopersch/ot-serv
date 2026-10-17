@@ -1,0 +1,9 @@
+Module
+  name: game_vocation_change
+  description: Change Vocation System
+  author: wtver (modified)
+  autoload: true
+  sandboxed: false
+  scripts: [ vocation_change ]
+  @onLoad: init()
+  @onUnload: terminate()

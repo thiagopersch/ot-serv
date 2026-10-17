@@ -1,0 +1,12 @@
+Module
+  name: game_chest
+  description: Chest selection window
+  author: DBOSupreme
+  sandboxed: true
+  autoload: true
+  scripts: [chest]
+  @onLoad: init()
+  @onUnload: terminate()
+  dependencies:
+    - game_interface
+    - client_topmenu

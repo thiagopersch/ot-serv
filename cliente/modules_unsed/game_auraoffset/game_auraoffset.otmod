@@ -1,0 +1,11 @@
+Module
+  name: game_auraoffset
+  description: Directional offset adjustment for auras and wings
+  author: Thony
+  autoload: true
+  reloadable: true
+  sandboxed: true
+  version: 1.0
+  scripts: [ game_auraoffset ]
+  @onLoad: init()
+  @onUnload: terminate()

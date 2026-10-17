@@ -1,0 +1,10 @@
+Module
+  name: game_tasks
+  description: Anime Task System with Rank
+  author: System
+  autoload: true
+  autoload-priority: 800
+  dependencies: [ game_interface, client_topmenu ]
+  scripts: [ tasks.lua ]
+  @onLoad: init()
+  @onUnload: terminate()

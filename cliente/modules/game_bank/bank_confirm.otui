@@ -1,0 +1,102 @@
+Window
+  id: confirmWindow
+  size: 320 280
+  anchors.centerIn: parent
+  @onEscape: self:destroy()
+
+  Label
+    id: title
+    anchors.top: parent.top
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 15
+    font: sans-bold-16px
+    color: #ffffff
+    text-auto-resize: true
+
+  Label
+    id: balanceLabel
+    anchors.top: title.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 10
+    font: verdana-11px-rounded
+    color: #cccccc
+    text-auto-resize: true
+
+  Panel
+    id: contentPanel
+    anchors.top: balanceLabel.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: confirmBtn.top
+    margin: 10 20 10 20
+    layout:
+      type: verticalBox
+      spacing: 8
+
+    Label
+      id: valueLabel
+      !text: tr('Amount:')
+      color: #cccccc
+      font: verdana-11px-rounded
+      text-auto-resize: true
+
+    TextEdit
+      id: valueInput
+      height: 22
+      placeholder: tr('Enter amount...')
+
+    Label
+      id: nameLabel
+      !text: tr('Player name:')
+      color: #cccccc
+      font: verdana-11px-rounded
+      text-auto-resize: true
+      visible: false
+
+    TextEdit
+      id: nameInput
+      height: 22
+      visible: false
+      placeholder: tr('Enter player name...')
+
+    Label
+      id: previewLabel
+      margin-top: 5
+      font: verdana-11px-rounded
+      color: #f7ff5c
+      text-auto-resize: true
+      text-align: center
+      !text: '$0'
+
+    Label
+      id: errorLabel
+      margin-top: 5
+      font: verdana-11px-rounded
+      color: #ff5555
+      text-auto-resize: true
+      text-wrap: true
+      text-align: center
+      visible: false
+
+  Button
+    id: confirmBtn
+    anchors.bottom: parent.bottom
+    anchors.right: parent.horizontalCenter
+    margin-bottom: 20
+    margin-right: 10
+    size: 110 28
+    !text: tr('Confirm')
+    image-color: #198754
+    color: #ffffff
+
+  Button
+    id: cancelBtn
+    anchors.bottom: parent.bottom
+    anchors.left: parent.horizontalCenter
+    margin-bottom: 20
+    margin-left: 10
+    size: 110 28
+    !text: tr('Cancel')
+    image-color: #662222
+    color: #ffffff
+    @onClick: self:getParent():destroy()

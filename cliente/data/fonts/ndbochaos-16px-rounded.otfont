@@ -1,0 +1,6 @@
+Font
+  name: ndbochaos-16px-rounded
+  texture: ndbochaos-16px-rounded_cp1252
+  height: 19
+  glyph-size: 18 20
+  space-width: 5

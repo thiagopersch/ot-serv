@@ -1,0 +1,237 @@
+BattlePassMissionRow < Label
+  height: 22
+  padding: 2
+  color: #dfdfdf
+  background-color: alpha
+  font: verdana-11px-monochrome
+
+BattlePassRewardSlot < UIItem
+  size: 42 42
+  border-width: 1
+  border-color: #55555588
+  background-color: #22222299
+  virtual: true
+  focusable: true
+
+  $hover:
+    border-color: #ffffff88
+
+  $on:
+    border-color: #55ff5588
+
+MainWindow
+  id: battlePassWindow
+  !text: tr('Battle Pass')
+  size: 760 600
+  @onEscape: modules.game_battle_pass.toggle()
+
+  Label
+    id: titleLabel
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: closeButton.left
+    text-align: center
+    font: terminus-14px-bold
+    color: #ffcc00
+    text: BATTLE PASS
+
+  Button
+    id: closeButton
+    !text: tr('X')
+    anchors.top: parent.top
+    anchors.right: parent.right
+    width: 24
+    image-color: #cc3333
+    @onClick: modules.game_battle_pass.toggle()
+
+  UIWidget
+    id: passBadge
+    anchors.top: titleLabel.bottom
+    anchors.left: parent.left
+    margin-top: 10
+    size: 40 40
+
+  Label
+    id: passNameLabel
+    anchors.top: passBadge.top
+    anchors.left: passBadge.right
+    margin-left: 8
+    font: verdana-11px-rounded
+    color: #dfdfdf
+    text: Bronze Pass
+
+  Label
+    id: passExpiresLabel
+    anchors.top: passNameLabel.bottom
+    anchors.left: passBadge.right
+    margin-left: 8
+    margin-top: 2
+    font: verdana-9px
+    color: #9a9a9a
+    text-auto-resize: true
+    text: Acaba em --/--/----
+
+  UIWidget
+    id: levelCircle
+    anchors.top: passBadge.bottom
+    anchors.left: parent.left
+    margin-top: 14
+    size: 58 58
+
+    Label
+      id: levelNumberLabel
+      anchors.centerIn: parent
+      font: terminus-14px-bold
+      color: #ffcc00
+      text: 0
+
+    Label
+      id: levelExpBadge
+      anchors.bottom: parent.top
+      anchors.horizontalCenter: parent.horizontalCenter
+      font: verdana-9px
+      color: #dfdfdf
+      text: EXP
+
+  ProgressBar
+    id: xpBar
+    height: 16
+    anchors.verticalCenter: levelCircle.verticalCenter
+    anchors.left: levelCircle.right
+    anchors.right: parent.right
+    background-color: #333333
+    margin-left: 10
+    margin-right: 10
+
+  Button
+    id: missionsButton
+    !text: tr('Missions')
+    anchors.top: levelCircle.bottom
+    anchors.left: parent.left
+    margin-top: 10
+    width: 130
+    image-color: #ff9922
+    @onClick: modules.game_battle_pass.openMissions()
+
+  Button
+    id: goldPassButton
+    !text: tr('Buy Gold Pass')
+    anchors.top: missionsButton.top
+    anchors.left: missionsButton.right
+    margin-left: 8
+    width: 130
+    @onClick: modules.game_battle_pass.buyGoldPass()
+
+  Button
+    id: refreshPassButton
+    !text: tr('Upgrade pass')
+    anchors.top: missionsButton.top
+    anchors.left: goldPassButton.right
+    margin-left: 8
+    width: 130
+    @onClick: modules.game_battle_pass.confirmBuyLevel()
+
+  UIWidget
+    id: logoImage
+    anchors.top: titleLabel.bottom
+    anchors.right: parent.right
+    anchors.bottom: missionsButton.bottom
+    margin-top: 6
+    width: 150
+
+  Label
+    id: rewardsTitle
+    anchors.top: missionsButton.bottom
+    anchors.left: parent.left
+    margin-top: 14
+    font: terminus-14px-bold
+    color: #ffcc00
+    text: Rewards
+
+  Label
+    id: bronzeTrackLabel
+    anchors.top: rewardsTitle.bottom
+    anchors.left: parent.left
+    margin-top: 8
+    font: verdana-9px
+    color: #dfdfdf
+    text: Bronze Pass
+
+  UIWidget
+    id: bronzeTrackBadge
+    anchors.verticalCenter: bronzeTrackLabel.verticalCenter
+    anchors.left: bronzeTrackLabel.right
+    margin-left: 6
+    size: 18 18
+    image-source: /images/game/bronzestar
+
+  UIScrollArea
+    id: bronzeTrackScroll
+    anchors.top: bronzeTrackLabel.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 4
+    height: 96
+    horizontal-scrollbar: bronzeTrackScrollBar
+    layout:
+      type: horizontalBox
+      spacing: 4
+
+  HorizontalScrollBar
+    id: bronzeTrackScrollBar
+    anchors.top: bronzeTrackScroll.bottom
+    anchors.left: bronzeTrackScroll.left
+    anchors.right: bronzeTrackScroll.right
+
+    ScrollBarValueLabel
+      id: valueLabel
+      visible: false
+
+  Label
+    id: goldTrackLabel
+    anchors.top: bronzeTrackScrollBar.bottom
+    anchors.left: parent.left
+    margin-top: 10
+    font: verdana-9px
+    color: #dfdfdf
+    text: Gold Pass
+
+  UIWidget
+    id: goldTrackBadge
+    anchors.verticalCenter: goldTrackLabel.verticalCenter
+    anchors.left: goldTrackLabel.right
+    margin-left: 6
+    size: 18 18
+    image-source: /images/game/goldenstar
+
+  UIScrollArea
+    id: goldTrackScroll
+    anchors.top: goldTrackLabel.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 4
+    height: 96
+    horizontal-scrollbar: goldTrackScrollBar
+    layout:
+      type: horizontalBox
+      spacing: 4
+
+  HorizontalScrollBar
+    id: goldTrackScrollBar
+    anchors.top: goldTrackScroll.bottom
+    anchors.left: goldTrackScroll.left
+    anchors.right: goldTrackScroll.right
+
+    ScrollBarValueLabel
+      id: valueLabel
+      visible: false
+
+  Button
+    id: closeWindowButton
+    !text: tr('Close')
+    anchors.bottom: parent.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-bottom: 6
+    width: 100
+    image-color: #cc3333
+    @onClick: modules.game_battle_pass.toggle()

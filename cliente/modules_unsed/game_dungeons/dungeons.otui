@@ -1,0 +1,74 @@
+DungeonPanel < Panel
+  padding: 4
+  Label
+    id: label1
+    font: verdana-11px-rounded
+    anchors.top: parent.top
+    anchors.left: parent.left
+    margin-top: 4
+    margin-left: 4
+  Label
+    id: label2
+    font: verdana-11px-rounded
+    anchors.top: label1.bottom
+    anchors.left: label1.left
+    margin-top: 2
+  Label
+    id: label3
+    font: verdana-11px-rounded
+    anchors.top: label2.bottom
+    anchors.left: label2.left
+    margin-top: 2
+  Button
+    id: startButton
+    text: Start
+    width: 52
+    anchors.verticalCenter: parent.verticalCenter
+    anchors.right: parent.right
+    margin-right: 14
+
+InvisibleScrollbar < UIScrollBar
+  phantom: true
+  UIButton
+    id: decrementButton
+    visible: false
+  UIButton
+    id: incrementButton
+    visible: false
+  UIButton
+    id: sliderButton
+    visible: false
+
+MainWindow
+  !text: tr('Dungeons')
+  color: white
+  font: verdana-11px-rounded
+  size: 450 450
+
+  ScrollablePanel
+    id: mainPanel
+    size: 410 400
+    border-width: 1
+    border-color: black
+    background-color: #636363
+    anchors.fill: parent
+    anchors.bottom: closeButton.top
+    margin-top: 5
+    margin-bottom: 10
+    padding: 1
+    vertical-scrollbar: mainPanelScrollbar
+    layout: verticalBox
+
+  InvisibleScrollbar
+    id: mainPanelScrollbar
+    orientation: vertical
+    step: 30
+    pixels-scroll: true
+
+  Button
+    id: closeButton
+    width: 64
+    !text: tr('Close')
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    @onClick: close()

@@ -1,0 +1,130 @@
+BattlePassMissionCard < UIWidget
+  size: 118 148
+  background-color: #1e2228
+  border-width: 1
+  border-color: #3a3f47
+  focusable: false
+  clipping: true
+
+  Label
+    id: cardTitle
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 4
+    margin-left: 4
+    margin-right: 4
+    height: 34
+    text-align: center
+    text-wrap: true
+    font: verdana-9px
+    color: #dfdfdf
+
+  UICreature
+    id: cardCreature
+    anchors.top: cardTitle.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 4
+    size: 48 48
+    outfit-center: true
+    fixed-creature-size: true
+
+  Label
+    id: cardXp
+    anchors.top: cardCreature.bottom
+    anchors.left: parent.left
+    margin-top: 6
+    margin-left: 6
+    font: verdana-9px
+    color: #ffcc00
+
+  Label
+    id: cardCheck
+    anchors.verticalCenter: cardXp.verticalCenter
+    anchors.right: parent.right
+    margin-right: 6
+    font: terminus-14px-bold
+    text: OK
+    color: #666666
+
+  Label
+    id: cardProgress
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-bottom: 4
+    text-align: center
+    font: verdana-9px
+    color: #9a9a9a
+
+MainWindow
+  id: battlePassMissionsWindow
+  size: 700 560
+  !text: tr('Pass Missions')
+  @onEscape: modules.game_battle_pass.closeMissions()
+
+  Label
+    id: missionsHeader
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: closeButton.left
+    text-align: center
+    font: terminus-14px-bold
+    color: #ffcc00
+    text: PASS MISSIONS
+
+  Button
+    id: closeButton
+    !text: tr('X')
+    anchors.top: parent.top
+    anchors.right: parent.right
+    width: 24
+    image-color: #cc3333
+    @onClick: modules.game_battle_pass.closeMissions()
+
+  Panel
+    id: objectivesPanel
+    anchors.top: missionsHeader.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: backButton.top
+    margin-top: 10
+    margin-bottom: 10
+
+    Label
+      id: objectivesTitle
+      anchors.top: parent.top
+      anchors.horizontalCenter: parent.horizontalCenter
+      font: verdana-9px
+      color: #dfdfdf
+      text: Objetivos
+
+    UIScrollArea
+      id: missionsGrid
+      anchors.top: objectivesTitle.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      anchors.bottom: parent.bottom
+      margin-top: 8
+      vertical-scrollbar: missionsScrollBar
+      layout:
+        type: grid
+        cell-size: 122 152
+        cell-spacing: 4
+        num-columns: 5
+
+    VerticalScrollBar
+      id: missionsScrollBar
+      anchors.top: missionsGrid.top
+      anchors.bottom: missionsGrid.bottom
+      anchors.right: parent.right
+
+  Button
+    id: backButton
+    !text: tr('Close')
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    margin-bottom: 6
+    width: 80
+    image-color: #cc3333
+    @onClick: modules.game_battle_pass.closeMissions()

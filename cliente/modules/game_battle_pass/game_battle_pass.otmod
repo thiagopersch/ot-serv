@@ -1,0 +1,12 @@
+Module
+  name: game_battle_pass
+  description: Battle Pass window
+  author: DBOSupreme
+  sandboxed: true
+  autoload: true
+  scripts: [battle_pass]
+  @onLoad: init()
+  @onUnload: terminate()
+  dependencies:
+    - game_interface
+    - client_topmenu

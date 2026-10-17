@@ -1,0 +1,10 @@
+Module
+  name: game_auraselector
+  description: Aura Selector System — desbloqueia auras cosméticas via item
+  author: wodbo
+  sandboxed: false
+  autoload: true
+  dependencies: [ game_interface ]
+  scripts: [ auraselector ]
+  @onLoad: init()
+  @onUnload: aura_terminate()

@@ -1,0 +1,698 @@
+TaskEntry < Panel
+  image-source: /images/ui/button
+  image-color: #dfdfdf
+  image-clip: 0 0 22 23
+  image-border: 3
+  border: 1 alpha
+  focusable: true
+  phantom: false
+  size: 148 170
+  margin: 3
+  padding: 10
+
+  $hover:
+    border: 1 #ffd700
+
+  UICreature
+    id: creature
+    anchors.top: parent.top
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 5
+    size: 55 55
+    fixed-creature-size: true
+
+  Label
+    id: difficultyBadge
+    anchors.top: creature.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 4
+    font: verdana-11px-rounded
+    text-wrap: true
+    text-auto-resize: true
+    text-align: center
+
+  Label
+    id: name
+    anchors.top: difficultyBadge.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 2
+    text-align: center
+    text-wrap: true
+    text-auto-resize: true
+    font: verdana-11px-rounded
+
+  Label
+    id: taskType
+    anchors.top: name.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 1
+    text-align: center
+    text-wrap: true
+    text-auto-resize: true
+    font: verdana-11px-rounded
+    color: #aaddff
+
+  Label
+    id: status
+    anchors.top: taskType.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 1
+    text-align: center
+    text-wrap: true
+    font: verdana-11px-rounded
+
+  Label
+    id: repeatable
+    anchors.top: status.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 1
+    text-align: center
+    text-wrap: true
+    font: verdana-11px-rounded
+    color: #aaaaaa
+
+RankPanel < Panel
+  image-source: /images/ui/panel_flat
+  image-border: 2
+  padding: 8
+
+  Label
+    id: rankName
+    font: verdana-11px-rounded
+    text-align: center
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.top: parent.top
+
+  Label
+    id: rankPoints
+    font: verdana-11px-rounded
+    text-align: center
+    text-auto-resize: true
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.top: rankName.bottom
+    margin-top: 3
+
+  Label
+    id: nextRank
+    font: verdana-11px-rounded
+    text-align: center
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.top: rankPoints.bottom
+    margin-top: 2
+    color: #aaaaaa
+
+MainWindow
+  size: 800 750
+  id: tasksWindow
+  image-source: /images/ui/window
+  image-border: 4
+  image-border-top: 25
+  padding: 5
+
+  @onEscape: modules.game_tasks.close()
+
+  Label
+    id: titleLabel
+    text: Tasks
+    font: verdana-11px-rounded
+    color: white
+    text-align: center
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.top: parent.top
+    margin-top: 2
+
+  Label
+    id: taskCount
+    font: verdana-11px-rounded
+    color: #aaaaaa
+    text-align: center
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.top: titleLabel.bottom
+    margin-top: 1
+
+  Label
+    id: rankProgLabel
+    text: Rank Progress:
+    font: verdana-11px-rounded
+    color: #cccccc
+    anchors.top: taskCount.bottom
+    anchors.left: parent.left
+    margin-top: 3
+    margin-left: 5
+
+  Panel
+    id: rankProgBar
+    anchors.top: rankProgLabel.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 1
+    margin-left: 5
+    margin-right: 5
+    height: 12
+    image-source: /images/ui/panel_flat
+    image-border: 1
+    background-color: #333333
+    tooltip: Rank progress
+
+    Panel
+      id: rankProgFill
+      image-source: /images/ui/panel_flat
+      image-color: #ffd700
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.bottom: parent.bottom
+      width: 0
+
+  Label
+    id: questProgLabel
+    text: Quest Progress:
+    font: verdana-11px-rounded
+    color: #cccccc
+    anchors.top: rankProgBar.bottom
+    anchors.left: parent.left
+    margin-top: 2
+    margin-left: 5
+
+  Panel
+    id: questProgBar
+    anchors.top: questProgLabel.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 1
+    margin-left: 5
+    margin-right: 5
+    height: 12
+    image-source: /images/ui/panel_flat
+    image-border: 1
+    background-color: #333333
+    tooltip: Quest progress
+
+    Panel
+      id: questProgFill
+      image-source: /images/ui/panel_flat
+      image-color: #00cc00
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.bottom: parent.bottom
+      width: 0
+
+  RankPanel
+    id: rankPanel
+    anchors.top: questProgBar.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    height: 55
+    margin-top: 3
+    margin-left: 2
+    margin-right: 2
+
+  Panel
+    id: tabBar
+    anchors.top: rankPanel.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    height: 22
+    margin-top: 3
+
+    Button
+      id: tabDragonBall
+      text: Dragon Ball
+      font: verdana-11px-rounded
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.bottom: parent.bottom
+      width: 150
+      tooltip: Dragon Ball tasks available
+      @onClick: modules.game_tasks.switchTab('dragonball')
+
+    Button
+      id: tabBleach
+      text: Bleach
+      font: verdana-11px-rounded
+      anchors.top: parent.top
+      anchors.left: tabDragonBall.right
+      anchors.bottom: parent.bottom
+      width: 150
+      tooltip: Bleach tasks available
+      @onClick: modules.game_tasks.switchTab('bleach')
+
+  Panel
+    id: searchBar
+    anchors.top: tabBar.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    height: 24
+    margin-top: 3
+    margin-left: 2
+    margin-right: 5
+
+    TextEdit
+      id: searchInput
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.bottom: parent.bottom
+      anchors.right: typeFilter.left
+      margin-right: 4
+      font: verdana-11px-rounded
+      color: #dfdfdf
+      !placeholder: tr('Search here...')
+      placeholder-color: #666666
+      placeholder-font: verdana-11px-rounded
+      @onTextChange: modules.game_tasks.onSearchChanged(self:getText())
+
+    ComboBox
+      id: typeFilter
+      anchors.top: parent.top
+      anchors.right: parent.right
+      anchors.bottom: parent.bottom
+      width: 160
+      menu-scroll: true
+      menu-height: 184
+      menu-scroll-step: 23
+      text-offset: 5 2
+      @onOptionChange: modules.game_tasks.onTypeFilterChanged()
+
+  ScrollablePanel
+    id: detailPanel
+    anchors.top: searchBar.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: separator.top
+    margin-top: 2
+    margin-right: 5
+    clipping: true
+    padding: 4
+    vertical-scrollbar: detailScroll
+    layout:
+      type: verticalBox
+
+    Panel
+      id: detailTopRow
+      height: 200
+      padding: 2
+
+      Panel
+        id: detailLeftPanel
+        width: 120
+        padding: 4
+        image-source: /images/ui/panel_flat
+        image-border: 1
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.bottom: parent.bottom
+
+        UICreature
+          id: detailCreature
+          size: 128 96
+          anchors.centerIn: parent
+          phantom: false
+          focusable: false
+
+      Panel
+        id: detailTopRewards
+        width: 300
+        padding: 4
+        image-source: /images/ui/panel_flat
+        image-border: 1
+        background-color: alpha
+        anchors.top: parent.top
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+
+        Label
+          id: detailTopRewardsTitle
+          anchors.top: parent.top
+          anchors.left: parent.left
+          font: verdana-11px-rounded
+          color: #ffd700
+          text: Rewards:
+          text-auto-resize: true
+
+        Label
+          id: detailTopRewardsGold
+          anchors.top: detailTopRewardsTitle.bottom
+          anchors.left: parent.left
+          font: verdana-11px-rounded
+          color: #88ff88
+          text-auto-resize: true
+          margin-top: 2
+
+        Label
+          id: detailTopRewardsExp
+          anchors.top: detailTopRewardsGold.bottom
+          anchors.left: parent.left
+          font: verdana-11px-rounded
+          color: #aa88ff
+          text-auto-resize: true
+          margin-top: 1
+
+        HorizontalSeparator
+          id: detailTopRewardsSep
+          anchors.top: detailTopRewardsExp.bottom
+          anchors.left: parent.left
+          anchors.right: parent.right
+          margin-top: 4
+          margin-bottom: 3
+
+        ScrollablePanel
+          id: detailTopRewardsContainer
+          anchors.top: detailTopRewardsSep.bottom
+          anchors.left: parent.left
+          anchors.right: parent.right
+          anchors.bottom: parent.bottom
+          margin-top: 2
+          layout:
+            type: verticalBox
+
+      Panel
+        id: detailInfoPanel
+        padding: 4
+        margin-left: 4
+        margin-right: 4
+        image-source: /images/ui/panel_flat
+        image-border: 1
+        anchors.top: parent.top
+        anchors.left: detailLeftPanel.right
+        anchors.right: detailTopRewards.left
+        anchors.bottom: parent.bottom
+        layout:
+          type: verticalBox
+
+        Label
+          id: detailName
+          font: verdana-11px-rounded
+          color: #ffffff
+          text-auto-resize: true
+          margin-top: 1
+
+        Label
+          id: detailDifficulty
+          font: verdana-11px-rounded
+          text-auto-resize: true
+          margin-top: 2
+
+        Label
+          id: detailXpLabel
+          font: verdana-11px-rounded
+          color: #aa88ff
+          text-auto-resize: true
+          margin-top: 3
+
+        Label
+          id: detailCategory
+          font: verdana-11px-rounded
+          color: #aaddff
+          text-auto-resize: true
+          margin-top: 3
+
+        Label
+          id: detailLevel
+          font: verdana-11px-rounded
+          color: #cccccc
+          text-auto-resize: true
+          margin-top: 1
+
+        Label
+          id: detailRankRequired
+          font: verdana-11px-rounded
+          color: #ffd700
+          text-auto-resize: true
+          margin-top: 1
+
+        Label
+          id: detailKillsRequired
+          font: verdana-11px-rounded
+          color: #ff8844
+          text-auto-resize: true
+          margin-top: 1
+
+        Label
+          id: detailPoints
+          font: verdana-11px-rounded
+          color: #ffd700
+          text-auto-resize: true
+          margin-top: 1
+
+        Label
+          id: detailMoney
+          font: verdana-11px-rounded
+          color: #88ff88
+          text-auto-resize: true
+          margin-top: 1
+
+        Label
+          id: detailRepeatable
+          font: verdana-11px-rounded
+          color: #aaaaaa
+          text-auto-resize: true
+          margin-top: 1
+
+        Label
+          id: detailStatus
+          font: verdana-11px-rounded
+          text-auto-resize: true
+          margin-top: 2
+
+        Label
+          id: detailProgress
+          font: verdana-11px-rounded
+          color: #aaaaaa
+          text-auto-resize: true
+          margin-top: 1
+
+    Panel
+      id: detailBottomRow
+      margin-top: 4
+      padding: 2
+      height: 150
+
+      Panel
+        id: detailMonstersPanel
+        padding: 4
+        image-source: /images/ui/panel_flat
+        image-border: 1
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+
+        Label
+          id: detailMonstersTitle
+          anchors.top: parent.top
+          anchors.left: parent.left
+          anchors.right: parent.right
+          height: 16
+          font: verdana-11px-rounded
+          color: #ffd700
+          text: Monsters:
+
+        VerticalScrollBar
+          id: monstersScroll
+          visible: false
+          anchors.top: detailMonstersTitle.bottom
+          anchors.right: parent.right
+          anchors.bottom: parent.bottom
+          margin-top: 2
+          width: 8
+          step: 20
+          pixel-scroll: true
+
+        ScrollablePanel
+          id: detailMonstersContainer
+          anchors.top: detailMonstersTitle.bottom
+          anchors.left: parent.left
+          anchors.right: monstersScroll.left
+          anchors.bottom: parent.bottom
+          margin-top: 2
+          vertical-scrollbar: monstersScroll
+          layout:
+            type: verticalBox
+            spacing: 2
+
+    Panel
+      id: detailProgressBar
+      height: 14
+      margin-top: 2
+      margin-left: 3
+      margin-right: 5
+      image-source: /images/ui/panel_flat
+      image-border: 1
+      background-color: #222222
+
+      Panel
+        id: detailProgressFill
+        image-source: /images/ui/panel_flat
+        image-border: 1
+        image-color: #44ff44
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.bottom: parent.bottom
+        width: 0
+
+    Panel
+      id: detailButtonRow
+      height: 28
+      margin-top: 6
+      margin-left: 3
+      margin-right: 3
+      horizontal-align: center
+      layout:
+        type: horizontalBox
+
+      Button
+        id: backButton
+        height: 25
+        width: 55
+        text: < Back
+        @onClick: modules.game_tasks.backToList()
+
+      Button
+        id: startTaskButton
+        height: 25
+        width: 110
+        text: Start Task
+        margin-left: 5
+        @onClick: modules.game_tasks.startTaskClick()
+
+      Button
+        id: cancelTaskButton
+        height: 25
+        width: 110
+        text: Cancel Task
+        image-color: #aa0000
+        margin-left: 5
+        @onClick: modules.game_tasks.cancelTaskClick()
+
+      Button
+        id: claimRewardsButton
+        height: 25
+        width: 130
+        text: Claim Rewards
+        margin-left: 5
+        @onClick: modules.game_tasks.claimRewardsClick()
+
+  VerticalScrollBar
+    id: detailScroll
+    visible: false
+    anchors.top: detailPanel.top
+    anchors.right: detailPanel.right
+    anchors.bottom: detailPanel.bottom
+    step: 30
+    pixel-scroll: true
+
+  ScrollablePanel
+    id: taskList
+    anchors.top: searchBar.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: paginationBar.top
+    margin-top: 2
+    margin-right: 5
+    image-source: /images/ui/panel_flat
+    image-border: 1
+    padding: 4
+    vertical-scrollbar: taskScroll
+    layout:
+      type: verticalBox
+
+  VerticalScrollBar
+    id: taskScroll
+    anchors.top: taskList.top
+    anchors.right: parent.right
+    anchors.bottom: taskList.bottom
+    step: 80
+    pixel-scroll: true
+
+  Label
+    id: loadingLabel
+    !text: tr('Loading...')
+    anchors.horizontalCenter: taskList.horizontalCenter
+    anchors.verticalCenter: taskList.verticalCenter
+    color: #ffffff
+    font: verdana-11px-rounded
+    visible: false
+
+  Panel
+    id: paginationBar
+    anchors.bottom: separator.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    height: 22
+    margin-top: 2
+    margin-left: 5
+    margin-right: 5
+
+    Button
+      id: prevPageBtn
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.bottom: parent.bottom
+      width: 24
+      text: <
+      font: verdana-11px-rounded
+      @onClick: modules.game_tasks.prevPage()
+
+    Label
+      id: pageLabel
+      anchors.top: parent.top
+      anchors.left: prevPageBtn.right
+      anchors.bottom: parent.bottom
+      margin-left: 8
+      margin-right: 8
+      font: verdana-11px-rounded
+      color: #ffffff
+      text: Page 0 of 0
+      text-auto-resize: true
+
+    Button
+      id: nextPageBtn
+      anchors.top: parent.top
+      anchors.left: pageLabel.right
+      anchors.bottom: parent.bottom
+      width: 24
+      text: >
+      font: verdana-11px-rounded
+      @onClick: modules.game_tasks.nextPage()
+
+    Label
+      id: totalTasksLabel
+      anchors.top: parent.top
+      anchors.left: nextPageBtn.right
+      anchors.bottom: parent.bottom
+      margin-left: 10
+      font: verdana-11px-rounded
+      color: #aaaaaa
+      text: 0 tasks found
+      text-auto-resize: true
+
+  HorizontalSeparator
+    id: separator
+    anchors.bottom: info.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-bottom: 2
+
+  Label
+    id: info
+    anchors.bottom: closeButton.top
+    anchors.left: parent.left
+    width: 300
+    height: 20
+    text-align: left
+    margin-left: 5
+    font: verdana-11px-rounded
+
+  Button
+    id: closeButton
+    anchors.bottom: parent.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    text: Close
+    font: verdana-11px-rounded
+    width: 70
+    height: 25
+    margin-bottom: 3
+    @onClick: modules.game_tasks.close()

@@ -1,0 +1,6 @@
+Font
+  name: font-size10
+  texture: font-size10
+  height: 14
+  glyph-size: 16 16
+  space-width: 3

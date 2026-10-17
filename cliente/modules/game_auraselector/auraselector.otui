@@ -1,0 +1,210 @@
+
+AuraButton < UIWidget
+  focusable: true
+  background-color: #1a1a2e
+  border: 1 #3a3a5e
+
+  $focus:
+    border: 1 #6a6aff
+    background-color: #252545
+
+  $hover:
+    background-color: #202040
+
+  UICreature
+    id: outfit
+    anchors.top: parent.top
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 8
+    size: 84 84
+    animate: true
+    center: true
+
+  Label
+    id: name
+    anchors.top: outfit.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    margin: 3
+    text-align: center
+    text-wrap: true
+    text-auto-resize: false
+    font: verdana-11px-rounded
+    color: #cccccc
+
+MainWindow
+  id: auraSelectorWindow
+  size: 680 570
+  anchors.centerIn: parent
+  text: Aura Selector
+
+  @onEscape: modules.game_auraselector.aura_cancel()
+
+  Panel
+    id: leftPanel
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.bottom: buttonsPanel.top
+    width: 200
+    margin: 5
+
+    Label
+      id: previewLabel
+      text: Preview
+      anchors.top: parent.top
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 10
+      color: #cccccc
+      font: verdana-11px-rounded
+
+    UICreature
+      id: preview
+      anchors.top: previewLabel.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 8
+      size: 160 160
+      animate: true
+      center: true
+
+    Label
+      id: selectedName
+      text: None selected
+      anchors.top: preview.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      anchors.bottom: unlockedCountLabel.top
+      margin: 5
+      text-align: center
+      text-auto-resize: true
+      text-wrap: true
+      color: #88ff88
+      font: verdana-11px-rounded
+
+    Label
+      id: unlockedCountLabel
+      text: ""
+      anchors.bottom: parent.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-bottom: 8
+      text-align: center
+      text-auto-resize: true
+      text-wrap: true
+      color: #8888cc
+      font: verdana-11px-rounded
+
+  VerticalSeparator
+    id: separator
+    anchors.top: parent.top
+    anchors.bottom: buttonsPanel.top
+    anchors.left: leftPanel.right
+
+  Panel
+    id: rightPanel
+    anchors.top: parent.top
+    anchors.left: separator.right
+    anchors.right: parent.right
+    anchors.bottom: buttonsPanel.top
+    margin: 5
+
+    Label
+      id: listLabel
+      text: Select an Aura
+      anchors.top: parent.top
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 10
+      color: #aaaaee
+      font: verdana-11px-rounded
+
+    Label
+      id: loadingLabel
+      text: Loading auras...
+      anchors.top: listLabel.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      anchors.bottom: parent.bottom
+      margin-top: 40
+      text-align: center
+      color: #888888
+      font: verdana-11px-rounded
+      visible: false
+
+    Panel
+      id: errorPanel
+      anchors.top: listLabel.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      anchors.bottom: parent.bottom
+      margin-top: 20
+      visible: false
+
+      Label
+        id: errorLabel
+        text: An error occurred.
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+        margin-top: 30
+        text-align: center
+        color: #ff6666
+        font: verdana-11px-rounded
+        text-wrap: true
+
+      Button
+        id: retryButton
+        text: Close
+        anchors.top: errorLabel.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        margin-top: 15
+        width: 100
+
+    UIScrollArea
+      id: auraList
+      anchors.top: listLabel.bottom
+      anchors.left: parent.left
+      anchors.right: auraScrollBar.left
+      anchors.bottom: parent.bottom
+      margin-top: 8
+      margin-bottom: 5
+      margin-left: 5
+      vertical-scrollbar: auraScrollBar
+      layout:
+        type: grid
+        num-columns: 2
+        cell-spacing: 5
+
+    VerticalScrollBar
+      id: auraScrollBar
+      anchors.top: listLabel.bottom
+      anchors.bottom: parent.bottom
+      anchors.right: parent.right
+      margin-top: 8
+      margin-bottom: 5
+      margin-right: 3
+      step: 14
+      pixels-scroll: true
+
+  Panel
+    id: buttonsPanel
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    height: 45
+
+    Button
+      id: confirmButton
+      text: Unlock Aura
+      anchors.verticalCenter: parent.verticalCenter
+      anchors.right: cancelButton.left
+      margin-right: 10
+      width: 150
+      enabled: false
+
+    Button
+      id: cancelButton
+      text: Cancel
+      anchors.verticalCenter: parent.verticalCenter
+      anchors.right: parent.right
+      margin-right: 10
+      width: 90

@@ -1,0 +1,131 @@
+MainWindow
+  id: vocationChangeWindow
+  size: 580 440
+  anchors.centerIn: parent
+  text: Change Vocation
+
+  Panel
+    id: leftPanel
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.bottom: buttonsPanel.top
+    width: 200
+    margin-top: 5
+    margin-bottom: 5
+
+    Label
+      id: titleLabel
+      text: Current Vocation
+      anchors.top: parent.top
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 10
+      color: #cccccc
+      font: verdana-11px-rounded
+
+    UICreature
+      id: vocationPanel
+      anchors.top: titleLabel.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 5
+      margin-bottom: 5
+      size: 120 120
+      fixed-creature-size: true
+
+    Label
+      id: nameLabel
+      text: ?
+      anchors.top: vocationPanel.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 5
+      color: #88ff88
+      text-auto-resize: true
+      text-clip: true
+      text-overflow: ellipsis
+      text-clip-mode: clip
+      text-center: true
+      font: verdana-11px-rounded
+
+    Label
+      id: levelLabel
+      text: ?
+      anchors.top: nameLabel.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 2
+      margin-bottom: 5
+      color: #aaaaaa
+      text-auto-resize: true
+      text-center: true
+      font: verdana-9px
+
+  VerticalSeparator
+    id: separator
+    anchors.top: parent.top
+    anchors.bottom: buttonsPanel.top
+    anchors.left: leftPanel.right
+
+  Panel
+    id: rightPanel
+    anchors.top: parent.top
+    anchors.left: separator.right
+    anchors.right: parent.right
+    anchors.bottom: buttonsPanel.top
+    margin-left: 5
+    margin-right: 5
+    margin-top: 5
+
+    Label
+      text: Available Vocations
+      anchors.top: parent.top
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 10
+      color: #cccccc
+      font: verdana-11px-rounded
+
+    UIScrollArea
+      id: vocationsScroll
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.right: vocationListScrollBar.left
+      anchors.bottom: parent.bottom
+      margin-top: 35
+      margin-bottom: 5
+      margin-left: 5
+      vertical-scrollbar: vocationListScrollBar
+      layout:
+        type: verticalBox
+        spacing: 3
+
+    VerticalScrollBar
+      id: vocationListScrollBar
+      anchors.top: parent.top
+      anchors.bottom: parent.bottom
+      anchors.right: parent.right
+      margin-top: 35
+      margin-bottom: 5
+      margin-right: 3
+      step: 14
+      pixels-scroll: true
+
+  Panel
+    id: buttonsPanel
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    height: 45
+
+    Button
+      id: changeButton
+      text: Change Vocation
+      anchors.verticalCenter: parent.verticalCenter
+      anchors.right: closeButton.left
+      margin-right: 10
+      width: 150
+      enabled: false
+
+    Button
+      id: closeButton
+      text: Close
+      anchors.verticalCenter: parent.verticalCenter
+      anchors.right: parent.right
+      margin-right: 10
+      width: 80

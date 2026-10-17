@@ -1,0 +1,559 @@
+// ── Botão de aba ──────────────────────────────────────────────────────────
+BestiaryTabButton < UIButton
+  size: 100 28
+  color: #aaaaaa
+  text-align: center
+  font: verdana-11px-rounded
+  background-color: #333333
+  border-width: 1
+  border-color: #555555
+  cursor: pointer
+  $checked:
+    background-color: #555555
+    border-color: #888888
+    color: white
+  $hover !checked:
+    background-color: #3e3e3e
+
+// ── Botão de seta de paginação ────────────────────────────────────────────
+BestiaryArrowButton < UIButton
+  size: 28 24
+  color: #cccccc
+  text-align: center
+  font: verdana-11px-rounded
+  background-color: #333333
+  border-width: 1
+  border-color: #555555
+  cursor: pointer
+  $hover:
+    background-color: #444444
+  $disabled:
+    color: #555555
+    background-color: #282828
+
+// ── Botão de fechar ─────────────────────────────────────────────────────────
+BestiaryCloseButton < UIButton
+  size: 100 28
+  color: white
+  text-align: center
+  font: verdana-11px-rounded
+  background-color: #cc3333
+  border-width: 1
+  border-color: #aa2222
+  cursor: pointer
+  $hover:
+    background-color: #dd4444
+  $pressed:
+    background-color: #aa2222
+
+// ── Janela principal ───────────────────────────────────────────────────────
+MainWindow
+  id: bestiaryWindow
+  !text: tr('Bestiary')
+  size: 860 640
+  min-size: 700 500
+  resizable: false
+  @onClose: modules.game_bestiary.onWindowClose()
+
+  Panel
+    id: mainContainer
+    anchors.top: parent.top
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin: 4
+
+    // ── Barra superior ─────────────────────────────────────────────────
+    Panel
+      id: topBar
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.right: parent.right
+      height: 36
+
+      BestiaryTabButton
+        id: tabMonsters
+        !text: tr('Monsters')
+        anchors.left: parent.left
+        anchors.verticalCenter: parent.verticalCenter
+        checked: true
+        @onClick: modules.game_bestiary.onTabClick('monsters')
+
+      BestiaryTabButton
+        id: tabBosses
+        !text: tr('Bosses')
+        anchors.left: tabMonsters.right
+        anchors.verticalCenter: parent.verticalCenter
+        margin-left: 4
+        @onClick: modules.game_bestiary.onTabClick('bosses')
+
+      TextEdit
+        id: searchField
+        anchors.left: tabBosses.right
+        anchors.right: parent.right
+        anchors.verticalCenter: parent.verticalCenter
+        margin-left: 10
+        height: 24
+        !placeholder: tr('Search monster...')
+        @onTextChange: modules.game_bestiary.onSearchChange(self)
+
+    // ── Barra inferior com paginação e fechar ───────────────────────────
+    Panel
+      id: bottomBar
+      anchors.bottom: parent.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      height: 36
+
+      Panel
+        id: paginationBar
+        anchors.left: parent.left
+        anchors.verticalCenter: parent.verticalCenter
+        width: 280
+        height: 28
+
+        BestiaryArrowButton
+          id: prevPageBtn
+          !text: '<'
+          anchors.left: parent.left
+          anchors.verticalCenter: parent.verticalCenter
+          @onClick: modules.game_bestiary.onPrevPage()
+
+        Label
+          id: pageLabel
+          !text: tr('Page 1 of 1')
+          anchors.horizontalCenter: parent.horizontalCenter
+          anchors.verticalCenter: parent.verticalCenter
+          text-align: center
+          width: 180
+          color: #cccccc
+          font: verdana-11px-rounded
+
+        BestiaryArrowButton
+          id: nextPageBtn
+          !text: '>'
+          anchors.right: parent.right
+          anchors.verticalCenter: parent.verticalCenter
+          @onClick: modules.game_bestiary.onNextPage()
+
+      BestiaryCloseButton
+        id: closeBtn
+        !text: 'Close'
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+        @onClick: modules.game_bestiary.onWindowClose()
+
+    // ── Painel esquerdo: grid de criaturas ────────────────────────────
+    Panel
+      id: leftPanel
+      anchors.top: topBar.bottom
+      anchors.bottom: bottomBar.top
+      anchors.left: parent.left
+      width: 560
+      margin-top: 6
+
+      ScrollablePanel
+        id: scrollPanel
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        vertical-scrollbar: scrollBar
+
+        Panel
+          id: gridPanel
+          anchors.top: parent.top
+          anchors.left: parent.left
+          anchors.right: parent.right
+          layout:
+            type: grid
+            num-columns: 5
+            cell-size: 104 120
+            cell-spacing: 4
+            fit-children: true
+
+      VerticalScrollBar
+        id: scrollBar
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        step: 14
+        pixels-scroll: true
+
+      Label
+        id: loadingLabel
+        !text: tr('Loading...')
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+        color: #ffffff
+        font: verdana-11px-rounded
+        width: 240
+        height: 20
+        text-align: center
+        visible: false
+
+    // ── Painel direito: detalhes da criatura ──────────────────────────
+    Panel
+      id: detailPanel
+      anchors.top: topBar.bottom
+      anchors.bottom: bottomBar.top
+      anchors.left: leftPanel.right
+      anchors.right: parent.right
+      margin-top: 6
+      margin-left: 4
+      visible: false
+
+      ScrollablePanel
+        id: detailScroll
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        vertical-scrollbar: detailScrollBar
+        clipping: true
+        // detailContent usa anchor layout (sem layout: definido)
+        // Cada filho ancora no anterior — altura definida por Lua
+        Panel
+          id: detailContent
+          anchors.top: parent.top
+          anchors.left: parent.left
+          anchors.right: parent.right
+
+          UICreature
+            id: detailSprite
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            margin-top: 8
+            size: 96 96
+            clipping: true
+            outfit-center: true
+            fixed-creature-size: true
+            animate: false
+
+          Label
+            id: detailName
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: detailSprite.bottom
+            margin-top: 4
+            color: white
+            text-align: center
+            font: verdana-11px-rounded
+            width: 220
+            height: 50
+            text-wrap: true
+
+          UIProgressBar
+            id: detailProgress
+            anchors.top: detailName.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            margin-top: 6
+            margin-left: 8
+            margin-right: 8
+            height: 14
+
+          // Label
+          //   id: detailProgressLabel
+          //   !text: '0 / 0'
+          //   anchors.top: detailProgress.bottom
+          //   anchors.horizontalCenter: parent.horizontalCenter
+          //   margin-top: 2
+          //   color: #aaaaaa
+          //   text-align: center
+          //   width: 180
+          //   height: 14
+          //   font: verdana-11px-rounded
+
+          Label
+            id: statsHeader
+            !text: tr('Statistics')
+            anchors.top: detailProgress.bottom
+            anchors.left: parent.left
+            margin-top: 10
+            margin-left: 8
+            color: #ffcc44
+            font: verdana-11px-rounded
+            width: 200
+            height: 18
+
+          // statGrid: grid layout — filhos NÃO usam anchors
+          Panel
+            id: statGrid
+            anchors.top: statsHeader.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            margin-top: 2
+            margin-left: 8
+            margin-right: 8
+            layout:
+              type: grid
+              num-columns: 2
+              cell-size: 107 18
+              fit-children: true
+
+            Label
+              id: statHealthLbl
+              !text: 'Health:'
+              color: #aaaaaa
+              font: verdana-11px-rounded
+              height: 18
+
+            Label
+              id: statHealthValue
+              !text: '0'
+              color: white
+              text-align: right
+              font: verdana-11px-rounded
+              height: 18
+
+            Label
+              id: statExpLbl
+              !text: 'Experience:'
+              color: #aaaaaa
+              font: verdana-11px-rounded
+              height: 18
+
+            Label
+              id: statExpValue
+              !text: '0'
+              color: white
+              text-align: right
+              font: verdana-11px-rounded
+              height: 18
+
+            Label
+              id: statSpeedLbl
+              !text: 'Speed:'
+              color: #aaaaaa
+              font: verdana-11px-rounded
+              height: 18
+
+            Label
+              id: statSpeedValue
+              !text: '0'
+              color: white
+              text-align: right
+              font: verdana-11px-rounded
+              height: 18
+
+            Label
+              id: statArmorLbl
+              !text: 'Armor:'
+              color: #aaaaaa
+              font: verdana-11px-rounded
+              height: 18
+
+            Label
+              id: statArmorValue
+              !text: '0'
+              color: white
+              text-align: right
+              font: verdana-11px-rounded
+              height: 18
+
+            Label
+              id: statRaceLbl
+              !text: 'Race:'
+              color: #aaaaaa
+              font: verdana-11px-rounded
+              height: 18
+
+            Label
+              id: statRaceValue
+              !text: '...'
+              color: white
+              text-align: right
+              font: verdana-11px-rounded
+              height: 18
+
+          Label
+            id: resistHeader
+            !text: tr('Resistances')
+            anchors.top: statGrid.bottom
+            anchors.left: parent.left
+            margin-top: 10
+            margin-left: 8
+            color: #ffcc44
+            font: verdana-11px-rounded
+            width: 200
+            height: 18
+
+          // resistPanel: verticalBox — BestiaryResistBar adicionados por Lua
+          // Os bars em si usam anchor layout internamente (OK)
+          Panel
+            id: resistPanel
+            anchors.top: resistHeader.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            margin-top: 2
+            margin-left: 8
+            margin-right: 22
+            layout:
+              type: verticalBox
+              fit-children: true
+              spacing: 2
+
+          Label
+            id: lootHeader
+            !text: tr('Loot')
+            anchors.top: resistPanel.bottom
+            anchors.left: parent.left
+            margin-top: 10
+            margin-left: 8
+            color: #ffcc44
+            font: verdana-11px-rounded
+            width: 200
+            height: 18
+
+          // lootPanel: verticalBox — BestiaryLootCategory adicionados por Lua
+          Panel
+            id: lootPanel
+            anchors.top: lootHeader.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            margin-top: 2
+            margin-left: 8
+            margin-right: 22
+            layout:
+              type: verticalBox
+              fit-children: true
+              spacing: 4
+
+      VerticalScrollBar
+        id: detailScrollBar
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        step: 14
+        pixels-scroll: true
+
+        $!on:
+          width: 0
+
+// ── Card da criatura no grid ──────────────────────────────────────────────
+// Usa anchor layout internamente
+BestiaryCard < Panel
+  size: 104 120
+  background-color: #252525
+  border-width: 1
+  border-color: #404040
+  clipping: true
+  $checked:
+    background-color: #3a3a3a
+    border-color: #7777ff
+  $hover !checked:
+    background-color: #303030
+  @onMouseRelease: modules.game_bestiary.onCardClick(self)
+  @onMouseEnter: modules.game_bestiary.onCardHover(self, true)
+  @onMouseLeave: modules.game_bestiary.onCardHover(self, false)
+
+  UICreature
+    id: icon
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.top: parent.top
+    margin-top: 8
+    size: 64 64
+    clipping: true
+    outfit-center: true
+    fixed-creature-size: true
+
+  Label
+    id: nameLabel
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.bottom: parent.bottom
+    margin-bottom: 6
+    font: verdana-11px-rounded
+    color: #cccccc
+    text-align: center
+    width: 98
+    height: 40
+    text-wrap: true
+
+// ── Barra de resistência ──────────────────────────────────────────────────
+// Usa anchor layout internamente (sem layout: definido)
+BestiaryResistBar < Panel
+  height: 18
+
+  Label
+    id: label
+    anchors.left: parent.left
+    anchors.top: parent.top
+    anchors.bottom: parent.bottom
+    width: 72
+    color: #aaaaaa
+    text-align: left
+    font: verdana-11px-rounded
+    text-wrap: true
+
+  Panel
+    id: track
+    anchors.left: label.right
+    anchors.right: valueLabel.left
+    anchors.top: parent.top
+    anchors.bottom: parent.bottom
+    margin-left: 4
+    background-color: #333333
+
+    Panel
+      id: fill
+      anchors.top: parent.top
+      anchors.bottom: parent.bottom
+      anchors.left: parent.left
+      width: 0
+
+  Label
+    id: valueLabel
+    anchors.right: parent.right
+    anchors.top: parent.top
+    anchors.bottom: parent.bottom
+    width: 40
+    color: white
+    text-align: right
+    font: verdana-11px-rounded
+
+// ── Slot de loot (Panel wrapper p/ UIItem + countLabel com ancora) ───────
+BestiaryLootSlot < Panel
+
+  UIItem
+    id: lootItem
+    anchors.fill: parent
+    margin: 1
+
+  Label
+    id: countLabel
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    font: verdana-11px-rounded
+    color: white
+    text-align: right
+    size: 22 18
+    visible: false
+
+// ── Categoria de loot ─────────────────────────────────────────────────────
+// Usa anchor layout internamente (sem layout: definido)
+// Altura total definida por Lua após popular os items
+BestiaryLootCategory < Panel
+
+  Label
+    id: rarityLabel
+    anchors.left: parent.left
+    anchors.top: parent.top
+    width: 80
+    height: 18
+    color: white
+    text-align: left
+    font: verdana-11px-rounded
+
+  // itemsPanel: grid layout — BestiaryItemSlot filhos NÃO usam anchors (correto)
+  Panel
+    id: itemsPanel
+    anchors.top: rarityLabel.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 2
+    layout:
+      type: grid
+      num-columns: 6
+      cell-size: 34 34
+      cell-spacing: 2
+      fit-children: true

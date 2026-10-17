@@ -1,0 +1,291 @@
+WorldType < UIWidget
+  background-color: alpha
+  text-offset: 35 1
+  focusable: true
+  font: verdana-11px-rounded
+  text-align: left
+
+  CheckBox
+    id: enabled
+    anchors.left: parent.left
+    anchors.verticalCenter: parent.verticalCenter
+    width: 15
+    height: 15
+    margin-top: 2
+    margin-left: 3
+
+  Label
+    id: text
+    margin-left: 8
+    anchors.left: prev.right
+    anchors.verticalCenter: parent.verticalCenter
+    focusable: false
+
+HighScoreData < UIWidget
+  height: 16
+
+  Label
+    id: rank
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.bottom: parent.bottom
+    width: 55
+    text-align: left
+    color: #dfdfdfcf
+    margin-left: 4
+
+  Label
+    id: name
+    anchors.top: parent.top
+    anchors.left: prev.right
+    anchors.bottom: parent.bottom
+    width: 216
+    text-align: left
+    color: #dfdfdfcf
+    phantom: true
+    margin-left: 5
+
+  Label
+    id: voc
+    anchors.top: parent.top
+    anchors.left: prev.right
+    anchors.bottom: parent.bottom
+    width: 115
+    text-align: center
+    color: #dfdfdfcf
+    phantom: true
+
+  Label
+    id: world
+    anchors.top: parent.top
+    anchors.left: prev.right
+    anchors.bottom: parent.bottom
+    width: 98
+    text-align: center
+    color: #dfdfdfcf
+    phantom: true
+
+  Label
+    id: level
+    anchors.top: parent.top
+    anchors.left: prev.right
+    anchors.bottom: parent.bottom
+    width: 65
+    text-align: center
+    color: #dfdfdfcf
+    phantom: true
+
+  Label
+    id: points
+    anchors.top: parent.top
+    anchors.left: prev.right
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    text-align: right
+    margin-right: 5
+    color: #dfdfdfcf
+    phantom: true
+
+MainWindow
+  id: highscoresWindow
+  !text: tr('Highscores')
+  size: 698 590
+  @onEscape: modules.game_highscore.hide()
+
+  Panel
+    id: filters
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    height: 125
+    padding-top: 21
+    margin-bottom: 21
+    image-source: /images/ui/window_new
+    image-border: 4
+    font: verdana-11px-monochrome
+
+    ComboBox
+      id: vocationBox
+      anchors.top: parent.top
+      anchors.left: parent.left
+      width: 240
+      margin-left: 100
+      margin-top: 5
+      &isFilled: false
+
+    ComboBox
+      id: categoryBox
+      anchors.top: prev.top
+      anchors.left: prev.right
+      width: 240
+      margin-left: 20
+      &isFilled: false
+
+    ComboBox
+      id: gameWorldBox
+      anchors.top: vocationBox.bottom
+      anchors.left: vocationBox.left
+      width: 240
+      margin-top: 10
+      &isFilled: false
+
+    ComboBox
+      id: BattlEyeBox
+      anchors.top: prev.top
+      anchors.left: prev.right
+      width: 240
+      margin-left: 20
+      &isFilled: false
+
+    Panel
+      id: PanelWorld
+      anchors.top: gameWorldBox.bottom
+      anchors.left: gameWorldBox.left
+      anchors.right: BattlEyeBox.right
+      height: 60
+      margin-top: 10
+      &isFilled: false
+      layout:
+        type: grid
+        cell-size: 150 20
+        cell-spacing: 1
+        flow: true
+        fit-children: true
+
+    Button
+      id: submitButton
+      anchors.right: parent.right
+      anchors.bottom: parent.bottom
+      width: 70
+      margin-right: 12
+      margin-bottom: 12
+      !text: tr('Submit')
+      @onClick: modules.game_highscore.submit()
+
+  Panel
+    id: data
+    anchors.top: prev.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    height: 340
+    margin-top: 5
+    padding: 1
+    padding-top: 20
+    border-width: 1
+    border-color: black
+    layout:
+      type: verticalBox
+
+  -- Cabeçalhos (simplificados)
+  PlayersTableHeaderColumn
+    anchors.top: data.top
+    anchors.left: data.left
+    size: 60 20
+    Label
+      anchors.fill: parent
+      !text: tr('Rank')
+
+  PlayersTableHeaderColumn
+    anchors.top: data.top
+    anchors.left: prev.right
+    size: 220 20
+    Label
+      anchors.fill: parent
+      !text: tr('Character')
+
+  PlayersTableHeaderColumn
+    anchors.top: data.top
+    anchors.left: prev.right
+    size: 116 20
+    Label
+      anchors.fill: parent
+      !text: tr('Vocation')
+
+  PlayersTableHeaderColumn
+    anchors.top: data.top
+    anchors.left: prev.right
+    size: 96 20
+    Label
+      anchors.fill: parent
+      !text: tr('World')
+
+  PlayersTableHeaderColumn
+    anchors.top: data.top
+    anchors.left: prev.right
+    size: 66 20
+    Label
+      anchors.fill: parent
+      !text: tr('Level')
+
+  PlayersTableHeaderColumn
+    anchors.top: data.top
+    anchors.left: prev.right
+    anchors.right: data.right
+    height: 20
+    Label
+      anchors.fill: parent
+      !text: tr('Points')
+
+  Label
+    id: page
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.top: data.bottom
+    !text: tr('1 / 1')
+    margin-top: 20
+
+  NextButton
+    id: next
+    anchors.left: page.right
+    anchors.bottom: page.bottom
+    margin-left: 10
+    @onClick: modules.game_highscore.nextPage()
+
+  NextButton
+    id: nextLast
+    anchors.left: next.right
+    anchors.top: next.top
+    margin-left: 5
+    @onClick: modules.game_highscore.nextEndPage()
+
+  PreviousButton
+    id: prev
+    anchors.right: page.left
+    anchors.top: next.top
+    margin-right: 10
+    @onClick: modules.game_highscore.prevPage()
+
+  PreviousButton
+    id: prevLast
+    anchors.right: prev.left
+    anchors.top: prev.top
+    margin-right: 5
+    @onClick: modules.game_highscore.prevEndPage()
+
+  Button
+    id: ownRankButton
+    anchors.right: prev.left
+    anchors.top: prev.top
+    !text: tr('Own Rank')
+    width: 100
+    @onClick: modules.game_highscore.showOwnRank()
+
+  Label
+    id: last_update
+    anchors.left: nextLast.right
+    anchors.top: nextLast.top
+    margin-left: 10
+    !text: tr('Last Update: Now')
+
+  HorizontalSeparator
+    anchors.left: data.left
+    anchors.right: data.right
+    anchors.top: prev.bottom
+    margin-top: 10
+
+  Button
+    anchors.right: parent.right
+    anchors.top: prev.top
+    !text: tr('Close')
+    @onClick: modules.game_highscore.hide()
+    margin-top: 10
+    margin-right: 10

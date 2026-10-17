@@ -1,0 +1,95 @@
+LabelText < Label
+  padding-bottom: 5
+  font: sans-bold-16px
+  color: #e8c05e
+  text-wrap: true
+  text-auto-resize: true
+
+OptionButton < UIButton
+  image-source: /images/ui/buttondialog
+  image-repeated: true
+  text-offset: 0 1
+  change-cursor-image: true
+  cursor: pointer
+
+  $pressed:
+    image-color: #dfdfdf44
+
+  $disabled:
+    image-color: #dfdfdf55
+    change-cursor-image: false
+
+UIWindow
+  id: npcWindowDialog
+  size: 690 381
+  visible: false
+  focusable: false
+  image-source: assets/window
+
+  image-repeated: false
+  anchors.centerIn: parent
+  @onEscape: modules.game_npcdialog.offline()
+
+  Label
+    id: lblTitle
+    font: sans-bold-16px
+    anchors.top: parent.top
+    anchors.left: parent.left
+    !text: tr('Title')
+    margin: 18 0 5 25
+    color: #e8c05e
+    text-auto-resize: true
+
+  UICreature
+    id: outfitBox
+    size: 58 58
+    anchors.top: prev.bottom
+    anchors.left: parent.left
+    margin: 20 0 5 34
+
+  VerticalScrollBar
+    id: scrollPanel
+    height: 65
+    anchors.top: panelMsg.top
+    anchors.left: panelMsg.right
+    anchors.bottom: panelMsg.bottom
+    pixels-scroll: true
+    step: 14
+    margin-left: 5
+    visible: false
+
+  ScrollablePanel
+    id: panelMsg
+    size: 0 60
+    anchors.top: lblTitle.bottom
+    anchors.left: outfitBox.right
+    anchors.right: parent.right
+    margin: 8 30 10 25
+    vertical-scrollbar: scrollPanel
+    layout: verticalBox
+    &limitText: 80
+
+  UIItem
+    id: itemBox
+    size: 50 50
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.top: panelMsg.bottom
+    layout:
+      type: horizontalBox
+      cell-size: 50 50
+      cell-spacing: 12
+      num-columns: 10
+      fit-children: true
+
+  UIScrollArea
+    id: buttondialog
+    anchors.top: itemBox.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin: 15 10 25 10
+
+    layout:
+      type: grid
+      cell-size: 500 42
+      flow: true
+      fit-children: true

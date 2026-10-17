@@ -1,0 +1,118 @@
+MainWindow
+  id: shaderSelectorWindow
+  size: 640 540
+  anchors.centerIn: parent
+  text: Shader Selector
+  color: #929292
+  @onEscape: modules.game_sharderselector.cancel()
+
+  Panel
+    id: leftPanel
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.bottom: buttonsPanel.top
+    width: 200
+    margin: 5
+
+    Label
+      id: previewLabel
+      text: Preview
+      anchors.top: parent.top
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 10
+      color: #cccccc
+      font: verdana-11px-rounded
+
+    UICreature
+      id: preview
+      anchors.top: previewLabel.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 10
+      size: 160 160
+
+    Label
+      id: selectedName
+      text: None selected
+      anchors.top: preview.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      anchors.bottom: parent.bottom
+      anchors.bottom: unlockedCountLabel.top
+      margin: 5
+      text-align: center
+      text-auto-resize: true
+      text-wrap: true
+      color: #88ff88
+      font: verdana-11px-rounded
+
+  VerticalSeparator
+    id: separator
+    anchors.top: parent.top
+    anchors.bottom: buttonsPanel.top
+    anchors.left: leftPanel.right
+
+  Panel
+    id: rightPanel
+    anchors.top: parent.top
+    anchors.left: separator.right
+    anchors.right: parent.right
+    anchors.bottom: buttonsPanel.top
+    margin: 5
+
+    Label
+      text: Select a Shader
+      anchors.top: parent.top
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 10
+      color: #cccccc
+      font: verdana-11px-rounded
+
+    UIScrollArea
+      id: shaderList
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.right: shaderScrollBar.left
+      anchors.bottom: parent.bottom
+      margin-top: 35
+      margin-bottom: 5
+      margin-left: 5
+      vertical-scrollbar: shaderScrollBar
+      layout:
+        type: grid
+        num-columns: 2
+        cell-spacing: 5
+
+    VerticalScrollBar
+      id: shaderScrollBar
+      anchors.top: parent.top
+      anchors.bottom: parent.bottom
+      anchors.right: parent.right
+      margin-top: 35
+      margin-bottom: 5
+      margin-right: 3
+      step: 14
+      pixels-scroll: true
+
+  Panel
+    id: buttonsPanel
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    height: 45
+
+    Button
+      id: confirmButton
+      text: Unlock Shader
+      anchors.verticalCenter: parent.verticalCenter
+      anchors.right: cancelButton.left
+      margin-right: 10
+      width: 150
+      enabled: false
+
+    Button
+      id: cancelButton
+      text: Cancel
+      anchors.verticalCenter: parent.verticalCenter
+      anchors.right: parent.right
+      margin-right: 10
+      width: 80

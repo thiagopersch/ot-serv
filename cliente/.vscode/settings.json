@@ -1,0 +1,24 @@
+{
+  "Lua.diagnostics.globals": [
+    "g_game",
+    "g_ui",
+    "ProtocolGame",
+    "g_modules",
+    "g_app",
+    "g_logger",
+    "g_resources",
+    "g_configs",
+    "Creature",
+    "g_mouse",
+    "init",
+    "handleProfileData",
+    "AlignHCenter",
+    "g_healthBars",
+    "g_map",
+    "Item",
+    "g_things",
+    "setAuraAutoOffset",
+    "setWingAutoOffset"
+  ],
+  "Lua.diagnostics.disable": ["undefined-field"]
+}

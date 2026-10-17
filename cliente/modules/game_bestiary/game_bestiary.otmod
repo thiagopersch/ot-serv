@@ -1,0 +1,11 @@
+Module
+  name: game_bestiary
+  description: Bestiary system with grid display
+  author: custom
+  website: https://github.com/anomalyco/opencode
+  scripts: [ game_bestiary ]
+  sandboxed: false
+  autoload: true
+  autoload-priority: 1001
+  @onLoad: init()
+  @onUnload: terminate()

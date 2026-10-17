@@ -1,0 +1,11 @@
+{
+    "diagnostics.globals": [
+        "g_healthBars",
+        "LocalPlayer",
+        "g_game",
+        "Creature",
+        "g_ui",
+        "g_logger",
+        "ProtocolGame"
+    ]
+}

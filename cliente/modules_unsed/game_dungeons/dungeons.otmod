@@ -1,0 +1,8 @@
+Module
+  name: game_dungeons
+  autoload: true
+  autoload-priority: 1000
+  sandboxed: true
+  scripts: [ dungeons ]
+  @onLoad: init()
+  @onUnload: terminate()

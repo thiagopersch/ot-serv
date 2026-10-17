@@ -1,0 +1,11 @@
+Module
+  name: game_player_profile
+  description: Player Profile and Inspect System
+  author: Wtver
+  autoload: true
+  autoload-priority: 1000
+  sandboxed: true
+  dependencies: [ game_interface, client_topmenu ]
+  scripts: [ player_profile.lua ]
+  @onLoad: init()
+  @onUnload: terminate()

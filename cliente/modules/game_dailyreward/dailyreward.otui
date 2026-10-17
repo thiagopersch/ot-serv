@@ -1,0 +1,251 @@
+DailyRewardDay < UIWidget
+  size: 75 60
+  background-color: #111111cc
+  border: 1 #ffffff22
+  padding: 3
+  layout: anchor
+  cursor: pointer
+  $hover:
+    background-color: #222222cc
+    border: 1 #ffffff44
+
+  UIItem
+    id: item
+    size: 28 28
+    anchors.top: parent.top
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 2
+    virtual: true
+
+  Label
+    id: dayLabel
+    font: verdana-11px-rounded
+    text-auto-resize: true
+    anchors.top: item.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 1
+    color: #dfdfdf
+    phantom: true
+
+  Label
+    id: statusLabel
+    font: verdana-11px-monochrome
+    text-auto-resize: true
+    anchors.top: dayLabel.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 1
+    phantom: true
+
+  UIWidget
+    id: checkIcon
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    size: 14 14
+    margin: 2
+    image-source: ui/check
+    visible: false
+    phantom: true
+
+  UIWidget
+    id: lostIcon
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    size: 14 14
+    margin: 2
+    image-source: ui/x
+    visible: false
+    phantom: true
+
+DailyRewardBonusDay < UIWidget
+  size: 270 55
+  background-color: #111111cc
+  border: 1 #ffff0022
+  padding: 4
+  layout: anchor
+  cursor: pointer
+  margin-bottom: 4
+  $hover:
+    background-color: #222222cc
+    border: 1 #ffffff44
+
+  UIItem
+    id: item
+    size: 36 36
+    anchors.left: parent.left
+    anchors.verticalCenter: parent.verticalCenter
+    margin-left: 4
+    virtual: true
+
+  Label
+    id: dayLabel
+    font: verdana-11px-rounded
+    text-auto-resize: true
+    anchors.left: item.right
+    anchors.top: parent.top
+    margin-left: 8
+    margin-top: 8
+    color: #ffff00
+    phantom: true
+
+  Label
+    id: statusLabel
+    font: verdana-11px-monochrome
+    text-auto-resize: true
+    anchors.left: item.right
+    anchors.top: dayLabel.bottom
+    margin-left: 8
+    margin-top: 2
+    color: #888888
+    phantom: true
+
+  UIWidget
+    id: checkIcon
+    anchors.right: parent.right
+    anchors.verticalCenter: parent.verticalCenter
+    size: 20 20
+    margin-right: 8
+    image-source: ui/check
+    visible: false
+    phantom: true
+
+  UIWidget
+    id: lostIcon
+    anchors.right: parent.right
+    anchors.verticalCenter: parent.verticalCenter
+    size: 20 20
+    margin-right: 8
+    image-source: ui/x
+    visible: false
+    phantom: true
+
+MainWindow
+  id: dailyRewardWindow
+  !text: tr('Daily Reward')
+  size: 780 620
+  anchors.centerIn: parent
+  @onEscape: modules.game_dailyreward.toggle()
+
+  Label
+    id: daysTitle
+    !text: tr('Monthly Calendar')
+    font: verdana-11px-rounded
+    anchors.top: parent.top
+    anchors.left: parent.left
+    margin-top: 5
+    margin-left: 15
+    color: #dfdfdf
+
+  Label
+    id: bonusTitle
+    !text: tr('Streak Bonuses')
+    font: verdana-11px-rounded
+    anchors.top: parent.top
+    anchors.left: divider.right
+    margin-top: 5
+    margin-left: 15
+    color: #ffff00
+
+  Label
+    id: bonusDescription
+    !text: tr('Complete consecutive days without missing to unlock each bonus reward!')
+    font: verdana-11px-monochrome
+    text-auto-resize: true
+    anchors.top: bonusTitle.bottom
+    anchors.left: divider.right
+    anchors.right: parent.right
+    margin-top: 2
+    margin-left: 15
+    margin-right: 15
+    color: #999999
+    phantom: true
+
+  UIWidget
+    id: divider
+    width: 3
+    anchors.top: parent.top
+    anchors.bottom: claimButton.top
+    anchors.left: parent.left
+    margin-left: 465
+    margin-top: 30
+    margin-bottom: 20
+    background-color: #555555
+
+  ScrollablePanel
+    id: daysPanel
+    anchors.top: daysTitle.bottom
+    anchors.left: parent.left
+    anchors.right: divider.left
+    anchors.bottom: claimButton.top
+    margin-top: 8
+    margin-left: 15
+    margin-right: 10
+    margin-bottom: 15
+    layout:
+      type: grid
+      cell-size: 75 60
+      cell-spacing: 6
+      flow: true
+
+  ScrollablePanel
+    id: bonusPanel
+    anchors.top: bonusDescription.bottom
+    anchors.left: divider.right
+    anchors.right: parent.right
+    anchors.bottom: claimButton.top
+    margin-top: 5
+    margin-left: 15
+    margin-right: 15
+    margin-bottom: 15
+    padding: 5
+    layout:
+      type: verticalBox
+
+  UIWidget
+    id: claimButton
+    !text: tr('Claim Daily Reward')
+    width: 200
+    height: 45
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    margin-left: 15
+    margin-bottom: 5
+    font: verdana-11px-rounded
+    background-color: #008800
+    color: #ffffff
+    text-align: center
+    border: 1 #ffffff44
+    cursor: pointer
+    $hover:
+      background-color: #00aa00
+    $disabled:
+      background-color: #333333
+      color: #888888
+
+  UIWidget
+    id: closeButton
+    !text: tr('Close')
+    width: 200
+    height: 45
+    anchors.bottom: parent.bottom
+    anchors.left: claimButton.right
+    margin-left: 20
+    margin-bottom: 5
+    font: verdana-11px-rounded
+    background-color: #dc3545
+    color: #ffffff
+    text-align: center
+    border: 1 #ffffff44
+    cursor: pointer
+    $hover:
+      background-color: #880808
+
+  Label
+    id: consecutiveLabel
+    !text: tr('Consecutive Days: 0')
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    margin-bottom: 15
+    margin-right: 15
+    font: verdana-11px-rounded
+    color: #ffff00
+    text-auto-resize: true

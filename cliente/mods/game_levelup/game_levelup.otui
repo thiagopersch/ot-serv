@@ -1,0 +1,16 @@
+UIWidget
+  id: windowLevelUp
+  size: 315 175
+  focusable: false
+  anchors.top: parent.top
+  anchors.horizontalCenter: parent.horizontalCenter
+  UIWidget
+    id: image
+    size: 315 175
+    opacity: 0
+    image-source: images/levelup
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.verticalCenter: parent.verticalCenter
+    phantom: true
+    focusable: false
+    @onClick: self:destroy()

@@ -1,0 +1,11 @@
+Module
+  name: game_teleport_checkpoint
+  description: Teleport checkpoint selection window
+  author: DBOSupreme
+  sandboxed: true
+  autoload: true
+  scripts: [teleport_checkpoint]
+  @onLoad: init()
+  @onUnload: terminate()
+  dependencies:
+    - game_interface

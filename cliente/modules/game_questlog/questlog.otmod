@@ -1,0 +1,9 @@
+Module
+  name: game_questlog
+  description: mostra as quests disponiveis
+  author: feito por JB baseado no module de task do lordbaxx  website: www.phorizon.com.br
+  version: 0.1
+  autoload: true
+  scripts: [ questlog ]
+  @onLoad: init()
+  @onUnload: terminate()

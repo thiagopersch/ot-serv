@@ -1,0 +1,11 @@
+Module
+  name: game_bank
+  description: Game Bank
+  author: Gengo
+  sandboxed: true
+  autoload: true
+  autoload-priority: 1001
+  dependencies: [ game_interface, client_topmenu ]
+  scripts: [ bank ]
+  @onLoad: init()
+  @onUnload: terminate()
