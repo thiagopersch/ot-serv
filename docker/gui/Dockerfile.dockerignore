@@ -1,0 +1,12 @@
+# Contexto = raiz do projeto: só o código-fonte dos apps gráficos entra no build
+# (server/ e cliente/ somam vários GB de dados, que chegam via bind-mount).
+*
+!server/PeixolaMapEditor/Cargo.toml
+!server/PeixolaMapEditor/Cargo.lock
+!server/PeixolaMapEditor/crates
+!server/PeixolaMapEditor/assets
+!cliente/vcpkg.json
+!cliente/CMakeLists.txt
+!cliente/CMakePresets.json
+!cliente/cmake
+!cliente/src

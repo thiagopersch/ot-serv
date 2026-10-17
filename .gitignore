@@ -1,0 +1,25 @@
+# Estado local do Claude Code (antes ficava em site/.git/info/exclude)
+**/.claude/scheduled_tasks.lock
+**/.claude/scheduled_tasks.json
+**/.claude/routines/.state/
+**/.claude/worktrees/
+**/.claude/checkpoints/
+**/.claude/mailbox/
+**/.claude/agent-registry.json
+**/.claude/agent-memory-local
+**/.claude/first-run
+**/.claude/assistant-daemon-state.json
+**/.claude/settings.local.json
+
+# Instalação avulsa de npm na raiz (o site tem o próprio package.json)
+/node_modules/
+/package.json
+/package-lock.json
+
+# Segredos e configuração local
+.env
+!.env.example
+
+# Gerados pelo servidor em runtime
+server/nul
+server/data/logs/**/*.log

@@ -1,0 +1,167 @@
+# Orquestra o projeto inteiro. Uso:
+#   docker compose up -d --build                  -> db -> site (migrate + web) -> servidor
+#   docker compose --profile client up -d client -> cliente em http://localhost:6080
+#   docker compose --profile editor up -d editor -> PeixolaMapEditor em http://localhost:6081
+# Veja README-docker.md.
+name: otserver
+
+x-uid: &uid "${HOST_UID:-1001}:${HOST_GID:-1001}"
+
+services:
+  db:
+    image: mysql:8.4
+    # Também usado pelo `npm run up` do site (site/scripts/up.mjs sobe só este serviço).
+    container_name: ndbo-db
+    restart: unless-stopped
+    # O cliente MySQL antigo do TFS 0.4 não suporta caching_sha2_password.
+    command: --mysql-native-password=ON
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-ndbo}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-ndbo}
+    ports:
+      - "${DB_PORT:-3307}:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  # prisma db push + seed (o mesmo que site/scripts/up.mjs faz), uma vez por `up`.
+  site-migrate:
+    build:
+      context: ./site
+      dockerfile: docker/Dockerfile
+      target: builder
+    image: otserver-site-builder
+    depends_on:
+      db:
+        condition: service_healthy
+    # site/.env (o mesmo do `npm run dev`) vence os padrões; `environment` só troca o que
+    # muda dentro do container (banco, servidor, caminhos).
+    env_file:
+      - docker/site.defaults.env
+      - path: ./site/.env
+        required: false
+    environment: &site-env
+      DATABASE_URL: mysql://root:${MYSQL_ROOT_PASSWORD:-ndbo}@db:3306/${MYSQL_DATABASE:-ndbo}
+      AUTH_TRUST_HOST: "true"
+      GAME_SERVER_HOST: server
+      GAME_SERVER_LOGIN_PORT: "7171"
+      OTSERVER_DATA_PATH: /srv/server/data
+      OTSERVER_ROOT_PATH: /srv/server
+    command: ["sh", "-c", "npx prisma db push && npx tsx prisma/seed.ts"]
+    restart: "no"
+
+  site:
+    build:
+      context: ./site
+      dockerfile: docker/Dockerfile
+    image: otserver-site
+    container_name: ndbo-web
+    restart: unless-stopped
+    user: *uid
+    depends_on:
+      site-migrate:
+        condition: service_completed_successfully
+    # site/.env (o mesmo do `npm run dev`) vence os padrões; `environment` só troca o que
+    # muda dentro do container (banco, servidor, caminhos).
+    env_file:
+      - docker/site.defaults.env
+      - path: ./site/.env
+        required: false
+    environment:
+      <<: *site-env
+      HOSTNAME: 0.0.0.0
+    ports:
+      - "${SITE_PORT:-3000}:3000"
+    volumes:
+      # O admin do site escreve items.xml, NPCs, outfits e scripts Lua no servidor.
+      - ./server:/srv/server
+      # Uploads (looktypes, mídia de posts/quests/tickets) ficam no host.
+      - ./site/public/storage:/app/public/storage
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:3000/"]
+      interval: 10s
+      timeout: 10s
+      retries: 30
+      start_period: 20s
+
+  server:
+    build:
+      context: ./server/src/source
+      dockerfile: ../../../docker/server/Dockerfile
+    image: otserver-server
+    container_name: ndbo-server
+    restart: unless-stopped
+    user: *uid
+    depends_on:
+      site:
+        condition: service_healthy
+    environment:
+      SQL_HOST: db
+      SQL_PORT: "3306"
+      SQL_PASS: ${MYSQL_ROOT_PASSWORD:-ndbo}
+      SQL_DATABASE: ${MYSQL_DATABASE:-ndbo}
+      SERVER_IP: ${SERVER_IP:-127.0.0.1}
+      # O cliente chega pelo gateway do Docker (172.x), que o TFS confundiria com LAN e
+      # responderia com o IP interno do container. Assim ele sempre anuncia SERVER_IP.
+      SERVER_IP_ONLY: "1"
+    volumes:
+      - ./server:/srv/server
+    ports:
+      - "7171:7171"
+      - "7172:7172"
+    stdin_open: true
+    tty: true
+
+  # Cliente OTCv8 no navegador (noVNC). Conecta em 127.0.0.1:7171 como no Windows; o
+  # container encaminha essas portas para o serviço `server`.
+  client:
+    profiles: ["client"]
+    build:
+      context: .
+      dockerfile: docker/gui/Dockerfile
+      target: client
+    image: otserver-client
+    container_name: ndbo-client
+    user: *uid
+    depends_on:
+      server:
+        condition: service_started
+    environment:
+      GUI_GEOMETRY: ${CLIENT_GEOMETRY:-1600x900}
+      GUI_PUBLIC_PORT: ${CLIENT_PORT:-6080}
+    volumes:
+      - ./cliente:/client
+      - client-config:/home/app/.local/share
+    ports:
+      - "${CLIENT_PORT:-6080}:6080"
+
+  # PeixolaMapEditor no navegador (noVNC). Não depende do resto da stack.
+  editor:
+    profiles: ["editor"]
+    build:
+      context: .
+      dockerfile: docker/gui/Dockerfile
+      target: editor
+    image: otserver-editor
+    container_name: ndbo-editor
+    user: *uid
+    environment:
+      GUI_GEOMETRY: ${EDITOR_GEOMETRY:-1600x900}
+      GUI_PUBLIC_PORT: ${EDITOR_PORT:-6081}
+    volumes:
+      - ./server:/work/server
+      - ./cliente:/work/cliente
+      - editor-config:/home/app/.config
+    ports:
+      - "${EDITOR_PORT:-6081}:6080"
+
+volumes:
+  client-config:
+  editor-config:
+  # Volume `otserver_db-data`. Num clone novo ele é criado vazio e o site-migrate monta o
+  # schema. Nunca use `down -v`: apaga o banco.
+  db-data:

@@ -1,0 +1,12 @@
+# Scripts de start: shell com LF (senão não roda no Mac/Linux), Windows com CRLF
+*.sh  text eol=lf
+*.ps1 text eol=crlf
+*.cmd text eol=crlf
+
+# Arquivos lidos dentro dos containers Linux: sempre LF, mesmo num clone no Windows
+# (os scripts embutidos nos Dockerfiles quebrariam com CRLF)
+Dockerfile        text eol=lf
+**/Dockerfile     text eol=lf
+*.dockerignore    text eol=lf
+compose.yaml      text eol=lf
+docker/**         text eol=lf

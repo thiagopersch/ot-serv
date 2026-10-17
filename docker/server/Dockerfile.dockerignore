@@ -1,0 +1,5 @@
+dev-cpp
+vc14
+*.o
+*.exe
+theforgottenserver
