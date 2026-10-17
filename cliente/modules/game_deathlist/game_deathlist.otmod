@@ -1,0 +1,12 @@
+Module
+  name: game_deathlist
+  description: Janela Deathlist - historico de mortes do jogador e busca por outros jogadores
+  author: WodBleach
+  sandboxed: true
+  autoload: true
+  scripts: [deathlist]
+  @onLoad: init()
+  @onUnload: terminate()
+  dependencies:
+    - game_interface
+    - client_topmenu

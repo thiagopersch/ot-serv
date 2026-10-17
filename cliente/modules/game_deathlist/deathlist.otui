@@ -1,0 +1,249 @@
+DeathCard < UIWidget
+  background-color: #0000004a
+  border-width: 1
+  border-color: #2b2b2b
+  padding: 5
+  margin-bottom: 4
+  layout:
+    type: verticalBox
+    fit-children: true
+    spacing: 2
+
+  Panel
+    id: header
+    height: 14
+    phantom: true
+
+    Label
+      id: date
+      anchors.left: parent.left
+      anchors.verticalCenter: parent.verticalCenter
+      text-auto-resize: true
+      font: verdana-11px-antialised
+      color: #e6e6e6
+      phantom: true
+
+    Label
+      id: bless
+      anchors.right: parent.right
+      anchors.verticalCenter: parent.verticalCenter
+      text-auto-resize: true
+      font: verdana-11px-antialised
+      color: #8a8a8a
+      phantom: true
+
+  Label
+    id: level
+    height: 14
+    font: verdana-11px-antialised
+    color: #bfbfbf
+    phantom: true
+
+  Label
+    id: killers
+    text-wrap: true
+    text-auto-resize: true
+    font: verdana-11px-antialised
+    color: #bfbfbf
+    phantom: true
+
+  Label
+    id: items
+    height: 14
+    font: verdana-11px-antialised
+    color: #bfbfbf
+    phantom: true
+
+  Panel
+    id: itemList
+    phantom: true
+    layout:
+      type: grid
+      cell-size: 32 32
+      cell-spacing: 2
+      flow: true
+      fit-children: true
+
+DeathItem < UIItem
+  size: 32 32
+  virtual: true
+  phantom: false
+  background-color: #00000044
+
+DeathPageBar < Panel
+  height: 22
+
+  Button
+    id: prevPageButton
+    cursor: pointer
+    anchors.left: parent.left
+    anchors.verticalCenter: parent.verticalCenter
+    size: 26 20
+    text: <
+
+  Label
+    id: pageLabel
+    anchors.left: prevPageButton.right
+    anchors.right: nextPageButton.left
+    anchors.verticalCenter: parent.verticalCenter
+    text-align: center
+    font: verdana-11px-antialised
+    color: #dfdfdf
+
+  Button
+    id: nextPageButton
+    cursor: pointer
+    anchors.right: parent.right
+    anchors.verticalCenter: parent.verticalCenter
+    size: 26 20
+    text: >
+
+DeathListPanel < Panel
+  background-color: #00000055
+  border-width: 1
+  border-color: #2b2b2b
+
+  ScrollablePanel
+    id: list
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: listScroll.left
+    anchors.bottom: pageBar.top
+    margin: 4
+    margin-bottom: 2
+    vertical-scrollbar: listScroll
+    layout:
+      type: verticalBox
+
+  VerticalScrollBar
+    id: listScroll
+    anchors.top: parent.top
+    anchors.bottom: pageBar.top
+    anchors.right: parent.right
+    step: 40
+    pixels-scroll: true
+
+  Label
+    id: emptyLabel
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.verticalCenter: list.verticalCenter
+    margin-left: 10
+    margin-right: 10
+    text-align: center
+    text-wrap: true
+    text-auto-resize: true
+    color: #8a8a8a
+    visible: false
+
+  DeathPageBar
+    id: pageBar
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    margin: 4
+
+MainWindow
+  id: deathlistWindow
+  !text: tr('Deathlist')
+  size: 800 450
+  @onEscape: modules.game_deathlist.hide()
+
+  Button
+    id: closeButton
+    cursor: pointer
+    !text: tr('X')
+    anchors.top: parent.top
+    anchors.right: parent.right
+    width: 24
+    height: 22
+    image-color: #cc3333
+    @onClick: modules.game_deathlist.hide()
+
+  Panel
+    id: selfPanel
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: separator.left
+    anchors.bottom: parent.bottom
+    margin-right: 8
+
+    Label
+      id: titleLabel
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.right: parent.right
+      height: 22
+      text-align: left
+      font: verdana-11px-rounded
+      color: #ffd700
+      text: Deathlist
+
+    DeathListPanel
+      id: listPanel
+      anchors.top: titleLabel.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      anchors.bottom: parent.bottom
+      margin-top: 56
+
+  VerticalSeparator
+    id: separator
+    anchors.top: parent.top
+    anchors.bottom: parent.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+
+  Panel
+    id: searchPanel
+    anchors.top: parent.top
+    anchors.left: separator.right
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    margin-left: 8
+
+    Label
+      id: searchHint
+      anchors.top: parent.top
+      anchors.left: parent.left
+      height: 22
+      text-auto-resize: true
+      font: verdana-11px-rounded
+      color: #dfdfdf
+      text: Pesquisar jogador
+
+    TextEdit
+      id: searchEdit
+      anchors.top: searchHint.bottom
+      anchors.left: parent.left
+      anchors.right: searchButton.left
+      margin-top: 10
+      margin-right: 6
+      max-length: 30
+
+    Button
+      id: searchButton
+      cursor: pointer
+      anchors.top: searchHint.bottom
+      anchors.right: parent.right
+      margin-top: 10
+      size: 70 20
+      text: Buscar
+      @onClick: modules.game_deathlist.search()
+
+    Label
+      id: titleLabel
+      anchors.top: searchEdit.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 6
+      height: 16
+      font: verdana-11px-rounded
+      color: #ffd700
+
+    DeathListPanel
+      id: listPanel
+      anchors.top: titleLabel.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      anchors.bottom: parent.bottom
+      margin-top: 4

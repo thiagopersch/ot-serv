@@ -16,6 +16,8 @@ DROP TABLE IF EXISTS `player_skills`;
 DROP TABLE IF EXISTS `player_storage`;
 DROP TABLE IF EXISTS `player_viplist`;
 DROP TABLE IF EXISTS `player_spells`;
+DROP TABLE IF EXISTS `player_death_items`;
+DROP TABLE IF EXISTS `player_death_details`;
 DROP TABLE IF EXISTS `player_deaths`;
 DROP TABLE IF EXISTS `killers`;
 DROP TABLE IF EXISTS `environment_killers`;
@@ -135,6 +137,24 @@ CREATE TABLE `player_deaths`(
 	`level` INT UNSIGNED NOT NULL,
 	PRIMARY KEY (`id`), INDEX (`date`),
 	FOREIGN KEY (`player_id`) REFERENCES `players`(`id`) ON DELETE CASCADE) ENGINE = InnoDB;
+
+CREATE TABLE `player_death_details`(
+	`death_id` INT NOT NULL,
+	`blessed` TINYINT(1) NOT NULL DEFAULT 0,
+	`blessings` TINYINT NOT NULL DEFAULT 0,
+	`level_before` INT NOT NULL DEFAULT 0,
+	`level_after` INT NULL DEFAULT NULL,
+	PRIMARY KEY (`death_id`),
+	FOREIGN KEY (`death_id`) REFERENCES `player_deaths`(`id`) ON DELETE CASCADE) ENGINE = InnoDB;
+
+CREATE TABLE `player_death_items`(
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`death_id` INT NOT NULL,
+	`item_id` INT NOT NULL,
+	`count` INT NOT NULL DEFAULT 1,
+	`name` VARCHAR(100) NOT NULL DEFAULT '',
+	PRIMARY KEY (`id`), KEY (`death_id`),
+	FOREIGN KEY (`death_id`) REFERENCES `player_deaths`(`id`) ON DELETE CASCADE) ENGINE = InnoDB;
 
 CREATE TABLE `player_depotitems`(
 	`player_id` INT NOT NULL,

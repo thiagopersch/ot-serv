@@ -375,11 +375,41 @@ model PlayerDeath {
   date     Int
   level    Int
 
-  player     Player      @relation(fields: [playerId], references: [id])
+  player     Player             @relation(fields: [playerId], references: [id])
   killers    Killer[]
   guildKills GuildKill[]
+  details    PlayerDeathDetail?
+  items      PlayerDeathItem[]
 
   @@map("player_deaths")
+}
+
+/// Dados extras de uma morte gravados pelo servidor (Deathlist). `levelAfter` nulo quando
+/// o servidor não conseguiu registrar o level pós-morte. Tabela criada pelo servidor.
+model PlayerDeathDetail {
+  deathId     Int     @id @map("death_id")
+  blessed     Boolean @default(false)
+  blessings   Int     @default(0) @db.TinyInt
+  levelBefore Int     @default(0) @map("level_before")
+  levelAfter  Int?    @map("level_after")
+
+  death PlayerDeath @relation(fields: [deathId], references: [id], onDelete: Cascade)
+
+  @@map("player_death_details")
+}
+
+/// Itens perdidos numa morte (Deathlist). Tabela criada pelo servidor.
+model PlayerDeathItem {
+  id      Int    @id @default(autoincrement())
+  deathId Int    @map("death_id")
+  itemId  Int    @map("item_id")
+  count   Int    @default(1)
+  name    String @default("") @db.VarChar(100)
+
+  death PlayerDeath @relation(fields: [deathId], references: [id], onDelete: Cascade)
+
+  @@index([deathId])
+  @@map("player_death_items")
 }
 
 model Killer {

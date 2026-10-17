@@ -96,6 +96,10 @@
 	<event type="extendedopcode" name="TeleportCheckpointOpcode" event="script" value="teleport_checkpoint_opcode.lua" />
 	<event type="extendedopcode" name="RarityOpcode" event="script" value="rarity_opcode.lua" />
 
+	<!-- Deathlist -->
+	<event type="death" name="DeathlistRecord" event="script" value="deathlist_death.lua" />
+	<event type="extendedopcode" name="DeathlistOpcode" event="script" value="deathlist_opcode.lua" />
+
 	<!-- Donate System -->
 	<event type="login" name="DonateBless" event="script" value="donate_bless.lua" />
 	<event type="kill" name="DonateBonusKill" event="script" value="donate_bonus_kill.lua" />
