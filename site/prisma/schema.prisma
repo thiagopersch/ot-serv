@@ -1,0 +1,2031 @@
+// Schema do banco de dados do OTServer (accounts/players/guilds/houses/...)
+// adaptado do schema legado (SQLite/MySQL) descrito em AGENTS.md.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model ServerConfig {
+  config String @id @db.VarChar(35)
+  value  String @db.VarChar(255)
+
+  @@map("server_config")
+}
+
+model ServerMotd {
+  id      Int
+  worldId Int    @default(0) @map("world_id")
+  text    String @db.Text
+
+  @@id([id, worldId])
+  @@map("server_motd")
+}
+
+model ServerRecord {
+  record    Int
+  worldId   Int @default(0) @map("world_id")
+  timestamp Int
+
+  @@id([record, worldId, timestamp])
+  @@map("server_record")
+}
+
+model ServerReport {
+  id        Int    @id @default(autoincrement())
+  worldId   Int    @default(0) @map("world_id")
+  playerId  Int    @default(0) @map("player_id")
+  posx      Int    @default(0)
+  posy      Int    @default(0)
+  posz      Int    @default(0)
+  timestamp Int    @default(0)
+  report    String @db.Text
+  reads     Int    @default(0)
+
+  @@map("server_reports")
+}
+
+/// Conta do jogador. Login web e do cliente de jogo usam `name` + `password` (SHA-1).
+model Account {
+  id       Int     @id @default(autoincrement())
+  name     String  @unique @db.VarChar(255)
+  password String  @db.VarChar(255)
+  premdays Int     @default(0)
+  lastday  Int     @default(0)
+  email    String  @default("") @db.VarChar(255)
+  key      String  @default("0") @db.VarChar(32)
+  blocked  Boolean @default(false)
+  warnings Int     @default(0)
+  groupId  Int     @default(1) @map("group_id")
+  salt     String  @default("") @db.VarChar(255)
+
+  /// Só usado pelo portal (analytics do dashboard) — o engine do OTServer não escreve nela.
+  createdAt DateTime @default(now()) @map("created_at")
+
+  players        Player[]
+  accountViplist AccountVipList[]
+  donations      Donation[]
+
+  @@map("accounts")
+}
+
+/// Lançamento manual de doação pelo admin (sem gateway de pagamento configurado). Tier de
+/// donate = quantidade de linhas por conta (ver lib/donate-tier.ts), não soma de `amount`.
+model Donation {
+  id        Int      @id @default(autoincrement())
+  accountId Int      @map("account_id")
+  amount    Decimal  @db.Decimal(10, 2)
+  note      String?  @db.VarChar(255)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  account Account @relation(fields: [accountId], references: [id])
+
+  @@map("donations")
+}
+
+model Player {
+  id                Int     @id @default(autoincrement())
+  name              String  @unique @db.VarChar(255)
+  worldId           Int     @default(0) @map("world_id")
+  groupId           Int     @map("group_id")
+  accountId         Int     @map("account_id")
+  rankId            Int     @map("rank_id")
+  level             Int     @default(1)
+  vocation          Int     @default(0)
+  health            Int     @default(250)
+  healthmax         Int     @default(250)
+  experience        BigInt  @default(0)
+  lookbody          Int     @default(10)
+  lookfeet          Int     @default(10)
+  lookhead          Int     @default(10)
+  looklegs          Int     @default(10)
+  looktype          Int     @default(136)
+  lookaddons        Int     @default(0)
+  maglevel          Int     @default(0)
+  mana              Int     @default(250)
+  manamax           Int     @default(250)
+  manaspent         BigInt  @default(0)
+  soul              Int     @default(100)
+  townId            Int     @map("town_id")
+  posx              Int     @default(0)
+  posy              Int     @default(0)
+  posz              Int     @default(0)
+  conditions        Bytes
+  cap               Int     @default(500)
+  sex               Int     @default(0)
+  lastlogin         Int     @default(0)
+  lastip            Int     @default(0)
+  save              Boolean @default(true)
+  skull             Int     @default(0)
+  skulltime         Int     @default(0)
+  guildnick         String  @default("") @db.VarChar(255)
+  lastlogout        Int     @default(0)
+  blessings         Int     @default(0)
+  balance           Int     @default(0)
+  stamina           BigInt  @default(151200000)
+  direction         Int     @default(2)
+  lossExperience    Int     @default(100) @map("loss_experience")
+  lossMana          Int     @default(100) @map("loss_mana")
+  lossSkills        Int     @default(100) @map("loss_skills")
+  lossContainers    Int     @default(100) @map("loss_containers")
+  lossItems         Int     @default(100) @map("loss_items")
+  premend           Int     @default(0)
+  online            Int     @default(0) @db.TinyInt
+  marriage          Int     @default(0)
+  promotion         Int     @default(0)
+  deleted           Int     @default(0)
+  description       String  @default("") @db.VarChar(255)
+  cast              Int     @default(0) @db.TinyInt
+  castViewers       Int     @default(0)
+  castDescription   String  @default("") @db.VarChar(255)
+  healthSkill       Int     @default(0) @map("health_skill")
+  manaSkill         Int     @default(0) @map("mana_skill")
+  bendSkill         Int     @default(0) @map("bend_skill")
+  dodgeSkill        Int     @default(0) @map("dodge_skill")
+  resets            Int     @default(0)
+  skillPoints       Int     @default(0) @map("skill_points")
+  onlineTime        Int     @default(0) @map("online_time")
+  age               Int     @default(0)
+  ageMinutes        Int     @default(0) @map("age_minutes")
+  unlockedVocations String  @default("") @map("unlocked_vocations") @db.VarChar(255)
+  dodge             Int     @default(0)
+  critical          Int     @default(0)
+  lookmount         Int     @default(0)
+  lookwings         Int     @default(0)
+  lookaura          Int     @default(0)
+  lookshader        Int     @default(0)
+  lookhealthbar     Int     @default(0)
+  lookmanabar       Int     @default(0)
+
+  /// Só usado pelo portal (analytics do dashboard) — o engine do OTServer não escreve nela.
+  createdAt DateTime @default(now()) @map("created_at")
+
+  account          Account                  @relation(fields: [accountId], references: [id])
+  accountViplist   AccountVipList[]
+  guildsOwned      Guild[]
+  guildInvites     GuildInvite[]
+  playerDeaths     PlayerDeath[]
+  playerKillers    PlayerKiller[]
+  playerDepotitems PlayerDepotItem[]
+  playerNamelocks  PlayerNamelock[]
+  playerSkills     PlayerSkill[]
+  playerStorage    PlayerStorage[]
+  playerViplist    PlayerVipList[]          @relation("PlayerVipListPlayer")
+  playerViplistVip PlayerVipList[]          @relation("PlayerVipListVip")
+  playerItems      PlayerItem[]
+  playerSpells     PlayerSpell[]
+  vocationStats    PlayerVocationStats[]
+  vocationSkills   PlayerVocationSkills[]
+  vocationRanks    PlayerVocationRank[]
+  dailyRewards     PlayerDailyReward[]
+  dailyRewardBonus PlayerDailyRewardBonus[]
+  skillPointsVoc   PlayerSkillPoints[]
+  skillUpgrades    PlayerSkillUpgrades[]
+  extoutfitUnlocks PlayerExtOutfitUnlock[]
+  houseAuctions    HouseAuctions[]
+  tasks            PlayerTask[]
+  taskPoints       PlayerTaskPoints?
+  resetHistory     PlayerResetHistory[]
+  playerQuests     PlayerQuest[]
+  battlePass       PlayerBattlePass[]
+
+  @@unique([name, deleted])
+  @@map("players")
+}
+
+model PlayerResetHistory {
+  id          Int      @id @default(autoincrement())
+  playerId    Int      @map("player_id")
+  resetNumber Int      @map("reset_number")
+  level       Int
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  player Player @relation(fields: [playerId], references: [id])
+
+  @@unique([playerId, resetNumber])
+  @@map("player_reset_history")
+}
+
+model AccountVipList {
+  accountId Int @map("account_id")
+  worldId   Int @default(0) @map("world_id")
+  playerId  Int @map("player_id")
+
+  account Account @relation(fields: [accountId], references: [id])
+  player  Player  @relation(fields: [playerId], references: [id])
+
+  @@id([accountId, playerId])
+  @@map("account_viplist")
+}
+
+model GlobalStorage {
+  key     Int
+  worldId Int    @default(0) @map("world_id")
+  value   String @default("0") @db.VarChar(255)
+
+  @@id([key, worldId])
+  @@map("global_storage")
+}
+
+model Guild {
+  id           Int    @id @default(autoincrement())
+  worldId      Int    @default(0) @map("world_id")
+  name         String @db.VarChar(255)
+  ownerId      Int    @map("ownerid")
+  creationdata Int
+  checkdata    Int
+  motd         String @default("") @db.VarChar(255)
+
+  owner      Player        @relation(fields: [ownerId], references: [id])
+  invites    GuildInvite[]
+  ranks      GuildRank[]
+  wars       GuildWar[]    @relation("GuildWars")
+  enemyWars  GuildWar[]    @relation("EnemyWars")
+  guildKills GuildKill[]
+
+  @@unique([name, worldId])
+  @@map("guilds")
+}
+
+model GuildWar {
+  id         Int @id @default(autoincrement())
+  guildId    Int @map("guild_id")
+  enemyId    Int @map("enemy_id")
+  begin      Int @default(0)
+  end        Int @default(0)
+  frags      Int @default(0)
+  payment    Int @default(0)
+  guildKills Int @default(0) @map("guild_kills")
+  enemyKills Int @default(0) @map("enemy_kills")
+  status     Int @default(0) @db.TinyInt
+
+  guild Guild       @relation("GuildWars", fields: [guildId], references: [id], onDelete: Cascade)
+  enemy Guild       @relation("EnemyWars", fields: [enemyId], references: [id], onDelete: Cascade)
+  kills GuildKill[]
+
+  @@map("guild_wars")
+}
+
+model GuildKill {
+  id      Int @id @default(autoincrement())
+  guildId Int @map("guild_id")
+  warId   Int @map("war_id")
+  deathId Int @map("death_id")
+
+  guild Guild       @relation(fields: [guildId], references: [id], onDelete: Cascade)
+  war   GuildWar    @relation(fields: [warId], references: [id], onDelete: Cascade)
+  death PlayerDeath @relation(fields: [deathId], references: [id], onDelete: Cascade)
+
+  @@map("guild_kills")
+}
+
+model GuildInvite {
+  playerId Int @map("player_id")
+  guildId  Int @map("guild_id")
+
+  player Player @relation(fields: [playerId], references: [id])
+  guild  Guild  @relation(fields: [guildId], references: [id])
+
+  @@id([playerId, guildId])
+  @@map("guild_invites")
+}
+
+model GuildRank {
+  id      Int    @id @default(autoincrement())
+  guildId Int    @map("guild_id")
+  name    String @db.VarChar(255)
+  level   Int
+
+  guild Guild @relation(fields: [guildId], references: [id])
+
+  @@map("guild_ranks")
+}
+
+model House {
+  id          Int
+  worldId     Int     @default(0) @map("world_id")
+  owner       Int
+  paid        Int     @default(0)
+  warnings    Int     @default(0)
+  lastwarning Int     @default(0)
+  name        String  @db.VarChar(255)
+  town        Int     @default(0)
+  size        Int     @default(0)
+  price       Int     @default(0)
+  rent        Int     @default(0)
+  doors       Int     @default(0)
+  beds        Int     @default(0)
+  tiles       Int     @default(0)
+  guild       Boolean @default(false)
+  clear       Boolean @default(false)
+
+  lists        HouseList[]
+  houseData    HouseData?
+  houseAuction HouseAuctions?
+
+  @@id([id, worldId])
+  @@map("houses")
+}
+
+model HouseList {
+  houseId Int    @map("house_id")
+  worldId Int    @default(0) @map("world_id")
+  listid  Int
+  list    String @db.Text
+
+  house House @relation(fields: [houseId, worldId], references: [id, worldId])
+
+  @@id([houseId, worldId, listid])
+  @@map("house_lists")
+}
+
+model HouseData {
+  houseId Int   @map("house_id")
+  worldId Int   @default(0) @map("world_id")
+  data    Bytes
+
+  house House @relation(fields: [houseId, worldId], references: [id, worldId])
+
+  @@id([houseId, worldId])
+  @@map("house_data")
+}
+
+model HouseAuctions {
+  houseId  Int @map("house_id")
+  worldId  Int @default(0) @map("world_id")
+  playerId Int @map("player_id")
+  bid      Int @default(0)
+  limit    Int @default(0)
+  endtime  Int @default(0)
+
+  house  House  @relation(fields: [houseId, worldId], references: [id, worldId])
+  player Player @relation(fields: [playerId], references: [id])
+
+  @@id([houseId, worldId])
+  @@map("house_auctions")
+}
+
+model PlayerDeath {
+  id       Int @id @default(autoincrement())
+  playerId Int @map("player_id")
+  date     Int
+  level    Int
+
+  player     Player      @relation(fields: [playerId], references: [id])
+  killers    Killer[]
+  guildKills GuildKill[]
+
+  @@map("player_deaths")
+}
+
+model Killer {
+  id          Int     @id @default(autoincrement())
+  deathId     Int     @map("death_id")
+  finalHit    Boolean @default(false) @map("final_hit")
+  unjustified Boolean @default(false)
+  war         Int     @default(0)
+
+  death              PlayerDeath         @relation(fields: [deathId], references: [id])
+  playerKillers      PlayerKiller[]
+  environmentKillers EnvironmentKiller[]
+
+  @@map("killers")
+}
+
+model PlayerKiller {
+  killId   Int @map("kill_id")
+  playerId Int @map("player_id")
+
+  killer Killer @relation(fields: [killId], references: [id])
+  player Player @relation(fields: [playerId], references: [id])
+
+  @@id([killId, playerId])
+  @@map("player_killers")
+}
+
+model EnvironmentKiller {
+  killId Int    @map("kill_id")
+  name   String @db.VarChar(255)
+
+  killer Killer @relation(fields: [killId], references: [id])
+
+  @@id([killId, name])
+  @@map("environment_killers")
+}
+
+model PlayerDepotItem {
+  playerId   Int   @map("player_id")
+  sid        Int
+  pid        Int   @default(0)
+  itemtype   Int
+  count      Int   @default(0)
+  attributes Bytes
+
+  player Player @relation(fields: [playerId], references: [id])
+
+  @@id([playerId, sid])
+  @@map("player_depotitems")
+}
+
+model PlayerNamelock {
+  playerId Int    @map("player_id")
+  name     String @db.VarChar(255)
+  newName  String @map("new_name") @db.VarChar(255)
+  date     Int    @default(0)
+
+  player Player @relation(fields: [playerId], references: [id])
+
+  @@id([playerId, name])
+  @@map("player_namelocks")
+}
+
+model PlayerSkill {
+  playerId Int @map("player_id")
+  skillid  Int
+  value    Int @default(0)
+  count    Int @default(0)
+
+  player Player @relation(fields: [playerId], references: [id])
+
+  @@id([playerId, skillid])
+  @@map("player_skills")
+}
+
+model PlayerStorage {
+  playerId Int    @map("player_id")
+  key      Int
+  value    String @default("0") @db.VarChar(255)
+
+  player Player @relation(fields: [playerId], references: [id])
+
+  @@id([playerId, key])
+  @@map("player_storage")
+}
+
+model PlayerVipList {
+  playerId Int @map("player_id")
+  vipId    Int @map("vip_id")
+
+  player Player @relation("PlayerVipListPlayer", fields: [playerId], references: [id])
+  vip    Player @relation("PlayerVipListVip", fields: [vipId], references: [id])
+
+  @@id([playerId, vipId])
+  @@map("player_viplist")
+}
+
+model Tile {
+  id      Int
+  worldId Int @default(0) @map("world_id")
+  houseId Int @map("house_id")
+  x       Int
+  y       Int
+  z       Int
+
+  @@id([id, worldId])
+  @@map("tiles")
+}
+
+model TileItem {
+  tileId     Int   @map("tile_id")
+  worldId    Int   @default(0) @map("world_id")
+  sid        Int
+  pid        Int   @default(0)
+  itemtype   Int
+  count      Int   @default(0)
+  attributes Bytes
+
+  @@id([tileId, worldId, sid])
+  @@map("tile_items")
+}
+
+model PlayerItem {
+  playerId   Int   @map("player_id")
+  sid        Int
+  pid        Int   @default(0)
+  itemtype   Int
+  count      Int   @default(0)
+  attributes Bytes
+
+  player Player @relation(fields: [playerId], references: [id])
+
+  @@id([playerId, sid])
+  @@map("player_items")
+}
+
+model PlayerSpell {
+  playerId Int    @map("player_id")
+  name     String @db.VarChar(255)
+
+  player Player @relation(fields: [playerId], references: [id])
+
+  @@id([playerId, name])
+  @@map("player_spells")
+}
+
+/// Banimentos de contas/personagens/IPs (`type`: 1=IP, 2=player, 3=account, 4=notation, 5=namelock).
+model Ban {
+  id        Int     @id @default(autoincrement())
+  type      Int
+  value     Int
+  param     Int     @default(-1)
+  active    Boolean @default(true)
+  expires   Int
+  added     Int
+  adminId   Int     @default(0) @map("admin_id")
+  comment   String  @db.Text
+  reason    Int     @default(0)
+  action    Int     @default(0)
+  statement String  @default("") @db.VarChar(255)
+
+  @@map("bans")
+}
+
+model Lottery {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.Text
+  item      String   @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([name(length: 191)])
+  @@map("lottery")
+}
+
+model PlayerVocationStats {
+  playerId   Int    @map("player_id")
+  vocationId Int    @map("vocation_id")
+  level      Int    @default(1)
+  experience BigInt @default(0)
+  healthmax  Int    @default(150)
+  manamax    Int    @default(150)
+  maglevel   Int    @default(0)
+  manaspent  BigInt @default(0)
+  dodge      Int    @default(0)
+  critical   Int    @default(0)
+
+  player Player @relation(fields: [playerId], references: [id], onDelete: Cascade)
+
+  @@id([playerId, vocationId])
+  @@map("player_vocation_stats")
+}
+
+model PlayerVocationSkills {
+  playerId   Int    @map("player_id")
+  vocationId Int    @map("vocation_id")
+  skillid    Int
+  value      Int    @default(10)
+  count      BigInt @default(0)
+
+  player Player @relation(fields: [playerId], references: [id], onDelete: Cascade)
+
+  @@id([playerId, vocationId, skillid])
+  @@map("player_vocation_skills")
+}
+
+model PlayerVocationRank {
+  id         Int @id @default(autoincrement())
+  playerId   Int @map("player_id")
+  vocationId Int @map("vocation_id")
+  rank       Int @default(1) @db.TinyInt
+  stars      Int @default(0) @db.TinyInt
+  totalStars Int @default(0) @map("total_stars") @db.SmallInt
+
+  player Player @relation(fields: [playerId], references: [id], onDelete: Cascade)
+
+  @@index([playerId, vocationId], name: "idx_player_vocation_ranks")
+  @@map("player_vocation_ranks")
+}
+
+model PlayerDailyReward {
+  playerId  Int @map("player_id")
+  day       Int @db.TinyInt
+  month     Int @db.TinyInt
+  year      Int
+  itemId    Int @map("item_id")
+  count     Int
+  timestamp Int
+
+  player Player @relation(fields: [playerId], references: [id], onDelete: Cascade)
+
+  @@id([playerId, day, month, year])
+  @@map("player_daily_rewards")
+}
+
+model DailyRewardsMonthly {
+  month    Int @db.TinyInt
+  year     Int @db.SmallInt
+  day      Int @db.TinyInt
+  itemId   Int @map("item_id")
+  count    Int
+  clientId Int @default(0) @map("client_id")
+
+  @@id([month, year, day])
+  @@map("daily_rewards_monthly")
+}
+
+model DailyRewardsBonusMonthly {
+  month     Int @db.TinyInt
+  year      Int @db.SmallInt
+  streakDay Int @map("streak_day") @db.TinyInt
+  itemId    Int @map("item_id")
+  count     Int
+  clientId  Int @default(0) @map("client_id")
+
+  @@id([month, year, streakDay])
+  @@map("daily_rewards_bonus_monthly")
+}
+
+model PlayerDailyRewardBonus {
+  playerId  Int @map("player_id")
+  month     Int @db.TinyInt
+  year      Int @db.SmallInt
+  streakDay Int @map("streak_day") @db.TinyInt
+  claimedAt Int @default(0) @map("claimed_at")
+
+  player Player @relation(fields: [playerId], references: [id], onDelete: Cascade)
+
+  @@id([playerId, month, year, streakDay])
+  @@map("player_daily_reward_bonus")
+}
+
+/// Padrão de recompensas diárias (`/admin/daily-rewards/default`) — o servidor
+/// (`data/lib/daily_reward.lua`) gera o calendário de cada mês a partir deste pool quando o
+/// mês ainda não foi configurado. `kind` = "daily" (com `rarity`) ou "bonus" (sem raridade).
+model DailyRewardDefaultItem {
+  id        Int      @id @default(autoincrement())
+  kind      String   @default("daily") @db.VarChar(10)
+  rarity    String?  @db.VarChar(20)
+  itemId    Int      @map("item_id")
+  clientId  Int      @default(0) @map("client_id")
+  count     Int      @default(1)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@index([kind], map: "daily_reward_default_items_kind_idx")
+  @@map("daily_reward_default_items")
+}
+
+/// Peso de sorteio de cada raridade no padrão de recompensas diárias.
+model DailyRewardRarityWeight {
+  rarity String @id @db.VarChar(20)
+  weight Int    @default(0)
+
+  @@map("daily_reward_rarity_weights")
+}
+
+/// Outfits (do catálogo `custom_outfits`) cujo item é sorteado ao resgatar uma recompensa bonus.
+model DailyRewardDefaultOutfit {
+  id             Int @id @default(autoincrement())
+  customOutfitId Int @unique(map: "daily_reward_default_outfits_custom_outfit_id_key") @map("custom_outfit_id")
+
+  customOutfit CustomOutfit @relation(fields: [customOutfitId], references: [id], onDelete: Cascade)
+
+  @@map("daily_reward_default_outfits")
+}
+
+/// Outfit customizado (`/admin/custom-outfits`): usar o item `itemId` libera o looktype para
+/// sempre, para qualquer vocação. O portal gera o bloco CUSTOM_OUTFITS em
+/// `data/XML/outfits.xml` (storageId = 61000 + id) e `data/actions/actions.xml`
+/// (`custom_outfit_unlock.lua`) — ver `lib/custom-outfit-sync.ts` e `data/lib/custom_outfits.lua`.
+model CustomOutfit {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(60)
+  lookType  Int      @map("look_type")
+  itemId    Int      @unique(map: "custom_outfits_item_id_key") @map("item_id")
+  clientId  Int      @default(0) @map("client_id")
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  dailyRewardOutfits DailyRewardDefaultOutfit[]
+
+  @@map("custom_outfits")
+}
+
+model PlayerSkillPoints {
+  playerId            Int @map("player_id")
+  vocationId          Int @map("vocation_id")
+  availablePoints     Int @default(0) @map("available_points")
+  spentPoints         Int @default(0) @map("spent_points")
+  highestLevelCounted Int @default(0) @map("highest_level_counted")
+
+  player Player @relation(fields: [playerId], references: [id], onDelete: Cascade)
+
+  @@id([playerId, vocationId])
+  @@map("player_skill_points")
+}
+
+model PlayerSkillUpgrades {
+  playerId     Int    @map("player_id")
+  vocationId   Int    @map("vocation_id")
+  skillName    String @map("skill_name") @db.VarChar(50)
+  currentLevel Int    @default(0) @map("current_level")
+
+  player Player @relation(fields: [playerId], references: [id], onDelete: Cascade)
+
+  @@id([playerId, vocationId, skillName])
+  @@map("player_skill_upgrades")
+}
+
+model PlayerExtOutfitUnlock {
+  playerId Int    @map("player_id")
+  type     String @db.VarChar(20)
+  id       Int
+
+  player Player @relation(fields: [playerId], references: [id], onDelete: Cascade)
+
+  @@id([playerId, type, id])
+  @@map("player_extoutfit_unlocks")
+}
+
+model MonsterBoost {
+  id      Int      @id @default(autoincrement())
+  monster String   @default("0") @db.VarChar(255)
+  loot    Int      @default(0)
+  exp     Int      @default(0)
+  date    DateTime @default(now())
+
+  @@map("monster_boost")
+}
+
+// ---------------------------------------------------------------------------
+// Modelos específicos do portal web (não fazem parte do schema legado do
+// OTServer). Suportam recuperação de conta, auditoria, logs e posts do site.
+// ---------------------------------------------------------------------------
+
+/// Token de recuperação de senha por e-mail, vinculado a uma `Account`.
+model PasswordResetToken {
+  id        Int       @id @default(autoincrement())
+  accountId Int       @map("account_id")
+  token     String    @unique @db.VarChar(255)
+  expiresAt DateTime  @map("expires_at")
+  usedAt    DateTime? @map("used_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+
+  @@index([accountId])
+  @@map("password_reset_tokens")
+}
+
+/// Trilha de auditoria das ações administrativas (quem fez o quê e quando).
+model AuditLog {
+  id           Int      @id @default(autoincrement())
+  accountId    Int?     @map("account_id")
+  accountName  String?  @map("account_name") @db.VarChar(255)
+  action       String   @db.VarChar(100)
+  entity       String   @db.VarChar(100)
+  entityId     String?  @map("entity_id") @db.VarChar(100)
+  metadata     Json?
+  requestBody  Json?    @map("request_body")
+  responseBody Json?    @map("response_body")
+  statusCode   Int?     @map("status_code")
+  errorMessage String?  @map("error_message") @db.Text
+  durationMs   Int?     @map("duration_ms")
+  method       String?  @db.VarChar(10)
+  route        String?  @db.VarChar(255)
+  pageName     String?  @map("page_name") @db.VarChar(100)
+  area         String?  @db.VarChar(20)
+  ipAddress    String?  @map("ip_address") @db.VarChar(45)
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  @@index([accountId])
+  @@index([entity, entityId])
+  @@map("audit_logs")
+}
+
+/// Log estruturado de eventos da aplicação (erros, autenticação, jobs, etc).
+model AppLog {
+  id        Int      @id @default(autoincrement())
+  level     String   @db.VarChar(20)
+  message   String   @db.Text
+  context   Json?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([level, createdAt])
+  @@map("app_logs")
+}
+
+/// Posts/notícias do site, gerenciados por administradores (`group_id = 6`).
+/// `page` diz em qual rota pública o post aparece (`home` = landing/`/posts`, ou uma
+/// das seções de gameplay que viraram CMS: town/system/event/quest/raid/task/mission).
+/// `content` guarda o documento do editor rico (Tiptap) como JSON, não HTML/texto puro.
+/// A imagem de capa usa a mesma infra de `EntityImage` (`entityType = "post"`).
+model Post {
+  id          Int       @id @default(autoincrement())
+  authorId    Int       @map("author_id")
+  page        String    @default("home") @db.VarChar(20)
+  title       String    @db.VarChar(255)
+  slug        String    @unique @db.VarChar(255)
+  excerpt     String?   @db.VarChar(500)
+  content     Json
+  published   Boolean   @default(false)
+  publishedAt DateTime? @map("published_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  taskDefinitions TaskDefinition[]
+
+  @@index([published, publishedAt])
+  @@index([page, published])
+  @@map("posts")
+}
+
+/// Tickets de suporte abertos pelos jogadores.
+model Ticket {
+  id        Int      @id @default(autoincrement())
+  accountId Int      @map("account_id")
+  subject   String   @db.VarChar(255)
+  category  String   @db.VarChar(50)
+  status    String   @default("open") @db.VarChar(20)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  messages TicketMessage[]
+
+  @@index([accountId])
+  @@index([status])
+  @@map("tickets")
+}
+
+model TicketMessage {
+  id        Int      @id @default(autoincrement())
+  ticketId  Int      @map("ticket_id")
+  accountId Int      @map("account_id")
+  isStaff   Boolean  @default(false) @map("is_staff")
+  message   String   @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
+
+  ticket      Ticket                    @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  attachments TicketMessageAttachment[]
+
+  @@index([ticketId])
+  @@map("ticket_messages")
+}
+
+/// Anexo (imagem/vídeo) de uma mensagem de ticket — arquivo em disco (`lib/ticket-media.ts`),
+/// mesmo padrão de `lib/post-media.ts` (posts).
+model TicketMessageAttachment {
+  id        Int      @id @default(autoincrement())
+  messageId Int      @map("message_id")
+  kind      String   @db.VarChar(10) // "image" | "video"
+  url       String   @db.VarChar(255)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  message TicketMessage @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  @@index([messageId])
+  @@map("ticket_message_attachments")
+}
+
+/// Arquétipo de combate da vocação (ex.: DPS, Bruiser, Support, Tank), gerenciado via CRUD
+/// próprio e exibido como <select> no formulário de vocação. Substitui o antigo `type_class`
+/// (que nunca era lido pelo servidor de jogo) — o nome aqui é exportado no XML como o
+/// atributo `archetype`, consumido por `vocation_ranks_config.lua` (server/data/lib) para a
+/// fórmula de dano das spells, defesa e buffs de regen. Não é restrito a um enum fixo: além de
+/// categorizar cada vocação, o cadastro pode futuramente ganhar mais campos/utilidade.
+model VocationArchetype {
+  id   Int    @id @default(autoincrement())
+  name String @unique @db.VarChar(100)
+
+  vocations Vocation[]
+
+  @@map("vocation_archetypes")
+}
+
+/// Universo genérico (ex.: Dragon Ball, Naruto), gerenciado via CRUD de Sistema e
+/// reutilizável por qualquer CRUD que precise classificar registros por universo
+/// (ex.: Vocação, Monstro) — `color` é refletida em badge nas listagens.
+model Universe {
+  id    Int     @id @default(autoincrement())
+  name  String  @unique @db.VarChar(100)
+  color String? @db.VarChar(7)
+
+  vocations Vocation[]
+  monsters  Monster[]
+
+  @@map("universes")
+}
+
+/// Vocação do OTServer, exportável para o XML `vocations.xml` do servidor de jogo.
+/// `id` é definido manualmente pelo admin (mesmo id usado no XML/servidor), não autoincrement.
+model Vocation {
+  id             Int     @id
+  name           String  @db.VarChar(100)
+  description    String  @db.VarChar(100)
+  /// Looktype (outfit) associado a esta vocação — opcional, usado pela tela de looktypes para
+  /// listar "onde está vinculado". Não referencia `looktypeNumber`, referencia o id do registro.
+  lookTypeId     Int?    @map("look_type_id")
+  needpremium    Boolean @default(false)
+  gaincap        Int     @default(0)
+  gainhp         Int     @default(0)
+  gainmana       Int     @default(0)
+  gainhpticks    Int     @default(0)
+  gainhpamount   Int     @default(0)
+  gainmanaticks  Int     @default(0)
+  gainmanaamount Int     @default(0)
+  manamultiplier Float   @default(1)
+  attackspeed    Int     @default(0)
+  soulmax        Int     @default(0)
+  gainsoulticks  Int     @default(0)
+  fromvoc        Int     @default(0)
+
+  /// Só do portal (não existe no XML) — libera a vocação para escolha na criação de personagem no site.
+  published         Boolean @default(false)
+  /// Só do portal — libera a vocação na listagem pública `/gameplay/vocations` (independente de `published`).
+  publishedGameplay Boolean @default(false) @map("published_gameplay")
+
+  typeUniverseId Int? @map("type_universe_id")
+
+  /// Rank máximo de upgrade por estrelas que essa vocação pode alcançar (0=None, 1=Bronze,
+  /// 2=Silver, 3=Gold, 4=Diamond) — espelha `VocationRankConfig.Vocations[id].maxRank` em
+  /// vocation_ranks_config.lua (server/data/lib). O script lê esse valor exportado no XML em vez
+  /// do hardcode `addVocation(...)` por vocação.
+  maxRank Int @default(0) @map("max_rank")
+
+  /// Arquétipo de combate — FK para `VocationArchetype`, exportado no XML (atributo
+  /// `archetype`) em vez do hardcode `addVocation(...)` por vocação em vocation_ranks_config.lua.
+  archetypeId Int? @map("archetype_id")
+
+  /// Item de fragmento específico dessa vocação, usado no upgrade por estrelas — espelha
+  /// `VocationRankConfig.Vocations[id].specificFragmentItemId`, exportado no XML (atributo
+  /// `specificfragmentitemid`) em vez do hardcode `addVocation(...)` por vocação.
+  specificFragmentItemId Int? @map("specific_fragment_item_id")
+
+  // <formula ... />
+  formulaMeleeDamage      Float @default(1) @map("formula_melee_damage")
+  formulaDistDamage       Float @default(1) @map("formula_dist_damage")
+  formulaWandDamage       Float @default(1) @map("formula_wand_damage")
+  formulaMagDamage        Float @default(1) @map("formula_mag_damage")
+  formulaMagHealingDamage Float @default(1) @map("formula_mag_healing_damage")
+  formulaDefense          Float @default(1) @map("formula_defense")
+  formulaMagDefense       Float @default(1) @map("formula_mag_defense")
+  formulaArmor            Float @default(1) @map("formula_armor")
+
+  // <skill ... />
+  skillFist       Float @default(1) @map("skill_fist")
+  skillClub       Float @default(1) @map("skill_club")
+  skillSword      Float @default(1) @map("skill_sword")
+  skillAxe        Float @default(1) @map("skill_axe")
+  skillDistance   Float @default(1) @map("skill_distance")
+  skillShielding  Float @default(1) @map("skill_shielding")
+  skillFishing    Float @default(1) @map("skill_fishing")
+  skillExperience Float @default(1) @map("skill_experience")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  archetype    VocationArchetype? @relation(fields: [archetypeId], references: [id])
+  typeUniverse Universe?          @relation(fields: [typeUniverseId], references: [id])
+
+  spellVocations    SpellVocation[]
+  movementVocations MovementVocation[]
+
+  @@map("vocations")
+}
+
+/// Spell (`instant`/`rune`/`conjure`) do `spells.xml`. Atributos são majoritariamente
+/// escalares comuns aos 3 tipos e viram colunas reais (diferente do doodad, cujo conteúdo
+/// variável fica em JSON); `extraAttributes` guarda atributos raros suportados pela engine
+/// mas nunca usados nos dados atuais (channel, access, filter, logged, spellid, cooldown,
+/// groupcooldown), preservando round-trip de import/export sem exigir UI para eles.
+model Spell {
+  id                      Int     @id @default(autoincrement())
+  kind                    String  @db.VarChar(10) // "instant" | "rune" | "conjure"
+  name                    String  @db.VarChar(255)
+  /// Sprite vinculada do cadastro de looktypes (/admin/looktypes) — só para a thumbnail do
+  /// portal (ícone da spell no client já vem de outro sistema, fora de escopo deste model).
+  lookTypeId              Int?    @map("look_type_id")
+  words                   String  @default("") @db.VarChar(255) // instant/conjure
+  runeItemId              Int?    @map("rune_item_id") // rune: atributo "id" (obrigatório p/ rune)
+  level                   Int     @default(0)
+  magicLevel              Int     @default(0) @map("magic_level")
+  mana                    Int     @default(0)
+  manaPercent             Int     @default(0) @map("mana_percent")
+  soul                    Int     @default(0)
+  exhaustion              Int     @default(0)
+  enabled                 Boolean @default(true)
+  premium                 Boolean @default(false)
+  needTarget              Boolean @default(false) @map("need_target")
+  needWeapon              Boolean @default(false) @map("need_weapon")
+  selfTarget              Boolean @default(false) @map("self_target")
+  needLearn               Boolean @default(false) @map("need_learn")
+  range                   Int     @default(0)
+  blockType               String  @default("") @map("block_type") @db.VarChar(10) // "", all, solid, creature
+  aggressive              Boolean @default(false)
+  blockWalls              Boolean @default(false) @map("block_walls")
+  allowFarUse             Boolean @default(false) @map("allow_far_use") // rune
+  hasParam                Boolean @default(false) @map("has_param") // instant/conjure
+  needDirection           Boolean @default(false) @map("need_direction") // instant/conjure
+  casterTargetOrDirection Boolean @default(false) @map("caster_target_or_direction")
+  limitRange              Int     @default(0) @map("limit_range")
+  hasCharges              Boolean @default(false) @map("has_charges") // rune
+  conjureId               Int?    @map("conjure_id")
+  conjureCount            Int?    @map("conjure_count")
+  conjureReagentId        Int?    @map("conjure_reagent_id")
+  event                   String  @default("script") @db.VarChar(20)
+  scriptValue             String  @default("") @map("script_value") @db.VarChar(255) // atributo "value"
+  functionName            String  @default("") @map("function_name") @db.VarChar(50)
+  description             String  @default("") @db.VarChar(255)
+  group                   String  @default("") @db.VarChar(50)
+  extraAttributes         Json?   @map("extra_attributes")
+
+  /// Só do portal (não existe no XML) — libera a spell nas páginas públicas de gameplay.
+  published Boolean @default(false)
+
+  vocations SpellVocation[]
+  monsters  MonsterSpell[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([kind])
+  @@map("spells")
+}
+
+/// Vínculo N:N entre `Spell` e `Vocation`, espelhando `<vocation id="N" />` dentro de cada
+/// spell no XML (uma ou mais por spell). `showInDescription` espelha o atributo opcional
+/// `showInDescription` do parser da engine (default true quando ausente).
+model SpellVocation {
+  spellId           Int     @map("spell_id")
+  vocationId        Int     @map("vocation_id")
+  showInDescription Boolean @default(true) @map("show_in_description")
+
+  spell    Spell    @relation(fields: [spellId], references: [id], onDelete: Cascade)
+  vocation Vocation @relation(fields: [vocationId], references: [id], onDelete: Cascade)
+
+  @@id([spellId, vocationId])
+  @@map("spell_vocations")
+}
+
+/// Brush do `doodads.xml` (RME). Os atributos comuns de `<brush>` viram colunas; o
+/// conteúdo específico de cada `type` (doodad/carpet/wall/table) — que é uma árvore
+/// recursiva (alternate > composite > tile > item) — fica em `content` (JSON),
+/// serializado para XML por `lib/doodad-xml.ts`.
+model DoodadBrush {
+  id           Int     @id @default(autoincrement())
+  name         String  @db.VarChar(255)
+  type         String  @db.VarChar(20)
+  serverLookId Int     @map("server_lookid")
+  draggable    Boolean @default(false)
+  onBlocking   Boolean @default(false) @map("on_blocking")
+  thickness    String  @default("") @db.VarChar(20)
+  onDuplicate  Boolean @default(false) @map("on_duplicate")
+  oneSize      Boolean @default(false) @map("one_size")
+  redoBorders  Boolean @default(false) @map("redo_borders")
+  reborder     Boolean @default(false)
+  content      Json
+
+  tilesetCategoryId Int?             @map("tileset_category_id")
+  tilesetOrder      Int              @default(0) @map("tileset_order")
+  tilesetCategory   TilesetCategory? @relation(fields: [tilesetCategoryId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([type])
+  @@index([tilesetCategoryId])
+  @@map("doodad_brushes")
+}
+
+/// Brush do `walls.xml` (RME). Igual a `DoodadBrush`, mas com o vocabulário de portas
+/// mais rico do arquivo de paredes (`type` livre, `locked`, `open` opcional) e o
+/// elemento `<friend>` (redireciona/mescla borda com outro brush pelo nome).
+model WallBrush {
+  id           Int     @id @default(autoincrement())
+  name         String  @db.VarChar(255)
+  type         String  @db.VarChar(20)
+  serverLookId Int     @map("server_lookid")
+  draggable    Boolean @default(false)
+  onBlocking   Boolean @default(false) @map("on_blocking")
+  thickness    String  @default("") @db.VarChar(20)
+  onDuplicate  Boolean @default(false) @map("on_duplicate")
+  oneSize      Boolean @default(false) @map("one_size")
+  redoBorders  Boolean @default(false) @map("redo_borders")
+  reborder     Boolean @default(false)
+  content      Json
+  friends      Json
+
+  tilesetCategoryId Int?             @map("tileset_category_id")
+  tilesetOrder      Int              @default(0) @map("tileset_order")
+  tilesetCategory   TilesetCategory? @relation(fields: [tilesetCategoryId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([type])
+  @@index([tilesetCategoryId])
+  @@map("wall_brushes")
+}
+
+/// `<border>` do `borders.xml` (RME). `id` é definido manualmente pelo admin (mesmo id
+/// usado no XML/servidor). `edges` guarda os até 12 pares `edge`/`item` (`<borderitem>`).
+model Border {
+  id       Int     @id
+  name     String  @db.VarChar(255)
+  group    Int?
+  optional Boolean @default(false)
+  edges    Json
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("borders")
+}
+
+/// Cidade/local do mundo (referenciada por `Player.townId`/`House.town`, sem FK — o id do
+/// OTServer legado nem sempre bate com o que é curado aqui). `id` é definido manualmente
+/// pelo admin (mesmo id usado no `town_id` dos players). `templeX/Y/Z` é a posição do
+/// templo, usada para teleportar recém-criados/mortos e exibida na página pública.
+model Town {
+  id        Int     @id
+  name      String  @db.VarChar(100)
+  templeX   Int     @map("temple_x")
+  templeY   Int     @map("temple_y")
+  templeZ   Int     @map("temple_z")
+  published Boolean @default(true)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("towns")
+}
+
+/// `<brush type="ground">` do `grounds.xml` (RME). `borders` referencia `Border.id` por
+/// `align` (outer/inner) — exibido como combobox de autocomplete no formulário.
+model Ground {
+  id           Int     @id @default(autoincrement())
+  name         String  @db.VarChar(255)
+  serverLookId Int     @default(0) @map("server_lookid")
+  zOrder       Int     @default(0) @map("z_order")
+  soloOptional Boolean @default(false) @map("solo_optional")
+  items        Json
+  borders      Json
+  friends      Json
+
+  tilesetCategoryId Int?             @map("tileset_category_id")
+  tilesetOrder      Int              @default(0) @map("tileset_order")
+  tilesetCategory   TilesetCategory? @relation(fields: [tilesetCategoryId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([tilesetCategoryId])
+  @@map("grounds")
+}
+
+/// Agrupamento de nível superior do `tilesets.xml` (RME) — `<tileset name="...">`.
+/// `order` define a posição na árvore de paleta do editor; `active=false` faz o
+/// tileset ser omitido da exportação sem perder o registro no banco. `icon` é
+/// metadado exclusivo do portal (o RME não tem esse conceito no XML).
+model Tileset {
+  id          Int     @id @default(autoincrement())
+  name        String  @unique @db.VarChar(255)
+  description String? @db.VarChar(500)
+  order       Int     @default(0)
+  active      Boolean @default(true)
+  icon        String? @db.VarChar(255)
+
+  /// Se `true` (comportamento legado): os ids de item derivados dos brushes de cada
+  /// categoria (grama/tocos de Ground, item/porta de cada segmento de WallBrush, item de
+  /// DoodadBrush) são misturados na própria tag da categoria junto com os `<brush>`
+  /// (ex.: `<terrain>`), como um `terrain_and_raw`. Se `false` (padrão): esses ids não
+  /// aparecem na categoria original — em vez disso, saem agrupados numa tag `<raw>`
+  /// sintética ao final do tileset exportado.
+  rawIdsInBrush Boolean @default(false) @map("raw_ids_in_brush")
+
+  categories TilesetCategory[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("tilesets")
+}
+
+/// Tipo de dado guardado pela categoria: BRUSH aponta para linhas de
+/// Ground/WallBrush/DoodadBrush (via `tilesetCategoryId` nessas tabelas); ITEM aponta
+/// para `TilesetItemEntry` (ids/intervalos de item soltos, sem brush).
+enum TilesetCategoryType {
+  BRUSH
+  ITEM
+}
+
+/// Nome literal da tag XML de categoria dentro de `<tileset>`. TERRAIN/DOODAD/RAW são
+/// as únicas oferecidas na criação pelo admin; as variantes `_AND_RAW`/`ITEMS`/
+/// `ITEMS_AND_RAW` só existem para preservar fidelidade de categorias importadas de um
+/// `tilesets.xml` legado que já misturava brush + item na mesma tag.
+enum TilesetCategoryKind {
+  TERRAIN
+  TERRAIN_AND_RAW
+  DOODAD
+  DOODAD_AND_RAW
+  RAW
+  ITEMS
+  ITEMS_AND_RAW
+}
+
+/// Categoria dentro de um Tileset (uma tag `<terrain>`/`<doodad>`/`<raw>`/... do RME).
+/// `name` não existe no formato do RME — é persistido como comentário XML
+/// (`<!-- name -->`) logo antes da tag de categoria ao exportar, e relido a partir
+/// desse comentário ao importar, sem afetar o parser do RME (que ignora comentários).
+/// `unresolvedBrushNames` guarda `<brush name="x">` encontrados na importação que não
+/// bateram com nenhum Ground/WallBrush/DoodadBrush cadastrado, para não perder dado.
+model TilesetCategory {
+  id                   Int                 @id @default(autoincrement())
+  tilesetId            Int                 @map("tileset_id")
+  name                 String              @db.VarChar(255)
+  kind                 TilesetCategoryKind
+  type                 TilesetCategoryType
+  order                Int                 @default(0)
+  description          String?             @db.VarChar(500)
+  unresolvedBrushNames Json                @default("[]") @map("unresolved_brush_names")
+
+  tileset Tileset @relation(fields: [tilesetId], references: [id], onDelete: Cascade)
+
+  grounds     Ground[]
+  walls       WallBrush[]
+  doodads     DoodadBrush[]
+  itemEntries TilesetItemEntry[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([tilesetId])
+  @@map("tileset_categories")
+}
+
+enum TilesetItemEntryKind {
+  ITEM_ID
+  ITEM_RANGE
+}
+
+/// Entrada de item solto (sem brush) dentro de uma categoria ITEM — `<item id="x"/>`
+/// (ITEM_ID) ou `<item fromid="x" toid="y"/>` (ITEM_RANGE) do `tilesets.xml`.
+model TilesetItemEntry {
+  id         Int                  @id @default(autoincrement())
+  categoryId Int                  @map("category_id")
+  order      Int                  @default(0)
+  kind       TilesetItemEntryKind
+  itemId     Int?                 @map("item_id")
+  fromId     Int?                 @map("from_id")
+  toId       Int?                 @map("to_id")
+
+  category TilesetCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@index([categoryId])
+  @@map("tileset_item_entries")
+}
+
+/// Monstro do OTServer (`data/monster/.../*.xml`). Os atributos simples do `<monster>`
+/// raiz e de `<health>`/`<look>`/`<targetchange>`/`<strategy>` viram colunas; as seções
+/// em árvore (`flags`, `attacks`, `defenses`, `immunities`, `elements`, `voices`, `loot`,
+/// `summons`, `script`) ficam em JSON, serializadas para XML por `lib/monster-xml.ts`.
+/// `category`/`subcategory` refletem a pasta de origem (ex.: "dragon ball/1-50") usada
+/// para reconstruir o atributo `file` do `monsters.xml` na exportação em lote.
+model Monster {
+  id              Int    @id @default(autoincrement())
+  name            String @unique @db.VarChar(255)
+  nameDescription String @default("") @map("name_description") @db.VarChar(255)
+  bestiary        String @default("monster") @db.VarChar(50)
+  category        String @default("") @db.VarChar(100)
+  subcategory     String @default("") @db.VarChar(100)
+  race            String @default("blood") @db.VarChar(20)
+  experience      Int    @default(0)
+  speed           Int    @default(200)
+  manacost        Int    @default(0)
+
+  healthNow BigInt @default(100) @map("health_now")
+  healthMax BigInt @default(100) @map("health_max")
+
+  lookType   Int? @map("look_type")
+  lookTypeEx Int? @map("look_typeex")
+  lookHead   Int  @default(0) @map("look_head")
+  lookBody   Int  @default(0) @map("look_body")
+  lookLegs   Int  @default(0) @map("look_legs")
+  lookFeet   Int  @default(0) @map("look_feet")
+  lookAddons Int  @default(0) @map("look_addons")
+  corpse     Int  @default(0)
+
+  /// Sprite vinculada do cadastro de looktypes (/admin/looktypes) — fonte do `look type="xx"`
+  /// gerado no XML (o número do próprio cadastro da looktype) e da thumbnail animada exibida
+  /// no admin/portal. Substitui o antigo campo `lookType` livre no formulário.
+  lookTypeId Int? @map("look_type_id")
+
+  /// Universo genérico (ex.: Dragon Ball) — reaproveita o mesmo CRUD usado por Vocação.
+  universeId Int? @map("universe_id")
+
+  targetChangeInterval Int @default(4000) @map("target_change_interval")
+  targetChangeChance   Int @default(10) @map("target_change_chance")
+
+  strategyAttack  Int? @map("strategy_attack")
+  strategyDefense Int? @map("strategy_defense")
+
+  universe Universe? @relation(fields: [universeId], references: [id])
+
+  flags      Json
+  attacks    Json
+  defenses   Json
+  immunities Json
+  elements   Json
+  voices     Json
+  loot       Json
+  summons    Json
+  script     Json
+
+  /// Só do portal (não existe no XML) — libera o monstro nas páginas públicas de gameplay.
+  published Boolean @default(false)
+
+  spells MonsterSpell[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([category, subcategory])
+  @@index([name(length: 191)])
+  @@map("monsters")
+}
+
+/// Vínculo N:N entre `Monster` e `Spell`, espelhando `<monster name="X"/>` dentro de
+/// `<instant>` no `spells.xml` — declara quais monstros podem conjurar aquela spell.
+/// Independente de `attacks`/`defenses` (que já guardam o `name` da spell usada em cada
+/// ataque/defesa via `spellId` no JSON); esta tabela é a lista de spells vinculadas ao
+/// monstro exibida/editada como seção própria no admin.
+model MonsterSpell {
+  monsterId Int @map("monster_id")
+  spellId   Int @map("spell_id")
+
+  monster Monster @relation(fields: [monsterId], references: [id], onDelete: Cascade)
+  spell   Spell   @relation(fields: [spellId], references: [id], onDelete: Cascade)
+
+  @@id([monsterId, spellId])
+  @@map("monster_spells")
+}
+
+model PlayerTask {
+  id        Int      @id @default(autoincrement())
+  playerId  Int      @map("player_id")
+  taskId    String   @map("task_id") @db.VarChar(50)
+  kills     Int      @default(0)
+  completed Boolean  @default(false)
+  rewarded  Boolean  @default(false)
+  startedAt DateTime @default(now()) @map("started_at")
+
+  player Player @relation(fields: [playerId], references: [id])
+
+  @@unique([playerId, taskId], name: "unique_player_task")
+  @@map("player_tasks")
+}
+
+model PlayerTaskPoints {
+  playerId       Int @id @map("player_id")
+  points         Int @default(0)
+  totalCompleted Int @default(0) @map("total_completed")
+
+  player Player @relation(fields: [playerId], references: [id])
+
+  @@map("player_task_points")
+}
+
+/// Categoria compartilhada por Quests e Tasks (`/admin/categories`) — nome + cor exibida como
+/// badge nas duas listagens. `Quest.category`/`TaskDefinition.category` continuam existindo como
+/// `String` (é o que os scripts Lua/engine leem) e são sincronizados a partir do `name` daqui
+/// sempre que `categoryId` é definido pelo formulário — nunca ficam dessincronizados
+/// silenciosamente, e nenhum script server-side precisa mudar.
+model Category {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique @db.VarChar(50)
+  color     String   @db.VarChar(20)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  quests Quest[]
+  tasks  TaskDefinition[]
+
+  @@map("categories")
+}
+
+/// Catálogo de quests administrado pelo portal (`/admin/quests`) — diferente das Tasks, aqui o
+/// portal é a fonte de verdade (não um espelho de arquivo Lua). A lógica de "quando completar"
+/// continua bespoke por quest, escrita em scripts de action/npc que chamam
+/// `QuestLib.completeQuest` (data/lib/quests/quest_lib.lua).
+model Quest {
+  id              Int       @id @default(autoincrement())
+  name            String    @db.VarChar(255)
+  description     String    @db.Text
+  category        String    @db.VarChar(30)
+  categoryId      Int?      @map("category_id")
+  categoryRef     Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  levelRequired   Int       @default(0) @map("level_required")
+  rewardExp       Int       @default(0) @map("reward_exp")
+  rewardMoney     Int       @default(0) @map("reward_money")
+  /// Mantidos em sincronia com o 1º item de `rewardItems` (só leitura pra scripts Lua legados
+  /// que ainda esperam um único item de recompensa — ver `taskDefinitionInputToRow`-equivalente
+  /// em `lib/validations/admin/quest.ts`).
+  rewardItemId    Int?      @map("reward_item_id")
+  rewardItemCount Int       @default(1) @map("reward_item_count")
+  /// `[{ itemId: number, count: number }]` — fonte de verdade no admin; permite múltiplos itens
+  /// de recompensa por quest.
+  rewardItems     Json      @default("[]") @map("reward_items")
+  /// Imagem web-only (character-profile/admin) — a imagem exibida dentro do jogo continua vindo
+  /// de `modules/game_questlog/imgs/<nome-da-quest>.png` no cliente, sem relação com este campo.
+  imageUrl        String?   @map("image_url") @db.VarChar(255)
+  published       Boolean   @default(true)
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  playerQuests PlayerQuest[]
+
+  @@map("quests")
+}
+
+model PlayerQuest {
+  playerId    Int       @map("player_id")
+  questId     Int       @map("quest_id")
+  completed   Boolean   @default(false)
+  rewarded    Boolean   @default(false)
+  completedAt DateTime? @map("completed_at")
+
+  player Player @relation(fields: [playerId], references: [id])
+  quest  Quest  @relation(fields: [questId], references: [id])
+
+  @@id([playerId, questId])
+  @@map("player_quests")
+}
+
+/// Catálogo de tasks administrado pelo portal (`/admin/tasks`) — fonte de verdade para o engine,
+/// que carrega esta tabela em `data/lib/tasks/task_db_loader.lua` (substitui o antigo
+/// `task_config.lua` estático) e recarrega periodicamente via o globalevent `task_save.lua`.
+/// `scripts/import-task-definitions.ts` só existe para a importação única do catálogo legado.
+model TaskDefinition {
+  /// Slug estável (ex.: "task_wolf_hollow") — preservado do sistema legado para não quebrar
+  /// `player_tasks.task_id` já gravados; editável na criação, mas não deve mudar depois.
+  id             String    @id @db.VarChar(50)
+  name           String    @db.VarChar(255)
+  lookType       Int       @default(0) @map("look_type")
+  category       String    @db.VarChar(30)
+  categoryId     Int?      @map("category_id")
+  categoryRef    Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  type           String    @default("kill") @db.VarChar(20)
+  difficulty     String    @db.VarChar(20)
+  levelRequired  Int       @default(0) @map("level_required")
+  rankRequired   Int       @default(0) @map("rank_required")
+  killsRequired  Int       @default(0) @map("kills_required")
+  points         Int       @default(0)
+  experience     Int       @default(0)
+  money          Int       @default(0)
+  published      Boolean   @default(true)
+  /// `[{ name: string, kills: number }]`
+  monsters       Json?
+  /// `{ items: [[itemId, count], ...] }`
+  rewards        Json?
+  /// `{ enabled: boolean, ... }`
+  delivery       Json?
+  /// `[{ name, level, size, location, probability }]` — só exibição, não afeta a lógica.
+  monsterDetails Json?     @map("monster_details")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @default(now()) @updatedAt @map("updated_at")
+
+  /// Post vinculado (opcional) — vira hyperlink no nome da task em /community/characters;
+  /// sem post, o nome fica texto simples.
+  postId Int?  @map("post_id")
+  post   Post? @relation(fields: [postId], references: [id], onDelete: SetNull)
+
+  @@map("task_definitions")
+}
+
+/// Item do OTServer (`data/items/items.xml`). O `.otb` (fora de escopo do portal) é quem
+/// define `clientId`/sprite e as flags binárias básicas (blockSolid/stackable/pickupable/...);
+/// `items.xml` só adiciona/sobrescreve atributos de gameplay por cima disso — é esse universo
+/// (~150 `<attribute key>`) que este model cobre. `id` é manual (server id real, não
+/// autoincrement), igual `Vocation`/`Border`. Campos comuns/filtráveis viram coluna; famílias
+/// grandes e correlatas de atributos (elementos, absorb/reflect por elemento, suppress de
+/// condição, skills) ficam em JSON, mesmo padrão do `Monster` (`immunities`/`elements`).
+/// `extraAttributes` é o escape hatch para qualquer `<attribute key>` não modelado — garante
+/// round-trip sem perda mesmo para atributos raros/desconhecidos encontrados na importação.
+model Item {
+  id           Int    @id
+  name         String @db.VarChar(255)
+  article      String @default("") @db.VarChar(10)
+  plural       String @default("") @db.VarChar(255)
+  editorSuffix String @default("") @map("editor_suffix") @db.VarChar(100)
+  description  String @default("") @db.VarChar(500)
+  /// Sprite vinculada do cadastro de looktypes (/admin/looktypes) — só para a thumbnail do
+  /// portal, não é o sprite real do items.xml/.otb (fora de escopo deste model).
+  lookTypeId   Int?   @map("look_type_id")
+  /// Client id real do sprite no `.otb`/items.xml (`<item id="server_id" client_id="X">`) —
+  /// usado para localizar a looktype correspondente no cadastro (nome no padrão `item_{clientId}`)
+  /// e persistido no round-trip do items.xml. Distinto de `lookTypeId` (id do registro no portal).
+  clientId     Int?   @map("client_id")
+
+  // classificação
+  type        String @default("") @db.VarChar(20)
+  weaponType  String @default("") @map("weapon_type") @db.VarChar(20)
+  slotType    String @default("") @map("slot_type") @db.VarChar(20)
+  ammoType    String @default("") @map("ammo_type") @db.VarChar(20)
+  ammoAction  String @default("") @map("ammo_action") @db.VarChar(20)
+  corpseType  String @default("") @map("corpse_type") @db.VarChar(20)
+  shootType   String @default("") @map("shoot_type") @db.VarChar(30)
+  effect      String @default("") @db.VarChar(30)
+  fluidSource String @default("") @map("fluid_source") @db.VarChar(20)
+  floorChange String @default("") @map("floor_change") @db.VarChar(20)
+
+  // combate
+  weight       Int  @default(0)
+  armor        Int  @default(0)
+  defense      Int  @default(0)
+  extraDefense Int  @default(0) @map("extra_defense")
+  attack       Int  @default(0)
+  extraAttack  Int  @default(0) @map("extra_attack")
+  attackSpeed  Int  @default(0) @map("attack_speed")
+  range        Int  @default(0)
+  hitChance    Int  @default(0) @map("hit_chance")
+  maxHitChance Int  @default(0) @map("max_hit_chance")
+  breakChance  Int  @default(0) @map("break_chance")
+  rotateTo     Int? @map("rotate_to")
+  worth        Int  @default(0)
+
+  // container/texto
+  containerSize   Int     @default(0) @map("container_size")
+  maxTextLen      Int     @default(0) @map("max_text_len")
+  writeOnceItemId Int?    @map("write_once_item_id")
+  readable        Boolean @default(false)
+  writeable       Boolean @default(false)
+
+  // decay/transformação
+  decayTo            Int?    @map("decay_to")
+  duration           Int     @default(0)
+  stopDuration       Boolean @default(false) @map("stop_duration")
+  showDuration       Boolean @default(false) @map("show_duration")
+  transformEquipTo   Int?    @map("transform_equip_to")
+  transformDeEquipTo Int?    @map("transform_deequip_to")
+  transformTo        Int?    @map("transform_to")
+  maleTransformTo    Int?    @map("male_transform_to")
+  femaleTransformTo  Int?    @map("female_transform_to")
+  charges            Int     @default(0)
+  showCharges        Boolean @default(false) @map("show_charges")
+  showAttributes     Boolean @default(false) @map("show_attributes")
+
+  // luz
+  lightLevel Int @default(0) @map("light_level")
+  lightColor Int @default(0) @map("light_color")
+
+  // regen / stat granting
+  speed                   Int     @default(0)
+  healthGain              Int     @default(0) @map("health_gain")
+  healthTicks             Int     @default(0) @map("health_ticks")
+  manaGain                Int     @default(0) @map("mana_gain")
+  manaTicks               Int     @default(0) @map("mana_ticks")
+  manaShield              Boolean @default(false) @map("mana_shield")
+  soulPoints              Int     @default(0) @map("soul_points")
+  soulPointsPercent       Int     @default(0) @map("soul_points_percent")
+  maxHitPoints            Int     @default(0) @map("max_hit_points")
+  maxHitPointsPercent     Int     @default(0) @map("max_hit_points_percent")
+  maxManaPoints           Int     @default(0) @map("max_mana_points")
+  maxManaPointsPercent    Int     @default(0) @map("max_mana_points_percent")
+  magicLevelPoints        Int     @default(0) @map("magic_level_points")
+  magicLevelPointsPercent Int     @default(0) @map("magic_level_points_percent")
+  increaseMagicValue      Int     @default(0) @map("increase_magic_value")
+  increaseMagicPercent    Int     @default(0) @map("increase_magic_percent")
+  increaseHealingValue    Int     @default(0) @map("increase_healing_value")
+  increaseHealingPercent  Int     @default(0) @map("increase_healing_percent")
+
+  // rune — texto livre igual ao XML, sem FK obrigatória com Spell (mesma decisão de
+  // Spell.runeItemId); o form oferece um combobox de conveniência para preencher a partir
+  // de uma Spell existente.
+  runeSpellName String @default("") @map("rune_spell_name") @db.VarChar(255)
+
+  flags              Json
+  skills             Json
+  elements           Json
+  absorbPercent      Json  @map("absorb_percent")
+  fieldAbsorbPercent Json  @map("field_absorb_percent")
+  reflectPercent     Json  @map("reflect_percent")
+  reflectChance      Json  @map("reflect_chance")
+  suppress           Json
+  field              Json?
+  extraAttributes    Json? @map("extra_attributes")
+
+  /// Só do portal (não existe no XML) — libera o item nas páginas públicas de gameplay.
+  published Boolean @default(false)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([type])
+  @@index([weaponType])
+  @@index([name(length: 191)])
+  @@map("items")
+}
+
+/// `<movevent>` do `movements.xml` do OTServer. Não existe "um movevent = um arquivo" no
+/// engine (diferente de Item/Monster) — só bulk export/import; `id` é autoincrement, só do
+/// portal. Seletor de item é discriminado por `selectorType`: ITEM_ID (`itemid="123"` ou
+/// range em uma string `"100-105"` via `itemIdRangeEnd`), ITEM_RANGE (`fromid`/`toid`,
+/// possivelmente listas paralelas `;`-separadas, guardadas como arrays JSON), UNIQUE_ID
+/// (`uniqueid`) ou ACTION_ID (`actionid`). `slot`/`level`/`magicLevel`/`premium` só têm
+/// sentido para Equip/DeEquip. Ação é `actionKind` SCRIPT (`event="script" value="x.lua"`)
+/// ou FUNCTION (`event="function" value="onEquipItem|onDeEquipItem|onStepInField|onAddField"`
+/// — os únicos 4 nomes que `MoveEvent::loadFunction` reconhece).
+model Movement {
+  id        Int     @id @default(autoincrement())
+  eventType String  @map("event_type") @db.VarChar(20)
+  tileItem  Boolean @default(false) @map("tile_item")
+
+  selectorType   String @map("selector_type") @db.VarChar(20)
+  itemId         Int?   @map("item_id")
+  itemIdRangeEnd Int?   @map("item_id_range_end")
+  fromIds        Json?  @map("from_ids")
+  toIds          Json?  @map("to_ids")
+  uniqueId       Int?   @map("unique_id")
+  actionId       Int?   @map("action_id")
+
+  slot       String  @default("") @db.VarChar(20)
+  level      Int     @default(0)
+  magicLevel Int     @default(0) @map("magic_level")
+  premium    Boolean @default(false)
+
+  actionKind  String @map("action_kind") @db.VarChar(20)
+  actionValue String @default("") @map("action_value") @db.VarChar(255)
+
+  /// Só do portal — script Lua cadastrado (LuaScript) usado como conveniência para
+  /// preencher `actionValue`. Opcional: nem todo movement do tipo SCRIPT precisa estar
+  /// vinculado a um LuaScript cadastrado no banco.
+  luaScriptId Int?       @map("lua_script_id")
+  luaScript   LuaScript? @relation(fields: [luaScriptId], references: [id], onDelete: SetNull)
+
+  /// Só do portal — marca movements Equip/DeEquip criados automaticamente a partir do
+  /// `Item.slotType` (ver item 4 do AGENTS.md), para não conflitar com movements que o
+  /// admin tenha criado manualmente para o mesmo item/evento.
+  autoGenerated Boolean @default(false) @map("auto_generated")
+
+  vocations MovementVocation[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([itemId])
+  @@index([eventType])
+  @@index([luaScriptId])
+  @@map("movements")
+}
+
+/// Cadastro de scripts Lua reais (conteúdo do arquivo `.lua`) para vínculo de
+/// conveniência com Movements do tipo SCRIPT. `name` é o nome do arquivo (ex.:
+/// `vocation_change_tile.lua`), usado como `actionValue` no XML exportado — o export em
+/// si nunca lê `content`, é só armazenamento/organização dentro do portal.
+model LuaScript {
+  id        Int       @id @default(autoincrement())
+  /// Único por categoria (não globalmente) — o mesmo nome de arquivo pode existir em
+  /// pastas de scripts diferentes (ex.: `login.lua` em "actions" e em "npc").
+  name      String    @db.VarChar(255)
+  content   String    @db.LongText
+  /// Pasta de scripts do OTServer a que pertence (actions, creaturescripts, globalevents,
+  /// lib, movements, npc, raids, spells, talkactions, weapons, mods) — obrigatório,
+  /// principalmente exigido no import de arquivo `.lua`.
+  category  String    @default("actions") @db.VarChar(20)
+  /// Soft delete — excluir pela listagem ou pelo Explorador do servidor só marca esta data,
+  /// nunca remove a linha (o Explorador também apaga o arquivo real do disco, a listagem não).
+  deletedAt DateTime? @map("deleted_at")
+
+  movements Movement[]
+  npcs      Npc[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([name, category])
+  @@index([category])
+  @@map("lua_scripts")
+}
+
+/// Vínculo N:N entre `Movement` e `Vocation`, espelhando `<vocation id="N" />` dentro de um
+/// `<movevent type="Equip|DeEquip">` (restringe quem pode equipar o item). Mesmo padrão de
+/// `SpellVocation`.
+model MovementVocation {
+  movementId Int @map("movement_id")
+  vocationId Int @map("vocation_id")
+
+  movement Movement @relation(fields: [movementId], references: [id], onDelete: Cascade)
+  vocation Vocation @relation(fields: [vocationId], references: [id], onDelete: Cascade)
+
+  @@id([movementId, vocationId])
+  @@map("movement_vocations")
+}
+
+/// Imagem custom (PNG/GIF) associada a um item/monstro/spell/vocação do portal — independente
+/// do sprite do cliente OTServer (que não existe em items.xml, só no .otb, fora de escopo).
+/// Guarda só a referência (tipo+id+extensão); o binário fica em disco sob
+/// `public/storage/{entityType}/{entityId}.{extensão}`, nunca em base64 no banco.
+model EntityImage {
+  entityType String   @map("entity_type") @db.VarChar(20)
+  entityId   Int      @map("entity_id")
+  extension  String   @db.VarChar(10)
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@id([entityType, entityId])
+  @@map("entity_images")
+}
+
+/// Registro centralizado de "looktypes" (aparência de item/outfit/monstro/efeito/missile) —
+/// `id` autoincrement (id do registro no portal, não confundir com `looktypeNumber`, o número
+/// real da aparência no cliente OTServer). Imagem pode vir de um arquivo `.obd` (Object Builder,
+/// ver `lib/obd/`), que gera N frames animados em disco, ou de um PNG/GIF estático simples
+/// (`frameCount = 1`). Frames ficam em `public/storage/looktypes/{id}/{frameIndex}.png`
+/// (nunca base64 no banco, mesmo padrão de `EntityImage`).
+model Looktype {
+  id               Int      @id @default(autoincrement())
+  /// Pré-preenchido com o nome do arquivo anexado (sem extensão) no create, editável antes de
+  /// salvar — só identificação no admin, sem uso no jogo.
+  name             String   @db.VarChar(150)
+  /// Escolhido explicitamente no admin (item/outfit/effect/missile) ao anexar o arquivo — não é
+  /// mais só "detectado" do `.obd`, o admin confirma/define o tipo mesmo para PNG/GIF estático.
+  category         String   @db.VarChar(20)
+  /// Número da sprite no Object Builder — só faz sentido para outfit/effect/missile (outfits e
+  /// efeitos usam essa numeração; items referenciam o próprio clientId do items.xml). Null
+  /// quando `category = "item"`.
+  looktypeNumber   Int?     @map("looktype_number")
+  frameCount       Int      @default(1) @map("frame_count")
+  /// Duração (ms) de cada frame, na mesma ordem dos arquivos em disco — 1 elemento quando a
+  /// imagem é estática.
+  frameDurationsMs Json     @map("frame_durations_ms")
+  width            Int      @default(1)
+  height           Int      @default(1)
+  /// Nº de direções renderizadas em disco pra outfits (4 = North/East/South/West; outras
+  /// categorias e outfits ainda não reprocessados pelo pipeline atual ficam em 1 = só Sul).
+  directions       Int      @default(1) @map("directions")
+  /// true quando o `.obd` do outfit tem a 2ª layer de máscara de cor (region mask) e o pipeline
+  /// gravou os PNGs de máscara por direção — usado pelo preview (`OutfitColorPreview`) pra saber
+  /// se pode recolorir ou só mostrar a sprite base.
+  hasColorMask     Boolean  @default(false) @map("has_color_mask")
+  /// Nº de slots de addon extras gravados além do corpo base (0 = sem addon; 1 ou 2 = quantos
+  /// addons o outfit tem) — cada slot é uma camada aditiva desenhada por cima da base (ex.:
+  /// chapéu, mochila), não uma variante alternativa. Ver `renderOutfitDirectionalFrames`.
+  addonSlots       Int      @default(0) @map("addon_slots")
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  outfitsMale      OutfitDefinition[] @relation("OutfitMaleLooktype")
+  outfitsFemale    OutfitDefinition[] @relation("OutfitFemaleLooktype")
+  extOutfits       ExtOutfit[]
+
+  /// Evita duas sprites com o mesmo nome dentro da mesma categoria (item/outfit/effect/missile) —
+  /// nomes iguais em categorias diferentes são permitidos. (Não há índice único equivalente para
+  /// `looktypeNumber`: a base já tinha duplicatas legadas em "outfit" quando essa regra foi
+  /// introduzida — a checagem de número é feita em aplicação, ver `POST /api/admin/looktypes`.)
+  @@unique([category, name])
+  @@map("looktypes")
+}
+
+/// Uma `<outfit>` do `server/data/XML/outfits.xml`. `id` é o próprio id da outfit no XML (não
+/// autoincrement, mesmo padrão de `Item`). As aparências vêm do cadastro de looktypes
+/// (`/admin/looktypes`, category="outfit") — o XML exportado usa o `looktypeNumber` delas.
+model OutfitDefinition {
+  id               Int      @id
+  name             String   @db.VarChar(100)
+  type             Int      @default(0)
+  premium          Boolean  @default(false)
+  /// Vazio = outfit liberada sem storage (atributo omitido no XML).
+  storageId        String?  @map("storage_id") @db.VarChar(20)
+  storageValue     String?  @map("storage_value") @db.VarChar(20)
+  /// `<list gender="1">` — looktypes.id.
+  maleLooktypeId   Int      @map("male_looktype_id")
+  /// `<list gender="0">` — looktypes.id.
+  femaleLooktypeId Int      @map("female_looktype_id")
+  /// items.id do item que libera a outfit ao ser usado (gera `outfit_item_unlock.lua`). Sem FK:
+  /// o cadastro de items é reimportado do items.xml.
+  unlockItemId     Int?     @map("unlock_item_id")
+  /// Atributos de `<outfit>` não modelados acima (ex.: access, quest, default), preservados no
+  /// round-trip import -> export.
+  extraAttributes  Json?    @map("extra_attributes")
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  maleLooktype     Looktype @relation("OutfitMaleLooktype", fields: [maleLooktypeId], references: [id], onDelete: Restrict)
+  femaleLooktype   Looktype @relation("OutfitFemaleLooktype", fields: [femaleLooktypeId], references: [id], onDelete: Restrict)
+
+  @@index([unlockItemId])
+  @@map("outfit_definitions")
+}
+
+/// Uma entrada do `server/data/XML/extoutfits.xml` (lido por `data/lib/extoutfit_parser.lua`).
+/// `kind` = tag do XML (wings|auras|shaders|healthbars|manabars); `xmlId` = atributo `id`, único
+/// por kind. Wings/auras usam `looktypeId` (cadastro de looktypes), shaders `shaderName` e
+/// healthbars/manabars `image`.
+model ExtOutfit {
+  id         Int       @id @default(autoincrement())
+  kind       String    @db.VarChar(20)
+  xmlId      Int       @map("xml_id")
+  name       String    @db.VarChar(100)
+  looktypeId Int?      @map("looktype_id")
+  shaderName String?   @map("shader_name") @db.VarChar(100)
+  image      String?   @db.VarChar(255)
+  posx       Int?
+  posy       Int?
+  /// Só kind=shaders: conteúdo do `.frag` (fragment) enviado pelo admin — guardado no portal para
+  /// preview WebGL e download; o cliente continua lendo de `cliente/data/shaders`.
+  shaderSource       String?   @map("shader_source") @db.MediumText
+  /// Vertex opcional (vazio = `outfit_default_vertex`, padrão de `createOutfitShader`).
+  shaderVertexSource String?   @map("shader_vertex_source") @db.MediumText
+  shaderFileName     String?   @map("shader_file_name") @db.VarChar(120)
+  /// Extensão da textura extra `u_Tex1` (`public/storage/extoutfit-shader-tex/{id}.{ext}`); null = sem.
+  shaderTex1Ext      String?   @map("shader_tex1_ext") @db.VarChar(10)
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime  @updatedAt @map("updated_at")
+
+  /// Wings/auras: looktype do XML (obrigatória). Demais tipos: sprite de preview opcional (não vai
+  /// para o XML).
+  looktype   Looktype? @relation(fields: [looktypeId], references: [id], onDelete: Restrict)
+
+  @@unique([kind, xmlId])
+  @@map("ext_outfits")
+}
+
+/// Uma temporada mensal do Battle Pass. O servidor Lua lê a temporada com `isActive = true`
+/// diretamente do banco (mesmo padrão de `TaskDefinition`/`task_db_loader.lua`); a temporada do
+/// mês seguinte é clonada automaticamente (missões + recompensas) à meia-noite do último dia do
+/// mês pelo globalevent do servidor caso o admin não tenha criado uma nova manualmente.
+model BattlePassSeason {
+  id                  Int      @id @default(autoincrement())
+  month               Int      @db.TinyInt
+  year                Int      @db.SmallInt
+  maxLevel            Int      @default(100) @map("max_level")
+  xpPerLevel          Int      @default(1000) @map("xp_per_level")
+  goldPassItemId      Int      @default(0) @map("gold_pass_item_id")
+  goldPassCost        Int      @default(0) @map("gold_pass_cost")
+  levelPurchaseItemId Int      @default(0) @map("level_purchase_item_id")
+  levelPurchaseCost   Int      @default(0) @map("level_purchase_cost")
+  isActive            Boolean  @default(false) @map("is_active")
+  createdAt           DateTime @default(now()) @map("created_at")
+  updatedAt           DateTime @updatedAt @map("updated_at")
+
+  missions BattlePassMission[]
+  rewards  BattlePassReward[]
+  players  PlayerBattlePass[]
+
+  @@unique([month, year])
+  @@map("battle_pass_seasons")
+}
+
+model BattlePassMission {
+  id          Int              @id @default(autoincrement())
+  seasonId    Int              @map("season_id")
+  season      BattlePassSeason @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+  /// "kill" | "quest" | "spell_kill"
+  type        String           @db.VarChar(20)
+  /// kill: { monster: string, amount: number } | quest: { questId: number } | spell_kill:
+  /// { monster: string, spell: string, amount: number }
+  target      Json
+  description String           @db.VarChar(255)
+  xpReward    Int              @default(0) @map("xp_reward")
+  published   Boolean          @default(true)
+  createdAt   DateTime         @default(now()) @map("created_at")
+  updatedAt   DateTime         @updatedAt @map("updated_at")
+
+  @@index([seasonId])
+  @@map("battle_pass_missions")
+}
+
+model BattlePassReward {
+  id       Int              @id @default(autoincrement())
+  seasonId Int              @map("season_id")
+  season   BattlePassSeason @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+  level    Int
+  /// "bronze" | "gold"
+  track    String           @db.VarChar(10)
+  /// "comum" | "incomum" | "raro" | "super_raro" | "lendario" | "mitico"
+  rarity   String           @db.VarChar(20)
+  itemId   Int              @map("item_id")
+  count    Int              @default(1)
+  /// Ordem manual de exibição dentro do mesmo level+track (drag and drop no admin) —
+  /// múltiplos itens podem ocupar o mesmo level+track+rarity.
+  order    Int              @default(0)
+
+  @@index([seasonId, level, track])
+  @@map("battle_pass_rewards")
+}
+
+/// Progresso do jogador na temporada atual (ou já finalizada, mantido para histórico das
+/// recompensas já resgatadas). `missionProgress`/`claimedBronze`/`claimedGold` em JSON —
+/// mesmo padrão de `TaskDefinition.rewards`.
+model PlayerBattlePass {
+  playerId Int @map("player_id")
+  seasonId Int @map("season_id")
+
+  xp          Int     @default(0)
+  level       Int     @default(0)
+  hasGoldPass Boolean @default(false) @map("has_gold_pass")
+
+  /// { [missionId]: progressCount }
+  missionProgress Json @default("{}") @map("mission_progress")
+  /// levels already claimed on the bronze/gold track: [1, 2, 5, ...]
+  claimedBronze   Json @default("[]") @map("claimed_bronze")
+  claimedGold     Json @default("[]") @map("claimed_gold")
+
+  player Player           @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  season BattlePassSeason @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+
+  @@id([playerId, seasonId])
+  @@map("player_battle_pass")
+}
+
+/// NPC gerenciado pelo portal — fonte de verdade para o XML/script gerados em
+/// data/npc/*.xml (+ data/npc/scripts/*.lua quando `scriptId` setado). Preço de venda é
+/// digitado em crystal coin no admin e convertido para gold coin (1 crystal = 10000 gold,
+/// mesmo padrão da moeda do OTServer) na geração do XML.
+model Npc {
+  id              Int          @id @default(autoincrement())
+  name            String       @unique @db.VarChar(255)
+  /// looktype vem da tabela `Looktype` (mesmo padrão de Monster/Item)
+  lookTypeId      Int          @map("look_type_id")
+  /// "shop" | "quest" | "misc"
+  type            String       @default("misc") @db.VarChar(20)
+  town            String       @default("") @db.VarChar(100)
+  posX            Int          @default(0) @map("pos_x")
+  posY            Int          @default(0) @map("pos_y")
+  posZ            Int          @default(0) @map("pos_z")
+  direction       Int          @default(2)
+  /// Intervalo (ms) entre passos aleatórios do NPC parado — usado no atributo `walkinterval`
+  /// do XML gerado (`lib/npc-xml.ts`).
+  walkinterval    Int          @default(2000)
+  lookHead        Int          @default(0) @map("look_head")
+  lookBody        Int          @default(0) @map("look_body")
+  lookLegs        Int          @default(0) @map("look_legs")
+  lookFeet        Int          @default(0) @map("look_feet")
+  lookAddons      Int          @default(3) @map("look_addons")
+  /// [{ itemId: number, name: string, buyPriceCrystal: number, sellPriceCrystal: number }]
+  shopItems       Json?        @map("shop_items")
+  /// Script Lua vinculado (gerado automaticamente ou escrito manualmente) — reaproveita o CRUD
+  /// existente de `LuaScript` (category = "npc").
+  scriptId        Int?         @map("script_id")
+  script          LuaScript?   @relation(fields: [scriptId], references: [id], onDelete: SetNull)
+  /// Categoria puramente organizacional do admin (não existe no XML nativo do OTServer).
+  categoryId      Int?         @map("category_id")
+  category        NpcCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  /// Falas ambiente (ex.: "Ajude-me!" a cada X segundos, Y% de chance) — só usadas quando não
+  /// há `scriptId` vinculado (script próprio tem prioridade e não é sobrescrito).
+  /// [{ text: string, intervalMs: number, chance: number }]
+  customMessages  Json?        @default("[]") @map("custom_messages")
+  /// Mensagens padrão do XML nativo (message_greet, message_farewell, ...) — { [key]: value },
+  /// só as não-vazias entram no XML/script gerado. Ver `NPC_DEFAULT_MESSAGE_KEYS` em
+  /// `lib/validations/admin/npc.ts` pra lista completa e categoria (geral vs loja).
+  defaultMessages Json?        @default("{}") @map("default_messages")
+  published       Boolean      @default(true)
+  createdAt       DateTime     @default(now()) @map("created_at")
+  updatedAt       DateTime     @updatedAt @map("updated_at")
+
+  @@map("npcs")
+}
+
+/// Categoria organizacional de NPCs (nome + descrição + cor) — badge nos selects/listagem do
+/// admin de NPCs, sem equivalente no formato `data/npc/*.xml` do OTServer (metadado só do banco).
+model NpcCategory {
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(100)
+  description String?  @db.VarChar(255)
+  color       String   @db.VarChar(7)
+  npcs        Npc[]
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("npc_categories")
+}
+
+/// Sistema de baús do OTC (module game_chest): até 3 baús configuráveis, exibidos como 1 central
+/// + 2 laterais. Cada baú exige consumir `keyItemId` (o jogador precisa possuir o item) e, ao
+/// abrir, sorteia aleatoriamente 1 dentre até 10 itens em `rewards` (JSON: `[{itemId, count}]`).
+model Chest {
+  id         Int      @id @default(autoincrement())
+  name       String   @db.VarChar(100)
+  keyItemId  Int      @map("key_item_id")
+  /// Até 10 opções de recompensa, uma sorteada por vez (peso igual entre elas).
+  rewards    Json
+  /// Período de vigência (início/fim, mês+ano) — permite configurar rotação de prêmios ao
+  /// longo do tempo (ex.: um baú vale de agosto a novembro, outro só em dezembro).
+  startMonth Int      @default(1) @map("start_month")
+  startYear  Int      @default(2000) @map("start_year")
+  endMonth   Int      @default(12) @map("end_month")
+  endYear    Int      @default(2100) @map("end_year")
+  published  Boolean  @default(true)
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@map("chests")
+}
+
+/// Catálogo mestre de itens permitidos no autoloot (não são todos os itens do jogo — só os
+/// publicados aqui aparecem no module do OTC e podem ser adicionados à lista pessoal do
+/// jogador). `itemId` é o id real do OTServer (mesmo universo de `Item.id`).
+model AutolootItem {
+  id        Int      @id @default(autoincrement())
+  itemId    Int      @unique @map("item_id")
+  name      String   @db.VarChar(255)
+  /// Tipo usado no filtro/ordenação do module de autoloot do OTC. Vazio = automático (o
+  /// servidor classifica pelo items.xml em `AutolootGetCategory`, data/lib/autoloot_lib.lua).
+  category  String   @default("") @db.VarChar(20)
+  published Boolean  @default(true)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("autoloot_items")
+}
