@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<monster
+	name="Golden Oozaru" bestiary="monster" nameDescription="an golden oozaru" race="blood"
+	experience="375000" speed="380" manacost="600">
+	<health now="250000" max="250000" />
+	<look type="2488" head="1" body="1" legs="1" feet="1" addons="0" corpse="49363" />
+	<targetchange interval="5000" chance="8" />
+	<strategy attack="100" defense="0" />
+	<flags>
+		<flag summonable="0" />
+		<flag attackable="1" />
+		<flag hostile="1" />
+		<flag illusionable="0" />
+		<flag convinceable="0" />
+		<flag pushable="1" />
+		<flag canpushitems="1" />
+		<flag canpushcreatures="1" />
+		<flag targetdistance="1" />
+		<flag staticattack="90" />
+		<flag runonhealth="0" />
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" min="-150" max="-500" />
+		<attack name="Big Bang Attack" interval="3000" chance="35" min="-100" max="-550" />
+		<attack name="Kienzan" interval="7000" chance="25" min="-180" max="-800" />
+		<attack name="Explosion" interval="10000" chance="2" min="-180" max="-500" />
+		<attack name="Super Energy Wave" interval="10000" chance="2" min="-180" max="-600" />
+		<attack name="Crusher Ball" interval="5000" chance="20" min="-180" max="-700" />
+		<attack name="Triple Kienzan" interval="8000" chance="35" min="-180" max="-950" />
+	</attacks>
+	<immunities>
+		<immunity physical="0" />
+		<immunity energy="0" />
+		<immunity fire="1" />
+		<immunity poison="1" />
+		<immunity lifedrain="0" />
+		<immunity paralyze="0" />
+		<immunity outfit="1" />
+		<immunity invisible="0" />
+	</immunities>
+	<voices interval="5000" chance="10">
+		<voice sentence="Aaaaarghh!" yell="1" />
+	</voices>
+	<loot>
+		<item id="2148" countmax="50" chance="90000" /> <!-- gold coin -->
+		<item id="2152" countmax="50" chance="90000" /> <!-- platinum coin -->
+		<item id="2160" countmax="5" chance="50000" /> <!-- crystal coin -->
+		<item id="56712" countmax="3" chance="10000" /> <!-- yellow potion -->
+		<item id="56713" countmax="3" chance="10000" /> <!-- grey potion -->
+		<item id="56714" countmax="3" chance="10000" /> <!-- purple potion -->
+		<item id="56715" countmax="3" chance="10000" /> <!-- pink potion -->
+		<item id="56716" countmax="3" chance="10000" /> <!-- light blue potion -->
+		<item id="56717" countmax="3" chance="10000" /> <!-- green potion -->
+		<item id="56718" countmax="3" chance="10000" /> <!-- red potion -->
+		<item id="49689" countmax="10" chance="1000" /> <!-- hp point -->
+		<item id="49690" countmax="10" chance="1000" /> <!-- mp point -->
+	</loot>
+</monster>

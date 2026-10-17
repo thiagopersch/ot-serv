@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Taskerman" script="taskerman.lua" walkinterval="2000" floorchange="0">
+   <health now="100" max="100" />
+   <look type="853" head="0" body="86" legs="126" feet="85" addons="3" />
+   <parameters>
+      <parameter key="message_greet" value="Hello |PLAYERNAME|! Want to check the {tasks}? Need to {deliver} a completed task? Or want to see your {rank}? Maybe a {daily} mission?" />
+   </parameters>
+</npc>

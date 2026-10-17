@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<creaturescripts>
+    <!-- monster boost login -->
+    <event type="login" name="MBlogin" script="monsterBoost.lua"/>
+    <event type="kill" name="MBKill" event="script" value="monsterBoost.lua"/>
+    <event type="combat" name="MBShowcaseCombat" event="script" value="monsterBoostShowcase.lua"/>
+    <event type="statschange" name="MBShowcaseStats" event="script" value="monsterBoostShowcase.lua"/>
+    <event type="attack" name="MBShowcaseAttack" event="script" value="monsterBoostShowcase.lua"/>
+
+    <event type="login" name="StaffLogin" event="script" value="stafflogged.lua" />
+	<event type="login" name="StaffEffect" event="script" value="staffeffect.lua" />
+	<event type="login" name="TopEffect" event="script" value="topeffect.lua" />
+	<event type="advance" name="CheckTop" event="script" value="topeffect.lua" />
+	<event type="login" name="OutfitFilter" event="script" value="outfits_filter.lua" />
+	<event type="advance" name="OutfitAdvance" event="script" value="outfits_filter.lua" />
+	<event type="outfit" name="OutfitTransform" event="script" value="outfit_transform.lua" />
+	<event type="death" name="AmuletDeath" script="amuletDeath.lua" />
+	<event type="look" name="fraglook" event="script" value="fraglook.lua" />
+	<event type="advance" name="FullHpMana" event="script" value="fullhpmana.lua" />
+	<event type="login" name="PlayerLogin" event="script" value="login.lua" />
+	<event type="joinchannel" name="GuildMotd" event="script" value="guildmotd.lua" />
+	<event type="receivemail" name="Mail" event="script" value="mail.lua" />
+	<event type="reportbug" name="SaveReportBug" script="reportbug.lua" />
+	<event type="advance" name="AdvanceSave" event="script" value="advancesave.lua" />
+	<event type="think" name="Idle" event="script" value="idle.lua" />
+	<event type="think" name="SkullCheck" event="script" value="skullcheck.lua" />
+	<event type="moveitem" name="MoveItem" event="script" value="houseprotect.lua" />
+	<event type="login" name="onlinepoints" event="script" value="onlinepoints.lua" />
+	<event type="death" name="DeathPlayer" event="script" value="deathplayer.lua" />
+	<event type="login" name="DeathLogin" event="script" value="deathplayer.lua" />
+	<event type="advance" name="LevelRecompense" event="script" value="recompenselvl.lua" />
+	<event type="look" name="showKD" event="script" value="KillsandDeath.lua" />
+	<event type="advance" name="AdvLevelSpells" event="script" value="advancespells.lua" />
+	<event type="advance" name="timelevel" event="script" value="timelevel.lua" />
+	<event type="think" name="IconMap" event="script" value="iconmap.lua" />
+	<event type="kill" name="KillingInTheNameOf" event="script" value="killinginthenameof.lua" />
+	<event type="login" name="VocationRanks" event="script" value="vocation_ranks.lua" />
+	<event type="login" name="ClientConfigLogin" event="script" value="client_config.lua" />
+	<event type="login" name="HighscoreLogin" event="script" value="highscore.lua" />
+	<event type="extendedopcode" event="script" name="HighscoreOpcode" value="highscore.lua" />
+	<event type="login" name="ChestLogin" event="script" value="chest.lua" />
+	<event type="extendedopcode" event="script" name="ChestOpcode" value="chest.lua" />
+
+	<!-- Battle Pass System -->
+	<event type="login" name="BattlePassLogin" event="script" value="battle_pass.lua" />
+	<event type="kill" name="BattlePassKill" event="script" value="battle_pass.lua" />
+	<event type="extendedopcode" name="BattlePassOpcode" event="script" value="battle_pass.lua" />
+	<event type="login" name="BankExtended" event="script" value="bank_server.lua" />
+	<event type="extendedopcode" name="BankOpcode" event="script" value="bank_server.lua" />
+	<event type="extendedopcode" event="script" name="ChangeVocationOpcode"
+		value="change_vocation.lua" />
+	<event type="login" name="ChangeVocationLogin" event="script" value="change_vocation.lua" />
+	<!-- <event type="login" name="playerLogin" script="login.lua" />
+	<event type="think" name="AnimeOutfitSystem" script="login.lua" />
+	<event type="logout" name="AnimeOutfitSave" script="login.lua" />
+	<event type="preparedeath" name="AnimeOutfitDeath" script="login.lua" />
+	<event type="advance" name="AnimeOutfits" script="login.lua" /> -->
+	<event type="extendedopcode" name="ProfileOpcode" event="script" value="profile_server.lua" />
+	<event type="extendedopcode" name="VocationRanksOpcode" event="script"
+		value="extendedopcode_vocation_ranks.lua" />
+	<event type="login" name="DailyReward" event="script" value="daily_reward.lua" />
+	<event type="extendedopcode" name="DailyRewardOpcode" event="script" value="daily_reward.lua" />
+
+	<!-- Daily Reward Extra Systems -->
+	<event type="statschange" name="DailyRewardStats" event="script"
+		value="daily_reward_multipliers.lua" />
+
+	<!-- Skill Upgrades System -->
+	<event type="statschange" name="SkillUpgradesCombat" event="script"
+		value="skill_upgrades_stats.lua" />
+	<event type="login" name="SkillUpgradesLogin" event="script" value="skill_upgrades.lua" />
+	<event type="logout" name="SkillUpgradesLogout" event="script" value="skill_upgrades.lua" />
+	<event type="advance" name="SkillUpgradesAdvance" event="script" value="skill_upgrades.lua" />
+	<event type="extendedopcode" name="SkillUpgradesExtended" event="script"
+		value="skill_upgrades.lua" />
+
+	<!-- Task System -->
+	<event type="login" name="TaskLogin" event="script" value="task_login.lua" />
+	<event type="logout" name="TaskLogout" event="script" value="task_logout.lua" />
+	<event type="kill" name="TaskKill" event="script" value="task_kill.lua" />
+	<event type="look" name="TaskLook" event="script" value="task_look.lua" />
+	<event type="extendedopcode" name="TaskOpcode" event="script" value="task_extended_opcode.lua" />
+
+	<!-- Quest System -->
+	<event type="extendedopcode" name="QuestOpcode" event="script" value="quest_extended_opcode.lua" />
+
+	<event type="extendedopcode" name="ShaderSelectorOpcode" event="script" value="shader_selector.lua" />
+	<event type="extendedopcode" name="AuraSelectorOpcode" event="script" value="aura_selector.lua" />
+	<event type="login" name="AutoLootLogin" event="script" value="autoloot_opcode.lua" />
+	<event type="extendedopcode" name="AutoLootOpcode" event="script" value="autoloot_opcode.lua" />
+	<event type="kill" name="AutoLootKill" event="script" value="autoloot_opcode.lua" />
+
+	<event type="extendedopcode" name="BestiaryOpcode" event="script" value="bestiary.lua" />
+
+	<!-- Teleport checkpoints -->
+	<event type="extendedopcode" name="TeleportCheckpointOpcode" event="script" value="teleport_checkpoint_opcode.lua" />
+	<event type="extendedopcode" name="RarityOpcode" event="script" value="rarity_opcode.lua" />
+
+	<!-- Donate System -->
+	<event type="login" name="DonateBless" event="script" value="donate_bless.lua" />
+	<event type="kill" name="DonateBonusKill" event="script" value="donate_bonus_kill.lua" />
+
+	<!-- System Channels (Loot, Tasks, Bosses, Deaths) -->
+	<event type="login" name="SystemChannelsLogin" event="script" value="system_channels.lua" />
+	<event type="death" name="BossChannelDeath" event="script" value="boss_death.lua" />
+</creaturescripts>

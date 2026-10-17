@@ -1,0 +1,732 @@
+====================================================================================================
+  RECOMENDACAO DE MONSTROS POR NIVEL (FAIXAS DE 50)
+  Total: 528 monstros  |  Gerado: 04/06/2026 17:43
+====================================================================================================
+
+====================================================================================================
+  TABELA COMPLETA POR NIVEL (ordenado por HP crescente)
+====================================================================================================
+
+----------------------------------------------------------------------------------------------------
+  LEVEL 1 - 50  (387 monstros)
+----------------------------------------------------------------------------------------------------
+  MONSTRO                                       HP            EXP    SPEED     MANA
+  ----------------------------------- ------------ -------------- -------- --------
+  Cockroach                                      1              0      100        0
+  Eye of the Seven                               1              0        0        0
+  Butterfly                                      2              0      300        0
+  Butterfly                                      2              0      300        0
+  Butterfly                                      2              0      300        0
+  Butterfly                                      2              0      300        0
+  Butterfly                                      2              0      300        0
+  Black Butterfly                                5              0      300        0
+  Chicken                                       15              0      200      220
+  Rabbit                                        15              0      180      220
+  Silver Rabbit                                 15              0      215      220
+  Snake                                         15             10      120      205
+  Badger                                        20              5      180      200
+  Black Sheep                                   20              0      200      250
+  Dog                                           20              0      200      220
+  Rat                                           20              5      134      200
+  Sheep                                         20              0      110      250
+  Skunk                                         20              3      120      200
+  Spider                                        20             12      152      210
+  Squirrel                                      20              0      490      220
+  Bog Frog                                      25             20      180        0
+  Deer                                          25              0      150      260
+  Flamingo                                      25              0      180      250
+  Seagull                                       25              0      200      250
+  Wolf                                          25             18      195      255
+  Poison Spider                                 26             22      160      270
+  Bug                                           29             18      240      250
+  Bat                                           30             10      200      250
+  Mimic                                         30              0      170        0
+  Sandcrawler                                   30             20      220        0
+  Winter Wolf                                   30             20      200      260
+  Wasp                                          35             25      460      280
+  Scorpion                                      45             45      150      310
+  Skeleton Warrior                              45             65      180      350
+  Goblin                                        50             25      200      290
+  Insect Swarm                                  50             40      100        0
+  Island Troll                                  50             20      190      290
+  Skeleton                                      50             35      154      300
+  Troll                                         50             20      126      290
+  Crab                                          55             30      180      305
+  Frost Troll                                   55             23      190      300
+  Phantasm                                      55          3,300      280        0
+  Swamp Troll                                   55             65      128      320
+  Munster                                       58             23      200      250
+  Azure Frog                                    60             20      230      305
+  Coral Frog                                    60             20      230      305
+  Crimson Frog                                  60             20      230      305
+  Goblin Scavenger                              60             37      220      310
+  Green Frog                                    60              0      230      305
+  Hyaena                                        60             20      206      275
+  Orchid Frog                                   60             20      230        0
+  Cobra                                         65             30      170      275
+  Rotworm                                       65             40      176      305
+  Undead Mine Worker                            65             45      154        0
+  Larva                                         70             40      135      355
+  Wolf hollow                                   70             40      230      255
+  Goblin Assassin                               75             52      220      360
+  Goblin Leader                                 75             50      200      290
+  Tiger                                         75             40      240      420
+  Troll Champion                                75             30      120      340
+  Bear                                          80             23      176      300
+  Dromedary                                     80             30      180      320
+  Dworc Venomsniper                             80             30      240        0
+  Dworc Voodoomaster                            80             50      240        0
+  Grynch Clan Goblin                            80              4      870        0
+  Dworc Fleshhunter                             85             35      240        0
+  Polar Bear                                    85             28      156      315
+  Rotworm Queen                                 85            300      126        0
+  Dwarf                                         90             45      170      320
+  Barbarian Headsplitter                       100             85      270      450
+  Crazed Beggar                                100             35      220      300
+  Elf                                          100             42      220      320
+  Ghoul                                        100             85      144      450
+  Lavahole                                     100              0        0        0
+  Minotaur Archer                              100             65      170      390
+  Minotaur                                     100             50      170      330
+  Shredderthrower                              100             18        0        0
+  Undead Prospector                            100             85      144        0
+  Crocodile                                    105             40      240      350
+  Wisp                                         115              0      200        0
+  Gazer                                        120             90      240        0
+  Wild Warrior                                 120             55      215      420
+  Smuggler                                     130             48      210      390
+  Barbarian Skullhunter                        135             85      270      450
+  Dwarf Soldier                                135             70      170      360
+  Toad                                         135             60      240      400
+  Husky                                        140              0      195      420
+  War Wolf                                     140             55      200        0
+  Barbarian Brutetamer                         145             90      270        0
+  Big Boss Trolliver                           150            105      140        0
+  Ghost                                        150            120      160      100
+  Hunter                                       150            150      215        0
+  Mercury Blob                                 150            180      210        0
+  poacher                                      150            150      215        0
+  Slime                                        150              0      120        0
+  Slime                                        150            160      120        0
+  Spit Nettle                                  150             20        0        0
+  Stalker                                      150             90      210        0
+  Tortoise                                     150             90      200      445
+  Minotaur Mage                                155            150      170        0
+  Elf Scout                                    160             75      225      360
+  Nomad                                        160             60      215      420
+  Dire Penguin                                 173            120      156        0
+  Gladiator                                    185             90      200      470
+  Minotaur Guard                               185            160      190      550
+  Dark Monk                                    190            145      210        0
+  Mammoth                                      190            110      220        0
+  Pirate Skeleton                              190             85      230        0
+  Valkyrie                                     190             85      200      450
+  Gnarlhound                                   198             60      206        0
+  Cat                                          200             10      150      220
+  Fire Devil                                   200            145      190      530
+  Primitive                                    200             45      300        0
+  Pirate Marauder                              210            125      230      490
+  Elf Arcanist                                 220            175      230        0
+  Quara Mantassin Scout                        220            100      270      480
+  Dark Apprentice                              225            100      220        0
+  Sibang                                       225            105      220        0
+  Tarantula                                    225            120      280      485
+  Merlkin                                      235            145      200        0
+  Deepling Scout                               240            160       70        0
+  Gozzler                                      240            180      260      800
+  Monk                                         240            200      220      600
+  Mummy                                        240            150      220        0
+  Mutated Human                                240            150      245        0
+  Bandit                                       245             65      180      450
+  Dwarf Guard                                  245            165      200      650
+  Bandit Black                                 250            100      180      450
+  Parrot                                       250            250      240      250
+  Pig                                          250             75      114      255
+  Carniphila                                   255            150      240        0
+  Cyclops                                      260            150      200      490
+  Damaged Worker Golem                         260             95      270        0
+  Lizard Sentinel                              265            110      240      560
+  The Horned Fox                               265            200      210        0
+  Frost Giant                                  270            150      195      490
+  Stone Golem                                  270            280      180      590
+  Tibia Bug                                    270             50      240      250
+  Frost Giantess                               275            150      195      490
+  Pirate Ghost                                 275            250      230        0
+  Fire Elemental                               280            220      200      690
+  Blood Crab                                   290            160      210      505
+  Xenia                                        290            255      176      450
+  Gang Member                                  295             70      220      420
+  Bandit Gun                                   300            200      100        0
+  Boar                                         300            320      180        0
+  Cave Rat                                     300          1,000      150      250
+  Dino                                         300            200      200        0
+  Human Tiger                                  300            200      200        0
+  Terror Bird                                  300            150      280      490
+  The Snapper                                  300            150      240        0
+  Thornback Tortoise                           300            150      200      490
+  Witch                                        300            120      180        0
+  Barbarian Bloodwalker                        305            195      205      590
+  Lizard Snakecharmer                          315            210      200        0
+  Death Blob                                   320            300      230        0
+  Elephant                                     320            160      240      500
+  Mini Stone Golem                             320            300      180        0
+  Scarab                                       320            120      170      395
+  Cyclops Drone                                325            200      220      525
+  Dark Magician                                325            185      220        0
+  Mad Scientist                                325            205      220        0
+  Pirate Cutthroat                             325            175      230      495
+  Blue Djinn                                   330            215      200        0
+  Crypt Shambler                               330            195      180        0
+  Green Djinn                                  330            215      220        0
+  Penguin                                      330            100      156      300
+  Kongra                                       340            115      200        0
+  Terramite                                    365            160      220        0
+  Dharalion                                    380            380      240        0
+  Dragon Hatchling                             380            185      170        0
+  Dwarf Geomancer                              380            245      200        0
+  Ice Golem                                    385            295      195        0
+  Priestess                                    390            420      220        0
+  Demon Skeleton                               400            240      230      620
+  Dino Hollow                                  400            200      240        0
+  Fernfang                                     400            400      240        0
+  Lancer Beetle                                400            250      220        0
+  Lizard Templar                               410            155      220        0
+  Pirate Buccaneer                             425            250      230      595
+  Hacker                                       430             45      250        0
+  Cyclops Smith                                435            255      220      695
+  Foreman Kneebiter                            445            570      200        0
+  Bandit Chef                                  450            200      180      450
+  Donkey                                       450            200      100        0
+  Gargoyle                                     450            150      250        0
+  Haunted Treeling                             450            310      260        0
+  Quara Constrictor Scout                      450            250      290      670
+  Quara Constrictor                            450            250      520      670
+  Vampire                                      450            305      220        0
+  Man in the Cave                              485            555      210        0
+  Charged Energy Elemental                     500            450      270        0
+  Energy Elemental                             500            450      250        0
+  Gin                                          500            300      300        0
+  Hide                                         500            240      280        0
+  Horse                                        500            420      300      320
+  Skeleton Samurai                             500            300      180        0
+  Ulquiorra                                    500            300      300        0
+  Urahara                                      500            300      300        0
+  Zaraki                                       500            300      300        0
+  Zombie                                       500            280      180        0
+  Bonebeast                                    515            580      210        0
+  Dreadbeast                                   515            580      200      800
+  Efreet                                       550            410      270        0
+  General Murius                               550            300      240        0
+  Marid                                        550            410      170        0
+  Mutated Rat                                  550            450      245        0
+  Slick Water Elemental                        550            450      280        0
+  Water Elemental                              550            450      280        0
+  Barbaria                                     555            355      280        0
+  Blazing Fire Elemental                       580            580      220        0
+  Necromancer                                  580            580      200        0
+  Hairman The Huge                             600            335      230        0
+  The Bloodtusk                                600            300      190        0
+  Earth Elemental                              650            450      330        0
+  Ice Witch                                    650            580      188        0
+  Muddy Earth Elemental                        650            450      260        0
+  Pirate Corsair                               675            350      230      775
+  Chakoya Tribewarden                          680            400      270      305
+  Android                                      700          2,500      250        0
+  Nightstalker                                 700            500      260        0
+  Orc                                          700            250      150      300
+  Slug                                         700          1,400      100      355
+  Dragon Lord Hatchling                        750            645      200        0
+  Necropharus                                  750            700      240        0
+  Quara Pincher Scout                          775            600      250        0
+  Wyvern                                       795            515      200        0
+  Bog Raider                                   800          1,300      300        0
+  Chakoya Toolshaper                           800            400      270        0
+  Esmeralda                                    800            600      245        0
+  Frost Dragon Hatchling                       800            745      170        0
+  Lion                                         800            300      230      320
+  Quara Mantassin                              800            400      520      480
+  Shardhead                                    800            650      195        0
+  Chakoya Windcaller                           840            480      270      305
+  Undead Minion                                850            550      230      620
+  Wailing Widow                                850            450      280        0
+  Lich                                         880            900      320        0
+  Quara Predator Scout                         890            400      290        0
+  Mutated Bat                                  900            615      245        0
+  Apprentice Sheng                             950          1,000      170        0
+  Yeti                                         950            460      270        0
+  Dragon                                     1,000            700      180        0
+  Mad Technomancer                           1,000             55      200        0
+  Triceratops                                1,000            500      180        0
+  Tyrannosaurus Rex                          1,000            500      180        0
+  Undead Gladiator                           1,000            800      270        0
+  Orc Spearman                               1,050          3,800      176      310
+  Young Sea Serpent                          1,050          1,000      350      390
+  Elder Beholder                             1,100            280      270        0
+  Massive Energy Elemental                   1,100            850      300        0
+  Mutated Tiger                              1,100            750      245        0
+  Quara Hydromancer Scout                    1,100            800      280        0
+  Quara Hydromancer                          1,100            800      520        0
+  Orc Shaman                                 1,150          1,100      180        0
+  Brutus Bloodbeard                          1,200            500      240        0
+  Stampor                                    1,200            780      220        0
+  The Evil Eye                               1,200            500      240        0
+  Vampire Bride                              1,200          1,050      220        0
+  Braindeath                                 1,225            895      270        0
+  Crystal Spider                             1,250            900      340        0
+  Giant Spider                               1,300            900      280        0
+  Massive Earth Elemental                    1,330            850      290        0
+  Spectre                                    1,350          2,100      250        0
+  Hero                                       1,400          1,200      268        0
+  Lizard Legionnaire                         1,400          1,100      220        0
+  Nightmare Scion                            1,400          1,350      460        0
+  Worker Golem                               1,400          1,250      270        0
+  Carrion Worm                               1,450          7,000      200      380
+  Lethal Lissy                               1,450            500      240        0
+  Lizard Dragon Priest                       1,450          1,320      320        0
+  Dest                                       1,475          2,500      200        0
+  Term                                       1,475          2,500      380        0
+  Blistering Fire Elemental                  1,500          1,300      230        0
+  Jagged Earth Elemental                     1,500          1,300      280        0
+  Killer Caiman                              1,500            800      240      350
+  Numb Chandelier                            1,500          1,000      180        0
+  Ron the Ripper                             1,500            500      240        0
+  Yielothax                                  1,500          1,250      150        0
+  Crustacea Gigantica                        1,600          1,800      240        0
+  Overcharged Energy Elemental               1,700          1,300      300        0
+  Assassin                                   1,750          1,050      224      450
+  Roaring Water Elemental                    1,750          1,300      390        0
+  Bandit Swordman                            1,800            800      180        0
+  Black Knight                               1,800          1,600      450        0
+  Frost Dragon                               1,800          2,300      260        0
+  Lizard High Guard                          1,800          1,450      340        0
+  Massive Fire Elemental                     1,800            950      260        0
+  Orc Rider                                  1,800          1,100      340        0
+  Quara Pincher                              1,800          1,200      540        0
+  Wyrm                                       1,825          1,450      300        0
+  Dragon Lord                                1,900          2,100      240        0
+  Diabolic Imp                               1,950          2,900      320        0
+  Werewolf                                   1,955          1,450      320        0
+  Deadeye Devious                            2,000            500      300        0
+  The Halloween Hare                         2,000              0      150        0
+  Koshei The Deathless                       2,000              0      390        0
+  Tiquandas Revenge                          2,000          1,755      440        0
+  Tyrannosaurus Rex Hollow                   2,000            700      180        0
+  Orc Berserker                              2,100          1,950      250      590
+  Quara Predator                             2,200          1,600      520        0
+  Hydra                                      2,350          2,100      260        0
+  Massive Water Elemental                    2,350          1,950      390        0
+  Orc Marauder                               2,350          2,200      390        0
+  Acid Blob                                  2,500          2,500      210        0
+  Eternal Guardian                           2,500          1,800      420        0
+  Beholder                                   2,600          1,700      150        0
+  Nightmare                                  2,700          2,150      380        0
+  Ice Overlord                               2,800          1,950      390        0
+  Rift Worm                                  2,800          1,195      200        0
+  Lizard Zaogun                              2,955          1,700      420        0
+  Ancient Scarab                             3,000          7,200      330        0
+  Dragon Baby                                3,000          1,000      170        0
+  Draptor                                    3,000          2,400      340        0
+  Grorlam                                    3,000          2,400      240        0
+  Rift Brood                                 3,000          1,600      300        0
+  Serpent Spawn                              3,000          2,350      240        0
+  Thul                                       3,000          1,800      300        0
+  Lizard Chosen                              3,050          2,200      240        0
+  Sea Serpent                                3,200          2,300      658      390
+  The Old Widow                              3,200          2,800      240        0
+  Hellspawn                                  3,500          2,550      300        0
+  Minishabaal                                3,500          4,000      700        0
+  Raging mage                                3,500          3,250      100        0
+  Warlock                                    3,500          4,000      220        0
+  Rift Scythe                                3,600          2,000      370        0
+  Defiler                                    3,650          3,700      260        0
+  Infernalist                                3,650          4,000      260        0
+  Destroyer                                  3,700          5,000      380        0
+  Rahemos                                    3,700          3,100      320        0
+  Terminator                                 3,700          5,000      380        0
+  Mahrdis                                    3,900          3,050      340        0
+  Phantasm                                   3,950          4,400      280        0
+  Behemoth                                   4,000          2,500      280        0
+  Earth Overlord                             4,000          2,800      330        0
+  Energy Overlord                            4,000          2,800      290        0
+  Vashresamun                                4,000          2,950      340        0
+  Fury                                       4,100          4,500      460        0
+  Thalas                                     4,100          2,950      320        0
+  Undead Dragon Baby                         4,125          3,200      240        0
+  Draken Warmaster                           4,150          2,400      220        0
+  Betrayed Wraith                            4,200          3,500      310        0
+  Dipthrah                                   4,200          2,900      320        0
+  Omruc                                      4,300          2,950      370        0
+  War Golem                                  4,300          2,550      280        0
+  Demodras                                   4,500          4,000      230        0
+  Fluffy                                     4,500          3,550      310        0
+  Medusa                                     4,500          4,050      240        0
+  Orc Leader                                 4,500          2,700      230      640
+  The Count                                  4,600          1,750      370        0
+  The Many                                   4,600          4,000      260        0
+  Crystal Wolf                               4,800          5,900      260        0
+  Demon Wolf                                 4,800          5,900      260        0
+  Morguthis                                  4,800          3,000      320        0
+  Aizen                                      5,000          3,000      300        0
+  Ashmunrah                                  5,000          3,100      320        0
+  Bardock                                    5,000          6,000      300        0
+  Battlemaster Zunzu                         5,000          2,500      420        0
+  Byakuya                                    5,000          3,000      300        0
+  Draken Spellweaver                         5,000          2,600      240        0
+  Goku                                       5,000          3,000      300        0
+  Grimmjow                                   5,000          3,000      300        0
+  Hitsugaya                                  5,000          3,000      300        0
+  Ichigo                                     5,000          3,000      300        0
+  Ichigo                                     5,000          3,000      300        0
+  Kyouraku                                   5,000          3,000      300        0
+  Neliel                                     5,000          3,000      300        0
+  Renji                                      5,000          3,000      300        0
+  Rukia                                      5,000          3,000      300        0
+  Sado                                       5,000          3,000      300        0
+  Tsuful Baby                                5,000          5,000      350        0
+  Turles                                     5,000          3,000      300        0
+  Vegeta                                     5,000          3,000      300        0
+  Ghost Hollow                               5,800          2,500      350        0
+  Lost Soul                                  5,800          4,000      250        0
+  Stonecracker                               6,500          3,500      280        0
+  Botamo                                     7,000          7,000      300        0
+  Centipede                                  7,000          3,000      200      335
+  Panda                                      8,000          2,300      240      300
+  Robotron                                   8,000          1,500      325        0
+  Pythius The Rotten                         8,350            100      300        0
+  Blightwalker                               8,900          3,350      240        0
+  flamethrower                               9,950          1,200        0        0
+  magicthrower                               9,950          1,200        0        0
+  plaguethrower                              9,950          1,300        0        0
+  Poisonthrower                              9,950          1,200        0        0
+  Banshee                                   10,000          2,000      220        0
+
+----------------------------------------------------------------------------------------------------
+  LEVEL 51 - 100  (86 monstros)
+----------------------------------------------------------------------------------------------------
+  MONSTRO                                       HP            EXP    SPEED     MANA
+  ----------------------------------- ------------ -------------- -------- --------
+  deathslicer                                2,000            340      370        0
+  Hellfire Fighter                           3,800          3,900      260        0
+  Fire Overlord                              4,000          2,800      300        0
+  Gilian                                     5,000          5,000      350        0
+  King Vegeta                                6,000          3,000      400        0
+  Leviathan                                  6,000          5,000      758        0
+  Yakon                                      7,000          8,000      370        0
+  Countess Sorrow                            7,200          5,150      250        0
+  Dark Torturer                              7,350          4,650      280        0
+  Fahim The Wise                             7,500         10,010      210        0
+  Hand of Cursed Fate                        7,500          5,000      420        0
+  Hellhound                                  7,500          6,800      310        0
+  Merikh The Slaughterer                     7,500         10,010      270        0
+  Ghastly Dragon                             7,800          4,600      410        0
+  Hollow                                     8,000          6,000      260        0
+  Zangetsu                                   8,000          4,500        0        0
+  Demon                                      8,200          6,000      280        0
+  Plaguesmith                                8,250          4,500      340        0
+  Undead Dragon                              8,350          7,200      300        0
+  Son of Verminor                            8,500          5,900      120        0
+  Bones                                      9,500          3,750      300        0
+  Orc Warlord                                9,500          6,700      290        0
+  The Noxious Spawn                          9,500          6,000      360        0
+  Lord of the Elements                      10,000          8,000      370        0
+  Saibamen White                            10,000          5,000      400        0
+  Saibamen                                  10,000          5,000      400        0
+  Amazon                                    11,000          6,000      200      390
+  Ancestral Guardian                        12,000          3,500      390        0
+  Mr. Punish                                12,000          5,500      470        0
+  Bandit Hollow                             12,500          8,000      380        0
+  Orc Warrior                               12,500          7,000      190      360
+  The Handmaiden                            14,500          3,850      450        0
+  The Handmaiden                            14,500          3,850      450        0
+  Bardock Oozaru                            15,000          8,000      300        0
+  Saiyan Ghost                              15,000         10,000      400        0
+  The Imperor                               15,000          8,000      330        0
+  Dracola                                   15,850          7,750      410        0
+  The Plasmother                            16,050          8,900      310        0
+  Aqua Corrupted                            20,000         10,000      300        0
+  Aqua                                      20,000         10,000      300        0
+  Demonic Soldier                           20,000          8,000      400        0
+  Juggernaut                                20,000          8,700      500        0
+  Namekjin                                  20,000         15,000      400        0
+  Tank                                      20,000          5,000      300        0
+  Wind Elemental                            20,000          7,000      500        0
+  Acidwire                                  30,000         30,000      210        0
+  Aegzen                                    30,000         15,000      200        0
+  Massacre                                  30,000          9,800      390        0
+  Bardock Ssj                               35,000         10,000      350        0
+  Ferumbras                                 35,000         12,000      320        0
+  The Abomination                           38,050         25,000      340        0
+  Aegzengiven                               40,000         35,000      200        0
+  Aegzengun                                 40,000         35,000      200        0
+  Fat Boo                                   40,000         40,000      200        0
+  Fat Janemba                               40,000         40,000      200        0
+  Golgordan                                 40,000         10,000      350        0
+  Hellgorak                                 40,000         10,000      360        0
+  Latrivan                                  40,000         10,000      340        0
+  Purple Robocop                            40,000         35,000      400        0
+  Worker ice                                40,000         45,000      300        0
+  Worker                                    40,000         45,000      300        0
+  Grim Reaper                               41,000          5,500      400        0
+  Bardock Ssj3                              45,000         20,000      350        0
+  Kid Janemba                               45,000         20,000      200        0
+  Acid Hollow                               50,000        100,000      470        0
+  Dodoria                                   50,000          3,500      280        0
+  Goku Ginyu                                50,000         30,000      400        0
+  Tsuful                                    50,000         50,000      350        0
+  Ushuriel                                  50,000         10,000      350        0
+  Bardock Ssj4                              55,000         40,000      350        0
+  Madareth                                  55,000        100,000      380        0
+  Morgaroth                                 55,000         15,000      400        0
+  Ghazbaran                                 60,000         15,000      400        0
+  Lizzard King                              60,000          9,800      280        0
+  Raditz                                    60,000         50,000      300        0
+  Red Red Robocop                           60,000         35,000      400        0
+  Spopovitch                                60,000        100,000      500        0
+  Zarbon                                    60,000         40,000      300        0
+  Bawabawa                                  70,000         70,000      630      255
+  Spider Hollow                             70,000         80,000      470        0
+  Janemba                                   75,000         85,000      400        0
+  C19 And C20                               80,000         25,000      300        0
+  Furios Scorpion                           90,000         12,000      320        0
+  Bojack                                    93,000         40,000      500        0
+  Zugurosh                                  95,000         10,000      340        0
+  Oozaru                                   100,000         15,000      300        0
+
+----------------------------------------------------------------------------------------------------
+  LEVEL 101 - 150  (28 monstros)
+----------------------------------------------------------------------------------------------------
+  MONSTRO                                       HP            EXP    SPEED     MANA
+  ----------------------------------- ------------ -------------- -------- --------
+  Bardock Ssj5                              65,000         50,000      350        0
+  Leader of the guardian of the forest of menos       70,000         70,000      470        0
+  Dabura                                    90,000         80,000      350        0
+  Bardock Ssj Supreme                       95,000         60,000      500        0
+  Freeza                                   100,000         70,000      350        0
+  Goku SSJ                                 100,000         75,000      400        0
+  Worker Chef                              100,000         85,000      300        0
+  C19                                      110,000         65,000      400        0
+  Lobisomen                                110,000         60,000      800        0
+  Ancient Dinosaur Hollow                  120,000         61,820      180        0
+  Dr. Gero                                 130,000         70,000      400        0
+  Cell Jr                                  150,000         25,000      500        0
+  Kuririn                                  150,000         45,000      400        0
+  Paikuhan                                 150,000         65,000      350        0
+  Apocalypse                               160,000         80,000      400        0
+  C17                                      175,000         25,000      550        0
+  C18                                      185,000         30,000      500        0
+  Cell Perfect                             200,000        100,000      650        0
+  Cell                                     200,000         35,000      500        0
+  Goku SSJ2                                200,000        100,000      450        0
+  Orshabaal                                225,000         99,990      380        0
+  Gohan SSJ2                               250,000        100,000      400        0
+  Tsuful Oozaru                            250,000        150,000      200        0
+  Monako                                   350,000        180,000      600        0
+  Trunks SSJ4                              350,000        250,000      600        0
+  C20                                      370,000         75,000      700        0
+  Annihilon                                400,000         10,000      310        0
+  Space Soldier                            400,000         75,000      450        0
+
+----------------------------------------------------------------------------------------------------
+  LEVEL 151 - 200  (16 monstros)
+----------------------------------------------------------------------------------------------------
+  MONSTRO                                       HP            EXP    SPEED     MANA
+  ----------------------------------- ------------ -------------- -------- --------
+  Goku SSJ4                                250,000      2,000,000      500        0
+  Goku SSJ3                                300,000        150,000      450        0
+  Gohan SSJ4                               400,000        200,000      475        0
+  Gogeta                                   500,000        120,000      600        0
+  Majin Buu                                500,000        150,000      500        0
+  Super C17                                500,000        450,000      350        0
+  Vegetto                                  500,000        240,000      300        0
+  Super C18                                600,000        500,000      400        0
+  Gohan SSJ5                               750,000        450,000      600        0
+  Golden Oozaru                            750,000        450,000      350        0
+  Trunks SSJ4                              750,000        550,000      600        0
+  Turles SSJ5                              750,000        500,000      400        0
+  Vegeta SSJ4                              750,000        550,000      600        0
+  Fishbone D                             1,000,000        900,000      470        0
+  Grand Fisher                           1,000,000        900,000      470        0
+  Vegeta Ssj Blue                        1,000,000        750,000      600        0
+
+----------------------------------------------------------------------------------------------------
+  LEVEL 201 - 250  (6 monstros)
+----------------------------------------------------------------------------------------------------
+  MONSTRO                                       HP            EXP    SPEED     MANA
+  ----------------------------------- ------------ -------------- -------- --------
+  Goku SSJ5                                500,000      5,000,000      600        0
+  Raditz SSJ5                            1,500,000        750,000      600        0
+  Trunks SSJ5                            1,500,000        950,000      600        0
+  Tsuful SSJ5                            1,500,000        750,000      650        0
+  Turles SSJ5                            1,500,000      1,000,000      600        0
+  Raditz SSJ4                            2,200,000        280,000      650        0
+
+----------------------------------------------------------------------------------------------------
+  LEVEL 251 - 300  (1 monstros)
+----------------------------------------------------------------------------------------------------
+  MONSTRO                                       HP            EXP    SPEED     MANA
+  ----------------------------------- ------------ -------------- -------- --------
+  Saiyan                                 5,000,000        800,000      800        0
+
+----------------------------------------------------------------------------------------------------
+  LEVEL 301 - 350  (3 monstros)
+----------------------------------------------------------------------------------------------------
+  MONSTRO                                       HP            EXP    SPEED     MANA
+  ----------------------------------- ------------ -------------- -------- --------
+  Ikomikidomoe                          10,000,000      9,000,000      470        0
+  Fire Elemental Supremo                12,000,000    350,000,000      400        0
+  Mama Bird                             12,000,000    350,000,000      400        0
+
+----------------------------------------------------------------------------------------------------
+  LEVEL 451 - 500  (1 monstros)
+----------------------------------------------------------------------------------------------------
+  MONSTRO                                       HP            EXP    SPEED     MANA
+  ----------------------------------- ------------ -------------- -------- --------
+  Hawk                                 100,000,000      7,500,000      300        0
+
+====================================================================================================
+  ESTATISTICAS
+====================================================================================================
+
+  Monstros por faixa:
+
+  LV 1 - 50  : ████████████████████████████████████████████████████████████ 387
+  LV 51 - 100: ████████████████████████████████████████████████████████████ 86
+  LV 101 - 150: ████████████████████████████ 28
+  LV 151 - 200: ████████████████ 16
+  LV 201 - 250: ██████ 6
+  LV 251 - 300: █ 1
+  LV 301 - 350: ███ 3
+  LV 451 - 500: █ 1
+
+  Top 10 Mais Fortes:
+
+   1. Hawk                           | Score:  3011093 | EXP:  7,500,000 | HP: 100,000,000 | LV: 451 - 500
+   2. Mama Bird                      | Score:   440506 | EXP: 350,000,000 | HP: 12,000,000 | LV: 301 - 350
+   3. Fire Elemental Supremo         | Score:   437506 | EXP: 350,000,000 | HP: 12,000,000 | LV: 301 - 350
+   4. Ikomikidomoe                   | Score:   310873 | EXP:  9,000,000 | HP: 10,000,000 | LV: 301 - 350
+   5. Saiyan                         | Score:   153896 | EXP:    800,000 | HP:  5,000,000 | LV: 251 - 300
+   6. Raditz SSJ4                    | Score:    68944 | EXP:    280,000 | HP:  2,200,000 | LV: 201 - 250
+   7. Turles SSJ5                    | Score:    50012 | EXP:  1,000,000 | HP:  1,500,000 | LV: 201 - 250
+   8. Raditz SSJ5                    | Score:    49424 | EXP:    750,000 | HP:  1,500,000 | LV: 201 - 250
+   9. Trunks SSJ5                    | Score:    49324 | EXP:    950,000 | HP:  1,500,000 | LV: 201 - 250
+  10. Tsuful SSJ5                    | Score:    48523 | EXP:    750,000 | HP:  1,500,000 | LV: 201 - 250
+
+  Top 10 Mais Fracos:
+
+   1. Cockroach                      | Score:        3 | EXP:          0 | HP:          1 | LV: 1 - 50
+   2. Sheep                          | Score:        3 | EXP:          0 | HP:         20 | LV: 1 - 50
+   3. Rabbit                         | Score:        4 | EXP:          0 | HP:         15 | LV: 1 - 50
+   4. Chicken                        | Score:        4 | EXP:          0 | HP:         15 | LV: 1 - 50
+   5. Black Sheep                    | Score:        4 | EXP:          0 | HP:         20 | LV: 1 - 50
+   6. Deer                           | Score:        4 | EXP:          0 | HP:         25 | LV: 1 - 50
+   7. Dog                            | Score:        4 | EXP:          0 | HP:         20 | LV: 1 - 50
+   8. Mimic                          | Score:        5 | EXP:          0 | HP:         30 | LV: 1 - 50
+   9. Flamingo                       | Score:        5 | EXP:          0 | HP:         25 | LV: 1 - 50
+  10. Butterfly                      | Score:        5 | EXP:          0 | HP:          2 | LV: 1 - 50
+
+  Monstros Summonable/Convinceable:
+
+  Badger                         | Mana:   200 | LV: 1 - 50   | EXP:        5
+  Rat                            | Mana:   200 | LV: 1 - 50   | EXP:        5
+  Skunk                          | Mana:   200 | LV: 1 - 50   | EXP:        3
+  Snake                          | Mana:   205 | LV: 1 - 50   | EXP:       10
+  Spider                         | Mana:   210 | LV: 1 - 50   | EXP:       12
+  Cat                            | Mana:   220 | LV: 1 - 50   | EXP:       10
+  Chicken                        | Mana:   220 | LV: 1 - 50   | EXP:        0
+  Dog                            | Mana:   220 | LV: 1 - 50   | EXP:        0
+  Rabbit                         | Mana:   220 | LV: 1 - 50   | EXP:        0
+  Silver Rabbit                  | Mana:   220 | LV: 1 - 50   | EXP:        0
+  Squirrel                       | Mana:   220 | LV: 1 - 50   | EXP:        0
+  Bat                            | Mana:   250 | LV: 1 - 50   | EXP:       10
+  Black Sheep                    | Mana:   250 | LV: 1 - 50   | EXP:        0
+  Bug                            | Mana:   250 | LV: 1 - 50   | EXP:       18
+  Cave Rat                       | Mana:   250 | LV: 1 - 50   | EXP:    1,000
+  Flamingo                       | Mana:   250 | LV: 1 - 50   | EXP:        0
+  Munster                        | Mana:   250 | LV: 1 - 50   | EXP:       23
+  Parrot                         | Mana:   250 | LV: 1 - 50   | EXP:      250
+  Seagull                        | Mana:   250 | LV: 1 - 50   | EXP:        0
+  Sheep                          | Mana:   250 | LV: 1 - 50   | EXP:        0
+  Tibia Bug                      | Mana:   250 | LV: 1 - 50   | EXP:       50
+  Bawabawa                       | Mana:   255 | LV: 51 - 100 | EXP:   70,000
+  Pig                            | Mana:   255 | LV: 1 - 50   | EXP:       75
+  Wolf hollow                    | Mana:   255 | LV: 1 - 50   | EXP:       40
+  Wolf                           | Mana:   255 | LV: 1 - 50   | EXP:       18
+  Deer                           | Mana:   260 | LV: 1 - 50   | EXP:        0
+  Winter Wolf                    | Mana:   260 | LV: 1 - 50   | EXP:       20
+  Poison Spider                  | Mana:   270 | LV: 1 - 50   | EXP:       22
+  Cobra                          | Mana:   275 | LV: 1 - 50   | EXP:       30
+  Hyaena                         | Mana:   275 | LV: 1 - 50   | EXP:       20
+  Wasp                           | Mana:   280 | LV: 1 - 50   | EXP:       25
+  Goblin Leader                  | Mana:   290 | LV: 1 - 50   | EXP:       50
+  Goblin                         | Mana:   290 | LV: 1 - 50   | EXP:       25
+  Island Troll                   | Mana:   290 | LV: 1 - 50   | EXP:       20
+  Troll                          | Mana:   290 | LV: 1 - 50   | EXP:       20
+  Bear                           | Mana:   300 | LV: 1 - 50   | EXP:       23
+  Crazed Beggar                  | Mana:   300 | LV: 1 - 50   | EXP:       35
+  Frost Troll                    | Mana:   300 | LV: 1 - 50   | EXP:       23
+  Orc                            | Mana:   300 | LV: 1 - 50   | EXP:      250
+  Panda                          | Mana:   300 | LV: 1 - 50   | EXP:    2,300
+  Penguin                        | Mana:   300 | LV: 1 - 50   | EXP:      100
+  Skeleton                       | Mana:   300 | LV: 1 - 50   | EXP:       35
+  Azure Frog                     | Mana:   305 | LV: 1 - 50   | EXP:       20
+  Coral Frog                     | Mana:   305 | LV: 1 - 50   | EXP:       20
+  Crab                           | Mana:   305 | LV: 1 - 50   | EXP:       30
+  Crimson Frog                   | Mana:   305 | LV: 1 - 50   | EXP:       20
+  Green Frog                     | Mana:   305 | LV: 1 - 50   | EXP:        0
+  Goblin Scavenger               | Mana:   310 | LV: 1 - 50   | EXP:       37
+  Orc Spearman                   | Mana:   310 | LV: 1 - 50   | EXP:    3,800
+  Scorpion                       | Mana:   310 | LV: 1 - 50   | EXP:       45
+  Polar Bear                     | Mana:   315 | LV: 1 - 50   | EXP:       28
+  Dromedary                      | Mana:   320 | LV: 1 - 50   | EXP:       30
+  Dwarf                          | Mana:   320 | LV: 1 - 50   | EXP:       45
+  Elf                            | Mana:   320 | LV: 1 - 50   | EXP:       42
+  Horse                          | Mana:   320 | LV: 1 - 50   | EXP:      420
+  Lion                           | Mana:   320 | LV: 1 - 50   | EXP:      300
+  Swamp Troll                    | Mana:   320 | LV: 1 - 50   | EXP:       65
+  Minotaur                       | Mana:   330 | LV: 1 - 50   | EXP:       50
+  Centipede                      | Mana:   335 | LV: 1 - 50   | EXP:    3,000
+  Troll Champion                 | Mana:   340 | LV: 1 - 50   | EXP:       30
+  Crocodile                      | Mana:   350 | LV: 1 - 50   | EXP:       40
+  Skeleton Warrior               | Mana:   350 | LV: 1 - 50   | EXP:       65
+  Larva                          | Mana:   355 | LV: 1 - 50   | EXP:       40
+  Slug                           | Mana:   355 | LV: 1 - 50   | EXP:    1,400
+  Orc Warrior                    | Mana:   360 | LV: 51 - 100 | EXP:    7,000
+  Dwarf Soldier                  | Mana:   360 | LV: 1 - 50   | EXP:       70
+  Elf Scout                      | Mana:   360 | LV: 1 - 50   | EXP:       75
+  Goblin Assassin                | Mana:   360 | LV: 1 - 50   | EXP:       52
+  Amazon                         | Mana:   390 | LV: 51 - 100 | EXP:    6,000
+  Minotaur Archer                | Mana:   390 | LV: 1 - 50   | EXP:       65
+  Smuggler                       | Mana:   390 | LV: 1 - 50   | EXP:       48
+  Scarab                         | Mana:   395 | LV: 1 - 50   | EXP:      120
+  Toad                           | Mana:   400 | LV: 1 - 50   | EXP:       60
+  Gang Member                    | Mana:   420 | LV: 1 - 50   | EXP:       70
+  Husky                          | Mana:   420 | LV: 1 - 50   | EXP:        0
+  Nomad                          | Mana:   420 | LV: 1 - 50   | EXP:       60
+  Tiger                          | Mana:   420 | LV: 1 - 50   | EXP:       40
+  Wild Warrior                   | Mana:   420 | LV: 1 - 50   | EXP:       55
+  Bandit Black                   | Mana:   450 | LV: 1 - 50   | EXP:      100
+  Bandit Chef                    | Mana:   450 | LV: 1 - 50   | EXP:      200
+  Bandit                         | Mana:   450 | LV: 1 - 50   | EXP:       65
+  Ghoul                          | Mana:   450 | LV: 1 - 50   | EXP:       85
+  Valkyrie                       | Mana:   450 | LV: 1 - 50   | EXP:       85
+  Xenia                          | Mana:   450 | LV: 1 - 50   | EXP:      255
+  Tarantula                      | Mana:   485 | LV: 1 - 50   | EXP:      120
+  Cyclops                        | Mana:   490 | LV: 1 - 50   | EXP:      150
+  Terror Bird                    | Mana:   490 | LV: 1 - 50   | EXP:      150
+  Elephant                       | Mana:   500 | LV: 1 - 50   | EXP:      160
+  Blood Crab                     | Mana:   505 | LV: 1 - 50   | EXP:      160
+  Fire Devil                     | Mana:   530 | LV: 1 - 50   | EXP:      145
+  Minotaur Guard                 | Mana:   550 | LV: 1 - 50   | EXP:      160
+  Orc Berserker                  | Mana:   590 | LV: 1 - 50   | EXP:    1,950
+  Stone Golem                    | Mana:   590 | LV: 1 - 50   | EXP:      280
+  Pirate Buccaneer               | Mana:   595 | LV: 1 - 50   | EXP:      250
+  Monk                           | Mana:   600 | LV: 1 - 50   | EXP:      200
+  Demon Skeleton                 | Mana:   620 | LV: 1 - 50   | EXP:      240
+  Orc Leader                     | Mana:   640 | LV: 1 - 50   | EXP:    2,700
+  Dwarf Guard                    | Mana:   650 | LV: 1 - 50   | EXP:      165
+  Fire Elemental                 | Mana:   690 | LV: 1 - 50   | EXP:      220
+  Gozzler                        | Mana:   800 | LV: 1 - 50   | EXP:      180
+
+====================================================================================================
+  FIM DO RELATORIO  |  528 monstros em 8 faixas
+====================================================================================================

@@ -1,0 +1,4 @@
+/target
+peixola.toml
+*.tmp
+/PeixolaMapEditor.exe

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Cave Rat" bestiary="monster" nameDescription="a cave rat" race="blood"
+	experience="1500" speed="200" manacost="500">
+	<health now="1000" max="1000" />
+	<look type="3143" corpse="5964" />
+	<targetchange interval="2000" chance="0" />
+	<strategy attack="100" defense="0" />
+	<flags>
+		<flag summonable="1" />
+		<flag attackable="1" />
+		<flag hostile="1" />
+		<flag illusionable="1" />
+		<flag convinceable="1" />
+		<flag pushable="1" />
+		<flag canpushitems="0" />
+		<flag canpushcreatures="0" />
+		<flag targetdistance="1" />
+		<flag staticattack="90" />
+		<flag runonhealth="3" />
+	</flags>
+	<attacks>
+		<attack name="melee" interval="1000" min="-30" max="-60" />
+	</attacks>
+	<defenses armor="1" defense="3" />
+	<elements>
+		<element firePercent="-13" />
+	</elements>
+	<voices interval="5000" chance="10">
+		<voice sentence="Meeeeep!" />
+		<voice sentence="Meep!" />
+	</voices>
+	<loot>
+		<item id="2152" countmax="50" chance="90000" /> <!-- platinum coin -->
+		<item id="2160" countmax="5" chance="50000" /> <!-- crystal coin -->
+		<item id="2672" countmax="15" chance="25000" /><!-- dragon ham -->
+		<item id="56712" countmax="3" chance="10000" /> <!-- yellow potion -->
+		<item id="56713" countmax="3" chance="10000" /> <!-- grey potion -->
+		<item id="56714" countmax="3" chance="10000" /> <!-- purple potion -->
+		<item id="56715" countmax="3" chance="10000" /> <!-- pink potion -->
+		<item id="56716" countmax="3" chance="10000" /> <!-- light blue potion -->
+		<item id="56717" countmax="3" chance="10000" /> <!-- green potion -->
+		<item id="56718" countmax="3" chance="10000" /> <!-- red potion -->
+		<item id="3976" countmax="3" chance="35000" /><!-- worm -->
+		<item id="2696" chance="36750" /><!-- cheese -->
+		<item id="2687" countmax="2" chance="750" /><!-- cookies -->
+	</loot>
+</monster>

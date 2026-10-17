@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<monster
+  name="Namekjin"
+  bestiary="monster"
+  nameDescription="an namekjin"
+  race="blood"
+  experience="15000"
+  speed="400"
+  manacost="0"
+>
+	<health now="20000" max="20000" />
+	<look
+    type="2013"
+    head="1"
+    body="1"
+    legs="1"
+    feet="1"
+    addons="0"
+    corpse="12792"
+  />
+	<targetchange interval="5000" chance="8" />
+	<strategy attack="100" defense="0" />
+	<flags>
+		<flag summonable="0" />
+		<flag attackable="1" />
+		<flag hostile="1" />
+		<flag illusionable="0" />
+		<flag convinceable="0" />
+		<flag pushable="1" />
+		<flag canpushitems="1" />
+		<flag canpushcreatures="1" />
+		<flag targetdistance="1" />
+		<flag staticattack="90" />
+		<flag runonhealth="0" />
+	</flags>
+	<attacks>
+		<attack name="melee" interval="1000" min="-200" max="-400" />
+		<attack name="Makosen" interval="2000" chance="25" min="-230" max="-700" />
+		<attack
+      name="Namekjin Wave"
+      interval="5000"
+      chance="10"
+      min="-300"
+      max="-600"
+    />
+	</attacks>
+	<defenses armor="0" defense="0">
+	</defenses>
+	<immunities>
+		<immunity physical="0" />
+		<immunity energy="0" />
+		<immunity fire="0" />
+		<immunity poison="0" />
+		<immunity lifedrain="0" />
+		<immunity paralyze="0" />
+		<immunity outfit="1" />
+		<immunity invisible="0" />
+	</immunities>
+	<voices interval="5000" chance="10">
+		<voice sentence="Die or get out of my sight.!" />
+		<voice sentence="Damn!" />
+	</voices>
+	<loot>
+		<item id="2148" countmax="50" chance="90000" /> <!-- gold coin -->
+		<item id="2152" countmax="50" chance="90000" /> <!-- platinum coin -->
+		<item id="2160" countmax="5" chance="50000" /> <!-- crystal coin -->
+		<item id="56712" countmax="3" chance="10000" /> <!-- yellow potion -->
+		<item id="56713" countmax="3" chance="10000" /> <!-- grey potion -->
+		<item id="56714" countmax="3" chance="10000" /> <!-- purple potion -->
+		<item id="56715" countmax="3" chance="10000" /> <!-- pink potion -->
+		<item id="56716" countmax="3" chance="10000" /> <!-- light blue potion -->
+		<item id="56717" countmax="3" chance="10000" /> <!-- green potion -->
+		<item id="56718" countmax="3" chance="10000" /> <!-- red potion -->
+		<item id="49689" countmax="10" chance="1000" /> <!-- hp point -->
+		<item id="49690" countmax="10" chance="1000" /> <!-- mp point -->
+		<item id="49691" countmax="5" chance="1000" /> <!-- leaf senzu -->
+		<item id="49692" countmax="5" chance="1000" /> <!-- branch senzu -->
+		<item id="49617" chance="1000" /> <!-- imperfect piccolo helmet -->
+		<item id="49628" chance="1000" /> <!-- perfect piccolo hat -->
+		<item id="49684" chance="1000" /> <!-- piccolo waistcoat -->
+		<item id="49697" chance="1000" /> <!-- old piccolo armor -->
+		<item id="49762" chance="1000" /> <!-- piccolo boots -->
+		<item id="49567" chance="1000" /> <!-- imperfect makankosappo -->
+		<item id="49568" chance="1000" /> <!-- perfect makankosappo -->
+		<item id="49572" chance="1000" /> <!-- perfect makankosappo red -->
+	</loot>
+</monster>

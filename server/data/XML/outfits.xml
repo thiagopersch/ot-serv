@@ -1,0 +1,2646 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<outfits>
+	<outfit id="1" type="0" name="Bardock" premium="no" storageId="59001" storageValue="1">
+		<list gender="0" looktype="1683" />
+		<list gender="1" looktype="1683" />
+	</outfit>
+	<outfit id="2" type="0" name="Bardock 1" premium="no" storageId="59001" storageValue="50">
+		<list gender="0" looktype="1684" />
+		<list gender="1" looktype="1684" />
+	</outfit>
+	<outfit id="3" type="0" name="Bardock 2" premium="no" storageId="59001" storageValue="100">
+		<list gender="0" looktype="1685" />
+		<list gender="1" looktype="1685" />
+	</outfit>
+	<outfit id="4" type="0" name="Bardock 3" premium="no" storageId="59001" storageValue="150">
+		<list gender="0" looktype="1686" />
+		<list gender="1" looktype="1686" />
+	</outfit>
+	<outfit id="5" type="0" name="Bardock 4" premium="no" storageId="59001" storageValue="200">
+		<list gender="0" looktype="1687" />
+		<list gender="1" looktype="1687" />
+	</outfit>
+	<outfit id="6" type="0" name="Bardock 5" premium="no" storageId="59001" storageValue="250">
+		<list gender="0" looktype="1688" />
+		<list gender="1" looktype="1688" />
+	</outfit>
+	<outfit id="7" type="0" name="Bardock 6" premium="no" storageId="59001" storageValue="300">
+		<list gender="0" looktype="1689" />
+		<list gender="1" looktype="1689" />
+	</outfit>
+	<outfit id="8" type="0" name="Bardock 7" premium="no" storageId="59001" storageValue="350">
+		<list gender="0" looktype="1690" />
+		<list gender="1" looktype="1690" />
+	</outfit>
+	<outfit id="9" type="0" name="Bardock 8" premium="no" storageId="59001" storageValue="400">
+		<list gender="0" looktype="1691" />
+		<list gender="1" looktype="1691" />
+	</outfit>
+	<outfit id="10" type="0" name="Bardock 9" premium="no" storageId="59001" storageValue="450">
+		<list gender="0" looktype="1692" />
+		<list gender="1" looktype="1692" />
+	</outfit>
+	<outfit id="11" type="0" name="Bardock 10" premium="no" storageId="59001" storageValue="500">
+		<list gender="0" looktype="1693" />
+		<list gender="1" looktype="1693" />
+	</outfit>
+	<outfit id="12" type="0" name="Bardock 11" premium="no" storageId="59001" storageValue="550">
+		<list gender="0" looktype="1694" />
+		<list gender="1" looktype="1694" />
+	</outfit>
+	<outfit id="13" type="0" name="Bills" premium="no" storageId="59002" storageValue="1">
+		<list gender="0" looktype="1711" />
+		<list gender="1" looktype="1711" />
+	</outfit>
+	<outfit id="14" type="0" name="Bills 1" premium="no" storageId="59002" storageValue="50">
+		<list gender="0" looktype="1709" />
+		<list gender="1" looktype="1709" />
+	</outfit>
+	<outfit id="15" type="0" name="Bills 2" premium="no" storageId="59002" storageValue="100">
+		<list gender="0" looktype="1716" />
+		<list gender="1" looktype="1716" />
+	</outfit>
+	<outfit id="16" type="0" name="Bills 3" premium="no" storageId="59002" storageValue="150">
+		<list gender="0" looktype="1712" />
+		<list gender="1" looktype="1712" />
+	</outfit>
+	<outfit id="17" type="0" name="Bills 4" premium="no" storageId="59002" storageValue="200">
+		<list gender="0" looktype="1717" />
+		<list gender="1" looktype="1717" />
+	</outfit>
+	<outfit id="18" type="0" name="Bills 5" premium="no" storageId="59002" storageValue="250">
+		<list gender="0" looktype="1714" />
+		<list gender="1" looktype="1714" />
+	</outfit>
+	<outfit id="19" type="0" name="Bills 6" premium="no" storageId="59002" storageValue="300">
+		<list gender="0" looktype="1719" />
+		<list gender="1" looktype="1719" />
+	</outfit>
+	<outfit id="20" type="0" name="Bills 7" premium="no" storageId="59002" storageValue="350">
+		<list gender="0" looktype="1713" />
+		<list gender="1" looktype="1713" />
+	</outfit>
+	<outfit id="21" type="0" name="Bills 8" premium="no" storageId="59002" storageValue="400">
+		<list gender="0" looktype="1715" />
+		<list gender="1" looktype="1715" />
+	</outfit>
+	<outfit id="22" type="0" name="Bills 9" premium="no" storageId="59002" storageValue="450">
+		<list gender="0" looktype="1718" />
+		<list gender="1" looktype="1718" />
+	</outfit>
+	<outfit id="23" type="0" name="Bills 10" premium="no" storageId="59002" storageValue="500">
+		<list gender="0" looktype="1710" />
+		<list gender="1" looktype="1710" />
+	</outfit>
+	<outfit id="24" type="0" name="Bills 11" premium="no" storageId="59002" storageValue="550">
+		<list gender="0" looktype="1720" />
+		<list gender="1" looktype="1720" />
+	</outfit>
+	<outfit id="25" type="0" name="Bills 12" premium="no" storageId="59002" storageValue="600">
+		<list gender="0" looktype="1721" />
+		<list gender="1" looktype="1721" />
+	</outfit>
+	<outfit id="26" type="0" name="Bills 13" premium="no" storageId="59002" storageValue="650">
+		<list gender="0" looktype="1722" />
+		<list gender="1" looktype="1722" />
+	</outfit>
+	<outfit id="27" type="0" name="Botamo" premium="no" storageId="59003" storageValue="1">
+		<list gender="0" looktype="1731" />
+		<list gender="1" looktype="1731" />
+	</outfit>
+	<outfit id="28" type="0" name="Botamo 1" premium="no" storageId="59003" storageValue="50">
+		<list gender="0" looktype="1730" />
+		<list gender="1" looktype="1730" />
+	</outfit>
+	<outfit id="29" type="0" name="Botamo 2" premium="no" storageId="59003" storageValue="100">
+		<list gender="0" looktype="1729" />
+		<list gender="1" looktype="1729" />
+	</outfit>
+	<outfit id="30" type="0" name="Botamo 3" premium="no" storageId="59003" storageValue="150">
+		<list gender="0" looktype="1728" />
+		<list gender="1" looktype="1728" />
+	</outfit>
+	<outfit id="31" type="0" name="Botamo 4" premium="no" storageId="59003" storageValue="200">
+		<list gender="0" looktype="1726" />
+		<list gender="1" looktype="1726" />
+	</outfit>
+	<outfit id="32" type="0" name="Botamo 5" premium="no" storageId="59003" storageValue="250">
+		<list gender="0" looktype="1727" />
+		<list gender="1" looktype="1727" />
+	</outfit>
+	<outfit id="33" type="0" name="Botamo 6" premium="no" storageId="59003" storageValue="300">
+		<list gender="0" looktype="1725" />
+		<list gender="1" looktype="1725" />
+	</outfit>
+	<outfit id="34" type="0" name="Botamo 7" premium="no" storageId="59003" storageValue="350">
+		<list gender="0" looktype="1724" />
+		<list gender="1" looktype="1724" />
+	</outfit>
+	<outfit id="35" type="0" name="Botamo 8" premium="no" storageId="59003" storageValue="400">
+		<list gender="0" looktype="1723" />
+		<list gender="1" looktype="1723" />
+	</outfit>
+	<outfit id="36" type="0" name="Brolly" premium="no" storageId="59004" storageValue="1">
+		<list gender="0" looktype="1739" />
+		<list gender="1" looktype="1739" />
+	</outfit>
+	<outfit id="37" type="0" name="Brolly 1" premium="no" storageId="59004" storageValue="50">
+		<list gender="0" looktype="1738" />
+		<list gender="1" looktype="1738" />
+	</outfit>
+	<outfit id="38" type="0" name="Brolly 2" premium="no" storageId="59004" storageValue="100">
+		<list gender="0" looktype="1742" />
+		<list gender="1" looktype="1742" />
+	</outfit>
+	<outfit id="39" type="0" name="Brolly 3" premium="no" storageId="59004" storageValue="150">
+		<list gender="0" looktype="1743" />
+		<list gender="1" looktype="1743" />
+	</outfit>
+	<outfit id="40" type="0" name="Brolly 4" premium="no" storageId="59004" storageValue="200">
+		<list gender="0" looktype="1741" />
+		<list gender="1" looktype="1741" />
+	</outfit>
+	<outfit id="41" type="0" name="Brolly 5" premium="no" storageId="59004" storageValue="250">
+		<list gender="0" looktype="1740" />
+		<list gender="1" looktype="1740" />
+	</outfit>
+	<outfit id="42" type="0" name="Brolly 6" premium="no" storageId="59004" storageValue="300">
+		<list gender="0" looktype="1744" />
+		<list gender="1" looktype="1744" />
+	</outfit>
+	<outfit id="43" type="0" name="Brolly 7" premium="no" storageId="59004" storageValue="350">
+		<list gender="0" looktype="1737" />
+		<list gender="1" looktype="1737" />
+	</outfit>
+	<outfit id="44" type="0" name="Brolly 8" premium="no" storageId="59004" storageValue="400">
+		<list gender="0" looktype="1736" />
+		<list gender="1" looktype="1736" />
+	</outfit>
+	<outfit id="45" type="0" name="Brolly 9" premium="no" storageId="59004" storageValue="450">
+		<list gender="0" looktype="1735" />
+		<list gender="1" looktype="1735" />
+	</outfit>
+	<outfit id="46" type="0" name="Brolly 10" premium="no" storageId="59004" storageValue="500">
+		<list gender="0" looktype="1734" />
+		<list gender="1" looktype="1734" />
+	</outfit>
+	<outfit id="47" type="0" name="Brolly 11" premium="no" storageId="59004" storageValue="550">
+		<list gender="0" looktype="1733" />
+		<list gender="1" looktype="1733" />
+	</outfit>
+	<outfit id="48" type="0" name="Brolly 12" premium="no" storageId="59004" storageValue="600">
+		<list gender="0" looktype="1732" />
+		<list gender="1" looktype="1732" />
+	</outfit>
+	<outfit id="49" type="0" name="Bulma" premium="no" storageId="59005" storageValue="1">
+		<list gender="0" looktype="1748" />
+		<list gender="1" looktype="1748" />
+	</outfit>
+	<outfit id="50" type="0" name="Bulma 1" premium="no" storageId="59005" storageValue="50">
+		<list gender="0" looktype="1747" />
+		<list gender="1" looktype="1747" />
+	</outfit>
+	<outfit id="51" type="0" name="Bulma 2" premium="no" storageId="59005" storageValue="100">
+		<list gender="0" looktype="1746" />
+		<list gender="1" looktype="1746" />
+	</outfit>
+	<outfit id="52" type="0" name="Bulma 3" premium="no" storageId="59005" storageValue="150">
+		<list gender="0" looktype="1745" />
+		<list gender="1" looktype="1745" />
+	</outfit>
+	<outfit id="53" type="0" name="Bulma 4" premium="no" storageId="59005" storageValue="200">
+		<list gender="0" looktype="1749" />
+		<list gender="1" looktype="1749" />
+	</outfit>
+	<outfit id="54" type="0" name="Bulma 5" premium="no" storageId="59005" storageValue="250">
+		<list gender="0" looktype="1750" />
+		<list gender="1" looktype="1750" />
+	</outfit>
+	<outfit id="55" type="0" name="Bulma 6" premium="no" storageId="59005" storageValue="300">
+		<list gender="0" looktype="1751" />
+		<list gender="1" looktype="1751" />
+	</outfit>
+	<outfit id="56" type="0" name="Bulma 7" premium="no" storageId="59005" storageValue="350">
+		<list gender="0" looktype="1752" />
+		<list gender="1" looktype="1752" />
+	</outfit>
+	<outfit id="57" type="0" name="Bulma 8" premium="no" storageId="59005" storageValue="400">
+		<list gender="0" looktype="1753" />
+		<list gender="1" looktype="1753" />
+	</outfit>
+	<outfit id="58" type="0" name="Bulma 9" premium="no" storageId="59005" storageValue="450">
+		<list gender="0" looktype="1754" />
+		<list gender="1" looktype="1754" />
+	</outfit>
+	<outfit id="59" type="0" name="Buu" premium="no" storageId="59006" storageValue="1">
+		<list gender="0" looktype="1755" />
+		<list gender="1" looktype="1755" />
+	</outfit>
+	<outfit id="60" type="0" name="Buu 1" premium="no" storageId="59006" storageValue="50">
+		<list gender="0" looktype="1756" />
+		<list gender="1" looktype="1756" />
+	</outfit>
+	<outfit id="61" type="0" name="Buu 2" premium="no" storageId="59006" storageValue="100">
+		<list gender="0" looktype="1757" />
+		<list gender="1" looktype="1757" />
+	</outfit>
+	<outfit id="62" type="0" name="Buu 3" premium="no" storageId="59006" storageValue="150">
+		<list gender="0" looktype="1758" />
+		<list gender="1" looktype="1758" />
+	</outfit>
+	<outfit id="63" type="0" name="Buu 4" premium="no" storageId="59006" storageValue="200">
+		<list gender="0" looktype="1759" />
+		<list gender="1" looktype="1759" />
+	</outfit>
+	<outfit id="64" type="0" name="Buu 5" premium="no" storageId="59006" storageValue="250">
+		<list gender="0" looktype="1760" />
+		<list gender="1" looktype="1760" />
+	</outfit>
+	<outfit id="65" type="0" name="Buu 6" premium="no" storageId="59006" storageValue="300">
+		<list gender="0" looktype="1761" />
+		<list gender="1" looktype="1761" />
+	</outfit>
+	<outfit id="66" type="0" name="Buu 7" premium="no" storageId="59006" storageValue="350">
+		<list gender="0" looktype="1762" />
+		<list gender="1" looktype="1762" />
+	</outfit>
+	<outfit id="67" type="0" name="Buu 8" premium="no" storageId="59006" storageValue="400">
+		<list gender="0" looktype="1763" />
+		<list gender="1" looktype="1763" />
+	</outfit>
+	<outfit id="68" type="0" name="Buu 9" premium="no" storageId="59006" storageValue="450">
+		<list gender="0" looktype="1764" />
+		<list gender="1" looktype="1764" />
+	</outfit>
+	<outfit id="69" type="0" name="C8" premium="no" storageId="59007" storageValue="1">
+		<list gender="0" looktype="1777" />
+		<list gender="1" looktype="1777" />
+	</outfit>
+	<outfit id="70" type="0" name="C8 1" premium="no" storageId="59007" storageValue="50">
+		<list gender="0" looktype="1767" />
+		<list gender="1" looktype="1767" />
+	</outfit>
+	<outfit id="71" type="0" name="C8 2" premium="no" storageId="59007" storageValue="100">
+		<list gender="0" looktype="1766" />
+		<list gender="1" looktype="1766" />
+	</outfit>
+	<outfit id="72" type="0" name="C8 3" premium="no" storageId="59007" storageValue="150">
+		<list gender="0" looktype="1767" />
+		<list gender="1" looktype="1767" />
+	</outfit>
+	<outfit id="73" type="0" name="C8 4" premium="no" storageId="59007" storageValue="200">
+		<list gender="0" looktype="1768" />
+		<list gender="1" looktype="1768" />
+	</outfit>
+	<outfit id="74" type="0" name="C8 5" premium="no" storageId="59007" storageValue="250">
+		<list gender="0" looktype="1769" />
+		<list gender="1" looktype="1769" />
+	</outfit>
+	<outfit id="75" type="0" name="C8 6" premium="no" storageId="59007" storageValue="300">
+		<list gender="0" looktype="1770" />
+		<list gender="1" looktype="1770" />
+	</outfit>
+	<outfit id="76" type="0" name="C8 7" premium="no" storageId="59007" storageValue="350">
+		<list gender="0" looktype="1771" />
+		<list gender="1" looktype="1771" />
+	</outfit>
+	<outfit id="77" type="0" name="C8 8" premium="no" storageId="59007" storageValue="400">
+		<list gender="0" looktype="1772" />
+		<list gender="1" looktype="1772" />
+	</outfit>
+	<outfit id="78" type="0" name="C8 9" premium="no" storageId="59007" storageValue="450">
+		<list gender="0" looktype="1773" />
+		<list gender="1" looktype="1773" />
+	</outfit>
+	<outfit id="79" type="0" name="C8 10" premium="no" storageId="59007" storageValue="500">
+		<list gender="0" looktype="1774" />
+		<list gender="1" looktype="1774" />
+	</outfit>
+	<outfit id="80" type="0" name="C8 11" premium="no" storageId="59007" storageValue="550">
+		<list gender="0" looktype="1775" />
+		<list gender="1" looktype="1775" />
+	</outfit>
+	<outfit id="81" type="0" name="C8 12" premium="no" storageId="59007" storageValue="600">
+		<list gender="0" looktype="1776" />
+		<list gender="1" looktype="1776" />
+	</outfit>
+	<outfit id="82" type="0" name="C17" premium="no" storageId="59008" storageValue="1">
+		<list gender="0" looktype="1777" />
+		<list gender="1" looktype="1777" />
+	</outfit>
+	<outfit id="83" type="0" name="C17 1" premium="no" storageId="59008" storageValue="50">
+		<list gender="0" looktype="1778" />
+		<list gender="1" looktype="1778" />
+	</outfit>
+	<outfit id="84" type="0" name="C17 2" premium="no" storageId="59008" storageValue="100">
+		<list gender="0" looktype="1779" />
+		<list gender="1" looktype="1779" />
+	</outfit>
+	<outfit id="85" type="0" name="C17 3" premium="no" storageId="59008" storageValue="150">
+		<list gender="0" looktype="1780" />
+		<list gender="1" looktype="1780" />
+	</outfit>
+	<outfit id="86" type="0" name="C17 4" premium="no" storageId="59008" storageValue="200">
+		<list gender="0" looktype="1781" />
+		<list gender="1" looktype="1781" />
+	</outfit>
+	<outfit id="87" type="0" name="C17 5" premium="no" storageId="59008" storageValue="250">
+		<list gender="0" looktype="1782" />
+		<list gender="1" looktype="1782" />
+	</outfit>
+	<outfit id="88" type="0" name="C17 6" premium="no" storageId="59008" storageValue="300">
+		<list gender="0" looktype="1783" />
+		<list gender="1" looktype="1783" />
+	</outfit>
+	<outfit id="89" type="0" name="C17 7" premium="no" storageId="59008" storageValue="350">
+		<list gender="0" looktype="1784" />
+		<list gender="1" looktype="1784" />
+	</outfit>
+	<outfit id="90" type="0" name="C17 8" premium="no" storageId="59008" storageValue="400">
+		<list gender="0" looktype="1785" />
+		<list gender="1" looktype="1785" />
+	</outfit>
+	<outfit id="91" type="0" name="C18" premium="no" storageId="59009" storageValue="1">
+		<list gender="0" looktype="1777" />
+		<list gender="1" looktype="1777" />
+	</outfit>
+	<outfit id="92" type="0" name="C18 1" premium="no" storageId="59009" storageValue="50">
+		<list gender="0" looktype="1786" />
+		<list gender="1" looktype="1786" />
+	</outfit>
+	<outfit id="93" type="0" name="C18 2" premium="no" storageId="59009" storageValue="100">
+		<list gender="0" looktype="1787" />
+		<list gender="1" looktype="1787" />
+	</outfit>
+	<outfit id="94" type="0" name="C18 3" premium="no" storageId="59009" storageValue="150">
+		<list gender="0" looktype="1788" />
+		<list gender="1" looktype="1788" />
+	</outfit>
+	<outfit id="95" type="0" name="C18 4" premium="no" storageId="59009" storageValue="200">
+		<list gender="0" looktype="1789" />
+		<list gender="1" looktype="1789" />
+	</outfit>
+	<outfit id="96" type="0" name="C18 5" premium="no" storageId="59009" storageValue="250">
+		<list gender="0" looktype="1790" />
+		<list gender="1" looktype="1790" />
+	</outfit>
+	<outfit id="97" type="0" name="C18 6" premium="no" storageId="59009" storageValue="300">
+		<list gender="0" looktype="1791" />
+		<list gender="1" looktype="1791" />
+	</outfit>
+	<outfit id="98" type="0" name="C18 7" premium="no" storageId="59009" storageValue="350">
+		<list gender="0" looktype="1792" />
+		<list gender="1" looktype="1792" />
+	</outfit>
+	<outfit id="99" type="0" name="C18 8" premium="no" storageId="59009" storageValue="400">
+		<list gender="0" looktype="1793" />
+		<list gender="1" looktype="1793" />
+	</outfit>
+	<outfit id="100" type="0" name="Cabba" premium="no" storageId="59010" storageValue="1">
+		<list gender="0" looktype="1794" />
+		<list gender="1" looktype="1794" />
+	</outfit>
+	<outfit id="101" type="0" name="Cabba 1" premium="no" storageId="59010" storageValue="50">
+		<list gender="0" looktype="1795" />
+		<list gender="1" looktype="1795" />
+	</outfit>
+	<outfit id="102" type="0" name="Cabba 2" premium="no" storageId="59010" storageValue="100">
+		<list gender="0" looktype="1796" />
+		<list gender="1" looktype="1796" />
+	</outfit>
+	<outfit id="103" type="0" name="Cabba 3" premium="no" storageId="59010" storageValue="150">
+		<list gender="0" looktype="1797" />
+		<list gender="1" looktype="1797" />
+	</outfit>
+	<outfit id="104" type="0" name="Cabba 4" premium="no" storageId="59010" storageValue="200">
+		<list gender="0" looktype="1798" />
+		<list gender="1" looktype="1798" />
+	</outfit>
+	<outfit id="105" type="0" name="Cabba 5" premium="no" storageId="59010" storageValue="250">
+		<list gender="0" looktype="1799" />
+		<list gender="1" looktype="1799" />
+	</outfit>
+	<outfit id="106" type="0" name="Cabba 6" premium="no" storageId="59010" storageValue="300">
+		<list gender="0" looktype="1800" />
+		<list gender="1" looktype="1800" />
+	</outfit>
+	<outfit id="107" type="0" name="Cabba 7" premium="no" storageId="59010" storageValue="350">
+		<list gender="0" looktype="1801" />
+		<list gender="1" looktype="1801" />
+	</outfit>
+	<outfit id="108" type="0" name="Cabba 8" premium="no" storageId="59010" storageValue="400">
+		<list gender="0" looktype="1802" />
+		<list gender="1" looktype="1802" />
+	</outfit>
+	<outfit id="109" type="0" name="Cabba 9" premium="no" storageId="59010" storageValue="450">
+		<list gender="0" looktype="1803" />
+		<list gender="1" looktype="1803" />
+	</outfit>
+	<outfit id="110" type="0" name="Cell" premium="no" storageId="59011" storageValue="1">
+		<list gender="0" looktype="1804" />
+		<list gender="1" looktype="1804" />
+	</outfit>
+	<outfit id="111" type="0" name="Cell 1" premium="no" storageId="59011" storageValue="50">
+		<list gender="0" looktype="1805" />
+		<list gender="1" looktype="1805" />
+	</outfit>
+	<outfit id="112" type="0" name="Cell 2" premium="no" storageId="59011" storageValue="100">
+		<list gender="0" looktype="1806" />
+		<list gender="1" looktype="1806" />
+	</outfit>
+	<outfit id="113" type="0" name="Cell 3" premium="no" storageId="59011" storageValue="150">
+		<list gender="0" looktype="1807" />
+		<list gender="1" looktype="1807" />
+	</outfit>
+	<outfit id="114" type="0" name="Cell 4" premium="no" storageId="59011" storageValue="200">
+		<list gender="0" looktype="1808" />
+		<list gender="1" looktype="1808" />
+	</outfit>
+	<outfit id="115" type="0" name="Cell 5" premium="no" storageId="59011" storageValue="250">
+		<list gender="0" looktype="1809" />
+		<list gender="1" looktype="1809" />
+	</outfit>
+	<outfit id="116" type="0" name="Cell 6" premium="no" storageId="59011" storageValue="300">
+		<list gender="0" looktype="1810" />
+		<list gender="1" looktype="1810" />
+	</outfit>
+	<outfit id="117" type="0" name="Cooler" premium="no" storageId="59012" storageValue="1">
+		<list gender="0" looktype="1811" />
+		<list gender="1" looktype="1811" />
+	</outfit>
+	<outfit id="118" type="0" name="Cooler 1" premium="no" storageId="59012" storageValue="50">
+		<list gender="0" looktype="1812" />
+		<list gender="1" looktype="1812" />
+	</outfit>
+	<outfit id="119" type="0" name="Cooler 2" premium="no" storageId="59012" storageValue="100">
+		<list gender="0" looktype="1813" />
+		<list gender="1" looktype="1813" />
+	</outfit>
+	<outfit id="120" type="0" name="Cooler 3" premium="no" storageId="59012" storageValue="150">
+		<list gender="0" looktype="1814" />
+		<list gender="1" looktype="1814" />
+	</outfit>
+	<outfit id="121" type="0" name="Cooler 4" premium="no" storageId="59012" storageValue="200">
+		<list gender="0" looktype="1815" />
+		<list gender="1" looktype="1815" />
+	</outfit>
+	<outfit id="122" type="0" name="Cooler 5" premium="no" storageId="59012" storageValue="250">
+		<list gender="0" looktype="1818" />
+		<list gender="1" looktype="1818" />
+	</outfit>
+	<outfit id="123" type="0" name="Cooler 6" premium="no" storageId="59012" storageValue="300">
+		<list gender="0" looktype="1820" />
+		<list gender="1" looktype="1820" />
+	</outfit>
+	<outfit id="124" type="0" name="Cooler 7" premium="no" storageId="59012" storageValue="350">
+		<list gender="0" looktype="1816" />
+		<list gender="1" looktype="1816" />
+	</outfit>
+	<outfit id="125" type="0" name="Cooler 8" premium="no" storageId="59012" storageValue="400">
+		<list gender="0" looktype="1817" />
+		<list gender="1" looktype="1817" />
+	</outfit>
+	<outfit id="126" type="0" name="Cooler 9" premium="no" storageId="59012" storageValue="450">
+		<list gender="0" looktype="1819" />
+		<list gender="1" looktype="1819" />
+	</outfit>
+	<outfit id="127" type="0" name="Cooler 10" premium="no" storageId="59012" storageValue="500">
+		<list gender="0" looktype="1821" />
+		<list gender="1" looktype="1821" />
+	</outfit>
+	<outfit id="128" type="0" name="Dende" premium="no" storageId="59013" storageValue="1">
+		<list gender="0" looktype="1822" />
+		<list gender="1" looktype="1822" />
+	</outfit>
+	<outfit id="129" type="0" name="Dende 1" premium="no" storageId="59013" storageValue="50">
+		<list gender="0" looktype="1823" />
+		<list gender="1" looktype="1823" />
+	</outfit>
+	<outfit id="130" type="0" name="Dende 2" premium="no" storageId="59013" storageValue="100">
+		<list gender="0" looktype="1824" />
+		<list gender="1" looktype="1824" />
+	</outfit>
+	<outfit id="131" type="0" name="Dende 3" premium="no" storageId="59013" storageValue="150">
+		<list gender="0" looktype="1825" />
+		<list gender="1" looktype="1825" />
+	</outfit>
+	<outfit id="132" type="0" name="Dende 4" premium="no" storageId="59013" storageValue="200">
+		<list gender="0" looktype="1826" />
+		<list gender="1" looktype="1826" />
+	</outfit>
+	<outfit id="133" type="0" name="Dende 5" premium="no" storageId="59013" storageValue="250">
+		<list gender="0" looktype="1827" />
+		<list gender="1" looktype="1827" />
+	</outfit>
+	<outfit id="134" type="0" name="Dende 6" premium="no" storageId="59013" storageValue="300">
+		<list gender="0" looktype="1828" />
+		<list gender="1" looktype="1828" />
+	</outfit>
+	<outfit id="135" type="0" name="Dende 7" premium="no" storageId="59013" storageValue="350">
+		<list gender="0" looktype="1829" />
+		<list gender="1" looktype="1829" />
+	</outfit>
+	<outfit id="136" type="0" name="Dende 8" premium="no" storageId="59013" storageValue="400">
+		<list gender="0" looktype="1830" />
+		<list gender="1" looktype="1830" />
+	</outfit>
+	<outfit id="137" type="0" name="Dende 9" premium="no" storageId="59013" storageValue="450">
+		<list gender="0" looktype="1831" />
+		<list gender="1" looktype="1831" />
+	</outfit>
+	<outfit id="138" type="0" name="Dende 10" premium="no" storageId="59013" storageValue="500">
+		<list gender="0" looktype="1832" />
+		<list gender="1" looktype="1832" />
+	</outfit>
+	<outfit id="139" type="0" name="Dende 11" premium="no" storageId="59013" storageValue="550">
+		<list gender="0" looktype="1833" />
+		<list gender="1" looktype="1833" />
+	</outfit>
+	<outfit id="140" type="0" name="Dende 12" premium="no" storageId="59013" storageValue="600">
+		<list gender="0" looktype="1834" />
+		<list gender="1" looktype="1834" />
+	</outfit>
+	<outfit id="141" type="0" name="Freeza" premium="no" storageId="59014" storageValue="1">
+		<list gender="0" looktype="1835" />
+		<list gender="1" looktype="1835" />
+	</outfit>
+	<outfit id="142" type="0" name="Freeza 1" premium="no" storageId="59014" storageValue="50">
+		<list gender="0" looktype="1836" />
+		<list gender="1" looktype="1836" />
+	</outfit>
+	<outfit id="143" type="0" name="Freeza 2" premium="no" storageId="59014" storageValue="100">
+		<list gender="0" looktype="1837" />
+		<list gender="1" looktype="1837" />
+	</outfit>
+	<outfit id="144" type="0" name="Freeza 3" premium="no" storageId="59014" storageValue="150">
+		<list gender="0" looktype="1838" />
+		<list gender="1" looktype="1838" />
+	</outfit>
+	<outfit id="145" type="0" name="Freeza 4" premium="no" storageId="59014" storageValue="200">
+		<list gender="0" looktype="1839" />
+		<list gender="1" looktype="1839" />
+	</outfit>
+	<outfit id="146" type="0" name="Freeza 5" premium="no" storageId="59014" storageValue="250">
+		<list gender="0" looktype="1840" />
+		<list gender="1" looktype="1840" />
+	</outfit>
+	<outfit id="147" type="0" name="Freeza 6" premium="no" storageId="59014" storageValue="300">
+		<list gender="0" looktype="1841" />
+		<list gender="1" looktype="1841" />
+	</outfit>
+	<outfit id="148" type="0" name="Freeza 7" premium="no" storageId="59014" storageValue="350">
+		<list gender="0" looktype="1842" />
+		<list gender="1" looktype="1842" />
+	</outfit>
+	<outfit id="149" type="0" name="Freeza 8" premium="no" storageId="59014" storageValue="400">
+		<list gender="0" looktype="1843" />
+		<list gender="1" looktype="1843" />
+	</outfit>
+	<outfit id="150" type="0" name="Freeza 9" premium="no" storageId="59014" storageValue="450">
+		<list gender="0" looktype="1844" />
+		<list gender="1" looktype="1844" />
+	</outfit>
+	<outfit id="151" type="0" name="Ginn" premium="no" storageId="59015" storageValue="1">
+		<list gender="0" looktype="1845" />
+		<list gender="1" looktype="1845" />
+	</outfit>
+	<outfit id="152" type="0" name="Ginn 1" premium="no" storageId="59015" storageValue="50">
+		<list gender="0" looktype="1846" />
+		<list gender="1" looktype="1846" />
+	</outfit>
+	<outfit id="153" type="0" name="Ginn 2" premium="no" storageId="59015" storageValue="100">
+		<list gender="0" looktype="1847" />
+		<list gender="1" looktype="1847" />
+	</outfit>
+	<outfit id="154" type="0" name="Ginn 3" premium="no" storageId="59015" storageValue="150">
+		<list gender="0" looktype="1848" />
+		<list gender="1" looktype="1848" />
+	</outfit>
+	<outfit id="155" type="0" name="Ginn 4" premium="no" storageId="59015" storageValue="200">
+		<list gender="0" looktype="1849" />
+		<list gender="1" looktype="1849" />
+	</outfit>
+	<outfit id="156" type="0" name="Ginn 5" premium="no" storageId="59015" storageValue="250">
+		<list gender="0" looktype="1850" />
+		<list gender="1" looktype="1850" />
+	</outfit>
+	<outfit id="157" type="0" name="Ginn 6" premium="no" storageId="59015" storageValue="300">
+		<list gender="0" looktype="1851" />
+		<list gender="1" looktype="1851" />
+	</outfit>
+	<outfit id="158" type="0" name="Ginn 7" premium="no" storageId="59015" storageValue="350">
+		<list gender="0" looktype="1852" />
+		<list gender="1" looktype="1852" />
+	</outfit>
+	<outfit id="159" type="0" name="Ginn 8" premium="no" storageId="59015" storageValue="400">
+		<list gender="0" looktype="1853" />
+		<list gender="1" looktype="1853" />
+	</outfit>
+	<outfit id="160" type="0" name="Gohan" premium="no" storageId="59016" storageValue="1">
+		<list gender="0" looktype="1854" />
+		<list gender="1" looktype="1854" />
+	</outfit>
+	<outfit id="161" type="0" name="Gohan 1" premium="no" storageId="59016" storageValue="50">
+		<list gender="0" looktype="1855" />
+		<list gender="1" looktype="1855" />
+	</outfit>
+	<outfit id="162" type="0" name="Gohan 2" premium="no" storageId="59016" storageValue="100">
+		<list gender="0" looktype="1856" />
+		<list gender="1" looktype="1856" />
+	</outfit>
+	<outfit id="163" type="0" name="Gohan 3" premium="no" storageId="59016" storageValue="150">
+		<list gender="0" looktype="1857" />
+		<list gender="1" looktype="1857" />
+	</outfit>
+	<outfit id="164" type="0" name="Gohan 4" premium="no" storageId="59016" storageValue="200">
+		<list gender="0" looktype="1858" />
+		<list gender="1" looktype="1858" />
+	</outfit>
+	<outfit id="165" type="0" name="Gohan 5" premium="no" storageId="59016" storageValue="250">
+		<list gender="0" looktype="1859" />
+		<list gender="1" looktype="1859" />
+	</outfit>
+	<outfit id="166" type="0" name="Gohan 6" premium="no" storageId="59016" storageValue="300">
+		<list gender="0" looktype="1860" />
+		<list gender="1" looktype="1860" />
+	</outfit>
+	<outfit id="167" type="0" name="Gohan 7" premium="no" storageId="59016" storageValue="350">
+		<list gender="0" looktype="1861" />
+		<list gender="1" looktype="1861" />
+	</outfit>
+	<outfit id="168" type="0" name="Gohan 8" premium="no" storageId="59016" storageValue="400">
+		<list gender="0" looktype="1862" />
+		<list gender="1" looktype="1862" />
+	</outfit>
+	<outfit id="169" type="0" name="Gohan 9" premium="no" storageId="59016" storageValue="450">
+		<list gender="0" looktype="1863" />
+		<list gender="1" looktype="1863" />
+	</outfit>
+	<outfit id="170" type="0" name="Gohan 10" premium="no" storageId="59016" storageValue="500">
+		<list gender="0" looktype="1864" />
+		<list gender="1" looktype="1864" />
+	</outfit>
+	<outfit id="171" type="0" name="Gohan 11" premium="no" storageId="59016" storageValue="550">
+		<list gender="0" looktype="1865" />
+		<list gender="1" looktype="1865" />
+	</outfit>
+	<outfit id="172" type="0" name="Gohan 12" premium="no" storageId="59016" storageValue="600">
+		<list gender="0" looktype="1866" />
+		<list gender="1" looktype="1866" />
+	</outfit>
+	<outfit id="173" type="0" name="Gohan 13" premium="no" storageId="59016" storageValue="650">
+		<list gender="0" looktype="1867" />
+		<list gender="1" looktype="1867" />
+	</outfit>
+	<outfit id="174" type="0" name="Gohan 14" premium="no" storageId="59016" storageValue="700">
+		<list gender="0" looktype="1868" />
+		<list gender="1" looktype="1868" />
+	</outfit>
+	<outfit id="175" type="0" name="Goku" premium="no" storageId="59017" storageValue="1">
+		<list gender="0" looktype="1881" />
+		<list gender="1" looktype="1881" />
+	</outfit>
+	<outfit id="176" type="0" name="Goku 1" premium="no" storageId="59017" storageValue="50">
+		<list gender="0" looktype="1882" />
+		<list gender="1" looktype="1882" />
+	</outfit>
+	<outfit id="177" type="0" name="Goku 2" premium="no" storageId="59017" storageValue="100">
+		<list gender="0" looktype="1883" />
+		<list gender="1" looktype="1883" />
+	</outfit>
+	<outfit id="178" type="0" name="Goku 3" premium="no" storageId="59017" storageValue="150">
+		<list gender="0" looktype="1884" />
+		<list gender="1" looktype="1884" />
+	</outfit>
+	<outfit id="179" type="0" name="Goku 4" premium="no" storageId="59017" storageValue="200">
+		<list gender="0" looktype="1885" />
+		<list gender="1" looktype="1885" />
+	</outfit>
+	<outfit id="180" type="0" name="Goku 5" premium="no" storageId="59017" storageValue="250">
+		<list gender="0" looktype="1886" />
+		<list gender="1" looktype="1886" />
+	</outfit>
+	<outfit id="181" type="0" name="Goku 6" premium="no" storageId="59017" storageValue="300">
+		<list gender="0" looktype="1887" />
+		<list gender="1" looktype="1887" />
+	</outfit>
+	<outfit id="182" type="0" name="Goku 7" premium="no" storageId="59017" storageValue="350">
+		<list gender="0" looktype="1888" />
+		<list gender="1" looktype="1888" />
+	</outfit>
+	<outfit id="183" type="0" name="Goku 8" premium="no" storageId="59017" storageValue="400">
+		<list gender="0" looktype="1889" />
+		<list gender="1" looktype="1889" />
+	</outfit>
+	<outfit id="184" type="0" name="Goku 9" premium="no" storageId="59017" storageValue="450">
+		<list gender="0" looktype="1890" />
+		<list gender="1" looktype="1890" />
+	</outfit>
+	<outfit id="185" type="0" name="Goku 10" premium="no" storageId="59017" storageValue="500">
+		<list gender="0" looktype="1891" />
+		<list gender="1" looktype="1891" />
+	</outfit>
+	<outfit id="186" type="0" name="Goku 11" premium="no" storageId="59017" storageValue="550">
+		<list gender="0" looktype="1892" />
+		<list gender="1" looktype="1892" />
+	</outfit>
+	<outfit id="187" type="0" name="Goku 12" premium="no" storageId="59017" storageValue="600">
+		<list gender="0" looktype="1893" />
+		<list gender="1" looktype="1893" />
+	</outfit>
+	<outfit id="188" type="0" name="Goku 13" premium="no" storageId="59017" storageValue="650">
+		<list gender="0" looktype="1894" />
+		<list gender="1" looktype="1894" />
+	</outfit>
+	<outfit id="189" type="0" name="Goku 14" premium="no" storageId="59017" storageValue="700">
+		<list gender="0" looktype="1895" />
+		<list gender="1" looktype="1895" />
+	</outfit>
+	<outfit id="190" type="0" name="Goku 15" premium="no" storageId="59017" storageValue="750">
+		<list gender="0" looktype="1896" />
+		<list gender="1" looktype="1896" />
+	</outfit>
+	<outfit id="191" type="0" name="Goku 16" premium="no" storageId="59017" storageValue="800">
+		<list gender="0" looktype="1897" />
+		<list gender="1" looktype="1897" />
+	</outfit>
+	<outfit id="192" type="0" name="Goku 17" premium="no" storageId="59017" storageValue="850">
+		<list gender="0" looktype="1898" />
+		<list gender="1" looktype="1898" />
+	</outfit>
+	<outfit id="193" type="0" name="Goku 18" premium="no" storageId="59017" storageValue="900">
+		<list gender="0" looktype="1899" />
+		<list gender="1" looktype="1899" />
+	</outfit>
+	<outfit id="194" type="0" name="Goku Black" premium="no" storageId="59018" storageValue="1">
+		<list gender="0" looktype="1869" />
+		<list gender="1" looktype="1869" />
+	</outfit>
+	<outfit id="195" type="0" name="Goku Black 1" premium="no" storageId="59018" storageValue="50">
+		<list gender="0" looktype="1870" />
+		<list gender="1" looktype="1870" />
+	</outfit>
+	<outfit id="196" type="0" name="Goku Black 2" premium="no" storageId="59018" storageValue="100">
+		<list gender="0" looktype="1871" />
+		<list gender="1" looktype="1871" />
+	</outfit>
+	<outfit id="197" type="0" name="Goku Black 3" premium="no" storageId="59018" storageValue="150">
+		<list gender="0" looktype="1872" />
+		<list gender="1" looktype="1872" />
+	</outfit>
+	<outfit id="198" type="0" name="Goku Black 4" premium="no" storageId="59018" storageValue="200">
+		<list gender="0" looktype="1873" />
+		<list gender="1" looktype="1873" />
+	</outfit>
+	<outfit id="199" type="0" name="Goku Black 5" premium="no" storageId="59018" storageValue="250">
+		<list gender="0" looktype="1874" />
+		<list gender="1" looktype="1874" />
+	</outfit>
+	<outfit id="200" type="0" name="Goku Black 6" premium="no" storageId="59018" storageValue="300">
+		<list gender="0" looktype="1875" />
+		<list gender="1" looktype="1875" />
+	</outfit>
+	<outfit id="201" type="0" name="Goku Black 7" premium="no" storageId="59018" storageValue="350">
+		<list gender="0" looktype="1876" />
+		<list gender="1" looktype="1876" />
+	</outfit>
+	<outfit id="202" type="0" name="Goku Black 8" premium="no" storageId="59018" storageValue="400">
+		<list gender="0" looktype="1877" />
+		<list gender="1" looktype="1877" />
+	</outfit>
+	<outfit id="203" type="0" name="Goku Black 9" premium="no" storageId="59018" storageValue="450">
+		<list gender="0" looktype="1878" />
+		<list gender="1" looktype="1878" />
+	</outfit>
+	<outfit id="204" type="0" name="Goku Black 10" premium="no" storageId="59018" storageValue="500">
+		<list gender="0" looktype="1879" />
+		<list gender="1" looktype="1879" />
+	</outfit>
+	<outfit id="205" type="0" name="Goku Black 11" premium="no" storageId="59018" storageValue="550">
+		<list gender="0" looktype="1880" />
+		<list gender="1" looktype="1880" />
+	</outfit>
+	<outfit id="206" type="0" name="Hitto" premium="no" storageId="59019" storageValue="1">
+		<list gender="0" looktype="1900" />
+		<list gender="1" looktype="1900" />
+	</outfit>
+	<outfit id="207" type="0" name="Hitto 1" premium="no" storageId="59019" storageValue="50">
+		<list gender="0" looktype="1901" />
+		<list gender="1" looktype="1901" />
+	</outfit>
+	<outfit id="208" type="0" name="Hitto 2" premium="no" storageId="59019" storageValue="100">
+		<list gender="0" looktype="1902" />
+		<list gender="1" looktype="1902" />
+	</outfit>
+	<outfit id="209" type="0" name="Hitto 3" premium="no" storageId="59019" storageValue="150">
+		<list gender="0" looktype="1903" />
+		<list gender="1" looktype="1903" />
+	</outfit>
+	<outfit id="210" type="0" name="Hitto 4" premium="no" storageId="59019" storageValue="200">
+		<list gender="0" looktype="1904" />
+		<list gender="1" looktype="1904" />
+	</outfit>
+	<outfit id="211" type="0" name="Hitto 5" premium="no" storageId="59019" storageValue="250">
+		<list gender="0" looktype="1905" />
+		<list gender="1" looktype="1905" />
+	</outfit>
+	<outfit id="212" type="0" name="Hitto 6" premium="no" storageId="59019" storageValue="300">
+		<list gender="0" looktype="1906" />
+		<list gender="1" looktype="1906" />
+	</outfit>
+	<outfit id="213" type="0" name="Hitto 7" premium="no" storageId="59019" storageValue="350">
+		<list gender="0" looktype="1907" />
+		<list gender="1" looktype="1907" />
+	</outfit>
+	<outfit id="214" type="0" name="Hitto 8" premium="no" storageId="59019" storageValue="400">
+		<list gender="0" looktype="1908" />
+		<list gender="1" looktype="1908" />
+	</outfit>
+	<outfit id="215" type="0" name="Janemba" premium="no" storageId="59020" storageValue="1">
+		<list gender="0" looktype="1909" />
+		<list gender="1" looktype="1909" />
+	</outfit>
+	<outfit id="216" type="0" name="Janemba 1" premium="no" storageId="59020" storageValue="50">
+		<list gender="0" looktype="1910" />
+		<list gender="1" looktype="1910" />
+	</outfit>
+	<outfit id="217" type="0" name="Janemba 2" premium="no" storageId="59020" storageValue="100">
+		<list gender="0" looktype="1911" />
+		<list gender="1" looktype="1911" />
+	</outfit>
+	<outfit id="218" type="0" name="Janemba 3" premium="no" storageId="59020" storageValue="150">
+		<list gender="0" looktype="1912" />
+		<list gender="1" looktype="1912" />
+	</outfit>
+	<outfit id="219" type="0" name="Janemba 4" premium="no" storageId="59020" storageValue="200">
+		<list gender="0" looktype="1913" />
+		<list gender="1" looktype="1913" />
+	</outfit>
+	<outfit id="220" type="0" name="Janemba 5" premium="no" storageId="59020" storageValue="250">
+		<list gender="0" looktype="1914" />
+		<list gender="1" looktype="1914" />
+	</outfit>
+	<outfit id="221" type="0" name="Janemba 6" premium="no" storageId="59020" storageValue="300">
+		<list gender="0" looktype="1915" />
+		<list gender="1" looktype="1915" />
+	</outfit>
+	<outfit id="222" type="0" name="Janemba 7" premium="no" storageId="59020" storageValue="350">
+		<list gender="0" looktype="1916" />
+		<list gender="1" looktype="1916" />
+	</outfit>
+	<outfit id="223" type="0" name="Jiren" premium="no" storageId="59021" storageValue="1">
+		<list gender="0" looktype="1917" />
+		<list gender="1" looktype="1917" />
+	</outfit>
+	<outfit id="224" type="0" name="Jiren 1" premium="no" storageId="59021" storageValue="50">
+		<list gender="0" looktype="1918" />
+		<list gender="1" looktype="1918" />
+	</outfit>
+	<outfit id="225" type="0" name="Jiren 2" premium="no" storageId="59021" storageValue="100">
+		<list gender="0" looktype="1919" />
+		<list gender="1" looktype="1919" />
+	</outfit>
+	<outfit id="226" type="0" name="Jiren 3" premium="no" storageId="59021" storageValue="150">
+		<list gender="0" looktype="1920" />
+		<list gender="1" looktype="1920" />
+	</outfit>
+	<outfit id="227" type="0" name="Jiren 4" premium="no" storageId="59021" storageValue="200">
+		<list gender="0" looktype="1921" />
+		<list gender="1" looktype="1921" />
+	</outfit>
+	<outfit id="228" type="0" name="Jiren 5" premium="no" storageId="59021" storageValue="250">
+		<list gender="0" looktype="1922" />
+		<list gender="1" looktype="1922" />
+	</outfit>
+	<outfit id="229" type="0" name="Jiren 6" premium="no" storageId="59021" storageValue="300">
+		<list gender="0" looktype="1923" />
+		<list gender="1" looktype="1923" />
+	</outfit>
+	<outfit id="230" type="0" name="Jiren 7" premium="no" storageId="59021" storageValue="350">
+		<list gender="0" looktype="1924" />
+		<list gender="1" looktype="1924" />
+	</outfit>
+	<outfit id="231" type="0" name="Jiren 8" premium="no" storageId="59021" storageValue="400">
+		<list gender="0" looktype="1925" />
+		<list gender="1" looktype="1925" />
+	</outfit>
+	<outfit id="232" type="0" name="Jiren 9" premium="no" storageId="59021" storageValue="450">
+		<list gender="0" looktype="1926" />
+		<list gender="1" looktype="1926" />
+	</outfit>
+	<outfit id="233" type="0" name="Jiren 10" premium="no" storageId="59021" storageValue="500">
+		<list gender="0" looktype="1927" />
+		<list gender="1" looktype="1927" />
+	</outfit>
+	<outfit id="234" type="0" name="Jiren 11" premium="no" storageId="59021" storageValue="550">
+		<list gender="0" looktype="1928" />
+		<list gender="1" looktype="1928" />
+	</outfit>
+	<outfit id="235" type="0" name="Jiren 12" premium="no" storageId="59021" storageValue="600">
+		<list gender="0" looktype="1929" />
+		<list gender="1" looktype="1929" />
+	</outfit>
+	<outfit id="236" type="0" name="Jiren 13" premium="no" storageId="59021" storageValue="650">
+		<list gender="0" looktype="1930" />
+		<list gender="1" looktype="1930" />
+	</outfit>
+	<outfit id="237" type="0" name="Kagome" premium="no" storageId="59022" storageValue="1">
+		<list gender="0" looktype="1931" />
+		<list gender="1" looktype="1931" />
+	</outfit>
+	<outfit id="238" type="0" name="Kagome 1" premium="no" storageId="59022" storageValue="50">
+		<list gender="0" looktype="1932" />
+		<list gender="1" looktype="1932" />
+	</outfit>
+	<outfit id="239" type="0" name="Kagome 2" premium="no" storageId="59022" storageValue="100">
+		<list gender="0" looktype="1933" />
+		<list gender="1" looktype="1933" />
+	</outfit>
+	<outfit id="240" type="0" name="Kagome 3" premium="no" storageId="59022" storageValue="150">
+		<list gender="0" looktype="1934" />
+		<list gender="1" looktype="1934" />
+	</outfit>
+	<outfit id="241" type="0" name="Kagome 4" premium="no" storageId="59022" storageValue="200">
+		<list gender="0" looktype="1935" />
+		<list gender="1" looktype="1935" />
+	</outfit>
+	<outfit id="242" type="0" name="Kagome 5" premium="no" storageId="59022" storageValue="250">
+		<list gender="0" looktype="1936" />
+		<list gender="1" looktype="1936" />
+	</outfit>
+	<outfit id="243" type="0" name="Kagome 6" premium="no" storageId="59022" storageValue="300">
+		<list gender="0" looktype="1937" />
+		<list gender="1" looktype="1937" />
+	</outfit>
+	<outfit id="244" type="0" name="Kagome 7" premium="no" storageId="59022" storageValue="350">
+		<list gender="0" looktype="1938" />
+		<list gender="1" looktype="1938" />
+	</outfit>
+	<outfit id="245" type="0" name="Kagome 8" premium="no" storageId="59022" storageValue="400">
+		<list gender="0" looktype="1939" />
+		<list gender="1" looktype="1939" />
+	</outfit>
+	<outfit id="246" type="0" name="Kagome 9" premium="no" storageId="59022" storageValue="450">
+		<list gender="0" looktype="1940" />
+		<list gender="1" looktype="1940" />
+	</outfit>
+	<outfit id="247" type="0" name="Kagome 10" premium="no" storageId="59022" storageValue="500">
+		<list gender="0" looktype="1941" />
+		<list gender="1" looktype="1941" />
+	</outfit>
+	<outfit id="248" type="0" name="Kaio" premium="no" storageId="59023" storageValue="1">
+		<list gender="0" looktype="1942" />
+		<list gender="1" looktype="1942" />
+	</outfit>
+	<outfit id="249" type="0" name="Kaio 1" premium="no" storageId="59023" storageValue="50">
+		<list gender="0" looktype="1943" />
+		<list gender="1" looktype="1943" />
+	</outfit>
+	<outfit id="250" type="0" name="Kaio 2" premium="no" storageId="59023" storageValue="100">
+		<list gender="0" looktype="1944" />
+		<list gender="1" looktype="1944" />
+	</outfit>
+	<outfit id="251" type="0" name="Kaio 3" premium="no" storageId="59023" storageValue="150">
+		<list gender="0" looktype="1945" />
+		<list gender="1" looktype="1945" />
+	</outfit>
+	<outfit id="252" type="0" name="Kaio 4" premium="no" storageId="59023" storageValue="200">
+		<list gender="0" looktype="1946" />
+		<list gender="1" looktype="1946" />
+	</outfit>
+	<outfit id="253" type="0" name="Kaio 5" premium="no" storageId="59023" storageValue="250">
+		<list gender="0" looktype="1947" />
+		<list gender="1" looktype="1947" />
+	</outfit>
+	<outfit id="254" type="0" name="Kaio 6" premium="no" storageId="59023" storageValue="300">
+		<list gender="0" looktype="1948" />
+		<list gender="1" looktype="1948" />
+	</outfit>
+	<outfit id="255" type="0" name="Kaio 7" premium="no" storageId="59023" storageValue="350">
+		<list gender="0" looktype="1949" />
+		<list gender="1" looktype="1949" />
+	</outfit>
+	<outfit id="256" type="0" name="Kaio 8" premium="no" storageId="59023" storageValue="400">
+		<list gender="0" looktype="1950" />
+		<list gender="1" looktype="1950" />
+	</outfit>
+	<outfit id="257" type="0" name="Kame" premium="no" storageId="59024" storageValue="1">
+		<list gender="0" looktype="1951" />
+		<list gender="1" looktype="1951" />
+	</outfit>
+	<outfit id="258" type="0" name="Kame 1" premium="no" storageId="59024" storageValue="50">
+		<list gender="0" looktype="1952" />
+		<list gender="1" looktype="1952" />
+	</outfit>
+	<outfit id="259" type="0" name="Kame 2" premium="no" storageId="59024" storageValue="100">
+		<list gender="0" looktype="1953" />
+		<list gender="1" looktype="1953" />
+	</outfit>
+	<outfit id="260" type="0" name="Kame 3" premium="no" storageId="59024" storageValue="150">
+		<list gender="0" looktype="1954" />
+		<list gender="1" looktype="1954" />
+	</outfit>
+	<outfit id="261" type="0" name="Kame 4" premium="no" storageId="59024" storageValue="200">
+		<list gender="0" looktype="1955" />
+		<list gender="1" looktype="1955" />
+	</outfit>
+	<outfit id="262" type="0" name="Kame 5" premium="no" storageId="59024" storageValue="250">
+		<list gender="0" looktype="1956" />
+		<list gender="1" looktype="1956" />
+	</outfit>
+	<outfit id="263" type="0" name="Kame 6" premium="no" storageId="59024" storageValue="300">
+		<list gender="0" looktype="1957" />
+		<list gender="1" looktype="1957" />
+	</outfit>
+	<outfit id="264" type="0" name="Kame 7" premium="no" storageId="59024" storageValue="350">
+		<list gender="0" looktype="1958" />
+		<list gender="1" looktype="1958" />
+	</outfit>
+	<outfit id="265" type="0" name="Kame 8" premium="no" storageId="59024" storageValue="400">
+		<list gender="0" looktype="1959" />
+		<list gender="1" looktype="1959" />
+	</outfit>
+	<outfit id="266" type="0" name="Kame 9" premium="no" storageId="59024" storageValue="450">
+		<list gender="0" looktype="1960" />
+		<list gender="1" looktype="1960" />
+	</outfit>
+	<outfit id="267" type="0" name="Kame 10" premium="no" storageId="59024" storageValue="500">
+		<list gender="0" looktype="1961" />
+		<list gender="1" looktype="1961" />
+	</outfit>
+	<outfit id="268" type="0" name="Kame 11" premium="no" storageId="59024" storageValue="550">
+		<list gender="0" looktype="1962" />
+		<list gender="1" looktype="1962" />
+	</outfit>
+	<outfit id="269" type="0" name="King Cold" premium="no" storageId="59025" storageValue="1">
+		<list gender="0" looktype="1963" />
+		<list gender="1" looktype="1963" />
+	</outfit>
+	<outfit id="270" type="0" name="King Cold 1" premium="no" storageId="59025" storageValue="50">
+		<list gender="0" looktype="1964" />
+		<list gender="1" looktype="1964" />
+	</outfit>
+	<outfit id="271" type="0" name="King Cold 2" premium="no" storageId="59025" storageValue="100">
+		<list gender="0" looktype="1965" />
+		<list gender="1" looktype="1965" />
+	</outfit>
+	<outfit id="272" type="0" name="King Cold 3" premium="no" storageId="59025" storageValue="150">
+		<list gender="0" looktype="1966" />
+		<list gender="1" looktype="1966" />
+	</outfit>
+	<outfit id="273" type="0" name="King Cold 4" premium="no" storageId="59025" storageValue="200">
+		<list gender="0" looktype="1967" />
+		<list gender="1" looktype="1967" />
+	</outfit>
+	<outfit id="274" type="0" name="King Cold 5" premium="no" storageId="59025" storageValue="250">
+		<list gender="0" looktype="1968" />
+		<list gender="1" looktype="1968" />
+	</outfit>
+	<outfit id="275" type="0" name="King Cold 6" premium="no" storageId="59025" storageValue="300">
+		<list gender="0" looktype="1969" />
+		<list gender="1" looktype="1969" />
+	</outfit>
+	<outfit id="276" type="0" name="King Cold 7" premium="no" storageId="59025" storageValue="350">
+		<list gender="0" looktype="1970" />
+		<list gender="1" looktype="1970" />
+	</outfit>
+	<outfit id="277" type="0" name="King Cold 8" premium="no" storageId="59025" storageValue="400">
+		<list gender="0" looktype="1971" />
+		<list gender="1" looktype="1971" />
+	</outfit>
+	<outfit id="278" type="0" name="King Cold 9" premium="no" storageId="59025" storageValue="450">
+		<list gender="0" looktype="1972" />
+		<list gender="1" looktype="1972" />
+	</outfit>
+	<outfit id="279" type="0" name="King Vegeta" premium="no" storageId="59026" storageValue="1">
+		<list gender="0" looktype="1973" />
+		<list gender="1" looktype="1973" />
+	</outfit>
+	<outfit id="280" type="0" name="King Vegeta 1" premium="no" storageId="59026" storageValue="50">
+		<list gender="0" looktype="1974" />
+		<list gender="1" looktype="1974" />
+	</outfit>
+	<outfit id="281" type="0" name="King Vegeta 2" premium="no" storageId="59026" storageValue="100">
+		<list gender="0" looktype="1975" />
+		<list gender="1" looktype="1975" />
+	</outfit>
+	<outfit id="282" type="0" name="King Vegeta 3" premium="no" storageId="59026" storageValue="150">
+		<list gender="0" looktype="1976" />
+		<list gender="1" looktype="1976" />
+	</outfit>
+	<outfit id="283" type="0" name="King Vegeta 4" premium="no" storageId="59026" storageValue="200">
+		<list gender="0" looktype="1977" />
+		<list gender="1" looktype="1977" />
+	</outfit>
+	<outfit id="284" type="0" name="King Vegeta 5" premium="no" storageId="59026" storageValue="250">
+		<list gender="0" looktype="1978" />
+		<list gender="1" looktype="1978" />
+	</outfit>
+	<outfit id="285" type="0" name="King Vegeta 6" premium="no" storageId="59026" storageValue="300">
+		<list gender="0" looktype="1979" />
+		<list gender="1" looktype="1979" />
+	</outfit>
+	<outfit id="286" type="0" name="King Vegeta 7" premium="no" storageId="59026" storageValue="350">
+		<list gender="0" looktype="1980" />
+		<list gender="1" looktype="1980" />
+	</outfit>
+	<outfit id="287" type="0" name="King Vegeta 8" premium="no" storageId="59026" storageValue="400">
+		<list gender="0" looktype="1981" />
+		<list gender="1" looktype="1981" />
+	</outfit>
+	<outfit id="288" type="0" name="King Vegeta 9" premium="no" storageId="59026" storageValue="450">
+		<list gender="0" looktype="1982" />
+		<list gender="1" looktype="1982" />
+	</outfit>
+	<outfit id="289" type="0" name="King Vegeta 10" premium="no" storageId="59026" storageValue="500">
+		<list gender="0" looktype="1983" />
+		<list gender="1" looktype="1983" />
+	</outfit>
+	<outfit id="290" type="0" name="Kuririn" premium="no" storageId="59027" storageValue="1">
+		<list gender="0" looktype="1984" />
+		<list gender="1" looktype="1984" />
+	</outfit>
+	<outfit id="291" type="0" name="Kuririn 1" premium="no" storageId="59027" storageValue="50">
+		<list gender="0" looktype="1985" />
+		<list gender="1" looktype="1985" />
+	</outfit>
+	<outfit id="292" type="0" name="Kuririn 2" premium="no" storageId="59027" storageValue="100">
+		<list gender="0" looktype="1986" />
+		<list gender="1" looktype="1986" />
+	</outfit>
+	<outfit id="293" type="0" name="Kuririn 3" premium="no" storageId="59027" storageValue="150">
+		<list gender="0" looktype="1987" />
+		<list gender="1" looktype="1987" />
+	</outfit>
+	<outfit id="294" type="0" name="Kuririn 4" premium="no" storageId="59027" storageValue="200">
+		<list gender="0" looktype="1988" />
+		<list gender="1" looktype="1988" />
+	</outfit>
+	<outfit id="295" type="0" name="Kuririn 5" premium="no" storageId="59027" storageValue="250">
+		<list gender="0" looktype="1989" />
+		<list gender="1" looktype="1989" />
+	</outfit>
+	<outfit id="296" type="0" name="Kuririn 6" premium="no" storageId="59027" storageValue="300">
+		<list gender="0" looktype="1990" />
+		<list gender="1" looktype="1990" />
+	</outfit>
+	<outfit id="297" type="0" name="Kuririn 7" premium="no" storageId="59027" storageValue="350">
+		<list gender="0" looktype="1991" />
+		<list gender="1" looktype="1991" />
+	</outfit>
+	<outfit id="298" type="0" name="Kuririn 8" premium="no" storageId="59027" storageValue="400">
+		<list gender="0" looktype="1992" />
+		<list gender="1" looktype="1992" />
+	</outfit>
+	<outfit id="299" type="0" name="Kuririn 9" premium="no" storageId="59027" storageValue="450">
+		<list gender="0" looktype="1993" />
+		<list gender="1" looktype="1993" />
+	</outfit>
+	<outfit id="300" type="0" name="Kuririn 10" premium="no" storageId="59027" storageValue="500">
+		<list gender="0" looktype="1994" />
+		<list gender="1" looktype="1994" />
+	</outfit>
+	<outfit id="301" type="0" name="Liquir" premium="no" storageId="59028" storageValue="1">
+		<list gender="0" looktype="1995" />
+		<list gender="1" looktype="1995" />
+	</outfit>
+	<outfit id="302" type="0" name="Liquir 1" premium="no" storageId="59028" storageValue="50">
+		<list gender="0" looktype="1996" />
+		<list gender="1" looktype="1996" />
+	</outfit>
+	<outfit id="303" type="0" name="Liquir 2" premium="no" storageId="59028" storageValue="100">
+		<list gender="0" looktype="1997" />
+		<list gender="1" looktype="1997" />
+	</outfit>
+	<outfit id="304" type="0" name="Liquir 3" premium="no" storageId="59028" storageValue="150">
+		<list gender="0" looktype="1998" />
+		<list gender="1" looktype="1998" />
+	</outfit>
+	<outfit id="305" type="0" name="Liquir 4" premium="no" storageId="59028" storageValue="200">
+		<list gender="0" looktype="1999" />
+		<list gender="1" looktype="1999" />
+	</outfit>
+	<outfit id="306" type="0" name="Liquir 5" premium="no" storageId="59028" storageValue="250">
+		<list gender="0" looktype="2000" />
+		<list gender="1" looktype="2000" />
+	</outfit>
+	<outfit id="307" type="0" name="Liquir 6" premium="no" storageId="59028" storageValue="300">
+		<list gender="0" looktype="2001" />
+		<list gender="1" looktype="2001" />
+	</outfit>
+	<outfit id="308" type="0" name="Liquir 7" premium="no" storageId="59028" storageValue="350">
+		<list gender="0" looktype="2002" />
+		<list gender="1" looktype="2002" />
+	</outfit>
+	<outfit id="309" type="0" name="Pan" premium="no" storageId="59029" storageValue="1">
+		<list gender="0" looktype="2003" />
+		<list gender="1" looktype="2003" />
+	</outfit>
+	<outfit id="310" type="0" name="Pan 1" premium="no" storageId="59029" storageValue="50">
+		<list gender="0" looktype="2004" />
+		<list gender="1" looktype="2004" />
+	</outfit>
+	<outfit id="311" type="0" name="Pan 2" premium="no" storageId="59029" storageValue="100">
+		<list gender="0" looktype="2005" />
+		<list gender="1" looktype="2005" />
+	</outfit>
+	<outfit id="312" type="0" name="Pan 3" premium="no" storageId="59029" storageValue="150">
+		<list gender="0" looktype="2006" />
+		<list gender="1" looktype="2006" />
+	</outfit>
+	<outfit id="313" type="0" name="Pan 4" premium="no" storageId="59029" storageValue="200">
+		<list gender="0" looktype="2007" />
+		<list gender="1" looktype="2007" />
+	</outfit>
+	<outfit id="314" type="0" name="Pan 5" premium="no" storageId="59029" storageValue="250">
+		<list gender="0" looktype="2008" />
+		<list gender="1" looktype="2008" />
+	</outfit>
+	<outfit id="315" type="0" name="Pan 6" premium="no" storageId="59029" storageValue="300">
+		<list gender="0" looktype="2009" />
+		<list gender="1" looktype="2009" />
+	</outfit>
+	<outfit id="316" type="0" name="Pan 7" premium="no" storageId="59029" storageValue="350">
+		<list gender="0" looktype="2010" />
+		<list gender="1" looktype="2010" />
+	</outfit>
+	<outfit id="317" type="0" name="Pan 8" premium="no" storageId="59029" storageValue="400">
+		<list gender="0" looktype="2011" />
+		<list gender="1" looktype="2011" />
+	</outfit>
+	<outfit id="318" type="0" name="Piccolo" premium="no" storageId="59030" storageValue="1">
+		<list gender="0" looktype="2012" />
+		<list gender="1" looktype="2012" />
+	</outfit>
+	<outfit id="319" type="0" name="Piccolo 1" premium="no" storageId="59030" storageValue="50">
+		<list gender="0" looktype="2013" />
+		<list gender="1" looktype="2013" />
+	</outfit>
+	<outfit id="320" type="0" name="Piccolo 2" premium="no" storageId="59030" storageValue="100">
+		<list gender="0" looktype="2014" />
+		<list gender="1" looktype="2014" />
+	</outfit>
+	<outfit id="321" type="0" name="Piccolo 3" premium="no" storageId="59030" storageValue="150">
+		<list gender="0" looktype="2015" />
+		<list gender="1" looktype="2015" />
+	</outfit>
+	<outfit id="322" type="0" name="Piccolo 4" premium="no" storageId="59030" storageValue="200">
+		<list gender="0" looktype="2016" />
+		<list gender="1" looktype="2016" />
+	</outfit>
+	<outfit id="323" type="0" name="Piccolo 5" premium="no" storageId="59030" storageValue="250">
+		<list gender="0" looktype="2017" />
+		<list gender="1" looktype="2017" />
+	</outfit>
+	<outfit id="324" type="0" name="Piccolo 6" premium="no" storageId="59030" storageValue="300">
+		<list gender="0" looktype="2018" />
+		<list gender="1" looktype="2018" />
+	</outfit>
+	<outfit id="325" type="0" name="Piccolo 7" premium="no" storageId="59030" storageValue="350">
+		<list gender="0" looktype="2019" />
+		<list gender="1" looktype="2019" />
+	</outfit>
+	<outfit id="326" type="0" name="Piccolo 8" premium="no" storageId="59030" storageValue="400">
+		<list gender="0" looktype="2020" />
+		<list gender="1" looktype="2020" />
+	</outfit>
+	<outfit id="327" type="0" name="Piccolo 9" premium="no" storageId="59030" storageValue="450">
+		<list gender="0" looktype="2021" />
+		<list gender="1" looktype="2021" />
+	</outfit>
+	<outfit id="328" type="0" name="Piccolo 10" premium="no" storageId="59030" storageValue="500">
+		<list gender="0" looktype="2022" />
+		<list gender="1" looktype="2022" />
+	</outfit>
+	<outfit id="329" type="0" name="Piccolo 11" premium="no" storageId="59030" storageValue="550">
+		<list gender="0" looktype="2023" />
+		<list gender="1" looktype="2023" />
+	</outfit>
+	<outfit id="330" type="0" name="Piccolo 12" premium="no" storageId="59030" storageValue="600">
+		<list gender="0" looktype="2024" />
+		<list gender="1" looktype="2024" />
+	</outfit>
+	<outfit id="331" type="0" name="Quitela" premium="no" storageId="59031" storageValue="1">
+		<list gender="0" looktype="2025" />
+		<list gender="1" looktype="2025" />
+	</outfit>
+	<outfit id="332" type="0" name="Quitela 1" premium="no" storageId="59031" storageValue="50">
+		<list gender="0" looktype="2026" />
+		<list gender="1" looktype="2026" />
+	</outfit>
+	<outfit id="333" type="0" name="Quitela 2" premium="no" storageId="59031" storageValue="100">
+		<list gender="0" looktype="2027" />
+		<list gender="1" looktype="2027" />
+	</outfit>
+	<outfit id="334" type="0" name="Quitela 3" premium="no" storageId="59031" storageValue="150">
+		<list gender="0" looktype="2028" />
+		<list gender="1" looktype="2028" />
+	</outfit>
+	<outfit id="335" type="0" name="Quitela 4" premium="no" storageId="59031" storageValue="200">
+		<list gender="0" looktype="2029" />
+		<list gender="1" looktype="2029" />
+	</outfit>
+	<outfit id="336" type="0" name="Quitela 5" premium="no" storageId="59031" storageValue="250">
+		<list gender="0" looktype="2030" />
+		<list gender="1" looktype="2030" />
+	</outfit>
+	<outfit id="337" type="0" name="Quitela 6" premium="no" storageId="59031" storageValue="300">
+		<list gender="0" looktype="2031" />
+		<list gender="1" looktype="2031" />
+	</outfit>
+	<outfit id="338" type="0" name="Quitela 7" premium="no" storageId="59031" storageValue="350">
+		<list gender="0" looktype="2032" />
+		<list gender="1" looktype="2032" />
+	</outfit>
+	<outfit id="339" type="0" name="Quitela 8" premium="no" storageId="59031" storageValue="400">
+		<list gender="0" looktype="2033" />
+		<list gender="1" looktype="2033" />
+	</outfit>
+	<outfit id="340" type="0" name="Raditz" premium="no" storageId="59032" storageValue="1">
+		<list gender="0" looktype="2034" />
+		<list gender="1" looktype="2034" />
+	</outfit>
+	<outfit id="341" type="0" name="Raditz 1" premium="no" storageId="59032" storageValue="50">
+		<list gender="0" looktype="2035" />
+		<list gender="1" looktype="2035" />
+	</outfit>
+	<outfit id="342" type="0" name="Raditz 2" premium="no" storageId="59032" storageValue="100">
+		<list gender="0" looktype="2036" />
+		<list gender="1" looktype="2036" />
+	</outfit>
+	<outfit id="343" type="0" name="Raditz 3" premium="no" storageId="59032" storageValue="150">
+		<list gender="0" looktype="2037" />
+		<list gender="1" looktype="2037" />
+	</outfit>
+	<outfit id="344" type="0" name="Raditz 4" premium="no" storageId="59032" storageValue="200">
+		<list gender="0" looktype="2038" />
+		<list gender="1" looktype="2038" />
+	</outfit>
+	<outfit id="345" type="0" name="Raditz 5" premium="no" storageId="59032" storageValue="250">
+		<list gender="0" looktype="2039" />
+		<list gender="1" looktype="2039" />
+	</outfit>
+	<outfit id="346" type="0" name="Raditz 6" premium="no" storageId="59032" storageValue="300">
+		<list gender="0" looktype="2040" />
+		<list gender="1" looktype="2040" />
+	</outfit>
+	<outfit id="347" type="0" name="Raditz 7" premium="no" storageId="59032" storageValue="350">
+		<list gender="0" looktype="2041" />
+		<list gender="1" looktype="2041" />
+	</outfit>
+	<outfit id="348" type="0" name="Shenron" premium="no" storageId="59033" storageValue="1">
+		<list gender="0" looktype="2048" />
+		<list gender="1" looktype="2048" />
+	</outfit>
+	<outfit id="349" type="0" name="Shenron 1" premium="no" storageId="59033" storageValue="50">
+		<list gender="0" looktype="2049" />
+		<list gender="1" looktype="2049" />
+	</outfit>
+	<outfit id="350" type="0" name="Shenron 2" premium="no" storageId="59033" storageValue="100">
+		<list gender="0" looktype="2050" />
+		<list gender="1" looktype="2050" />
+	</outfit>
+	<outfit id="351" type="0" name="Shenron 3" premium="no" storageId="59033" storageValue="150">
+		<list gender="0" looktype="2621" />
+		<list gender="1" looktype="2621" />
+	</outfit>
+	<outfit id="352" type="0" name="Shenron 4" premium="no" storageId="59033" storageValue="200">
+		<list gender="0" looktype="2782" />
+		<list gender="1" looktype="2782" />
+	</outfit>
+	<outfit id="353" type="0" name="Shenron 5" premium="no" storageId="59033" storageValue="250">
+		<list gender="0" looktype="2047" />
+		<list gender="1" looktype="2047" />
+	</outfit>
+	<outfit id="354" type="0" name="Tapion" premium="no" storageId="59034" storageValue="1">
+		<list gender="0" looktype="2051" />
+		<list gender="1" looktype="2051" />
+	</outfit>
+	<outfit id="355" type="0" name="Tapion 1" premium="no" storageId="59034" storageValue="50">
+		<list gender="0" looktype="2052" />
+		<list gender="1" looktype="2052" />
+	</outfit>
+	<outfit id="356" type="0" name="Tapion 2" premium="no" storageId="59034" storageValue="100">
+		<list gender="0" looktype="2053" />
+		<list gender="1" looktype="2053" />
+	</outfit>
+	<outfit id="357" type="0" name="Tapion 3" premium="no" storageId="59034" storageValue="150">
+		<list gender="0" looktype="2054" />
+		<list gender="1" looktype="2054" />
+	</outfit>
+	<outfit id="358" type="0" name="Tapion 4" premium="no" storageId="59034" storageValue="200">
+		<list gender="0" looktype="2055" />
+		<list gender="1" looktype="2055" />
+	</outfit>
+	<outfit id="359" type="0" name="Tapion 5" premium="no" storageId="59034" storageValue="250">
+		<list gender="0" looktype="2056" />
+		<list gender="1" looktype="2056" />
+	</outfit>
+	<outfit id="360" type="0" name="Tapion 6" premium="no" storageId="59034" storageValue="300">
+		<list gender="0" looktype="2057" />
+		<list gender="1" looktype="2057" />
+	</outfit>
+	<outfit id="361" type="0" name="Tapion 7" premium="no" storageId="59034" storageValue="350">
+		<list gender="0" looktype="2058" />
+		<list gender="1" looktype="2058" />
+	</outfit>
+	<outfit id="362" type="0" name="Tapion 8" premium="no" storageId="59034" storageValue="400">
+		<list gender="0" looktype="2059" />
+		<list gender="1" looktype="2059" />
+	</outfit>
+	<outfit id="363" type="0" name="Tapion 9" premium="no" storageId="59034" storageValue="450">
+		<list gender="0" looktype="2060" />
+		<list gender="1" looktype="2060" />
+	</outfit>
+	<outfit id="364" type="0" name="Tapion 10" premium="no" storageId="59034" storageValue="500">
+		<list gender="0" looktype="2061" />
+		<list gender="1" looktype="2061" />
+	</outfit>
+	<outfit id="365" type="0" name="Tapion 11" premium="no" storageId="59034" storageValue="550">
+		<list gender="0" looktype="2062" />
+		<list gender="1" looktype="2062" />
+	</outfit>
+	<outfit id="366" type="0" name="Tapion 12" premium="no" storageId="59034" storageValue="600">
+		<list gender="0" looktype="2063" />
+		<list gender="1" looktype="2063" />
+	</outfit>
+	<outfit id="367" type="0" name="Tapion 13" premium="no" storageId="59034" storageValue="650">
+		<list gender="0" looktype="2064" />
+		<list gender="1" looktype="2064" />
+	</outfit>
+	<outfit id="368" type="0" name="Tapion 14" premium="no" storageId="59034" storageValue="700">
+		<list gender="0" looktype="2065" />
+		<list gender="1" looktype="2065" />
+	</outfit>
+	<outfit id="369" type="0" name="Trunks" premium="no" storageId="59035" storageValue="1">
+		<list gender="0" looktype="2066" />
+		<list gender="1" looktype="2066" />
+	</outfit>
+	<outfit id="370" type="0" name="Trunks 1" premium="no" storageId="59035" storageValue="50">
+		<list gender="0" looktype="2067" />
+		<list gender="1" looktype="2067" />
+	</outfit>
+	<outfit id="371" type="0" name="Trunks 2" premium="no" storageId="59035" storageValue="100">
+		<list gender="0" looktype="2068" />
+		<list gender="1" looktype="2068" />
+	</outfit>
+	<outfit id="372" type="0" name="Trunks 3" premium="no" storageId="59035" storageValue="150">
+		<list gender="0" looktype="2069" />
+		<list gender="1" looktype="2069" />
+	</outfit>
+	<outfit id="373" type="0" name="Trunks 4" premium="no" storageId="59035" storageValue="200">
+		<list gender="0" looktype="2070" />
+		<list gender="1" looktype="2070" />
+	</outfit>
+	<outfit id="374" type="0" name="Trunks 5" premium="no" storageId="59035" storageValue="250">
+		<list gender="0" looktype="2071" />
+		<list gender="1" looktype="2071" />
+	</outfit>
+	<outfit id="375" type="0" name="Trunks 6" premium="no" storageId="59035" storageValue="300">
+		<list gender="0" looktype="2072" />
+		<list gender="1" looktype="2072" />
+	</outfit>
+	<outfit id="376" type="0" name="Trunks 7" premium="no" storageId="59035" storageValue="350">
+		<list gender="0" looktype="2073" />
+		<list gender="1" looktype="2073" />
+	</outfit>
+	<outfit id="377" type="0" name="Trunks 8" premium="no" storageId="59035" storageValue="400">
+		<list gender="0" looktype="2074" />
+		<list gender="1" looktype="2074" />
+	</outfit>
+	<outfit id="378" type="0" name="Trunks 9" premium="no" storageId="59035" storageValue="450">
+		<list gender="0" looktype="2075" />
+		<list gender="1" looktype="2075" />
+	</outfit>
+	<outfit id="379" type="0" name="Trunks 10" premium="no" storageId="59035" storageValue="500">
+		<list gender="0" looktype="2076" />
+		<list gender="1" looktype="2076" />
+	</outfit>
+	<outfit id="380" type="0" name="Trunks 11" premium="no" storageId="59035" storageValue="550">
+		<list gender="0" looktype="2077" />
+		<list gender="1" looktype="2077" />
+	</outfit>
+	<outfit id="381" type="0" name="Trunks 12" premium="no" storageId="59035" storageValue="600">
+		<list gender="0" looktype="2078" />
+		<list gender="1" looktype="2078" />
+	</outfit>
+	<outfit id="382" type="0" name="Tsuful" premium="no" storageId="59036" storageValue="1">
+		<list gender="0" looktype="2079" />
+		<list gender="1" looktype="2079" />
+	</outfit>
+	<outfit id="383" type="0" name="Tsuful 1" premium="no" storageId="59036" storageValue="50">
+		<list gender="0" looktype="2080" />
+		<list gender="1" looktype="2080" />
+	</outfit>
+	<outfit id="384" type="0" name="Tsuful 2" premium="no" storageId="59036" storageValue="100">
+		<list gender="0" looktype="2081" />
+		<list gender="1" looktype="2081" />
+	</outfit>
+	<outfit id="385" type="0" name="Tsuful 3" premium="no" storageId="59036" storageValue="150">
+		<list gender="0" looktype="2082" />
+		<list gender="1" looktype="2082" />
+	</outfit>
+	<outfit id="386" type="0" name="Tsuful 4" premium="no" storageId="59036" storageValue="200">
+		<list gender="0" looktype="2083" />
+		<list gender="1" looktype="2083" />
+	</outfit>
+	<outfit id="387" type="0" name="Tsuful 5" premium="no" storageId="59036" storageValue="250">
+		<list gender="0" looktype="2084" />
+		<list gender="1" looktype="2084" />
+	</outfit>
+	<outfit id="388" type="0" name="Tsuful 6" premium="no" storageId="59036" storageValue="300">
+		<list gender="0" looktype="2085" />
+		<list gender="1" looktype="2085" />
+	</outfit>
+	<outfit id="389" type="0" name="Tsuful 7" premium="no" storageId="59036" storageValue="350">
+		<list gender="0" looktype="2086" />
+		<list gender="1" looktype="2086" />
+	</outfit>
+	<outfit id="390" type="0" name="Tsuful 8" premium="no" storageId="59036" storageValue="400">
+		<list gender="0" looktype="2087" />
+		<list gender="1" looktype="2087" />
+	</outfit>
+	<outfit id="391" type="0" name="Tsuful 9" premium="no" storageId="59036" storageValue="450">
+		<list gender="0" looktype="2088" />
+		<list gender="1" looktype="2088" />
+	</outfit>
+	<outfit id="392" type="0" name="Tsuful 10" premium="no" storageId="59036" storageValue="500">
+		<list gender="0" looktype="2089" />
+		<list gender="1" looktype="2089" />
+	</outfit>
+	<outfit id="393" type="0" name="Tsuful 11" premium="no" storageId="59036" storageValue="550">
+		<list gender="0" looktype="2090" />
+		<list gender="1" looktype="2090" />
+	</outfit>
+	<outfit id="394" type="0" name="Tsuful 12" premium="no" storageId="59036" storageValue="600">
+		<list gender="0" looktype="2091" />
+		<list gender="1" looktype="2091" />
+	</outfit>
+	<outfit id="395" type="0" name="Tsuful 13" premium="no" storageId="59036" storageValue="650">
+		<list gender="0" looktype="2092" />
+		<list gender="1" looktype="2092" />
+	</outfit>
+	<outfit id="396" type="0" name="Turles" premium="no" storageId="59037" storageValue="1">
+		<list gender="0" looktype="2093" />
+		<list gender="1" looktype="2093" />
+	</outfit>
+	<outfit id="397" type="0" name="Turles 1" premium="no" storageId="59037" storageValue="50">
+		<list gender="0" looktype="2094" />
+		<list gender="1" looktype="2094" />
+	</outfit>
+	<outfit id="398" type="0" name="Turles 2" premium="no" storageId="59037" storageValue="100">
+		<list gender="0" looktype="2095" />
+		<list gender="1" looktype="2095" />
+	</outfit>
+	<outfit id="399" type="0" name="Turles 3" premium="no" storageId="59037" storageValue="150">
+		<list gender="0" looktype="2096" />
+		<list gender="1" looktype="2096" />
+	</outfit>
+	<outfit id="400" type="0" name="Turles 4" premium="no" storageId="59037" storageValue="200">
+		<list gender="0" looktype="2097" />
+		<list gender="1" looktype="2097" />
+	</outfit>
+	<outfit id="401" type="0" name="Turles 5" premium="no" storageId="59037" storageValue="250">
+		<list gender="0" looktype="2098" />
+		<list gender="1" looktype="2098" />
+	</outfit>
+	<outfit id="402" type="0" name="Turles 6" premium="no" storageId="59037" storageValue="300">
+		<list gender="0" looktype="2099" />
+		<list gender="1" looktype="2099" />
+	</outfit>
+	<outfit id="403" type="0" name="Turles 7" premium="no" storageId="59037" storageValue="350">
+		<list gender="0" looktype="2100" />
+		<list gender="1" looktype="2100" />
+	</outfit>
+	<outfit id="404" type="0" name="Turles 8" premium="no" storageId="59037" storageValue="400">
+		<list gender="0" looktype="2101" />
+		<list gender="1" looktype="2101" />
+	</outfit>
+	<outfit id="405" type="0" name="Turles 9" premium="no" storageId="59037" storageValue="450">
+		<list gender="0" looktype="2102" />
+		<list gender="1" looktype="2102" />
+	</outfit>
+	<outfit id="406" type="0" name="Turles 10" premium="no" storageId="59037" storageValue="500">
+		<list gender="0" looktype="2103" />
+		<list gender="1" looktype="2103" />
+	</outfit>
+	<outfit id="407" type="0" name="Turles 11" premium="no" storageId="59037" storageValue="550">
+		<list gender="0" looktype="2104" />
+		<list gender="1" looktype="2104" />
+	</outfit>
+	<outfit id="408" type="0" name="Turles 12" premium="no" storageId="59037" storageValue="600">
+		<list gender="0" looktype="2105" />
+		<list gender="1" looktype="2105" />
+	</outfit>
+	<outfit id="409" type="0" name="Uub" premium="no" storageId="59038" storageValue="1">
+		<list gender="0" looktype="2106" />
+		<list gender="1" looktype="2106" />
+	</outfit>
+	<outfit id="410" type="0" name="Uub 1" premium="no" storageId="59038" storageValue="50">
+		<list gender="0" looktype="2107" />
+		<list gender="1" looktype="2107" />
+	</outfit>
+	<outfit id="411" type="0" name="Uub 2" premium="no" storageId="59038" storageValue="100">
+		<list gender="0" looktype="2108" />
+		<list gender="1" looktype="2108" />
+	</outfit>
+	<outfit id="412" type="0" name="Uub 3" premium="no" storageId="59038" storageValue="150">
+		<list gender="0" looktype="2109" />
+		<list gender="1" looktype="2109" />
+	</outfit>
+	<outfit id="413" type="0" name="Uub 4" premium="no" storageId="59038" storageValue="200">
+		<list gender="0" looktype="2110" />
+		<list gender="1" looktype="2110" />
+	</outfit>
+	<outfit id="414" type="0" name="Uub 5" premium="no" storageId="59038" storageValue="250">
+		<list gender="0" looktype="2111" />
+		<list gender="1" looktype="2111" />
+	</outfit>
+	<outfit id="415" type="0" name="Uub 6" premium="no" storageId="59038" storageValue="300">
+		<list gender="0" looktype="2112" />
+		<list gender="1" looktype="2112" />
+	</outfit>
+	<outfit id="416" type="0" name="Vados" premium="no" storageId="59039" storageValue="1">
+		<list gender="0" looktype="2113" />
+		<list gender="1" looktype="2113" />
+	</outfit>
+	<outfit id="417" type="0" name="Vados 1" premium="no" storageId="59039" storageValue="50">
+		<list gender="0" looktype="2114" />
+		<list gender="1" looktype="2114" />
+	</outfit>
+	<outfit id="418" type="0" name="Vados 2" premium="no" storageId="59039" storageValue="100">
+		<list gender="0" looktype="2115" />
+		<list gender="1" looktype="2115" />
+	</outfit>
+	<outfit id="419" type="0" name="Vados 3" premium="no" storageId="59039" storageValue="150">
+		<list gender="0" looktype="2116" />
+		<list gender="1" looktype="2116" />
+	</outfit>
+	<outfit id="420" type="0" name="Vados 4" premium="no" storageId="59039" storageValue="200">
+		<list gender="0" looktype="2117" />
+		<list gender="1" looktype="2117" />
+	</outfit>
+	<outfit id="421" type="0" name="Vados 5" premium="no" storageId="59039" storageValue="250">
+		<list gender="0" looktype="2118" />
+		<list gender="1" looktype="2118" />
+	</outfit>
+	<outfit id="422" type="0" name="Vados 6" premium="no" storageId="59039" storageValue="300">
+		<list gender="0" looktype="2119" />
+		<list gender="1" looktype="2119" />
+	</outfit>
+	<outfit id="423" type="0" name="Vados 7" premium="no" storageId="59039" storageValue="350">
+		<list gender="0" looktype="2120" />
+		<list gender="1" looktype="2120" />
+	</outfit>
+	<outfit id="424" type="0" name="Vegeta" premium="no" storageId="59040" storageValue="1">
+		<list gender="0" looktype="2121" />
+		<list gender="1" looktype="2121" />
+	</outfit>
+	<outfit id="425" type="0" name="Vegeta 1" premium="no" storageId="59040" storageValue="50">
+		<list gender="0" looktype="2122" />
+		<list gender="1" looktype="2122" />
+	</outfit>
+	<outfit id="426" type="0" name="Vegeta 2" premium="no" storageId="59040" storageValue="100">
+		<list gender="0" looktype="2123" />
+		<list gender="1" looktype="2123" />
+	</outfit>
+	<outfit id="427" type="0" name="Vegeta 3" premium="no" storageId="59040" storageValue="150">
+		<list gender="0" looktype="2124" />
+		<list gender="1" looktype="2124" />
+	</outfit>
+	<outfit id="428" type="0" name="Vegeta 4" premium="no" storageId="59040" storageValue="200">
+		<list gender="0" looktype="2125" />
+		<list gender="1" looktype="2125" />
+	</outfit>
+	<outfit id="429" type="0" name="Vegeta 5" premium="no" storageId="59040" storageValue="250">
+		<list gender="0" looktype="2126" />
+		<list gender="1" looktype="2126" />
+	</outfit>
+	<outfit id="430" type="0" name="Vegeta 6" premium="no" storageId="59040" storageValue="300">
+		<list gender="0" looktype="2127" />
+		<list gender="1" looktype="2127" />
+	</outfit>
+	<outfit id="431" type="0" name="Vegeta 7" premium="no" storageId="59040" storageValue="350">
+		<list gender="0" looktype="2128" />
+		<list gender="1" looktype="2128" />
+	</outfit>
+	<outfit id="432" type="0" name="Vegeta 8" premium="no" storageId="59040" storageValue="400">
+		<list gender="0" looktype="2129" />
+		<list gender="1" looktype="2129" />
+	</outfit>
+	<outfit id="433" type="0" name="Vegeta 9" premium="no" storageId="59040" storageValue="450">
+		<list gender="0" looktype="2130" />
+		<list gender="1" looktype="2130" />
+	</outfit>
+	<outfit id="434" type="0" name="Vegeta 10" premium="no" storageId="59040" storageValue="500">
+		<list gender="0" looktype="2131" />
+		<list gender="1" looktype="2131" />
+	</outfit>
+	<outfit id="435" type="0" name="Vegeta 11" premium="no" storageId="59040" storageValue="550">
+		<list gender="0" looktype="2132" />
+		<list gender="1" looktype="2132" />
+	</outfit>
+	<outfit id="436" type="0" name="Vegeta 12" premium="no" storageId="59040" storageValue="600">
+		<list gender="0" looktype="2133" />
+		<list gender="1" looktype="2133" />
+	</outfit>
+	<outfit id="437" type="0" name="Vegeta 13" premium="no" storageId="59040" storageValue="650">
+		<list gender="0" looktype="2134" />
+		<list gender="1" looktype="2134" />
+	</outfit>
+	<outfit id="438" type="0" name="Vegetto" premium="no" storageId="59041" storageValue="1">
+		<list gender="0" looktype="2135" />
+		<list gender="1" looktype="2135" />
+	</outfit>
+	<outfit id="439" type="0" name="Vegetto 1" premium="no" storageId="59041" storageValue="50">
+		<list gender="0" looktype="2136" />
+		<list gender="1" looktype="2136" />
+	</outfit>
+	<outfit id="440" type="0" name="Vegetto 2" premium="no" storageId="59041" storageValue="100">
+		<list gender="0" looktype="1937" />
+		<list gender="1" looktype="1937" />
+	</outfit>
+	<outfit id="441" type="0" name="Vegetto 3" premium="no" storageId="59041" storageValue="150">
+		<list gender="0" looktype="2138" />
+		<list gender="1" looktype="2138" />
+	</outfit>
+	<outfit id="442" type="0" name="Vegetto 4" premium="no" storageId="59041" storageValue="200">
+		<list gender="0" looktype="2139" />
+		<list gender="1" looktype="2139" />
+	</outfit>
+	<outfit id="443" type="0" name="Vegetto 5" premium="no" storageId="59041" storageValue="250">
+		<list gender="0" looktype="2140" />
+		<list gender="1" looktype="2140" />
+	</outfit>
+	<outfit id="444" type="0" name="Vegetto 6" premium="no" storageId="59041" storageValue="300">
+		<list gender="0" looktype="2141" />
+		<list gender="1" looktype="2141" />
+	</outfit>
+	<outfit id="445" type="0" name="Vegetto 7" premium="no" storageId="59041" storageValue="350">
+		<list gender="0" looktype="2142" />
+		<list gender="1" looktype="2142" />
+	</outfit>
+	<outfit id="446" type="0" name="Vegetto 8" premium="no" storageId="59041" storageValue="400">
+		<list gender="0" looktype="2143" />
+		<list gender="1" looktype="2143" />
+	</outfit>
+	<outfit id="447" type="0" name="Vermouth" premium="no" storageId="59042" storageValue="1">
+		<list gender="0" looktype="1697" />
+		<list gender="1" looktype="1697" />
+	</outfit>
+	<outfit id="448" type="0" name="Vermouth 1" premium="no" storageId="59042" storageValue="50">
+		<list gender="0" looktype="1695" />
+		<list gender="1" looktype="1695" />
+	</outfit>
+	<outfit id="449" type="0" name="Vermouth 2" premium="no" storageId="59042" storageValue="100">
+		<list gender="0" looktype="1696" />
+		<list gender="1" looktype="1696" />
+	</outfit>
+	<outfit id="450" type="0" name="Vermouth 3" premium="no" storageId="59042" storageValue="150">
+		<list gender="0" looktype="1698" />
+		<list gender="1" looktype="1698" />
+	</outfit>
+	<outfit id="451" type="0" name="Vermouth 4" premium="no" storageId="59042" storageValue="200">
+		<list gender="0" looktype="1699" />
+		<list gender="1" looktype="1699" />
+	</outfit>
+	<outfit id="452" type="0" name="Vermouth 5" premium="no" storageId="59042" storageValue="250">
+		<list gender="0" looktype="1700" />
+		<list gender="1" looktype="1700" />
+	</outfit>
+	<outfit id="453" type="0" name="Vermouth 6" premium="no" storageId="59042" storageValue="300">
+		<list gender="0" looktype="1701" />
+		<list gender="1" looktype="1701" />
+	</outfit>
+	<outfit id="454" type="0" name="Vermouth 7" premium="no" storageId="59042" storageValue="350">
+		<list gender="0" looktype="1702" />
+		<list gender="1" looktype="1702" />
+	</outfit>
+	<outfit id="455" type="0" name="Vermouth 8" premium="no" storageId="59042" storageValue="400">
+		<list gender="0" looktype="1703" />
+		<list gender="1" looktype="1703" />
+	</outfit>
+	<outfit id="456" type="0" name="Vermouth 9" premium="no" storageId="59042" storageValue="450">
+		<list gender="0" looktype="1704" />
+		<list gender="1" looktype="1704" />
+	</outfit>
+	<outfit id="457" type="0" name="Vermouth 10" premium="no" storageId="59042" storageValue="500">
+		<list gender="0" looktype="1707" />
+		<list gender="1" looktype="1707" />
+	</outfit>
+	<outfit id="458" type="0" name="Vermouth 11" premium="no" storageId="59042" storageValue="550">
+		<list gender="0" looktype="1705" />
+		<list gender="1" looktype="1705" />
+	</outfit>
+	<outfit id="459" type="0" name="Vermouth 12" premium="no" storageId="59042" storageValue="600">
+		<list gender="0" looktype="1706" />
+		<list gender="1" looktype="1706" />
+	</outfit>
+	<outfit id="460" type="0" name="Vermouth 13" premium="no" storageId="59042" storageValue="650">
+		<list gender="0" looktype="1708" />
+		<list gender="1" looktype="1708" />
+	</outfit>
+	<outfit id="461" type="0" name="Videl" premium="no" storageId="59043" storageValue="1">
+		<list gender="0" looktype="2144" />
+		<list gender="1" looktype="2144" />
+	</outfit>
+	<outfit id="462" type="0" name="Videl 1" premium="no" storageId="59043" storageValue="50">
+		<list gender="0" looktype="2145" />
+		<list gender="1" looktype="2145" />
+	</outfit>
+	<outfit id="463" type="0" name="Videl 2" premium="no" storageId="59043" storageValue="100">
+		<list gender="0" looktype="2146" />
+		<list gender="1" looktype="2146" />
+	</outfit>
+	<outfit id="464" type="0" name="Videl 3" premium="no" storageId="59043" storageValue="150">
+		<list gender="0" looktype="2147" />
+		<list gender="1" looktype="2147" />
+	</outfit>
+	<outfit id="465" type="0" name="Videl 4" premium="no" storageId="59043" storageValue="200">
+		<list gender="0" looktype="2148" />
+		<list gender="1" looktype="2148" />
+	</outfit>
+	<outfit id="466" type="0" name="Videl 5" premium="no" storageId="59043" storageValue="250">
+		<list gender="0" looktype="2149" />
+		<list gender="1" looktype="2149" />
+	</outfit>
+	<outfit id="467" type="0" name="Videl 6" premium="no" storageId="59043" storageValue="300">
+		<list gender="0" looktype="2150" />
+		<list gender="1" looktype="2150" />
+	</outfit>
+	<outfit id="468" type="0" name="Zaiko" premium="no" storageId="59044" storageValue="1">
+		<list gender="0" looktype="2151" />
+		<list gender="1" looktype="2151" />
+	</outfit>
+	<outfit id="469" type="0" name="Zaiko 1" premium="no" storageId="59044" storageValue="50">
+		<list gender="0" looktype="2152" />
+		<list gender="1" looktype="2152" />
+	</outfit>
+	<outfit id="470" type="0" name="Zaiko 2" premium="no" storageId="59044" storageValue="100">
+		<list gender="0" looktype="2153" />
+		<list gender="1" looktype="2153" />
+	</outfit>
+	<outfit id="471" type="0" name="Zaiko 3" premium="no" storageId="59044" storageValue="150">
+		<list gender="0" looktype="2154" />
+		<list gender="1" looktype="2154" />
+	</outfit>
+	<outfit id="472" type="0" name="Zaiko 4" premium="no" storageId="59044" storageValue="200">
+		<list gender="0" looktype="2155" />
+		<list gender="1" looktype="2155" />
+	</outfit>
+	<outfit id="473" type="0" name="Zaiko 5" premium="no" storageId="59044" storageValue="250">
+		<list gender="0" looktype="2156" />
+		<list gender="1" looktype="2156" />
+	</outfit>
+	<outfit id="474" type="0" name="Zaiko 6" premium="no" storageId="59044" storageValue="300">
+		<list gender="0" looktype="2157" />
+		<list gender="1" looktype="2157" />
+	</outfit>
+	<outfit id="475" type="0" name="Zaiko 7" premium="no" storageId="59044" storageValue="350">
+		<list gender="0" looktype="2158" />
+		<list gender="1" looktype="2158" />
+	</outfit>
+	<outfit id="476" type="0" name="Zaiko 8" premium="no" storageId="59044" storageValue="400">
+		<list gender="0" looktype="2159" />
+		<list gender="1" looktype="2159" />
+	</outfit>
+	<outfit id="477" type="0" name="Zaiko 9" premium="no" storageId="59044" storageValue="450">
+		<list gender="0" looktype="2160" />
+		<list gender="1" looktype="2160" />
+	</outfit>
+	<outfit id="478" type="0" name="Zaiko 10" premium="no" storageId="59044" storageValue="500">
+		<list gender="0" looktype="2161" />
+		<list gender="1" looktype="2161" />
+	</outfit>
+	<outfit id="479" type="0" name="Zaiko 11" premium="no" storageId="59044" storageValue="550">
+		<list gender="0" looktype="2162" />
+		<list gender="1" looktype="2162" />
+	</outfit>
+	<outfit id="480" type="0" name="Zeno" premium="no" storageId="59045" storageValue="1">
+		<list gender="0" looktype="2163" />
+		<list gender="1" looktype="2163" />
+	</outfit>
+	<outfit id="481" type="0" name="Zeno 1" premium="no" storageId="59045" storageValue="50">
+		<list gender="0" looktype="2164" />
+		<list gender="1" looktype="2164" />
+	</outfit>
+	<outfit id="482" type="0" name="Zeno 2" premium="no" storageId="59045" storageValue="100">
+		<list gender="0" looktype="2165" />
+		<list gender="1" looktype="2165" />
+	</outfit>
+	<outfit id="483" type="0" name="Zeno 3" premium="no" storageId="59045" storageValue="150">
+		<list gender="0" looktype="2166" />
+		<list gender="1" looktype="2166" />
+	</outfit>
+	<outfit id="484" type="0" name="Zeno 4" premium="no" storageId="59045" storageValue="200">
+		<list gender="0" looktype="2167" />
+		<list gender="1" looktype="2167" />
+	</outfit>
+	<outfit id="485" type="0" name="Zeno 5" premium="no" storageId="59045" storageValue="250">
+		<list gender="0" looktype="2168" />
+		<list gender="1" looktype="2168" />
+	</outfit>
+	<outfit id="486" type="0" name="Zeno 6" premium="no" storageId="59045" storageValue="300">
+		<list gender="0" looktype="2169" />
+		<list gender="1" looktype="2169" />
+	</outfit>
+	<outfit id="487" type="0" name="Zeno 7" premium="no" storageId="59045" storageValue="350">
+		<list gender="0" looktype="2170" />
+		<list gender="1" looktype="2170" />
+	</outfit>
+	<outfit id="488" type="0" name="Zeno 8" premium="no" storageId="59045" storageValue="400">
+		<list gender="0" looktype="2171" />
+		<list gender="1" looktype="2171" />
+	</outfit>
+	<outfit id="489" type="0" name="Aizen" premium="no" storageId="59047" storageValue="1">
+		<list gender="0" looktype="2176" />
+		<list gender="1" looktype="2176" />
+	</outfit>
+	<outfit id="490" type="0" name="Aizen 1" premium="no" storageId="59047" storageValue="50">
+		<list gender="0" looktype="2177" />
+		<list gender="1" looktype="2177" />
+	</outfit>
+	<outfit id="491" type="0" name="Aizen 2" premium="no" storageId="59047" storageValue="100">
+		<list gender="0" looktype="2178" />
+		<list gender="1" looktype="2178" />
+	</outfit>
+	<outfit id="492" type="0" name="Aizen 3" premium="no" storageId="59047" storageValue="150">
+		<list gender="0" looktype="2179" />
+		<list gender="1" looktype="2179" />
+	</outfit>
+	<outfit id="493" type="0" name="Aizen 4" premium="no" storageId="59047" storageValue="200">
+		<list gender="0" looktype="2180" />
+		<list gender="1" looktype="2180" />
+	</outfit>
+	<outfit id="494" type="0" name="Aizen 5" premium="no" storageId="59047" storageValue="250">
+		<list gender="0" looktype="2175" />
+		<list gender="1" looktype="2175" />
+	</outfit>
+	<outfit id="495" type="0" name="Aizen 6" premium="no" storageId="59047" storageValue="300">
+		<list gender="0" looktype="2174" />
+		<list gender="1" looktype="2174" />
+	</outfit>
+	<outfit id="496" type="0" name="Aizen 7" premium="no" storageId="59047" storageValue="350">
+		<list gender="0" looktype="2173" />
+		<list gender="1" looktype="2173" />
+	</outfit>
+	<outfit id="497" type="0" name="Aizen 8" premium="no" storageId="59047" storageValue="400">
+		<list gender="0" looktype="2172" />
+		<list gender="1" looktype="2172" />
+	</outfit>
+	<outfit id="498" type="0" name="Aizen 9" premium="no" storageId="59047" storageValue="450">
+		<list gender="0" looktype="2620" />
+		<list gender="1" looktype="2620" />
+	</outfit>
+	<outfit id="499" type="0" name="Byakuya" premium="no" storageId="59048" storageValue="1">
+		<list gender="0" looktype="2185" />
+		<list gender="1" looktype="2185" />
+	</outfit>
+	<outfit id="500" type="0" name="Byakuya 1" premium="no" storageId="59048" storageValue="50">
+		<list gender="0" looktype="2186" />
+		<list gender="1" looktype="2186" />
+	</outfit>
+	<outfit id="501" type="0" name="Byakuya 2" premium="no" storageId="59048" storageValue="100">
+		<list gender="0" looktype="2187" />
+		<list gender="1" looktype="2187" />
+	</outfit>
+	<outfit id="502" type="0" name="Byakuya 3" premium="no" storageId="59048" storageValue="150">
+		<list gender="0" looktype="2188" />
+		<list gender="1" looktype="2188" />
+	</outfit>
+	<outfit id="503" type="0" name="Byakuya 4" premium="no" storageId="59048" storageValue="200">
+		<list gender="0" looktype="2189" />
+		<list gender="1" looktype="2189" />
+	</outfit>
+	<outfit id="504" type="0" name="Byakuya 5" premium="no" storageId="59048" storageValue="250">
+		<list gender="0" looktype="2190" />
+		<list gender="1" looktype="2190" />
+	</outfit>
+	<outfit id="505" type="0" name="Byakuya 6" premium="no" storageId="59048" storageValue="300">
+		<list gender="0" looktype="2183" />
+		<list gender="1" looktype="2183" />
+	</outfit>
+	<outfit id="506" type="0" name="Byakuya 7" premium="no" storageId="59048" storageValue="350">
+		<list gender="0" looktype="2184" />
+		<list gender="1" looktype="2184" />
+	</outfit>
+	<outfit id="507" type="0" name="Gin" premium="no" storageId="59049" storageValue="1">
+		<list gender="0" looktype="2193" />
+		<list gender="1" looktype="2193" />
+	</outfit>
+	<outfit id="508" type="0" name="Gin 1" premium="no" storageId="59049" storageValue="50">
+		<list gender="0" looktype="2194" />
+		<list gender="1" looktype="2194" />
+	</outfit>
+	<outfit id="509" type="0" name="Gin 2" premium="no" storageId="59049" storageValue="100">
+		<list gender="0" looktype="2195" />
+		<list gender="1" looktype="2195" />
+	</outfit>
+	<outfit id="510" type="0" name="Gin 3" premium="no" storageId="59049" storageValue="150">
+		<list gender="0" looktype="2196" />
+		<list gender="1" looktype="2196" />
+	</outfit>
+	<outfit id="511" type="0" name="Gin 4" premium="no" storageId="59049" storageValue="200">
+		<list gender="0" looktype="2192" />
+		<list gender="1" looktype="2192" />
+	</outfit>
+	<outfit id="512" type="0" name="Gin 5" premium="no" storageId="59049" storageValue="250">
+		<list gender="0" looktype="2191" />
+		<list gender="1" looktype="2191" />
+	</outfit>
+	<outfit id="513" type="0" name="Grimmjow" premium="no" storageId="59050" storageValue="1">
+		<list gender="0" looktype="2199" />
+		<list gender="1" looktype="2199" />
+	</outfit>
+	<outfit id="514" type="0" name="Grimmjow 1" premium="no" storageId="59050" storageValue="50">
+		<list gender="0" looktype="2201" />
+		<list gender="1" looktype="2201" />
+	</outfit>
+	<outfit id="515" type="0" name="Grimmjow 2" premium="no" storageId="59050" storageValue="100">
+		<list gender="0" looktype="2200" />
+		<list gender="1" looktype="2200" />
+	</outfit>
+	<outfit id="516" type="0" name="Grimmjow 3" premium="no" storageId="59050" storageValue="150">
+		<list gender="0" looktype="2202" />
+		<list gender="1" looktype="2202" />
+	</outfit>
+	<outfit id="517" type="0" name="Grimmjow 4" premium="no" storageId="59050" storageValue="200">
+		<list gender="0" looktype="2198" />
+		<list gender="1" looktype="2198" />
+	</outfit>
+	<outfit id="518" type="0" name="Grimmjow 5" premium="no" storageId="59050" storageValue="250">
+		<list gender="0" looktype="2197" />
+		<list gender="1" looktype="2197" />
+	</outfit>
+	<outfit id="519" type="0" name="Hitsugaya" premium="no" storageId="59051" storageValue="1">
+		<list gender="0" looktype="2207" />
+		<list gender="1" looktype="2207" />
+	</outfit>
+	<outfit id="520" type="0" name="Hitsugaya 1" premium="no" storageId="59051" storageValue="50">
+		<list gender="0" looktype="2211" />
+		<list gender="1" looktype="2211" />
+	</outfit>
+	<outfit id="521" type="0" name="Hitsugaya 2" premium="no" storageId="59051" storageValue="100">
+		<list gender="0" looktype="2210" />
+		<list gender="1" looktype="2210" />
+	</outfit>
+	<outfit id="522" type="0" name="Hitsugaya 3" premium="no" storageId="59051" storageValue="150">
+		<list gender="0" looktype="2209" />
+		<list gender="1" looktype="2209" />
+	</outfit>
+	<outfit id="523" type="0" name="Hitsugaya 4" premium="no" storageId="59051" storageValue="200">
+		<list gender="0" looktype="2206" />
+		<list gender="1" looktype="2206" />
+	</outfit>
+	<outfit id="524" type="0" name="Hitsugaya 5" premium="no" storageId="59051" storageValue="250">
+		<list gender="0" looktype="2208" />
+		<list gender="1" looktype="2208" />
+	</outfit>
+	<outfit id="525" type="0" name="Hitsugaya 6" premium="no" storageId="59051" storageValue="300">
+		<list gender="0" looktype="2212" />
+		<list gender="1" looktype="2212" />
+	</outfit>
+	<outfit id="526" type="0" name="Hitsugaya 7" premium="no" storageId="59051" storageValue="350">
+		<list gender="0" looktype="2204" />
+		<list gender="1" looktype="2204" />
+	</outfit>
+	<outfit id="527" type="0" name="Hitsugaya 8" premium="no" storageId="59051" storageValue="400">
+		<list gender="0" looktype="2205" />
+		<list gender="1" looktype="2205" />
+	</outfit>
+	<outfit id="528" type="0" name="Ichigo FullBring" premium="no" storageId="59052" storageValue="1">
+		<list gender="0" looktype="2218" />
+		<list gender="1" looktype="2218" />
+	</outfit>
+	<outfit id="529" type="0" name="Ichigo FullBring 1" premium="no" storageId="59052" storageValue="50">
+		<list gender="0" looktype="2221" />
+		<list gender="1" looktype="2221" />
+	</outfit>
+	<outfit id="530" type="0" name="Ichigo FullBring 2" premium="no" storageId="59052" storageValue="100">
+		<list gender="0" looktype="2217" />
+		<list gender="1" looktype="2217" />
+	</outfit>
+	<outfit id="531" type="0" name="Ichigo FullBring 3" premium="no" storageId="59052" storageValue="150">
+		<list gender="0" looktype="2216" />
+		<list gender="1" looktype="2216" />
+	</outfit>
+	<outfit id="532" type="0" name="Ichigo FullBring 4" premium="no" storageId="59052" storageValue="200">
+		<list gender="0" looktype="2215" />
+		<list gender="1" looktype="2215" />
+	</outfit>
+	<outfit id="533" type="0" name="Ichigo FullBring 5" premium="no" storageId="59052" storageValue="250">
+		<list gender="0" looktype="2214" />
+		<list gender="1" looktype="2214" />
+	</outfit>
+	<outfit id="534" type="0" name="Ichigo FullBring 6" premium="no" storageId="59052" storageValue="300">
+		<list gender="0" looktype="2213" />
+		<list gender="1" looktype="2213" />
+	</outfit>
+	<outfit id="535" type="0" name="Ichigo" premium="no" storageId="59053" storageValue="1">
+		<list gender="0" looktype="2227" />
+		<list gender="1" looktype="2227" />
+	</outfit>
+	<outfit id="536" type="0" name="Ichigo 1" premium="no" storageId="59053" storageValue="50">
+		<list gender="0" looktype="2234" />
+		<list gender="1" looktype="2234" />
+	</outfit>
+	<outfit id="537" type="0" name="Ichigo 2" premium="no" storageId="59053" storageValue="100">
+		<list gender="0" looktype="2233" />
+		<list gender="1" looktype="2233" />
+	</outfit>
+	<outfit id="538" type="0" name="Ichigo 3" premium="no" storageId="59053" storageValue="150">
+		<list gender="0" looktype="2230" />
+		<list gender="1" looktype="2230" />
+	</outfit>
+	<outfit id="539" type="0" name="Ichigo 4" premium="no" storageId="59053" storageValue="200">
+		<list gender="0" looktype="2232" />
+		<list gender="1" looktype="2232" />
+	</outfit>
+	<outfit id="540" type="0" name="Ichigo 5" premium="no" storageId="59053" storageValue="250">
+		<list gender="0" looktype="2231" />
+		<list gender="1" looktype="2231" />
+	</outfit>
+	<outfit id="541" type="0" name="Ichigo 6" premium="no" storageId="59053" storageValue="300">
+		<list gender="0" looktype="2229" />
+		<list gender="1" looktype="2229" />
+	</outfit>
+	<outfit id="542" type="0" name="Ichigo 7" premium="no" storageId="59053" storageValue="350">
+		<list gender="0" looktype="2224" />
+		<list gender="1" looktype="2224" />
+	</outfit>
+	<outfit id="543" type="0" name="Ichigo 8" premium="no" storageId="59053" storageValue="400">
+		<list gender="0" looktype="2223" />
+		<list gender="1" looktype="2223" />
+	</outfit>
+	<outfit id="544" type="0" name="Ichigo 9" premium="no" storageId="59053" storageValue="450">
+		<list gender="0" looktype="2228" />
+		<list gender="1" looktype="2228" />
+	</outfit>
+	<outfit id="545" type="0" name="Ichigo 10" premium="no" storageId="59053" storageValue="500">
+		<list gender="0" looktype="2235" />
+		<list gender="1" looktype="2235" />
+	</outfit>
+	<outfit id="546" type="0" name="Ichigo 11" premium="no" storageId="59053" storageValue="550">
+		<list gender="0" looktype="2226" />
+		<list gender="1" looktype="2226" />
+	</outfit>
+	<outfit id="547" type="0" name="Ichigo 12" premium="no" storageId="59053" storageValue="600">
+		<list gender="0" looktype="2225" />
+		<list gender="1" looktype="2225" />
+	</outfit>
+	<outfit id="548" type="0" name="Ichigo 13" premium="no" storageId="59053" storageValue="650">
+		<list gender="0" looktype="2222" />
+		<list gender="1" looktype="2222" />
+	</outfit>
+	<outfit id="549" type="0" name="Ichigo 14" premium="no" storageId="59053" storageValue="700">
+		<list gender="0" looktype="2221" />
+		<list gender="1" looktype="2221" />
+	</outfit>
+	<outfit id="550" type="0" name="Ichigo 15" premium="no" storageId="59053" storageValue="750">
+		<list gender="0" looktype="2220" />
+		<list gender="1" looktype="2220" />
+	</outfit>
+	<outfit id="551" type="0" name="Ichigo 16" premium="no" storageId="59053" storageValue="800">
+		<list gender="0" looktype="2219" />
+		<list gender="1" looktype="2219" />
+	</outfit>
+	<outfit id="552" type="0" name="Ishida" premium="no" storageId="59054" storageValue="1">
+		<list gender="0" looktype="2239" />
+		<list gender="1" looktype="2239" />
+	</outfit>
+	<outfit id="553" type="0" name="Ishida 1" premium="no" storageId="59054" storageValue="50">
+		<list gender="0" looktype="2242" />
+		<list gender="1" looktype="2242" />
+	</outfit>
+	<outfit id="554" type="0" name="Ishida 2" premium="no" storageId="59054" storageValue="100">
+		<list gender="0" looktype="2241" />
+		<list gender="1" looktype="2241" />
+	</outfit>
+	<outfit id="555" type="0" name="Ishida 3" premium="no" storageId="59054" storageValue="150">
+		<list gender="0" looktype="2243" />
+		<list gender="1" looktype="2243" />
+	</outfit>
+	<outfit id="556" type="0" name="Ishida 4" premium="no" storageId="59054" storageValue="200">
+		<list gender="0" looktype="2240" />
+		<list gender="1" looktype="2240" />
+	</outfit>
+	<outfit id="557" type="0" name="Ishida 5" premium="no" storageId="59054" storageValue="250">
+		<list gender="0" looktype="2238" />
+		<list gender="1" looktype="2238" />
+	</outfit>
+	<outfit id="558" type="0" name="Ishida 6" premium="no" storageId="59054" storageValue="300">
+		<list gender="0" looktype="2237" />
+		<list gender="1" looktype="2237" />
+	</outfit>
+	<outfit id="559" type="0" name="Ishida 7" premium="no" storageId="59054" storageValue="350">
+		<list gender="0" looktype="2236" />
+		<list gender="1" looktype="2236" />
+	</outfit>
+	<outfit id="560" type="0" name="Kyouraku" premium="no" storageId="59055" storageValue="1">
+		<list gender="0" looktype="2250" />
+		<list gender="1" looktype="2250" />
+	</outfit>
+	<outfit id="561" type="0" name="Kyouraku 1" premium="no" storageId="59055" storageValue="50">
+		<list gender="0" looktype="2247" />
+		<list gender="1" looktype="2247" />
+	</outfit>
+	<outfit id="562" type="0" name="Kyouraku 2" premium="no" storageId="59055" storageValue="100">
+		<list gender="0" looktype="2249" />
+		<list gender="1" looktype="2249" />
+	</outfit>
+	<outfit id="563" type="0" name="Kyouraku 3" premium="no" storageId="59055" storageValue="150">
+		<list gender="0" looktype="2248" />
+		<list gender="1" looktype="2248" />
+	</outfit>
+	<outfit id="564" type="0" name="Kyouraku 4" premium="no" storageId="59055" storageValue="200">
+		<list gender="0" looktype="2251" />
+		<list gender="1" looktype="2251" />
+	</outfit>
+	<outfit id="565" type="0" name="Kyouraku 5" premium="no" storageId="59055" storageValue="250">
+		<list gender="0" looktype="2246" />
+		<list gender="1" looktype="2246" />
+	</outfit>
+	<outfit id="566" type="0" name="Kyouraku 6" premium="no" storageId="59055" storageValue="300">
+		<list gender="0" looktype="2245" />
+		<list gender="1" looktype="2245" />
+	</outfit>
+	<outfit id="567" type="0" name="Kyouraku 7" premium="no" storageId="59055" storageValue="350">
+		<list gender="0" looktype="2244" />
+		<list gender="1" looktype="2244" />
+	</outfit>
+	<outfit id="568" type="0" name="Neliel" premium="no" storageId="59056" storageValue="1">
+		<list gender="0" looktype="2255" />
+		<list gender="1" looktype="2255" />
+	</outfit>
+	<outfit id="569" type="0" name="Neliel 1" premium="no" storageId="59056" storageValue="50">
+		<list gender="0" looktype="2258" />
+		<list gender="1" looktype="2258" />
+	</outfit>
+	<outfit id="570" type="0" name="Neliel 2" premium="no" storageId="59056" storageValue="100">
+		<list gender="0" looktype="2257" />
+		<list gender="1" looktype="2257" />
+	</outfit>
+	<outfit id="571" type="0" name="Neliel 3" premium="no" storageId="59056" storageValue="150">
+		<list gender="0" looktype="2256" />
+		<list gender="1" looktype="2256" />
+	</outfit>
+	<outfit id="572" type="0" name="Neliel 4" premium="no" storageId="59056" storageValue="200">
+		<list gender="0" looktype="2259" />
+		<list gender="1" looktype="2259" />
+	</outfit>
+	<outfit id="573" type="0" name="Neliel 5" premium="no" storageId="59056" storageValue="250">
+		<list gender="0" looktype="2254" />
+		<list gender="1" looktype="2254" />
+	</outfit>
+	<outfit id="574" type="0" name="Neliel 6" premium="no" storageId="59056" storageValue="300">
+		<list gender="0" looktype="2253" />
+		<list gender="1" looktype="2253" />
+	</outfit>
+	<outfit id="575" type="0" name="Neliel 7" premium="no" storageId="59056" storageValue="350">
+		<list gender="0" looktype="2252" />
+		<list gender="1" looktype="2252" />
+	</outfit>
+	<outfit id="576" type="0" name="Orihime" premium="no" storageId="59057" storageValue="1">
+		<list gender="0" looktype="2262" />
+		<list gender="1" looktype="2262" />
+	</outfit>
+	<outfit id="577" type="0" name="Orihime 1" premium="no" storageId="59057" storageValue="50">
+		<list gender="0" looktype="2263" />
+		<list gender="1" looktype="2263" />
+	</outfit>
+	<outfit id="578" type="0" name="Orihime 2" premium="no" storageId="59057" storageValue="100">
+		<list gender="0" looktype="2264" />
+		<list gender="1" looktype="2264" />
+	</outfit>
+	<outfit id="579" type="0" name="Orihime 3" premium="no" storageId="59057" storageValue="150">
+		<list gender="0" looktype="2261" />
+		<list gender="1" looktype="2261" />
+	</outfit>
+	<outfit id="580" type="0" name="Orihime 4" premium="no" storageId="59057" storageValue="200">
+		<list gender="0" looktype="2260" />
+		<list gender="1" looktype="2260" />
+	</outfit>
+	<outfit id="581" type="0" name="Renji" premium="no" storageId="59058" storageValue="1">
+		<list gender="0" looktype="2268" />
+		<list gender="1" looktype="2268" />
+	</outfit>
+	<outfit id="582" type="0" name="Renji 1" premium="no" storageId="59058" storageValue="50">
+		<list gender="0" looktype="2271" />
+		<list gender="1" looktype="2271" />
+	</outfit>
+	<outfit id="583" type="0" name="Renji 2" premium="no" storageId="59058" storageValue="100">
+		<list gender="0" looktype="2270" />
+		<list gender="1" looktype="2270" />
+	</outfit>
+	<outfit id="584" type="0" name="Renji 3" premium="no" storageId="59058" storageValue="150">
+		<list gender="0" looktype="2269" />
+		<list gender="1" looktype="2269" />
+	</outfit>
+	<outfit id="585" type="0" name="Renji 4" premium="no" storageId="59058" storageValue="200">
+		<list gender="0" looktype="2272" />
+		<list gender="1" looktype="2272" />
+	</outfit>
+	<outfit id="586" type="0" name="Renji 5" premium="no" storageId="59058" storageValue="250">
+		<list gender="0" looktype="2267" />
+		<list gender="1" looktype="2267" />
+	</outfit>
+	<outfit id="587" type="0" name="Renji 6" premium="no" storageId="59058" storageValue="300">
+		<list gender="0" looktype="2266" />
+		<list gender="1" looktype="2266" />
+	</outfit>
+	<outfit id="588" type="0" name="Renji 7" premium="no" storageId="59058" storageValue="350">
+		<list gender="0" looktype="2265" />
+		<list gender="1" looktype="2265" />
+	</outfit>
+	<outfit id="589" type="0" name="Rukia" premium="no" storageId="59059" storageValue="1">
+		<list gender="0" looktype="2276" />
+		<list gender="1" looktype="2276" />
+	</outfit>
+	<outfit id="590" type="0" name="Rukia 1" premium="no" storageId="59059" storageValue="50">
+		<list gender="0" looktype="2278" />
+		<list gender="1" looktype="2278" />
+	</outfit>
+	<outfit id="591" type="0" name="Rukia 2" premium="no" storageId="59059" storageValue="100">
+		<list gender="0" looktype="2277" />
+		<list gender="1" looktype="2277" />
+	</outfit>
+	<outfit id="592" type="0" name="Rukia 3" premium="no" storageId="59059" storageValue="150">
+		<list gender="0" looktype="2279" />
+		<list gender="1" looktype="2279" />
+	</outfit>
+	<outfit id="593" type="0" name="Rukia 4" premium="no" storageId="59059" storageValue="200">
+		<list gender="0" looktype="2275" />
+		<list gender="1" looktype="2275" />
+	</outfit>
+	<outfit id="594" type="0" name="Rukia 5" premium="no" storageId="59059" storageValue="250">
+		<list gender="0" looktype="2274" />
+		<list gender="1" looktype="2274" />
+	</outfit>
+	<outfit id="595" type="0" name="Rukia 6" premium="no" storageId="59059" storageValue="300">
+		<list gender="0" looktype="2273" />
+		<list gender="1" looktype="2273" />
+	</outfit>
+	<outfit id="596" type="0" name="Sado" premium="no" storageId="59060" storageValue="1">
+		<list gender="0" looktype="2280" />
+		<list gender="1" looktype="2280" />
+	</outfit>
+	<outfit id="597" type="0" name="Sado 1" premium="no" storageId="59060" storageValue="50">
+		<list gender="0" looktype="2283" />
+		<list gender="1" looktype="2283" />
+	</outfit>
+	<outfit id="598" type="0" name="Sado 2" premium="no" storageId="59060" storageValue="100">
+		<list gender="0" looktype="2285" />
+		<list gender="1" looktype="2285" />
+	</outfit>
+	<outfit id="599" type="0" name="Sado 3" premium="no" storageId="59060" storageValue="150">
+		<list gender="0" looktype="2284" />
+		<list gender="1" looktype="2284" />
+	</outfit>
+	<outfit id="600" type="0" name="Sado 4" premium="no" storageId="59060" storageValue="200">
+		<list gender="0" looktype="2286" />
+		<list gender="1" looktype="2286" />
+	</outfit>
+	<outfit id="601" type="0" name="Sado 5" premium="no" storageId="59060" storageValue="250">
+		<list gender="0" looktype="2282" />
+		<list gender="1" looktype="2282" />
+	</outfit>
+	<outfit id="602" type="0" name="Sado 6" premium="no" storageId="59060" storageValue="300">
+		<list gender="0" looktype="2281" />
+		<list gender="1" looktype="2281" />
+	</outfit>
+	<outfit id="603" type="0" name="Shinji" premium="no" storageId="59061" storageValue="1">
+		<list gender="0" looktype="2291" />
+		<list gender="1" looktype="2291" />
+	</outfit>
+	<outfit id="604" type="0" name="Shinji 1" premium="no" storageId="59061" storageValue="50">
+		<list gender="0" looktype="2295" />
+		<list gender="1" looktype="2295" />
+	</outfit>
+	<outfit id="605" type="0" name="Shinji 2" premium="no" storageId="59061" storageValue="100">
+		<list gender="0" looktype="2294" />
+		<list gender="1" looktype="2294" />
+	</outfit>
+	<outfit id="606" type="0" name="Shinji 3" premium="no" storageId="59061" storageValue="150">
+		<list gender="0" looktype="2293" />
+		<list gender="1" looktype="2293" />
+	</outfit>
+	<outfit id="607" type="0" name="Shinji 4" premium="no" storageId="59061" storageValue="200">
+		<list gender="0" looktype="2292" />
+		<list gender="1" looktype="2292" />
+	</outfit>
+	<outfit id="608" type="0" name="Shinji 5" premium="no" storageId="59061" storageValue="250">
+		<list gender="0" looktype="2296" />
+		<list gender="1" looktype="2296" />
+	</outfit>
+	<outfit id="609" type="0" name="Shinji 6" premium="no" storageId="59061" storageValue="300">
+		<list gender="0" looktype="2290" />
+		<list gender="1" looktype="2290" />
+	</outfit>
+	<outfit id="610" type="0" name="Shinji 7" premium="no" storageId="59061" storageValue="350">
+		<list gender="0" looktype="2289" />
+		<list gender="1" looktype="2289" />
+	</outfit>
+	<outfit id="611" type="0" name="Shinji 8" premium="no" storageId="59061" storageValue="400">
+		<list gender="0" looktype="2288" />
+		<list gender="1" looktype="2288" />
+	</outfit>
+	<outfit id="612" type="0" name="Shinji 9" premium="no" storageId="59061" storageValue="450">
+		<list gender="0" looktype="2287" />
+		<list gender="1" looktype="2287" />
+	</outfit>
+	<outfit id="613" type="0" name="Soi Fong" premium="no" storageId="59062" storageValue="1">
+		<list gender="0" looktype="2303" />
+		<list gender="1" looktype="2303" />
+	</outfit>
+	<outfit id="614" type="0" name="Soi Fong 1" premium="no" storageId="59062" storageValue="50">
+		<list gender="0" looktype="2304" />
+		<list gender="1" looktype="2304" />
+	</outfit>
+	<outfit id="615" type="0" name="Soi Fong 2" premium="no" storageId="59062" storageValue="100">
+		<list gender="0" looktype="2302" />
+		<list gender="1" looktype="2302" />
+	</outfit>
+	<outfit id="616" type="0" name="Soi Fong 3" premium="no" storageId="59062" storageValue="150">
+		<list gender="0" looktype="2301" />
+		<list gender="1" looktype="2301" />
+	</outfit>
+	<outfit id="617" type="0" name="Soi Fong 4" premium="no" storageId="59062" storageValue="200">
+		<list gender="0" looktype="2300" />
+		<list gender="1" looktype="2300" />
+	</outfit>
+	<outfit id="618" type="0" name="Soi Fong 5" premium="no" storageId="59062" storageValue="250">
+		<list gender="0" looktype="2299" />
+		<list gender="1" looktype="2299" />
+	</outfit>
+	<outfit id="619" type="0" name="Soi Fong 6" premium="no" storageId="59062" storageValue="300">
+		<list gender="0" looktype="2298" />
+		<list gender="1" looktype="2298" />
+	</outfit>
+	<outfit id="620" type="0" name="Soi Fong 7" premium="no" storageId="59062" storageValue="350">
+		<list gender="0" looktype="2297" />
+		<list gender="1" looktype="2297" />
+	</outfit>
+	<outfit id="621" type="0" name="Tousen" premium="no" storageId="59063" storageValue="1">
+		<list gender="0" looktype="2309" />
+		<list gender="1" looktype="2309" />
+	</outfit>
+	<outfit id="622" type="0" name="Tousen 1" premium="no" storageId="59063" storageValue="50">
+		<list gender="0" looktype="2308" />
+		<list gender="1" looktype="2308" />
+	</outfit>
+	<outfit id="623" type="0" name="Tousen 2" premium="no" storageId="59063" storageValue="100">
+		<list gender="0" looktype="2310" />
+		<list gender="1" looktype="2310" />
+	</outfit>
+	<outfit id="624" type="0" name="Tousen 3" premium="no" storageId="59063" storageValue="150">
+		<list gender="0" looktype="2307" />
+		<list gender="1" looktype="2307" />
+	</outfit>
+	<outfit id="625" type="0" name="Tousen 4" premium="no" storageId="59063" storageValue="200">
+		<list gender="0" looktype="2306" />
+		<list gender="1" looktype="2306" />
+	</outfit>
+	<outfit id="626" type="0" name="Tousen 5" premium="no" storageId="59063" storageValue="250">
+		<list gender="0" looktype="2305" />
+		<list gender="1" looktype="2305" />
+	</outfit>
+	<outfit id="627" type="0" name="Ulquiorra" premium="no" storageId="59064" storageValue="1">
+		<list gender="0" looktype="2315" />
+		<list gender="1" looktype="2315" />
+	</outfit>
+	<outfit id="628" type="0" name="Ulquiorra 1" premium="no" storageId="59064" storageValue="50">
+		<list gender="0" looktype="2318" />
+		<list gender="1" looktype="2318" />
+	</outfit>
+	<outfit id="629" type="0" name="Ulquiorra 2" premium="no" storageId="59064" storageValue="100">
+		<list gender="0" looktype="2317" />
+		<list gender="1" looktype="2317" />
+	</outfit>
+	<outfit id="630" type="0" name="Ulquiorra 3" premium="no" storageId="59064" storageValue="150">
+		<list gender="0" looktype="2316" />
+		<list gender="1" looktype="2316" />
+	</outfit>
+	<outfit id="631" type="0" name="Ulquiorra 4" premium="no" storageId="59064" storageValue="200">
+		<list gender="0" looktype="2319" />
+		<list gender="1" looktype="2319" />
+	</outfit>
+	<outfit id="632" type="0" name="Ulquiorra 5" premium="no" storageId="59064" storageValue="250">
+		<list gender="0" looktype="2314" />
+		<list gender="1" looktype="2314" />
+	</outfit>
+	<outfit id="633" type="0" name="Ulquiorra 6" premium="no" storageId="59064" storageValue="300">
+		<list gender="0" looktype="2313" />
+		<list gender="1" looktype="2313" />
+	</outfit>
+	<outfit id="634" type="0" name="Ulquiorra 7" premium="no" storageId="59064" storageValue="350">
+		<list gender="0" looktype="2312" />
+		<list gender="1" looktype="2312" />
+	</outfit>
+	<outfit id="635" type="0" name="Ulquiorra 8" premium="no" storageId="59064" storageValue="400">
+		<list gender="0" looktype="2311" />
+		<list gender="1" looktype="2311" />
+	</outfit>
+	<outfit id="636" type="0" name="Urahara" premium="no" storageId="59065" storageValue="1">
+		<list gender="0" looktype="2323" />
+		<list gender="1" looktype="2323" />
+	</outfit>
+	<outfit id="637" type="0" name="Urahara 1" premium="no" storageId="59065" storageValue="50">
+		<list gender="0" looktype="2325" />
+		<list gender="1" looktype="2325" />
+	</outfit>
+	<outfit id="638" type="0" name="Urahara 2" premium="no" storageId="59065" storageValue="100">
+		<list gender="0" looktype="2324" />
+		<list gender="1" looktype="2324" />
+	</outfit>
+	<outfit id="639" type="0" name="Urahara 3" premium="no" storageId="59065" storageValue="150">
+		<list gender="0" looktype="2326" />
+		<list gender="1" looktype="2326" />
+	</outfit>
+	<outfit id="640" type="0" name="Urahara 4" premium="no" storageId="59065" storageValue="200">
+		<list gender="0" looktype="2321" />
+		<list gender="1" looktype="2321" />
+	</outfit>
+	<outfit id="641" type="0" name="Urahara 5" premium="no" storageId="59065" storageValue="250">
+		<list gender="0" looktype="2322" />
+		<list gender="1" looktype="2322" />
+	</outfit>
+	<outfit id="642" type="0" name="Urahara 6" premium="no" storageId="59065" storageValue="300">
+		<list gender="0" looktype="2320" />
+		<list gender="1" looktype="2320" />
+	</outfit>
+	<outfit id="643" type="0" name="Yoruichi" premium="no" storageId="59066" storageValue="1">
+		<list gender="0" looktype="2332" />
+		<list gender="1" looktype="2332" />
+	</outfit>
+	<outfit id="644" type="0" name="Yoruichi 1" premium="no" storageId="59066" storageValue="50">
+		<list gender="0" looktype="2331" />
+		<list gender="1" looktype="2331" />
+	</outfit>
+	<outfit id="645" type="0" name="Yoruichi 2" premium="no" storageId="59066" storageValue="100">
+		<list gender="0" looktype="2330" />
+		<list gender="1" looktype="2330" />
+	</outfit>
+	<outfit id="646" type="0" name="Yoruichi 3" premium="no" storageId="59066" storageValue="150">
+		<list gender="0" looktype="2329" />
+		<list gender="1" looktype="2329" />
+	</outfit>
+	<outfit id="647" type="0" name="Yoruichi 4" premium="no" storageId="59066" storageValue="200">
+		<list gender="0" looktype="2333" />
+		<list gender="1" looktype="2333" />
+	</outfit>
+	<outfit id="648" type="0" name="Yoruichi 5" premium="no" storageId="59066" storageValue="250">
+		<list gender="0" looktype="2328" />
+		<list gender="1" looktype="2328" />
+	</outfit>
+	<outfit id="649" type="0" name="Yoruichi 6" premium="no" storageId="59066" storageValue="300">
+		<list gender="0" looktype="2327" />
+		<list gender="1" looktype="2327" />
+	</outfit>
+	<outfit id="650" type="0" name="Zaraki" premium="no" storageId="59067" storageValue="1">
+		<list gender="0" looktype="2339" />
+		<list gender="1" looktype="2339" />
+	</outfit>
+	<outfit id="651" type="0" name="Zaraki 1" premium="no" storageId="59067" storageValue="50">
+		<list gender="0" looktype="2343" />
+		<list gender="1" looktype="2343" />
+	</outfit>
+	<outfit id="652" type="0" name="Zaraki 2" premium="no" storageId="59067" storageValue="100">
+		<list gender="0" looktype="2338" />
+		<list gender="1" looktype="2338" />
+	</outfit>
+	<outfit id="653" type="0" name="Zaraki 3" premium="no" storageId="59067" storageValue="150">
+		<list gender="0" looktype="2342" />
+		<list gender="1" looktype="2342" />
+	</outfit>
+	<outfit id="654" type="0" name="Zaraki 4" premium="no" storageId="59067" storageValue="200">
+		<list gender="0" looktype="2341" />
+		<list gender="1" looktype="2341" />
+	</outfit>
+	<outfit id="655" type="0" name="Zaraki 5" premium="no" storageId="59067" storageValue="250">
+		<list gender="0" looktype="2340" />
+		<list gender="1" looktype="2340" />
+	</outfit>
+	<outfit id="656" type="0" name="Zaraki 6" premium="no" storageId="59067" storageValue="300">
+		<list gender="0" looktype="2344" />
+		<list gender="1" looktype="2344" />
+	</outfit>
+	<outfit id="657" type="0" name="Zaraki 7" premium="no" storageId="59067" storageValue="350">
+		<list gender="0" looktype="2337" />
+		<list gender="1" looktype="2337" />
+	</outfit>
+	<outfit id="658" type="0" name="Zaraki 8" premium="no" storageId="59067" storageValue="400">
+		<list gender="0" looktype="2336" />
+		<list gender="1" looktype="2336" />
+	</outfit>
+	<outfit id="659" type="0" name="Zaraki 9" premium="no" storageId="59067" storageValue="450">
+		<list gender="0" looktype="2335" />
+		<list gender="1" looktype="2335" />
+	</outfit>
+	<outfit id="660" type="0" name="Zaraki 10" premium="no" storageId="59067" storageValue="500">
+		<list gender="0" looktype="2334" />
+		<list gender="1" looktype="2334" />
+	</outfit>
+
+	<!-- CUSTOM_OUTFITS:BEGIN (gerado por /admin/custom-outfits - não editar à mão) -->
+	<!-- CUSTOM_OUTFITS:END -->
+</outfits>

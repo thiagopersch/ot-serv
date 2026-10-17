@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<monster name="Badger" bestiary="monster" namedescription="a badger" race="blood" experience="300"
+	speed="180" manacost="200">
+	<health now="200" max="200" />
+	<look type="105" corpse="6034" />
+	<targetchange interval="2000" chance="20" />
+	<strategy attack="100" defense="0" />
+	<flags>
+		<flag summonable="1" />
+		<flag attackable="1" />
+		<flag hostile="1" />
+		<flag illusionable="1" />
+		<flag convinceable="1" />
+		<flag pushable="1" />
+		<flag canpushitems="0" />
+		<flag canpushcreatures="0" />
+		<flag targetdistance="1" />
+		<flag staticattack="90" />
+		<flag runonhealth="10" />
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="10" attack="12" />
+	</attacks>
+	<defenses armor="1" defense="3" />
+	<loot>
+		<item id="2148" countmax="50" chance="90000" /> <!-- gold coin -->
+		<item id="2152" countmax="50" chance="90000" /> <!-- platinum coin -->
+		<item id="2160" countmax="5" chance="50000" /> <!-- crystal coin -->
+		<item id="56712" countmax="3" chance="10000" /> <!-- yellow potion -->
+		<item id="56713" countmax="3" chance="10000" /> <!-- grey potion -->
+		<item id="56714" countmax="3" chance="10000" /> <!-- purple potion -->
+		<item id="56715" countmax="3" chance="10000" /> <!-- pink potion -->
+		<item id="56716" countmax="3" chance="10000" /> <!-- light blue potion -->
+		<item id="56717" countmax="3" chance="10000" /> <!-- green potion -->
+		<item id="56718" countmax="3" chance="10000" /> <!-- red potion -->
+		<item id="49689" countmax="10" chance="1000" /> <!-- hp point -->
+		<item id="49690" countmax="10" chance="1000" /> <!-- mp point -->
+		<item id="3976" chance="20000" /><!-- worm -->
+		<item id="2671" chance="20000" /><!-- ham -->
+	</loot>
+</monster>

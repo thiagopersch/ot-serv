@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Zaratustra" script="zaratustra.lua" walkinterval="2000" floorchange="0">
+   <health now="100" max="100" />
+   <look type="634" head="38" body="106" legs="96" feet="124" addons="3" />
+   <parameters>
+      <parameter key="message_greet" value="Ah, |PLAYERNAME|! I can sense a great destiny within you! You will be redirected to {Central City}, the heart of this world, where your journey will truly begin. Do you wish to go to {Central City}?" />
+   </parameters>
+</npc>

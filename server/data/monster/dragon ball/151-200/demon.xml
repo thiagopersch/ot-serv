@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Demon" bestiary="monster" nameDescription="a demon" race="fire" experience="60000"
+	speed="380" manacost="0">
+	<health now="82000" max="82000" />
+	<look type="35" corpse="5995" />
+	<targetchange interval="5000" chance="10" />
+	<strategy attack="100" defense="0" />
+	<script>
+		<event name="KillingInTheNameOf" />
+	</script>
+	<flags>
+		<flag summonable="0" />
+		<flag attackable="1" />
+		<flag hostile="1" />
+		<flag illusionable="0" />
+		<flag convinceable="0" />
+		<flag pushable="0" />
+		<flag canpushitems="1" />
+		<flag canpushcreatures="1" />
+		<flag targetdistance="1" />
+		<flag staticattack="90" />
+		<flag runonhealth="0" />
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="80" attack="120" />
+		<attack name="manadrain" interval="3000" chance="15" range="7" min="-0" max="-120" />
+		<attack name="fire" interval="4000" chance="60" range="7" radius="7" target="1" min="-150"
+			max="-250">
+			<attribute key="shootEffect" value="fire" />
+			<attribute key="areaEffect" value="firearea" />
+		</attack>
+		<attack name="firefield" interval="1000" chance="15" range="7" radius="1" target="1">
+			<attribute key="shootEffect" value="fire" />
+		</attack>
+		<attack name="energy" interval="3000" chance="10" length="8" spread="0" min="-300" max="-460">
+			<attribute key="areaEffect" value="purpleenergy" />
+		</attack>
+		<attack name="energy" interval="3000" chance="7" range="3" radius="1" target="1" min="-210"
+			max="-300">
+			<attribute key="shootEffect" value="energy" />
+			<attribute key="areaEffect" value="energy" />
+		</attack>
+		<attack name="speed" interval="5000" chance="10" range="7" speedchange="-220" duration="5000">
+		</attack>
+	</attacks>
+	<defenses armor="30" defense="30">
+		<defense name="healing" interval="2000" chance="10" min="90" max="200">
+			<attribute key="areaEffect" value="blueshimmer" />
+		</defense>
+		<defense name="speed" interval="1000" chance="5" speedchange="60" duration="20000">
+			<attribute key="areaEffect" value="redshimmer" />
+		</defense>
+	</defenses>
+	<elements>
+		<element firePercent="100" />
+		<element physicalPercent="25" />
+		<element earthpercent="40" />
+		<element energyPercent="50" />
+		<element deathPercent="20" />
+		<element icePercent="-12" />
+		<element holyPercent="-12" />
+	</elements>
+	<immunities>
+		<immunity lifedrain="1" />
+		<immunity paralyze="1" />
+		<immunity invisible="1" />
+	</immunities>
+	<summons maxSummons="1">
+		<summon name="fire elemental" interval="4000" chance="10" max="1" />
+	</summons>
+	<voices interval="5000" chance="10">
+		<voice sentence="MUHAHAHAHA!" yell="1" />
+		<voice sentence="I SMELL FEEEEEAAAR!" yell="1" />
+		<voice sentence="CHAMEK ATH UTHUL ARAK!" yell="1" />
+		<voice sentence="Your resistance is futile!" />
+		<voice sentence="Your soul will be mine!" yell="0" />
+	</voices>
+	<loot>
+		<item id="2148" countmax="50" chance="90000" /> <!-- gold coin -->
+		<item id="2152" countmax="50" chance="90000" /> <!-- platinum coin -->
+		<item id="2160" countmax="5" chance="50000" /> <!-- crystal coin -->
+		<item id="56712" countmax="3" chance="10000" /> <!-- yellow potion -->
+		<item id="56713" countmax="3" chance="10000" /> <!-- grey potion -->
+		<item id="56714" countmax="3" chance="10000" /> <!-- purple potion -->
+		<item id="56715" countmax="3" chance="10000" /> <!-- pink potion -->
+		<item id="56716" countmax="3" chance="10000" /> <!-- light blue potion -->
+		<item id="56717" countmax="3" chance="10000" /> <!-- green potion -->
+		<item id="56718" countmax="3" chance="10000" /> <!-- red potion -->
+		<item id="49689" countmax="10" chance="1000" /> <!-- hp point -->
+		<item id="49690" countmax="10" chance="1000" /> <!-- mp point -->
+		<item id="5954" countmax="3" chance="1000" /> <!-- demon horn -->
+		<item id="6500" countmax="3" chance="1000" /> <!-- demon essence -->
+		<item id="13530" countmax="3" chance="1000" /> <!-- demon finger -->
+	</loot>
+</monster>

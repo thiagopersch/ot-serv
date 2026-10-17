@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Gohan SSJ4" bestiary="monster" nameDescription="an gohan ssj4" race="blood"
+	experience="200000" speed="475" manacost="0">
+	<health now="400000" max="400000" />
+	<look type="1865" head="1" body="1" legs="1" feet="1" addons="0" corpse="49244" />
+	<targetchange interval="5000" chance="8" />
+	<strategy attack="100" defense="0" />
+	<flags>
+		<flag summonable="0" />
+		<flag attackable="1" />
+		<flag hostile="1" />
+		<flag illusionable="0" />
+		<flag convinceable="0" />
+		<flag pushable="1" />
+		<flag canpushitems="1" />
+		<flag canpushcreatures="1" />
+		<flag targetdistance="1" />
+		<flag staticattack="90" />
+		<flag runonhealth="0" />
+	</flags>
+	<attacks>
+		<attack name="melee" interval="1000" min="-500" max="-1000" />
+		<attack name="Super Energy Wave" interval="2000" chance="25" min="-1000" max="-1700" />
+		<attack name="Great Saiyaman Attack" interval="3000" chance="35" min="-1000" max="-1800" />
+		<attack name="Saiyajin Blast" interval="8000" chance="30" min="-400" max="-800" />
+		<attack name="crusher ball" interval="6000" chance="45" min="-400" max="-800" />
+	</attacks>
+	<defenses armor="0" defense="0">
+	</defenses>
+	<immunities>
+		<immunity physical="0" />
+		<immunity energy="0" />
+		<immunity fire="0" />
+		<immunity poison="0" />
+		<immunity lifedrain="0" />
+		<immunity paralyze="1" />
+		<immunity outfit="1" />
+		<immunity invisible="1" />
+	</immunities>
+	<voices interval="5000" chance="10">
+		<voice sentence="Damn you, go away!" />
+		<voice sentence="AaaaaaaaaaaaaaaAAAAAAAAAAAAAAAAAAAAAAAAAAah!" />
+		<voice sentence="You made me angry!" />
+	</voices>
+	<loot>
+		<item id="2148" countmax="50" chance="90000" /> <!-- gold coin -->
+		<item id="2152" countmax="50" chance="90000" /> <!-- platinum coin -->
+		<item id="2160" countmax="5" chance="50000" /> <!-- crystal coin -->
+		<item id="56712" countmax="3" chance="10000" /> <!-- yellow potion -->
+		<item id="56713" countmax="3" chance="10000" /> <!-- grey potion -->
+		<item id="56714" countmax="3" chance="10000" /> <!-- purple potion -->
+		<item id="56715" countmax="3" chance="10000" /> <!-- pink potion -->
+		<item id="56716" countmax="3" chance="10000" /> <!-- light blue potion -->
+		<item id="56717" countmax="3" chance="10000" /> <!-- green potion -->
+		<item id="56718" countmax="3" chance="10000" /> <!-- red potion -->
+		<item id="49689" countmax="10" chance="1000" /> <!-- hp point -->
+		<item id="49690" countmax="10" chance="1000" /> <!-- mp point -->
+	</loot>
+</monster>

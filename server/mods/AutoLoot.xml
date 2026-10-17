@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<mod name="Loot System" version="1.0" author="Vodkart And Mkalo" contact="none.com" enabled="yes">
+	<config name="Loot_func"><![CDATA[
+dofile('data/lib/autoloot_lib.lua')
+]]></config>
+	<!-- LootEventKIll (kill) removido: duplicava data/creaturescripts/scripts/autoloot_opcode.lua
+	     (AutoLootKill), que já é registrado no login por esse script. Ambos chamavam
+	     corpseRetireItems para a mesma morte, cada um com seu addEvent de 100ms concorrente,
+	     causando "(luaGetContainerSize) Container not found" por corrida entre os dois. -->
+	<event type="login" name="LootLogin" event="script"><![CDATA[
+function onLogin(cid)
+	if isPremium(cid) and getPlayerStorageValue(cid, 27001) <= 0 then
+		setPlayerStorageValue(cid, 27001, 1)
+	elseif getPlayerStorageValue(cid, 27001) > 0 and not isPremium(cid) then
+		doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_BLUE, "[Auto Loot] You premium is Over, Start a new list!")
+		setPlayerStorageValue(cid, 27001, -1)
+		setPlayerStorageValue(cid, info.Storages[1], -1)
+	end
+	return true
+end]]></event>
+
+</mod>

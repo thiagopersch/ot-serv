@@ -1,0 +1,817 @@
+[
+  {
+    "id": 34755,
+    "name": "traditional shirt",
+    "value": 1
+  },
+  {
+    "id": 2657,
+    "name": "simple dress",
+    "value": 6
+  },
+  {
+    "id": 8876,
+    "name": "girl's dress",
+    "value": 16
+  },
+  {
+    "id": 8875,
+    "name": "tunic",
+    "value": 21
+  },
+  {
+    "id": 8873,
+    "name": "hibiscus dress",
+    "value": 26
+  },
+  {
+    "id": 9929,
+    "name": "flower dress",
+    "value": 32
+  },
+  {
+    "id": 35361,
+    "name": "pair of old bracers",
+    "value": 47
+  },
+  {
+    "id": 10363,
+    "name": "the rain coat",
+    "value": 83
+  },
+  {
+    "id": 12657,
+    "name": "old cape",
+    "value": 88
+  },
+  {
+    "id": 6095,
+    "name": "pirate shirt",
+    "value": 103
+  },
+  {
+    "id": 35241,
+    "name": "burial shroud",
+    "value": 108
+  },
+  {
+    "id": 8874,
+    "name": "summer dress",
+    "value": 113
+  },
+  {
+    "id": 10296,
+    "name": "heavy metal t-shirt",
+    "value": 123
+  },
+  {
+    "id": 8819,
+    "name": "magician's robe",
+    "value": 128
+  },
+  {
+    "id": 20126,
+    "name": "leather harness",
+    "value": 154
+  },
+  {
+    "id": 23535,
+    "name": "glooth cape",
+    "value": 159
+  },
+  {
+    "id": 7463,
+    "name": "mammoth fur cape",
+    "value": 169
+  },
+  {
+    "id": 8872,
+    "name": "belted cape",
+    "value": 174
+  },
+  {
+    "id": 7884,
+    "name": "terra mantle",
+    "value": 200
+  },
+  {
+    "id": 7897,
+    "name": "glacier robe",
+    "value": 205
+  },
+  {
+    "id": 7898,
+    "name": "lightning robe",
+    "value": 210
+  },
+  {
+    "id": 7899,
+    "name": "magma coat",
+    "value": 215
+  },
+  {
+    "id": 11355,
+    "name": "spellweaver's robe",
+    "value": 220
+  },
+  {
+    "id": 11356,
+    "name": "zaoan robe",
+    "value": 225
+  },
+  {
+    "id": 8821,
+    "name": "witchhunter's coat",
+    "value": 230
+  },
+  {
+    "id": 8865,
+    "name": "dark lord's cape",
+    "value": 235
+  },
+  {
+    "id": 8867,
+    "name": "dragon robe",
+    "value": 251
+  },
+  {
+    "id": 8868,
+    "name": "velvet mantle",
+    "value": 256
+  },
+  {
+    "id": 8869,
+    "name": "greenwood coat",
+    "value": 261
+  },
+  {
+    "id": 8866,
+    "name": "robe of the ice queen",
+    "value": 266
+  },
+  {
+    "id": 8890,
+    "name": "robe of the underworld",
+    "value": 271
+  },
+  {
+    "id": 21692,
+    "name": "albino plate",
+    "value": 276
+  },
+  {
+    "id": 21706,
+    "name": "goo shell",
+    "value": 281
+  },
+  {
+    "id": 23538,
+    "name": "heat core",
+    "value": 286
+  },
+  {
+    "id": 8892,
+    "name": "ethno coat",
+    "value": 297
+  },
+  {
+    "id": 20109,
+    "name": "buckle",
+    "value": 302
+  },
+  {
+    "id": 23537,
+    "name": "mooh'tah plate",
+    "value": 312
+  },
+  {
+    "id": 8870,
+    "name": "spirit cloak",
+    "value": 317
+  },
+  {
+    "id": 8885,
+    "name": "divine plate",
+    "value": 322
+  },
+  {
+    "id": 8886,
+    "name": "molten plate",
+    "value": 327
+  },
+  {
+    "id": 8887,
+    "name": "frozen plate",
+    "value": 332
+  },
+  {
+    "id": 8878,
+    "name": "crystalline armor",
+    "value": 337
+  },
+  {
+    "id": 8879,
+    "name": "voltage armor",
+    "value": 342
+  },
+  {
+    "id": 8880,
+    "name": "swamplair armor",
+    "value": 348
+  },
+  {
+    "id": 8877,
+    "name": "lavos armor",
+    "value": 353
+  },
+  {
+    "id": 8871,
+    "name": "focus cape",
+    "value": 363
+  },
+  {
+    "id": 8889,
+    "name": "skullcracker armor",
+    "value": 373
+  },
+  {
+    "id": 8891,
+    "name": "paladin armor",
+    "value": 383
+  },
+  {
+    "id": 40757,
+    "name": "green demon armor",
+    "value": 399
+  },
+  {
+    "id": 18399,
+    "name": "gill coat",
+    "value": 404
+  },
+  {
+    "id": 8884,
+    "name": "oceanborn leviathan armor",
+    "value": 414
+  },
+  {
+    "id": 9776,
+    "name": "yalahari armor",
+    "value": 424
+  },
+  {
+    "id": 8881,
+    "name": "fireborn giant armor",
+    "value": 429
+  },
+  {
+    "id": 8882,
+    "name": "earthborn titan armor",
+    "value": 434
+  },
+  {
+    "id": 8883,
+    "name": "windborn colossus armor",
+    "value": 439
+  },
+  {
+    "id": 24741,
+    "name": "fur armor",
+    "value": 444
+  },
+  {
+    "id": 8888,
+    "name": "master archer's armor",
+    "value": 450
+  },
+  {
+    "id": 15489,
+    "name": "calopteryx cape",
+    "value": 455
+  },
+  {
+    "id": 11301,
+    "name": "zaoan armor",
+    "value": 460
+  },
+  {
+    "id": 12607,
+    "name": "elite draken mail",
+    "value": 465
+  },
+  {
+    "id": 35284,
+    "name": "ghost chestplate",
+    "value": 470
+  },
+  {
+    "id": 39319,
+    "name": "eldritch cuirass",
+    "value": 475
+  },
+  {
+    "id": 25174,
+    "name": "fireheart cuirass",
+    "value": 480
+  },
+  {
+    "id": 25175,
+    "name": "fireheart hauberk",
+    "value": 485
+  },
+  {
+    "id": 25176,
+    "name": "fireheart platemail",
+    "value": 490
+  },
+  {
+    "id": 25177,
+    "name": "earthheart cuirass",
+    "value": 495
+  },
+  {
+    "id": 25178,
+    "name": "earthheart hauberk",
+    "value": 501
+  },
+  {
+    "id": 25179,
+    "name": "earthheart platemail",
+    "value": 506
+  },
+  {
+    "id": 25180,
+    "name": "thunderheart cuirass",
+    "value": 511
+  },
+  {
+    "id": 25181,
+    "name": "thunderheart hauberk",
+    "value": 516
+  },
+  {
+    "id": 25182,
+    "name": "thunderheart platemail",
+    "value": 521
+  },
+  {
+    "id": 25183,
+    "name": "frostheart cuirass",
+    "value": 526
+  },
+  {
+    "id": 25184,
+    "name": "frostheart hauberk",
+    "value": 531
+  },
+  {
+    "id": 25185,
+    "name": "frostheart platemail",
+    "value": 536
+  },
+  {
+    "id": 25186,
+    "name": "firesoul tabard",
+    "value": 541
+  },
+  {
+    "id": 25187,
+    "name": "earthsoul tabard",
+    "value": 546
+  },
+  {
+    "id": 25188,
+    "name": "thundersoul tabard",
+    "value": 551
+  },
+  {
+    "id": 25189,
+    "name": "frostsoul tabard",
+    "value": 557
+  },
+  {
+    "id": 12642,
+    "name": "royal draken mail",
+    "value": 562
+  },
+  {
+    "id": 15407,
+    "name": "depth lorica",
+    "value": 567
+  },
+  {
+    "id": 21725,
+    "name": "furious frock",
+    "value": 572
+  },
+  {
+    "id": 12643,
+    "name": "royal scale robe",
+    "value": 577
+  },
+  {
+    "id": 34235,
+    "name": "embrace of nature",
+    "value": 582
+  },
+  {
+    "id": 15406,
+    "name": "ornate chestplate",
+    "value": 587
+  },
+  {
+    "id": 32074,
+    "name": "living armor",
+    "value": 592
+  },
+  {
+    "id": 18404,
+    "name": "prismatic armor",
+    "value": 597
+  },
+  {
+    "id": 30304,
+    "name": "gnome armor",
+    "value": 602
+  },
+  {
+    "id": 31375,
+    "name": "falcon plate",
+    "value": 608
+  },
+  {
+    "id": 32079,
+    "name": "dream shroud",
+    "value": 613
+  },
+  {
+    "id": 36813,
+    "name": "lion plate",
+    "value": 618
+  },
+  {
+    "id": 25190,
+    "name": "firemind raiment",
+    "value": 623
+  },
+  {
+    "id": 25191,
+    "name": "earthmind raiment",
+    "value": 628
+  },
+  {
+    "id": 25192,
+    "name": "thundermind raiment",
+    "value": 633
+  },
+  {
+    "id": 25193,
+    "name": "frostmind raiment",
+    "value": 638
+  },
+  {
+    "id": 28435,
+    "name": "swan feather cloak",
+    "value": 643
+  },
+  {
+    "id": 44196,
+    "name": "midnight tunic",
+    "value": 648
+  },
+  {
+    "id": 36750,
+    "name": "soulshell",
+    "value": 653
+  },
+  {
+    "id": 36751,
+    "name": "soulmantle",
+    "value": 659
+  },
+  {
+    "id": 34239,
+    "name": "toga mortis",
+    "value": 664
+  },
+  {
+    "id": 44195,
+    "name": "dawnfire sherwani",
+    "value": 669
+  },
+  {
+    "id": 34234,
+    "name": "bear skin",
+    "value": 674
+  },
+  {
+    "id": 36752,
+    "name": "soulshroud",
+    "value": 679
+  },
+  {
+    "id": 44178,
+    "name": "spiritthorn armor",
+    "value": 684
+  },
+  {
+    "id": 49684,
+    "name": "piccolo waistcoat",
+    "value": 689
+  },
+  {
+    "id": 49465,
+    "name": "yardrats armor",
+    "value": 694
+  },
+  {
+    "id": 49629,
+    "name": "human cloak",
+    "value": 699
+  },
+  {
+    "id": 49640,
+    "name": "human armor",
+    "value": 704
+  },
+  {
+    "id": 49623,
+    "name": "children goku cloak",
+    "value": 709
+  },
+  {
+    "id": 49687,
+    "name": "enchanted ancient hunter necklace",
+    "value": 715
+  },
+  {
+    "id": 49642,
+    "name": "green big cloak",
+    "value": 720
+  },
+  {
+    "id": 49645,
+    "name": "gohan cloak",
+    "value": 725
+  },
+  {
+    "id": 49637,
+    "name": "bandit cloak",
+    "value": 730
+  },
+  {
+    "id": 49697,
+    "name": "old piccolo armor",
+    "value": 735
+  },
+  {
+    "id": 49679,
+    "name": "gohan waistcoat",
+    "value": 740
+  },
+  {
+    "id": 49681,
+    "name": "android 16 waistcoat",
+    "value": 745
+  },
+  {
+    "id": 49683,
+    "name": "vegeta waistcoat",
+    "value": 750
+  },
+  {
+    "id": 49676,
+    "name": "raditz armor",
+    "value": 755
+  },
+  {
+    "id": 49678,
+    "name": "android 18 waistcoat",
+    "value": 760
+  },
+  {
+    "id": 49455,
+    "name": "fusion armor",
+    "value": 766
+  },
+  {
+    "id": 49464,
+    "name": "cell armor",
+    "value": 771
+  },
+  {
+    "id": 49682,
+    "name": "devil waistcoat",
+    "value": 776
+  },
+  {
+    "id": 49624,
+    "name": "bardock waistcoat",
+    "value": 781
+  },
+  {
+    "id": 49680,
+    "name": "android 17 waistcoat",
+    "value": 786
+  },
+  {
+    "id": 49701,
+    "name": "kaioshin armor",
+    "value": 791
+  },
+  {
+    "id": 49677,
+    "name": "saiyan waistcoat",
+    "value": 796
+  },
+  {
+    "id": 49865,
+    "name": "imperfect-form freeza armor",
+    "value": 801
+  },
+  {
+    "id": 49630,
+    "name": "broly crown",
+    "value": 806
+  },
+  {
+    "id": 49879,
+    "name": "future trunks cloak",
+    "value": 811
+  },
+  {
+    "id": 49868,
+    "name": "imperfect-form cell armor",
+    "value": 817
+  },
+  {
+    "id": 49604,
+    "name": "fire cloak",
+    "value": 822
+  },
+  {
+    "id": 45530,
+    "name": "indie lance armor",
+    "value": 827
+  },
+  {
+    "id": 49609,
+    "name": "magma cloak",
+    "value": 832
+  },
+  {
+    "id": 49603,
+    "name": "zangetsu cloak",
+    "value": 837
+  },
+  {
+    "id": 49739,
+    "name": "freeza armor",
+    "value": 842
+  },
+  {
+    "id": 49688,
+    "name": "tsuful armor",
+    "value": 847
+  },
+  {
+    "id": 49646,
+    "name": "android 17 cloak",
+    "value": 852
+  },
+  {
+    "id": 49736,
+    "name": "goku af armor",
+    "value": 857
+  },
+  {
+    "id": 49735,
+    "name": "cabba armor",
+    "value": 862
+  },
+  {
+    "id": 49601,
+    "name": "ice golem ancient world armor",
+    "value": 867
+  },
+  {
+    "id": 49602,
+    "name": "enchanted ancient hunter armor",
+    "value": 873
+  },
+  {
+    "id": 49733,
+    "name": "hitto armor",
+    "value": 888
+  },
+  {
+    "id": 49738,
+    "name": "demonic armor",
+    "value": 893
+  },
+  {
+    "id": 49734,
+    "name": "grand saiyan armor",
+    "value": 898
+  },
+  {
+    "id": 49881,
+    "name": "ice cloak",
+    "value": 903
+  },
+  {
+    "id": 49685,
+    "name": "janemba armor",
+    "value": 908
+  },
+  {
+    "id": 49686,
+    "name": "goku armor",
+    "value": 913
+  },
+  {
+    "id": 49740,
+    "name": "black janemba armor",
+    "value": 918
+  },
+  {
+    "id": 49730,
+    "name": "elite patroler armor",
+    "value": 924
+  },
+  {
+    "id": 49732,
+    "name": "golden freeza armor",
+    "value": 929
+  },
+  {
+    "id": 49731,
+    "name": "bills armor",
+    "value": 934
+  },
+  {
+    "id": 49737,
+    "name": "zamasu armor",
+    "value": 939
+  },
+  {
+    "id": 49822,
+    "name": "ultimate demonic shenlong armor",
+    "value": 944
+  },
+  {
+    "id": 49466,
+    "name": "zaiko armor",
+    "value": 949
+  },
+  {
+    "id": 49887,
+    "name": "energy cloak",
+    "value": 954
+  },
+  {
+    "id": 49888,
+    "name": "energy armor",
+    "value": 959
+  },
+  {
+    "id": 49741,
+    "name": "goku golden armor",
+    "value": 964
+  },
+  {
+    "id": 49790,
+    "name": "shenlong armor",
+    "value": 969
+  },
+  {
+    "id": 49781,
+    "name": "ultimate shenlong armor",
+    "value": 975
+  },
+  {
+    "id": 49780,
+    "name": "ultimate black shenlong armor",
+    "value": 980
+  },
+  {
+    "id": 49786,
+    "name": "demonic mage armor",
+    "value": 985
+  },
+  {
+    "id": 49830,
+    "name": "angel armor",
+    "value": 990
+  },
+  {
+    "id": 49826,
+    "name": "fullbring armor",
+    "value": 995
+  },
+  {
+    "id": 49816,
+    "name": "ultimate fullbring armor",
+    "value": 1000
+  }
+]

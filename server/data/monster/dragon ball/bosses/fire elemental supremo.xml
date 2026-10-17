@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<monster name="Fire Elemental Supremo" bestiary="boss" nameDescription="a fire elemental supremo"
+	race="blood" experience="350000000" speed="400">
+	<health now="50000000" max="50000000" />
+	<look type="2519" head="0" body="0" legs="0" feet="0" addons="0" typeex="0" corpse="49386" />
+	<targetchange interval="4000" chance="10" />
+	<flags>
+		<flag summonable="1" />
+		<flag attackable="1" />
+		<flag hostile="1" />
+		<flag illusionable="1" />
+		<flag convinceable="0" />
+		<flag pushable="0" />
+		<flag canpushitems="1" />
+		<flag canpushcreatures="0" />
+		<flag hidename="0" />
+		<flag hidehealth="0" />
+		<flag lightlevel="1" />
+		<flag lightcolor="0" />
+		<flag lootmessage="0" />
+		<flag targetdistance="1" />
+		<flag staticattack="90" />
+		<flag runonhealth="20" />
+		<flag lureable="0" />
+		<flag walkable="0" />
+		<flag skull="4" />
+		<flag shield="0" />
+		<flag emblem="0" />
+		<flag canwalkonenergy="0" />
+		<flag canwalkonfire="0" />
+		<flag canwalkonpoison="0" />
+	</flags>
+	<attacks>
+		<attack name="melee" interval="1000" min="-1000" max="-10000" />
+		<attack name="hakai" interval="4000" min="-10000" max="-40000" />
+		<attack name="Calamity Blaster" interval="3000" min="-1000" max="-15000" />
+		<attack name="Artillery Destruction" interval="5000" min="-1000" max="-50000" />
+		<attack name="fire" interval="2000" chance="40" range="7" radius="4" target="1" min="-1000"
+			max="-20000">
+			<attribute key="shootEffect" value="fire" />
+			<attribute key="areaEffect" value="firearea" />
+		</attack>
+		<attack name="fire" interval="3000" chance="12" length="8" spread="3" min="-1500" max="-25000">
+			<attribute key="areaEffect" value="firearea" />
+		</attack>
+		<attack name="firefield" interval="4000" chance="20" range="7" radius="20" target="10">
+			<attribute key="shootEffect" value="fire" />
+		</attack>
+		<attack name="manadrain" interval="3000" chance="4" range="7" min="-0" max="-120" />
+		<attack name="fire" interval="4000" chance="60" range="7" radius="7" target="1" min="-1500"
+			max="-25000">
+			<attribute key="shootEffect" value="fire" />
+			<attribute key="areaEffect" value="firearea" />
+		</attack>
+		<attack name="firefield" interval="1000" chance="15" range="10" radius="10" target="10">
+			<attribute key="shootEffect" value="fire" />
+		</attack>
+		<attack name="energy" interval="3000" chance="10" length="8" spread="0" min="-300" max="-460">
+			<attribute key="areaEffect" value="purpleenergy" />
+		</attack>
+		<attack name="energy" interval="3000" chance="7" range="3" radius="1" target="1" min="-210"
+			max="-300">
+			<attribute key="shootEffect" value="energy" />
+			<attribute key="areaEffect" value="energy" />
+		</attack>
+		<attack name="speed" interval="10000" chance="3" range="10" speedchange="-2200" duration="2000">
+		</attack>
+	</attacks>
+	<immunities>
+		<immunity physical="0" />
+		<immunity energy="0" />
+		<immunity fire="0" />
+		<immunity poison="0" />
+		<immunity earth="0" />
+		<immunity ice="0" />
+		<immunity holy="0" />
+		<immunity death="0" />
+		<immunity drown="0" />
+		<immunity lifedrain="0" />
+		<immunity manadrain="0" />
+		<immunity outfit="0" />
+		<immunity drunk="0" />
+		<immunity invisible="0" />
+		<immunity paralyze="0" />
+	</immunities>
+	<defenses armor="35" defense="35">
+		<defense name="speed" interval="2000" chance="10" speedchange="10000" duration="50000">
+			<attribute key="areaEffect" value="redshimmer" />
+		</defense>
+		<defense name="healing" interval="2000" chance="3" min="0" max="1500">
+			<attribute key="areaEffect" value="blueshimmer" />
+		</defense>
+	</defenses>
+	<elements>
+		<element firePercent="0" />
+		<element energyPercent="10" />
+		<element icePercent="0" />
+		<element poisonPercent="0" />
+		<element holyPercent="0" />
+		<element deathPercent="0" />
+		<element drownPercent="0" />
+		<element earthPercent="70" />
+		<element physicalPercent="10" />
+		<element lifeDrainPercent="0" />
+		<element manaDrainPercent="10" />
+		<element healingPercent="0" />
+		<element undefinedPercent="0" />
+	</elements>
+	<summons maxSummons="5">
+		<summon name="Demon" interval="2000" chance="90" max="5" />
+		<summon name="Dragon Lord" interval="2000" chance="90" max="5" />
+		<summon name="Fire Elemental" interval="2000" chance="90" max="5" />
+	</summons>
+	<voices interval="2000" chance="50">
+		<voice sentence="Go to sleep!" yell="1" />
+		<voice sentence="PRU PRU PRU!" yell="1" />
+		<voice sentence="HAHAHAHAhahahahahahah!" yell="1" />
+		<voice sentence="YOU ARE DEAD!" yell="1" />
+	</voices>
+	<loot>
+		<item id="2148" countmax="50" chance="90000" /> <!-- gold coin -->
+		<item id="2152" countmax="50" chance="90000" /> <!-- platinum coin -->
+		<item id="2160" countmax="5" chance="50000" /> <!-- crystal coin -->
+		<item id="56712" countmax="3" chance="10000" /> <!-- yellow potion -->
+		<item id="56713" countmax="3" chance="10000" /> <!-- grey potion -->
+		<item id="56714" countmax="3" chance="10000" /> <!-- purple potion -->
+		<item id="56715" countmax="3" chance="10000" /> <!-- pink potion -->
+		<item id="56716" countmax="3" chance="10000" /> <!-- light blue potion -->
+		<item id="56717" countmax="3" chance="10000" /> <!-- green potion -->
+		<item id="56718" countmax="3" chance="10000" /> <!-- red potion -->
+		<item id="49689" countmax="10" chance="1000" /> <!-- hp point -->
+		<item id="49690" countmax="10" chance="1000" /> <!-- mp point -->
+		<item id="7761" countmax="10" chance="3000" /> <!-- enchanted small emerald-->
+		<item id="49507" chance="10000" /> <!-- enchanted experience scroll gray -->
+		<item id="9980" chance="10000" /> <!-- crystal of power -->
+		<item id="48939" chance="1000" /> <!-- sanguine boots -->
+		<item id="48940" chance="1000" /> <!-- sanguine rod -->
+		<item id="49594" chance="1000" /> <!-- vaizard mask -->
+	</loot>
+	<script>
+		<event name="BossChannelDeath" />
+	</script>
+</monster>

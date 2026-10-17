@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Furios Scorpion" bestiary="monster" description="a furios scorpion" race="blood"
+  experience="375000" speed="380" manacost="600">
+  <health now="250000" max="250000" />
+  <look type="398" head="0" body="0" legs="0" feet="0" addons="0" typeex="0" corpse="49312" />
+  <targetchange interval="4000" chance="10" />
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="1" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="0" />
+    <flag hidename="0" />
+    <flag hidehealth="0" />
+    <flag lightlevel="0" />
+    <flag lightcolor="0" />
+    <flag lootmessage="0" />
+    <flag targetdistance="1" />
+    <flag staticattack="90" />
+    <flag runonhealth="20" />
+    <flag lureable="0" />
+    <flag walkable="0" />
+    <flag skull="0" />
+    <flag shield="0" />
+    <flag emblem="0" />
+    <flag canwalkonenergy="0" />
+    <flag canwalkonfire="0" />
+    <flag canwalkonpoison="0" />
+  </flags>
+  <attacks>
+    <attack name="melee" interval="2000" skill="80" min="-1" max="-300" />
+    <attack name="poison" interval="2000" chance="10" range="7" target="1" min="-0" max="-250">
+      <attribute key="shootEffect" value="poison" />
+      <attribute key="areaEffect" value="mortarea" />
+    </attack>
+    <attack name="death" interval="2000" chance="10" range="7" target="1" min="-0" max="-250">
+      <attribute key="shootEffect" value="death" />
+      <attribute key="areaEffect" value="mortarea" />
+    </attack>
+    <attack name="death" interval="4000" chance="20" range="7" radius="4" target="0" min="-0"
+      max="-300">
+      <attribute key="areaEffect" value="redspark" />
+    </attack>
+    <attack name="melee" interval="4000" chance="20" range="7" radius="4" target="0" min="-0"
+      max="-0">
+      <attribute key="areaEffect" value="yellownote" />
+    </attack>
+    <attack name="fire" interval="1500" chance="10" length="5" spread="3" min="-200" max="-300">
+      <attribute key="areaEffect" value="explosionarea" />
+    </attack>
+    <attack name="death" interval="2250" chance="10" length="8" spread="0" min="-0" max="-700">
+      <attribute key="areaEffect" value="redspark" />
+    </attack>
+    <attack name="lifedrain" interval="2000" chance="15" radius="3" min="-0" max="-300">
+      <attribute key="areaEffect" value="blackspark" />
+    </attack>
+  </attacks>
+  <defenses armor="20" defense="20">
+    <defense name="speed" interval="2000" chance="20" speedchange="266" duration="2000">
+      <attribute key="areaEffect" value="redshimmer" />
+    </defense>
+  </defenses>
+  <immunities>
+    <immunity physical="0" />
+    <immunity energy="0" />
+    <immunity fire="0" />
+    <immunity poison="0" />
+    <immunity earth="0" />
+    <immunity ice="0" />
+    <immunity holy="0" />
+    <immunity death="1" />
+    <immunity drown="0" />
+    <immunity lifedrain="0" />
+    <immunity manadrain="0" />
+    <immunity outfit="0" />
+    <immunity drunk="0" />
+    <immunity invisible="1" />
+    <immunity paralyze="1" />
+  </immunities>
+  <defenses armor="35" defense="35">
+    <defense
+      name="speed"
+      interval="2000"
+      chance="15"
+      speedchange="450"
+      duration="5000"
+    >
+      <attribute key="areaEffect" value="redshimmer" />
+    </defense>
+    <defense name="healing" interval="2000" chance="10" min="0" max="110">
+      <attribute key="areaEffect" value="blueshimmer" />
+    </defense>
+  </defenses>
+  <elements>
+    <element firePercent="0" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element poisonPercent="80" />
+    <element holyPercent="0" />
+    <element deathPercent="0" />
+    <element drownPercent="0" />
+    <element earthPercent="0" />
+    <element physicalPercent="0" />
+    <element lifeDrainPercent="0" />
+    <element manaDrainPercent="0" />
+    <element healingPercent="0" />
+    <element undefinedPercent="0" />
+  </elements>
+  <voices interval="3000" chance="30">
+    <voice sentence="Ahhhhrrrr!" />
+    <voice sentence="Waaaaah!" />
+    <voice sentence="Carnage!" />
+    <voice sentence="I'm ratman!" />
+  </voices>
+  <loot>
+    <item name="gold coin" countmax="50" chance="50000" />
+    <item name="gold coin" countmax="90" chance="50000" />
+    <item name="gold coin" countmax="80" chance="50000" />
+    <item name="fist on a stick" chance="2000" />
+  </loot>
+</monster>

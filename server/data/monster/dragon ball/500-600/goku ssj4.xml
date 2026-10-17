@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Goku SSJ4" bestiary="monster" nameDescription="an goku ssj4" race="blood"
+	experience="2000000"
+	speed="500" manacost="0">
+	<health now="250000" max="250000" />
+	<look type="1893" head="1" body="1" legs="1" feet="1" addons="0" corpse="49245" />
+	<targetchange interval="5000" chance="8" />
+	<strategy attack="100" defense="0" />
+	<flags>
+		<flag summonable="0" />
+		<flag attackable="1" />
+		<flag hostile="1" />
+		<flag illusionable="0" />
+		<flag convinceable="0" />
+		<flag pushable="1" />
+		<flag canpushitems="1" />
+		<flag canpushcreatures="1" />
+		<flag targetdistance="1" />
+		<flag staticattack="90" />
+		<flag runonhealth="0" />
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" min="-400" max="-10000" />
+		<attack name="renzoku energy dan" chance="35" interval="5000" min="-400" max="-12000" />
+		<attack name="super energy wave" chance="2" interval="6000" min="-2400" max="-50000" />
+		<attack name="crusher ball" interval="3000" chance="15" min="-1200" max="-20000" />
+		<attack name="kienzan" interval="10000" chance="5" min="-1200" max="-25000" />
+	</attacks>
+	<defenses armor="0" defense="0" />
+	<immunities>
+		<immunity physical="0" />
+		<immunity energy="0" />
+		<immunity fire="0" />
+		<immunity poison="0" />
+		<immunity lifedrain="0" />
+		<immunity paralyze="0" />
+		<immunity outfit="1" />
+		<immunity invisible="1" />
+	</immunities>
+	<voices interval="5000" chance="10">
+		<voice sentence="Fight with all your might.!" />
+		<voice sentence="I want to see what you're capable of.!" />
+		<voice sentence="You made me angry!" />
+	</voices>
+	<loot>
+		<item id="2148" countmax="50" chance="90000" /> <!-- gold coin -->
+		<item id="2152" countmax="50" chance="90000" /> <!-- platinum coin -->
+		<item id="2160" countmax="5" chance="50000" /> <!-- crystal coin -->
+		<item id="56712" countmax="3" chance="10000" /> <!-- yellow potion -->
+		<item id="56713" countmax="3" chance="10000" /> <!-- grey potion -->
+		<item id="56714" countmax="3" chance="10000" /> <!-- purple potion -->
+		<item id="56715" countmax="3" chance="10000" /> <!-- pink potion -->
+		<item id="56716" countmax="3" chance="10000" /> <!-- light blue potion -->
+		<item id="56717" countmax="3" chance="10000" /> <!-- green potion -->
+		<item id="56718" countmax="3" chance="10000" /> <!-- red potion -->
+		<item id="49689" countmax="10" chance="1000" /> <!-- hp point -->
+		<item id="49690" countmax="10" chance="1000" /> <!-- mp point -->
+		<item id="49691" countmax="5" chance="1000" /> <!-- leaf senzu -->
+		<item id="49692" countmax="5" chance="1000" /> <!-- branch senzu -->
+		<item id="49693" countmax="5" chance="1000" /> <!-- green senzu -->
+		<item id="49686" chance="1000" /> <!-- goku armor -->
+		<item id="49674" chance="1000" /> <!-- goku legs -->
+		<item id="49669" chance="1000" /> <!-- goku boots -->
+	</loot>
+</monster>

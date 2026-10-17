@@ -1,0 +1,88 @@
+================================================================================
+ TABELA RECOMENDADA DE ATRIBUTOS PARA MONSTROS POR FAIXA DE NÍVEL
+================================================================================
+ Baseado na análise das vocations, fórmulas de spells e estrutura atual das
+ pastas em data/monster (bleach/, dragon ball/, tibia/).
+
+ ANÁLISE REALIZADA:
+ ------------------
+
+ 1. VOCATIONS (data/XML/vocations.xml):
+    - Universo Dragon Ball (IDs 1-45) e Bleach (IDs 47-67)
+    - 4 classes de arquétipo:
+      * DPS:   meleeDamage=1.7, defense=1.0  (alto dano, baixa defesa)
+      * Tank:  meleeDamage=1.0, defense=1.2  (baixo dano, alta defesa)
+      * Bruiser: meleeDamage=1.6, defense=1.05 (equilibrado)
+      * Suporte: magDamage=1.4, defense=1.1  (suporte/curandeiro)
+    - GainHP por level: 250 (maioria), 450 (Tank), 150 (Suporte)
+    - AttackSpeed base: 900ms (DPS) / 1000ms (demais)
+
+ 2. FÓRMULA DE SPELLS (data/lib/formula_values_spells.lua):
+    - getCombatFormulaValues() com 13 ranges de level progressivos
+    - Multiplicadores mín/max por range:
+      1-30:   0.8-1.2x   | add 2-5
+      31-50:  1.2-2.0x   | add 5-12
+      51-100: 1.8-3.5x   | add 15-30
+      101-200: 2.5-4.5x  | add 25-50
+      201-300: 3.5-5.5x  | add 35-70
+      301-400: 4.5-6.5x  | add 45-90
+      401-500: 5.5-7.5x  | add 55-110
+      501-600: 6.5-8.5x  | add 65-130
+      601-700: 7.5-9.5x  | add 75-150
+      701-800: 8.5-10.5x | add 85-170
+      801-900: 9.5-11.5x | add 95-190
+      901-1000: 11.0-13.0x | add 110-220
+      1000+:   12.0-14.5x | add 120-250
+    - Dano final = (level/levelDiv + maglevel*mult + add) * baseMin * skillMult * damageMult
+    - Bônus de atributos (força + inteligência) influenciam: 1 + (str+int)/200
+
+ 3. CANNONS (data/spells/scripts/cannons/):
+    - Usam COMBAT_FORMULA_LEVELMAGIC (fórmula nativa do TFS)
+    - Regular (nível 90+): min = -50*level, max = -90*level
+    - Super (nível 250+):  min = -100*level, max = -150*level
+    - Hyper (nível 600+):  min = -100*level, max = -150*level (maior área)
+
+ 4. CONFIG LOOT/RATES (config.lua):
+    - rateExperience = 999.0 (experienceStages = false)
+    - rateSkill = 10.0, rateMagic = 10.0
+    - rateMonsterHealth = 1.0, rateMonsterAttack = 1.0
+
+ 5. PASTAS DE MONSTROS EXISTENTES:
+    - bleach/: 1-50, 51-100, 101-150, 151-200, 301-350
+    - dragon ball/: 1-50, 51-100, 101-150, 151-200, 201-250, bosses/
+    - tibia/: 1-50, 51-100, 101-150, 201-250, 251-300
+    - outros/: training monk (dummy)
+
+================================================================================
+
+TABELA RECOMENDADA VALORES BASE (experiência, velocidade, vida, ataque):
+
+Level   | experience | speed | health    | min      | max
+--------|------------|-------|-----------|----------|---------
+1-50    | 1.000      | 200   | 5.000     | 50       | 500
+51-100  | 5.000      | 300   | 25.000    | 200      | 2.000
+101-150 | 20.000     | 400   | 100.000   | 600      | 6.000
+151-200 | 80.000     | 500   | 400.000   | 2.000    | 20.000
+201-250 | 300.000    | 600   | 1.200.000 | 5.000    | 50.000
+251-300 | 1.000.000  | 700   | 3.500.000 | 10.000   | 100.000
+301-350 | 3.000.000  | 800   | 8.000.000 | 18.000   | 180.000
+351-400 | 8.000.000  | 900   | 18.000.000| 25.000   | 250.000
+401-450 | 18.000.000 | 1.000 | 35.000.000| 35.000   | 350.000
+451-500 | 35.000.000 | 1.100 | 60.000.000| 45.000   | 450.000
+
+================================================================================
+ OBSERVAÇÕES:
+ - Os valores de experience consideram o rate de 999x aplicado pelo servidor.
+   Ex: um monstro com 1.000 exp base dá 999.000 de experiência ao jogador.
+ - A vida dos monstros foi calculada para suportar de 3 a 10 golpes de um
+   jogador do mesmo nível usando as magias apropriadas para sua faixa.
+ - O ataque (min/max) foi dimensionado para causar de 5% a 20% da vida de um
+   jogador do mesmo nível por golpe, evitando 1-hit kills mas sendo ameaçador.
+ - A velocidade segue progressão linear para manter desafio proporcional.
+ - Adapte os valores por tipo de monstro dentro de cada faixa:
+   * Monstros comuns: valores próximos ao mínimo da faixa
+   * Monstros elite: valores no meio da faixa
+   * Bosses: valores acima do máximo da faixa (multiplicar por 3x-10x)
+ - Para monstros do tipo Tank: aumentar health em 50%, reduzir ataque em 30%
+ - Para monstros do tipo DPS: reduzir health em 30%, aumentar ataque em 30%
+================================================================================

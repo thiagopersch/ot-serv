@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<globalevents>
+	<!-- Monster Boost -->
+	<globalevent name="monsterBoostStart" type="startup" event="script" value="monsterBoost.lua" />
+	<globalevent name="monsterBoostThink" interval="2500" event="script" value="monsterBoost.lua" />
+	<!-- Monster Boost -->
+
+	<globalevent name="OnlineHighscore" interval="300000" script="online_highscore.lua" />
+	<globalevent name="lottery" interval="7200000" event="script" value="lottery.lua" />
+	<globalevent name="broadcastMessage" interval="60000" script="broadcastMessage.lua" />
+	<globalevent name="textoTeleport" interval="1000" script="textoTeleport.lua" />
+	<globalevent name="save" interval="3600000" event="script" value="save.lua" />
+	<globalevent name="clean" interval="3600000" event="script" value="clean.lua" />
+	<globalevent name="record" type="record" event="script" value="record.lua" />
+	<globalevent type="startup" name="doCheckHouses" script="doCheckHouses.lua" />
+	<globalevent name="Age System" interval="60000" script="age_system.lua" />
+	<globalevent name="TaskSave" interval="300000" event="script" value="task_save.lua" />
+	<globalevent name="DailyRewardRotation" interval="300000" event="script" value="daily_reward_rotation.lua" />
+	<globalevent name="BattlePassRotation" interval="300000" event="script" value="battle_pass_rotation.lua" />
+	<globalevent type="startup" name="BattlePassStartup" event="script" value="battle_pass_rotation.lua" />
+	<globalevent name="AutolootCatalogReload" interval="300000" event="script" value="autoloot_catalog_reload.lua" />
+	<globalevent name="BossSystem" interval="20000" event="script" value="boss_system.lua" />
+</globalevents>

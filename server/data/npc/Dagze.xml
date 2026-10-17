@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Dagze" script="default.lua" walkinterval="2000" floorchange="0">
+   <health now="100" max="100" />
+   <look type="130" head="57" body="130" legs="105" feet="116" addons="3" />
+   <parameters>
+      <parameter key="module_shop" value="1" />
+      <parameter key="shop_buyable" value="
+               leaf senzu,49691,1000000;
+               branch senzu,49692,1000000;
+               green senzu,49693,1000000;
+               HP point,49689,100000;
+               MP point,49690,100000;
+               coke bottle,56738,500000;
+               nature health potion,56765,1000000;
+               wrapped blue potion,56766,1000000;
+               mystic elixir,56736,1000000;
+               supreme mana potion,56720,1000000;
+               supreme health potion,56719,1000000" />
+      <parameter key="shop_sellable" value="
+               leaf senzu,49691,100000;
+               branch senzu,49692,100000;
+               green senzu,49693,200000;
+               red senzu,49694,250000;
+               black senzu,49695,300000;
+               crystal senzu,49696,300000;
+               yellow senzu,56697,400000;
+               brown senzu,56744,400000;
+               blue sky senzu,56745,400000;
+               supreme yellow senzu,56746,500000;
+               purple senzu,56817,500000;
+               senzu of the devil,56818,1000000;
+               HP point,49689,100000;
+               MP point,49690,100000;
+               coke bottle,56738,500000;
+               nature health potion,56765,250000;
+               wrapped blue potion,56766,250000;
+               mystic elixir,56736,1000000;
+               supreme mana potion,56720,1000000;
+               supreme health potion,56719,1000000" />
+      <parameter key="message_greet" value="Hello, |PLAYERNAME|! I buy wands. Say {trade}." />
+   </parameters>
+</npc>

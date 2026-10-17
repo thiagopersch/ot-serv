@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Vegetto" bestiary="monster" nameDescription="an Vegetto" race="blood"
+	experience="375000" speed="380" manacost="600">
+	<health now="250000" max="250000" />
+	<look type="2135" head="1" body="1" legs="1" feet="1" addons="0" corpse="49332" />
+	<targetchange interval="5000" chance="8" />
+	<strategy attack="100" defense="0" />
+	<flags>
+		<flag summonable="0" />
+		<flag attackable="1" />
+		<flag hostile="1" />
+		<flag illusionable="0" />
+		<flag convinceable="0" />
+		<flag pushable="1" />
+		<flag canpushitems="1" />
+		<flag canpushcreatures="1" />
+		<flag targetdistance="1" />
+		<flag staticattack="90" />
+		<flag runonhealth="0" />
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" min="-180" max="-380" />
+		<attack name="Big Bang Attack" interval="3000" chance="50" min="-180" max="-250" />
+		<attack name="Kienzan" interval="4000" chance="50" min="-50" max="-290" />
+		<attack name="Explosion" interval="8000" chance="35" min="-100" max="-300" />
+		<attack name="Super Energy Wave" interval="8000" chance="35" min="-100" max="-350" />
+		<attack name="Crusher Ball" interval="5000" chance="35" min="-100" max="-250" />
+		<attack name="Burning Attack" interval="6000" chance="35" min="-200" max="-450" />
+	</attacks>
+	<immunities>
+		<immunity physical="0" />
+		<immunity energy="0" />
+		<immunity fire="0" />
+		<immunity poison="0" />
+		<immunity lifedrain="0" />
+		<immunity paralyze="1" />
+		<immunity outfit="1" />
+		<immunity invisible="1" />
+	</immunities>
+	<voices interval="5000" chance="10">
+		<voice sentence="I'm too powerful for you!" />
+		<voice sentence="I'm going to finish this quickly!" />
+	</voices>
+	<loot>
+		<item id="2148" countmax="50" chance="90000" /> <!-- gold coin -->
+		<item id="2152" countmax="50" chance="90000" /> <!-- platinum coin -->
+		<item id="2160" countmax="5" chance="50000" /> <!-- crystal coin -->
+		<item id="56712" countmax="3" chance="10000" /> <!-- yellow potion -->
+		<item id="56713" countmax="3" chance="10000" /> <!-- grey potion -->
+		<item id="56714" countmax="3" chance="10000" /> <!-- purple potion -->
+		<item id="56715" countmax="3" chance="10000" /> <!-- pink potion -->
+		<item id="56716" countmax="3" chance="10000" /> <!-- light blue potion -->
+		<item id="56717" countmax="3" chance="10000" /> <!-- green potion -->
+		<item id="56718" countmax="3" chance="10000" /> <!-- red potion -->
+		<item id="49689" countmax="10" chance="1000" /> <!-- hp point -->
+		<item id="49690" countmax="10" chance="1000" /> <!-- mp point -->
+		<item id="49686" chance="1000" /> <!-- goku armor -->
+		<item id="49674" chance="1000" /> <!-- goku legs -->
+		<item id="49669" chance="1000" /> <!-- goku boots -->
+		<item id="49620" chance="1000" /> <!-- vegeta armor -->
+		<item id="49607" chance="1000" /> <!-- vegeta legs -->
+		<item id="49725" chance="1000" /> <!-- vegeto armor -->
+	</loot>
+</monster>

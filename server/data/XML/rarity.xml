@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	SISTEMA DE RARIDADE
+	===================
+	enabled              : 1 liga / 0 desliga o sistema (drop e evolucao)
+	guaranteeMultiplier  : multiplicador de materiais quando o jogador marca "Guarantee 100% success"
+
+	<tier>
+		id         : sequencial a partir de 0 (0 = Comum, sem bonus)
+		name       : nome exibido (Look, tooltip e janela Craft)
+		color      : cor da borda/slot no cliente
+		bonus      : % aplicado em ataque, ataque extra, defesa, defesa extra e armadura do proprio item
+		dropChance : chance (em 100000) do item cair de monstro ja com essa raridade.
+		             O sorteio vai do tier mais alto para o mais baixo; o primeiro que acertar vence.
+		             Monstros podem ter <flag raritybonus="50"/> para +50% nessas chances.
+
+	<group>
+		name          : identificador livre
+		category      : aba na janela Craft: helmet | armor | legs | boots | weapons | shields | potions | pets | others
+		maxRarity     : raridade maxima que os itens do grupo podem alcancar
+		drop          : 1 = pode cair de monstros com raridade / 0 = somente por evolucao
+		failDowngrade : 1 = ao falhar a evolucao o item perde 1 raridade / 0 = item mantem a raridade (padrao)
+
+		<item id="..."/> ou <item fromid="..." toid="..."/>  (itens empilhaveis sao ignorados)
+
+		<step to="N" chance="X">  : evolucao para a raridade N, X% de sucesso (sem a garantia)
+			<material id="..." count="..."/>   (quantos materiais quiser, de qualquer item)
+
+	Um item so pode estar em um grupo. Apos editar use /reload rarity.
+	Outras fontes de drop (baus, quests, bosses) podem usar doItemRollRarity(uid[, bonus]).
+-->
+<rarity enabled="1" guaranteeMultiplier="10">
+	<tiers>
+		<tier id="0" name="Common"    color="#C8C8C8" bonus="0" />
+		<tier id="1" name="Uncommon"  color="#2ECC40" bonus="10" dropChance="8000" />
+		<tier id="2" name="Rare"      color="#2F8CFF" bonus="20" dropChance="3000" />
+		<tier id="3" name="Epic"      color="#B04BFF" bonus="30" dropChance="800" />
+		<tier id="4" name="Legendary" color="#FFB000" bonus="40" dropChance="150" />
+		<tier id="5" name="Mythic"    color="#FF2E2E" bonus="50" dropChance="20" />
+	</tiers>
+
+	<!-- ===== EXEMPLOS: troque/adicione os itens do seu servidor ===== -->
+
+	<group name="capacetes" category="helmet" maxRarity="5" drop="1">
+		<item id="49864" />
+		<item id="49867" />
+		<item id="49878" />
+		<item id="49880" />
+		<item id="49889" />
+		<step to="1" chance="80"><material id="2154" count="1" /></step>
+		<step to="2" chance="60"><material id="2154" count="2" /></step>
+		<step to="3" chance="40"><material id="2154" count="3" /></step>
+		<step to="4" chance="25"><material id="2154" count="5" /></step>
+		<step to="5" chance="10"><material id="2154" count="8" /></step>
+	</group>
+
+	<group name="armaduras" category="armor" maxRarity="5" drop="1">
+		<item id="49865" />
+		<item id="49868" />
+		<item id="49879" />
+		<item id="49881" />
+		<item id="49887" />
+		<item id="49888" />
+		<step to="1" chance="80"><material id="2154" count="1" /></step>
+		<step to="2" chance="60"><material id="2154" count="2" /></step>
+		<step to="3" chance="40"><material id="2154" count="3" /></step>
+		<step to="4" chance="25"><material id="2154" count="5" /></step>
+		<step to="5" chance="10"><material id="2154" count="8" /></step>
+	</group>
+
+	<group name="calcas" category="legs" maxRarity="5" drop="1">
+		<item id="49827" />
+		<item id="49831" />
+		<item id="49850" />
+		<item id="49866" />
+		<item id="49869" />
+		<item id="49892" />
+		<step to="1" chance="80"><material id="2154" count="1" /></step>
+		<step to="2" chance="60"><material id="2154" count="2" /></step>
+		<step to="3" chance="40"><material id="2154" count="3" /></step>
+		<step to="4" chance="25"><material id="2154" count="5" /></step>
+		<step to="5" chance="10"><material id="2154" count="8" /></step>
+	</group>
+
+	<group name="botas" category="boots" maxRarity="5" drop="1">
+		<item id="49828" />
+		<item id="49832" />
+		<item id="49849" />
+		<item id="49870" />
+		<item id="49877" />
+		<item id="49886" />
+		<step to="1" chance="80"><material id="2154" count="1" /></step>
+		<step to="2" chance="60"><material id="2154" count="2" /></step>
+		<step to="3" chance="40"><material id="2154" count="3" /></step>
+		<step to="4" chance="25"><material id="2154" count="5" /></step>
+		<step to="5" chance="10"><material id="2154" count="8" /></step>
+	</group>
+
+	<group name="armas" category="weapons" maxRarity="5" drop="1">
+		<item id="55187" />
+		<item id="55188" />
+		<item id="55189" />
+		<item id="55190" />
+		<item id="55191" />
+		<item id="55192" />
+		<item id="55195" />
+		<item id="55205" />
+		<item id="55213" />
+		<item id="55215" />
+		<step to="1" chance="80"><material id="2154" count="1" /></step>
+		<step to="2" chance="60"><material id="2154" count="2" /></step>
+		<step to="3" chance="40"><material id="2154" count="3" /></step>
+		<step to="4" chance="25"><material id="2154" count="5" /></step>
+		<step to="5" chance="10"><material id="2154" count="8" /></step>
+	</group>
+
+	<group name="escudos" category="shields" maxRarity="5" drop="1">
+		<item id="55044" />
+		<item id="55046" />
+		<item id="55047" />
+		<item id="55048" />
+		<step to="1" chance="80"><material id="2154" count="1" /></step>
+		<step to="2" chance="60"><material id="2154" count="2" /></step>
+		<step to="3" chance="40"><material id="2154" count="3" /></step>
+		<step to="4" chance="25"><material id="2154" count="5" /></step>
+		<step to="5" chance="10"><material id="2154" count="8" /></step>
+	</group>
+
+	<!-- Exemplo de set endgame: so evolui (drop="0") e exige a pedra exclusiva (2153) a partir do Epico -->
+	<group name="set_endgame_exemplo" category="shields" maxRarity="5" drop="0">
+		<item id="55049" />
+		<item id="55050" />
+		<step to="1" chance="70"><material id="2154" count="1" /></step>
+		<step to="2" chance="50"><material id="2154" count="2" /></step>
+		<step to="3" chance="30"><material id="2153" count="3" /></step>
+		<step to="4" chance="15"><material id="2153" count="5" /></step>
+		<step to="5" chance="5"><material id="2153" count="8" /><material id="2154" count="10" /></step>
+	</group>
+
+	<!--
+	Potions / Pets / Others: somente itens NAO empilhaveis.
+	O bonus deve ser lido pelos scripts do item com getItemRarityBonus(uid).
+	<group name="pets" category="pets" maxRarity="5" drop="0">
+		<item id="XXXXX" />
+		<step to="1" chance="80"><material id="2154" count="1" /></step>
+	</group>
+	-->
+</rarity>

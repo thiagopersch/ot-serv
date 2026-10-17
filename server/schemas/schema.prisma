@@ -1,0 +1,424 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model server_config {
+  config String @id @db.VarChar(35)
+  value  String @db.VarChar(255)
+}
+
+model server_motd {
+  id       Int    @id @default(autoincrement())
+  world_id Int    @default(0)
+  text     String @db.Text
+
+  @@unique([id, world_id])
+}
+
+model server_record {
+  record    Int
+  world_id  Int @default(0)
+  timestamp Int
+
+  @@unique([record, world_id, timestamp])
+}
+
+model server_reports {
+  id        Int    @id @default(autoincrement())
+  world_id  Int    @default(0)
+  player_id Int    @default(0)
+  posx      Int    @default(0)
+  posy      Int    @default(0)
+  posz      Int    @default(0)
+  timestamp Int    @default(0)
+  report    String @db.Text
+  reads     Int    @default(0)
+}
+
+model accounts {
+  id              Int               @id @default(autoincrement())
+  name            String            @unique @db.VarChar(255)
+  password        String            @db.VarChar(255)
+  premdays        Int               @default(0)
+  lastday         Int               @default(0)
+  email           String            @default("") @db.VarChar(255)
+  key             String            @default("0") @db.VarChar(32)
+  blocked         Boolean           @default(false)
+  warnings        Int               @default(0)
+  group_id        Int               @default(1)
+  players         players[]
+  account_viplist account_viplist[]
+}
+
+model players {
+  id                Int                 @id @default(autoincrement())
+  name              String              @db.VarChar(255)
+  world_id          Int                 @default(0)
+  group_id          Int
+  account_id        Int
+  level             Int                 @default(1)
+  vocation          Int                 @default(0)
+  health            Int                 @default(100)
+  healthmax         Int                 @default(100)
+  experience        Int                 @default(0)
+  lookbody          Int                 @default(10)
+  lookfeet          Int                 @default(10)
+  lookhead          Int                 @default(10)
+  looklegs          Int                 @default(10)
+  looktype          Int                 @default(136)
+  lookaddons        Int                 @default(0)
+  maglevel          Int                 @default(0)
+  mana              Int                 @default(100)
+  manamax           Int                 @default(100)
+  manaspent         Int                 @default(0)
+  soul              Int                 @default(0)
+  town_id           Int
+  posx              Int                 @default(0)
+  posy              Int                 @default(0)
+  posz              Int                 @default(0)
+  conditions        Bytes
+  cap               Int                 @default(0)
+  sex               Int                 @default(0)
+  lastlogin         Int                 @default(0)
+  lastip            Int                 @default(0)
+  save              Boolean             @default(true)
+  skull             Int                 @default(0)
+  skulltime         Int                 @default(0)
+  rank_id           Int
+  guildnick         String              @default("") @db.VarChar(255)
+  lastlogout        Int                 @default(0)
+  blessings         Int                 @default(0)
+  balance           Int                 @default(0)
+  stamina           Int                 @default(151200000)
+  direction         Int                 @default(2)
+  loss_experience   Int                 @default(100)
+  loss_mana         Int                 @default(100)
+  loss_skills       Int                 @default(100)
+  loss_containers   Int                 @default(100)
+  loss_items        Int                 @default(100)
+  premend           Int                 @default(0)
+  online            Int                 @default(0) @db.TinyInt
+  marriage          Int                 @default(0)
+  promotion         Int                 @default(0)
+  deleted           Int                 @default(0)
+  description       String              @default("") @db.VarChar(255)
+  cast              Int                 @default(0) @db.TinyInt
+  castViewers       Int                 @default(0)
+  castDescription   String              @default("") @db.VarChar(255)
+  account           accounts            @relation(fields: [account_id], references: [id])
+  guilds            guilds[]
+  house_auctions    house_auctions[]
+  player_deaths     player_deaths[]
+  player_depotitems player_depotitems[]
+  player_namelocks  player_namelocks[]
+  player_skills     player_skills[]
+  player_storage    player_storage[]
+  player_viplist    player_viplist[]    @relation("player_viplist_player_id")
+  vip_viplist       player_viplist[]    @relation("player_viplist_vip_id")
+  account_viplist   account_viplist[]
+  guild_invites     guild_invites[]
+  player_killers    player_killers[]
+  player_items      player_items[]
+  player_spells     player_spells[]
+
+  @@unique([name, deleted])
+}
+
+model account_viplist {
+  account_id Int
+  world_id   Int      @default(0)
+  player_id  Int
+  account    accounts @relation(fields: [account_id], references: [id])
+  player     players  @relation(fields: [player_id], references: [id])
+
+  @@unique([account_id, player_id])
+}
+
+model global_storage {
+  key      Int    @id @default(autoincrement())
+  world_id Int    @default(0)
+  value    String @default("0") @db.VarChar(255)
+
+  @@unique([key, world_id])
+}
+
+model guilds {
+  id               Int             @id @default(autoincrement())
+  world_id         Int             @default(0)
+  name             String          @db.VarChar(255)
+  ownerid          Int
+  creationdata     Int
+  checkdata        Int
+  motd             String          @default("") @db.VarChar(255)
+  owner            players         @relation(fields: [ownerid], references: [id])
+  guild_wars_guild guild_wars[]    @relation("guild_wars_guild_id")
+  guild_wars_enemy guild_wars[]    @relation("guild_wars_enemy_id")
+  guild_kills      guild_kills[]
+  guild_invites    guild_invites[]
+  guild_ranks      guild_ranks[]
+
+  @@unique([name, world_id])
+}
+
+model guild_wars {
+  id              Int           @id @default(autoincrement())
+  guild_id        Int
+  enemy_id        Int
+  begin           Int           @default(0)
+  end             Int           @default(0)
+  frags           Int           @default(0)
+  payment         Int           @default(0)
+  guild_kills     Int           @default(0)
+  enemy_kills     Int           @default(0)
+  status          Int           @default(0) @db.TinyInt
+  guild           guilds        @relation("guild_wars_guild_id", fields: [guild_id], references: [id], onDelete: Cascade)
+  enemy           guilds        @relation("guild_wars_enemy_id", fields: [enemy_id], references: [id], onDelete: Cascade)
+  guild_kills_rel guild_kills[]
+}
+
+model guild_kills {
+  id       Int           @id @default(autoincrement())
+  guild_id Int
+  war_id   Int
+  death_id Int
+  guild    guilds        @relation(fields: [guild_id], references: [id], onDelete: Cascade)
+  war      guild_wars    @relation(fields: [war_id], references: [id], onDelete: Cascade)
+  death    player_deaths @relation(fields: [death_id], references: [id], onDelete: Cascade)
+}
+
+model guild_invites {
+  player_id Int
+  guild_id  Int
+  player    players @relation(fields: [player_id], references: [id])
+  guild     guilds  @relation(fields: [guild_id], references: [id])
+
+  @@unique([player_id, guild_id])
+}
+
+model guild_ranks {
+  id       Int    @id @default(autoincrement())
+  guild_id Int
+  name     String @db.VarChar(255)
+  level    Int
+  guild    guilds @relation(fields: [guild_id], references: [id])
+}
+
+model houses {
+  id             Int              @id @default(autoincrement())
+  world_id       Int              @default(0)
+  owner          Int
+  paid           Int              @default(0)
+  warnings       Int              @default(0)
+  lastwarning    Int              @default(0)
+  name           String           @db.VarChar(255)
+  town           Int              @default(0)
+  size           Int              @default(0)
+  price          Int              @default(0)
+  rent           Int              @default(0)
+  doors          Int              @default(0)
+  beds           Int              @default(0)
+  tiles          Int              @default(0)
+  guild          Boolean          @default(false)
+  clear          Boolean          @default(false)
+  house_lists    house_lists[]
+  house_data     house_data[]
+  house_auctions house_auctions[]
+  tiles_rel      tiles[]
+
+  @@unique([id, world_id])
+}
+
+model house_lists {
+  house_id Int
+  world_id Int    @default(0)
+  listid   Int
+  list     String @db.Text
+  house    houses @relation(fields: [house_id, world_id], references: [id, world_id])
+
+  @@unique([house_id, world_id, listid])
+}
+
+model house_data {
+  house_id Int
+  world_id Int    @default(0)
+  data     Bytes  @db.LongBlob
+  house    houses @relation(fields: [house_id, world_id], references: [id, world_id])
+
+  @@unique([house_id, world_id])
+}
+
+model house_auctions {
+  house_id  Int
+  world_id  Int     @default(0)
+  player_id Int
+  bid       Int     @default(0)
+  limit     Int     @default(0)
+  endtime   Int     @default(0)
+  house     houses  @relation(fields: [house_id, world_id], references: [id, world_id])
+  player    players @relation(fields: [player_id], references: [id])
+
+  @@unique([house_id, world_id])
+}
+
+model player_deaths {
+  id          Int           @id @default(autoincrement())
+  player_id   Int
+  date        Int
+  level       Int
+  player      players       @relation(fields: [player_id], references: [id])
+  killers     killers[]
+  guild_kills guild_kills[]
+}
+
+model killers {
+  id                  Int                   @id @default(autoincrement())
+  death_id            Int
+  final_hit           Boolean               @default(false)
+  unjustified         Boolean               @default(false)
+  war                 Int                   @default(0)
+  death               player_deaths         @relation(fields: [death_id], references: [id])
+  player_killers      player_killers[]
+  environment_killers environment_killers[]
+}
+
+model player_killers {
+  kill_id   Int
+  player_id Int
+  kill      killers @relation(fields: [kill_id], references: [id])
+  player    players @relation(fields: [player_id], references: [id])
+
+  @@id([kill_id, player_id])
+}
+
+model environment_killers {
+  kill_id Int
+  name    String  @db.VarChar(255)
+  kill    killers @relation(fields: [kill_id], references: [id])
+
+  @@id([kill_id, name])
+}
+
+model player_depotitems {
+  player_id  Int
+  sid        Int
+  pid        Int     @default(0)
+  itemtype   Int
+  count      Int     @default(0)
+  attributes Bytes
+  player     players @relation(fields: [player_id], references: [id])
+
+  @@unique([player_id, sid])
+}
+
+model player_namelocks {
+  player_id Int
+  name      String  @db.VarChar(255)
+  new_name  String  @db.VarChar(255)
+  date      Int     @default(0)
+  player    players @relation(fields: [player_id], references: [id])
+
+  @@id([player_id, name])
+}
+
+model player_skills {
+  player_id Int
+  skillid   Int
+  value     Int     @default(0)
+  count     Int     @default(0)
+  player    players @relation(fields: [player_id], references: [id])
+
+  @@unique([player_id, skillid])
+}
+
+model player_storage {
+  player_id Int
+  key       Int
+  value     String  @default("0") @db.VarChar(255)
+  player    players @relation(fields: [player_id], references: [id])
+
+  @@unique([player_id, key])
+}
+
+model player_viplist {
+  player_id Int
+  vip_id    Int
+  player    players @relation("player_viplist_player_id", fields: [player_id], references: [id])
+  vip       players @relation("player_viplist_vip_id", fields: [vip_id], references: [id])
+
+  @@unique([player_id, vip_id])
+}
+
+model tiles {
+  id         Int          @id @unique
+  world_id   Int          @default(0)
+  house_id   Int
+  x          Int
+  y          Int
+  z          Int
+  house      houses       @relation(fields: [house_id, world_id], references: [id, world_id])
+  tile_items tile_items[]
+
+  @@unique([id, world_id])
+}
+
+model tile_items {
+  tile_id    Int
+  world_id   Int   @default(0)
+  sid        Int
+  pid        Int   @default(0)
+  itemtype   Int
+  count      Int   @default(0)
+  attributes Bytes
+  tile       tiles @relation(fields: [tile_id], references: [id])
+
+  @@unique([tile_id, world_id, sid])
+}
+
+model player_items {
+  player_id  Int
+  sid        Int
+  pid        Int     @default(0)
+  itemtype   Int
+  count      Int     @default(0)
+  attributes Bytes
+  player     players @relation(fields: [player_id], references: [id])
+
+  @@unique([player_id, sid])
+}
+
+model player_spells {
+  player_id Int
+  name      String  @db.VarChar(255)
+  player    players @relation(fields: [player_id], references: [id])
+
+  @@unique([player_id, name])
+}
+
+model bans {
+  id        Int     @id @default(autoincrement())
+  type      Int
+  value     Int
+  param     Int     @default(4294967295)
+  active    Boolean @default(true)
+  expires   Int
+  added     Int
+  admin_id  Int     @default(0)
+  comment   String  @db.Text
+  reason    Int     @default(0)
+  action    Int     @default(0)
+  statement String  @default("") @db.VarChar(255)
+}
+
+model loterry {
+  id         Int      @id @default(autoincrement())
+  name       String
+  item       String
+  created_at DateTime @default(now())
+
+  @@index([id])
+}

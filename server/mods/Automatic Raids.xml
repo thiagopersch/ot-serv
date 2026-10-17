@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mod name="Automatic Raids" version="1.0" author="Vodkart And xotservx" contact="tibiaking.com"
+    enabled="yes">
+    <config name="raids_func">
+        <![CDATA[
+            days = {
+                ["Monday"] = {
+                    ["08:00"] = {
+                        nome = "Orshabaal",
+                        pos = {
+                            fromPosition = {x = 31881, y = 32184, z = 7},
+                            toPosition = {x = 31983, y = 32245, z = 7}
+                        },
+                        m = {"5 Fire Devil", "2 Orshabaal", "10 Hellhound", "15 Demon"},
+                        Time = 15
+                    },
+                    ["21:00"] = {
+                        nome = "Dragon",
+                        pos = {
+                            fromPosition = {x = 31881, y = 32184, z = 7},
+                            toPosition = {x = 31983, y = 32245, z = 7}
+                        },
+                        m = {"2 Dragon"},
+                        Time = 15
+                    }
+                },
+                ["Sunday"] = {
+                    ["12:00"] = {
+                        nome = "Demon",
+                        pos = {
+                            fromPosition = {x = 31881, y = 32184, z = 7},
+                            toPosition = {x = 31983, y = 32245, z = 7}
+                        },
+                        m = {"15 Demon"},
+                        Time = 15
+                    },
+                    ["18:00"] = {
+                        nome = "Dragon Lord",
+                        pos = {
+                            fromPosition = {x = 31881, y = 32184, z = 7},
+                            toPosition = {x = 31983, y = 32245, z = 7}
+                        },
+                        m = {"5 Dragon Lord", "5 Dragon Lord Hatchling", "5 Dragon Hatchling"},
+                        Time = 15
+                    }
+                },
+                ["Tuesday"] = {
+                    ["11:00"] = {
+                        nome = "Demon",
+                        pos = {
+                            fromPosition = {x = 31881, y = 32184, z = 7},
+                            toPosition = {x = 31983, y = 32245, z = 7}
+                        },
+                        m = {"5 Demon"},
+                        Time = 15
+                    },
+                    ["10:45"] = {
+                        nome = "Dragon Lord",
+                        pos = {
+                            fromPosition = {x = 31881, y = 32184, z = 7},
+                            toPosition = {x = 31983, y = 32245, z = 7}
+                        },
+                        m = {"5 Dragon Lord", "5 Dragon Lord Hatchling", "5 Dragon Hatchling"},
+                        Time = 15
+                    }
+                }
+            }
+        ]]>
+    </config>
+    <globalevent name="AutomaticRaids" interval="60" event="script">
+        <![CDATA[
+domodlib('raids_func')
+
+function onThink(interval, lastExecution)
+    if days[os.date("%A")] then
+        hours = tostring(os.date("%X")):sub(1, 5)
+        tb = days[os.date("%A")][hours]
+        if tb then
+            function removeCreature(tb)
+                for x = ((tb.pos.fromPosition.x)-10), ((tb.pos.toPosition.x)+10) do
+                    for y = ((tb.pos.fromPosition.y)-10), ((tb.pos.toPosition.y)+10) do
+                        local m = getTopCreature({x=x, y=y, z=tb.pos.fromPosition.z}).uid
+                        if m ~= 0 and isMonster(m) then
+                            doRemoveCreature(m)
+                        end
+                    end
+                end
+            end
+            doBroadcastMessage("The invasion of " .. tb.nome .. " started")
+            for _, x in pairs(tb.m) do
+                for s = 1, tonumber(x:match("%d+")) do
+                    pos = {
+                        x = math.random(tb.pos.fromPosition.x, tb.pos.toPosition.x),
+                        y = math.random(tb.pos.fromPosition.y, tb.pos.toPosition.y),
+                        z = tb.pos.fromPosition.z
+                    }
+                    doSummonCreature(x:match("%s(.+)"), pos)
+                end
+            end
+            addEvent(removeCreature, tb.Time*60*1000, tb)
+        end
+    end
+    return true
+end
+        ]]>
+    </globalevent>
+</mod>

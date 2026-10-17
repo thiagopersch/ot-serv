@@ -1,0 +1,66 @@
+Bardock -> DPS
+Bills -> DPS
+Botamo -> Tank
+Brolly -> DPS
+Bulma -> Bruiser
+Buu -> Bruiser
+C8 -> Bruiser
+C17 -> Bruiser
+C18 -> Bruiser
+Cabba -> DPS
+Cell -> DPS
+Cooler -> DPS
+Dende -> Suporte
+Freeza -> Bruiser
+Ginn -> DPS
+Gohan -> Bruiser
+Goku -> DPS
+Goku Black -> DPS
+Hitto -> DPS
+Janemba -> DPS
+Jiren -> DPS
+Kagome -> Bruiser
+Kaio -> Bruiser
+Kame -> Bruiser
+King Cold -> Bruiser
+King Vegeta -> Bruiser
+Kuririn -> Bruiser
+Liquir -> DPS
+Pan -> Suporte
+Piccolo -> Suporte
+Quitela -> Bruiser
+Raditz -> Bruiser
+Shenron -> DPS
+Tapion -> DPS
+Trunks -> DPS
+Tsuful -> Bruiser
+Turles -> DPS
+Uub -> Bruiser
+Vados -> Bruiser
+Vegeta -> DPS
+Vegetto -> DPS
+Vermouth -> DPS
+Videl -> Suporte
+Zaiko -> DPS
+Zeno -> DPS
+Sosuke Aizen -> DPS
+Byakuya Kuchiki -> DPS
+Gin Ichimaru -> Bruiser
+Grimmjow Jaegerjaquez -> DPS
+Toshiro Hitsugaya -> Bruiser
+Ichigo Kurosaki FullBring -> DPS
+Ichigo Kurosaki -> DPS
+Uryu Ishida -> Bruiser
+Shunsui Kyouraku -> DPS
+Neliel Tu Odelschwanck -> Bruiser
+Orihime Inoue -> Suporte
+Renji Abarai -> Bruiser
+Rukia Kuchiki -> Bruiser
+Yasutora Sado -> Tank
+Shinji Hirako -> Bruiser
+Soi Fong -> Bruiser
+Kaname Tousen -> Bruiser
+Ulquiorra Ciffer -> DPS
+Kisuke Urahara -> Bruiser
+Yoruichi Shihouin -> Bruiser
+Kenpachi Zaraki -> DPS

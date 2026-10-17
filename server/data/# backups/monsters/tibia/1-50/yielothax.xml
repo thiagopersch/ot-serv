@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Yielothax" bestiary="monster" nameDescription="a yielothax" race="venom" experience="1250" speed="150">
+	<health now="1500" max="1500" />
+	<look type="408" corpse="12595" />
+	<targetchange interval="5000" chance="8" />
+	<strategy attack="100" defense="0" />
+	<flags>
+		<flag summonable="0" />
+		<flag attackable="1" />
+		<flag hostile="1" />
+		<flag illusionable="0" />
+		<flag convinceable="0" />
+		<flag pushable="0" />
+		<flag canpushitems="1" />
+		<flag canpushcreatures="0" />
+		<flag targetdistance="1" />
+		<flag staticattack="90" />
+		<flag runonhealth="0" />
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="60" attack="40" poison="80" />
+		<attack name="poison" interval="3000" chance="12" length="8" spread="3" min="-30" max="-120">
+			<attribute key="areaEffect" value="poison" />
+		</attack>
+		<attack name="physical" interval="2000" chance="12" length="8" spread="3" min="-30" max="-120">
+			<attribute key="areaEffect" value="rednote" />
+		</attack>
+		<attack name="drunk" interval="4000" chance="2" range="7">
+			<attribute key="shootEffect" value="poison" />
+			<attribute key="areaEffect" value="rednote" />
+		</attack>
+	</attacks>
+	<defenses armor="25" defense="40">
+		<defense name="speed" interval="2000" chance="10" speedchange="340" duration="5000">
+			<attribute key="areaEffect" value="redshimmer" />
+		</defense>
+	</defenses>
+	<elements>
+		<element energyPercent="10" />
+		<element firePercent="-15" />
+		<element icePercent="-15" />
+		<element physicalPercent="40" />
+	</elements>
+	<immunities>
+		<immunity physical="0" />
+		<immunity energy="0" />
+		<immunity fire="0" />
+		<immunity poison="0" />
+		<immunity earth="0" />
+		<immunity ice="0" />
+		<immunity holy="0" />
+		<immunity death="0" />
+		<immunity drown="0" />
+		<immunity lifedrain="0" />
+		<immunity manadrain="0" />
+		<immunity outfit="0" />
+		<immunity drunk="0" />
+		<immunity invisible="1" />
+		<immunity paralyze="0" />
+	</immunities>
+	<voices interval="5000" chance="10">
+		<voice sentence="IIEEH!! Iiih iih ih iiih!!!" yell="true" />
+		<voice sentence="Bsssssssm Bssssssm Bsssssssssssm!" yell="true" />
+	</voices>
+	<loot>
+		<item countmax="5" chance="4761" id="2145" /> <!-- small diamond -->
+		<item countmax="100" chance="50000" id="2148" /> <!-- gold coin -->
+		<item countmax="100" chance="50000" id="2148" /> <!-- gold coin -->
+		<item countmax="100" chance="50000" id="2148" /> <!-- gold coin -->
+		<item chance="917" id="2151" /> <!-- talon -->
+		<item chance="3846" id="2164" /> <!-- might ring -->
+		<item chance="523" id="2189" /> <!-- wand of cosmic energy -->
+		<item chance="564" id="2438" /> <!-- epee -->
+		<item chance="9090" countmax="10" id="2789" /> <!-- brown mushroom -->
+		<item chance="490" id="7440" /> <!-- mastermind potion -->
+		<item chance="20000" id="7588" /> <!-- strong health potion -->
+		<item chance="20000" id="7589" /> <!-- strong mana potion -->
+		<item chance="862" id="7889" /> <!-- lightning pendant -->
+		<item chance="480" id="7895" /> <!-- lightning legs -->
+		<item chance="571" id="10221" /> <!-- shockwave amulet -->
+		<item chance="261" id="13877" /> <!-- broken ring of ending -->
+		<item chance="300" id="13881" /> <!-- yielowax -->
+		<item chance="320" id="13942" /> <!-- yielocks -->
+	</loot>
+</monster>

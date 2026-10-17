@@ -1,0 +1,10 @@
+{
+  "coins": [
+    { "name": "grey_bar", "id": 49837, "worth": 1000000000 },
+    { "name": "green_bar", "id": 49836, "worth": 10000000 },
+    { "name": "purple_bar", "id": 49834, "worth": 1000000 },
+    { "name": "crystal", "id": 2160, "worth": 10000 },
+    { "name": "platinum", "id": 2152, "worth": 100 },
+    { "name": "gold", "id": 2148, "worth": 1 }
+  ]
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Rivertall" script="default.lua" walkinterval="5000" floorchange="0">
+   <health now="100" max="100" />
+   <look type="1575" head="114" body="96" legs="125" feet="0" addons="3" />
+   <parameters>
+      <parameter key="module_shop" value="1" />
+      <parameter key="shop_buyable" value="
+               crimson pickaxe,56275,10000000;
+               sturdy pickaxe,56274,20000000;
+               luminescent crystal pickaxe,35367,30000000;
+               golden pickaxe,56283,40000000;
+               frost pickaxe,56284,50000000;
+               shadow pickaxe,56285,60000000;
+               dbo shovel,56954,9000000;
+               dbo pickaxe,56953,9000000;
+               dbo sickle,56952,9000000" />
+      <parameter key="shop_sellable" value="
+               crimson pickaxe,56275,250000;
+               sturdy pickaxe,56274,250000;
+               luminescent crystal pickaxe,35367,250000;
+               golden pickaxe,56283,250000;
+               frost pickaxe,56284,250000;
+               shadow pickaxe,56285,250000;
+               dbo shovel,56954,250000;
+               dbo pickaxe,56953,250000;
+               dbo sickle,56952,250000" />
+      <parameter key="message_greet" value="Hello, |PLAYERNAME|! I buy gloves. Say {trade}." />
+   </parameters>
+</npc>

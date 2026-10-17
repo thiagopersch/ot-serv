@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Saiyan" bestiary="monster" nameDescription="an Saiyan" race="blood"
+	experience="375000" speed="380" manacost="600">
+	<health now="250000" max="250000" />
+	<look type="2460" corpse="49444" />
+	<targetchange interval="5000" chance="8" />
+	<strategy attack="100" defense="0" />
+	<flags>
+		<flag summonable="0" />
+		<flag attackable="1" />
+		<flag hostile="1" />
+		<flag illusionable="0" />
+		<flag convinceable="0" />
+		<flag pushable="1" />
+		<flag canpushitems="1" />
+		<flag canpushcreatures="1" />
+		<flag targetdistance="1" />
+		<flag staticattack="90" />
+		<flag runonhealth="0" />
+	</flags>
+	<attacks>
+		<attack name="melee" interval="500" min="-600" max="-2800" />
+		<attack name="supreme blast" interval="1500" chance="75" min="-400" max="-1200" />
+		<attack name="dynamic punch" interval="1000" chance="80" min="-700" max="-1500" />
+		<attack name="burning attack" interval="2500" chance="50" min="-800" max="-2000" />
+		<attack name="furie" interval="3000" chance="4000" min="-500" max="-2500" />
+	</attacks>
+	<defenses armor="0" defense="0">
+	</defenses>
+	<immunities>
+		<immunity physical="0" />
+		<immunity energy="0" />
+		<immunity fire="0" />
+		<immunity poison="0" />
+		<immunity lifedrain="0" />
+		<immunity paralyze="1" />
+		<immunity outfit="1" />
+		<immunity invisible="1" />
+	</immunities>
+	<voices interval="5000" chance="10">
+		<voice sentence="Deverá treinar muito pra chegar no meu nível!" />
+		<voice sentence="Sou um verdadeiro Saiyajin!" />
+		<voice sentence="Não poderão me derrotar facilmente!" />
+		<voice sentence="MORRAM DESGRAÇADOS!!!" />
+	</voices>
+	<loot>
+		<item id="2148" countmax="50" chance="90000" /> <!-- gold coin -->
+		<item id="2152" countmax="50" chance="90000" /> <!-- platinum coin -->
+		<item id="2160" countmax="5" chance="50000" /> <!-- crystal coin -->
+		<item id="56712" countmax="3" chance="10000" /> <!-- yellow potion -->
+		<item id="56713" countmax="3" chance="10000" /> <!-- grey potion -->
+		<item id="56714" countmax="3" chance="10000" /> <!-- purple potion -->
+		<item id="56715" countmax="3" chance="10000" /> <!-- pink potion -->
+		<item id="56716" countmax="3" chance="10000" /> <!-- light blue potion -->
+		<item id="56717" countmax="3" chance="10000" /> <!-- green potion -->
+		<item id="56718" countmax="3" chance="10000" /> <!-- red potion -->
+		<item id="49689" countmax="10" chance="1000" /> <!-- hp point -->
+		<item id="49690" countmax="10" chance="1000" /> <!-- mp point -->
+		<item id="49719" chance="1000" /> <!-- grand saiyan glove -->
+		<item id="49720" chance="1000" /> <!-- glove of honor -->
+	</loot>
+</monster>

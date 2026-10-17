@@ -1,0 +1,627 @@
+====================================================================================================
+  ANALISE DE PROGRESSAO DE PODER - PLAYER vs MONSTROS
+  Total de monstros: 524  |  Gerado em 04/06/2026
+====================================================================================================
+
+====================================================================================================
+  PARTE 1: PROGRESSAO DE PODER DO PLAYER (DPS) - TODAS AS SPELLS
+  maglevel=nivel/3, STR=INT=nivel/2, skillUpgrades=nivel/5
+====================================================================================================
+
+ Nivel       HP     Mana MagLv  STR  INT           Basic Ki          Signature             Cannon             Master           Ultimate
+---------------------------------------------------------------------------------------------------------------------------------------
+    50   12,500   13,750    16   25   25      110-     433      110-     433                ---                ---                ---
+   100   25,000   27,500    33   50   50      236-     949      236-     949       50-      90                ---                ---
+   150   37,500   41,250    50   75   75      415-    1683      415-    1683       75-     135                ---                ---
+   200   50,000   55,000    66  100  100      645-    2632      645-    2632      100-     180     1470-    5138                ---
+   250   62,500   68,750    79  125  125      909-    3720      909-    3720      125-     225     2046-    7180     2839-    8935
+   300   75,000   82,500    91  150  150     1222-    5010     1222-    5010      150-     270     2725-    9590     3785-   11910
+   350   87,500   96,250   104  175  175     1610-    6615     1610-    6615      175-     315     3564-   12575     4955-   15591
+   400  100,000  110,000   116  200  200     2054-    8451     2054-    8451      200-     360     4522-   15984     6291-   19791
+   450  112,500  123,750   129  225  225     2590-   10667     2590-   10667      225-     405     5673-   20084     7896-   24838
+   500  125,000  137,500   141  250  250     3188-   13142     3188-   13142      250-     450     6956-   24657     9686-   30467
+   550  137,500  151,250   151  275  275     3823-   15769     3823-   15769      275-     495     8317-   29511    11586-   36441
+   600  150,000  165,000   161  300  300     4536-   18722     4536-   18722      300-     540     9845-   34958    13717-   43142
+   650  162,500  178,750   171  325  325     5332-   22018     5332-   22018      325-     585    11546-   41030    16092-   50610
+   700  175,000  192,500   181  350  350     6215-   25677     6215-   25677      350-     630    13432-   47763    18724-   58887
+   750  187,500  206,250   191  375  375     7190-   29717     7190-   29717      375-     675    15511-   55189    21627-   68014
+   800  200,000  220,000   201  400  400     8261-   34157     8261-   34157      400-     720    17793-   63342    24813-   78032
+   850  212,500  233,750   211  425  425     9433-   39016     9433-   39016      425-     765    20287-   72257    28296-   88983
+   900  225,000  247,500   221  450  450    10710-   44313    10710-   44313      450-     810    23003-   81966    32089-  100908
+   950  237,500  261,250   231  475  475    12097-   50066    12097-   50066      475-     855    25950-   92504    36205-  113848
+  1000  250,000  275,000   241  500  500    13598-   56295    13598-   56295      500-     900    29137-  103905    40657-  127845
+
+Legenda: Basic=lv1 spellMax50, Signature=lv50 spellMax50, Cannon=lv90 COMBAT_LEVELMAGIC
+        Master=lv200 spellMax200, Ultimate=lv250 spellMax250
+
+====================================================================================================
+  PARTE 2: MELHOR DANO DISPONIVEL POR ARQUETIPO
+====================================================================================================
+
+ Nivel     DPS HP          DPS Dmg Bruiser HP      Bruiser Dmg    Tank HP         Tank Dmg    Sup. HP         Sup. Dmg
+----------------------------------------------------------------------------------------------------------------------
+    50     12,500     110-    433     12,500      88-    346     22,500      44-    173      7,500      44-    173
+   100     25,000     379-   1399     25,000     303-   1119     45,000     151-    559     15,000     151-    559
+   150     37,500     938-   3298     37,500     750-   2639     67,500     375-   1319     22,500     375-   1319
+   200     50,000    1470-   5138     50,000    1176-   4110     90,000     588-   2055     30,000     588-   2055
+   250     62,500    2839-   8935     62,500    2271-   7148    112,500    1135-   3574     37,500    1135-   3574
+   300     75,000    3785-  11910     75,000    3028-   9528    135,000    1514-   4764     45,000    1514-   4764
+   350     87,500    4955-  15591     87,500    3964-  12472    157,500    1982-   6236     52,500    1982-   6236
+   400    100,000    6291-  19791    100,000    5032-  15832    180,000    2516-   7916     60,000    2516-   7916
+   450    112,500    7896-  24838    112,500    6317-  19871    202,500    3158-   9935     67,500    3158-   9935
+   500    125,000    9686-  30467    125,000    7749-  24374    225,000    3874-  12187     75,000    3874-  12187
+   550    137,500   11586-  36441    137,500    9268-  29153    247,500    4634-  14576     82,500    4634-  14576
+   600    150,000   13717-  43142    150,000   10973-  34513    270,000    5486-  17256     90,000    5486-  17256
+   650    162,500   16092-  50610    162,500   12873-  40488    292,500    6436-  20244     97,500    6436-  20244
+   700    175,000   18724-  58887    175,000   14979-  47109    315,000    7489-  23554    105,000    7489-  23554
+   750    187,500   21627-  68014    187,500   17301-  54411    337,500    8650-  27205    112,500    8650-  27205
+   800    200,000   24813-  78032    200,000   19851-  62426    360,000    9925-  31213    120,000    9925-  31213
+   850    212,500   28296-  88983    212,500   22637-  71186    382,500   11318-  35593    127,500   11318-  35593
+   900    225,000   32089- 100908    225,000   25671-  80726    405,000   12835-  40363    135,000   12835-  40363
+   950    237,500   36205- 113848    237,500   28964-  91078    427,500   14482-  45539    142,500   14482-  45539
+  1000    250,000   40657- 127845    250,000   32526- 102276    450,000   16263-  51138    150,000   16263-  51138
+
+====================================================================================================
+  PARTE 3: DISTRIBUICAO DE HP DOS MONSTROS EXISTENTES
+====================================================================================================
+
+  HP         0-50:   39 monstros | HP med=          23 | EXP med=          11 | SPD med=   201 | ATK med=    14.1
+  HP       51-200:   72 monstros | HP med=         115 | EXP med=          65 | SPD med=   201 | ATK med=    24.0
+  HP      201-500:   87 monstros | HP med=         342 | EXP med=         223 | SPD med=   220 | ATK med=    78.2
+  HP       501-1k:   46 monstros | HP med=         742 | EXP med=         585 | SPD med=   238 | ATK med=   107.0
+  HP        1k-2k:   52 monstros | HP med=       1,535 | EXP med=       1,307 | SPD med=   285 | ATK med=   222.3
+  HP        2k-5k:   77 monstros | HP med=       3,940 | EXP med=       3,073 | SPD med=   311 | ATK med=   366.7
+  HP       5k-10k:   36 monstros | HP med=       8,175 | EXP med=       4,581 | SPD med=   272 | ATK med=   385.6
+  HP      10k-50k:   43 monstros | HP med=      29,883 | EXP med=      18,369 | SPD med=   336 | ATK med=   652.2
+  HP     50k-100k:   24 monstros | HP med=      75,750 | EXP med=      51,325 | SPD med=   387 | ATK med=  1769.6
+  HP    100k-500k:   29 monstros | HP med=     278,793 | EXP med=     345,235 | SPD med=   465 | ATK med=  6871.4
+  HP      500k-2M:   13 monstros | HP med=   1,026,923 | EXP med=     692,308 | SPD med=   534 | ATK med=  2703.8
+  HP       2M-10M:    3 monstros | HP med=   5,733,333 | EXP med=   3,360,000 | SPD med=   640 | ATK med=  2516.7
+  HP         10M+:    3 monstros | HP med=  41,333,333 | EXP med= 235,833,333 | SPD med=   367 | ATK med= 31666.7
+
+====================================================================================================
+  PARTE 4: CONFIGURACAO IDEAL DE MONSTROS POR FAIXA DE NIVEL
+  HP ideal ~ 6-10x dano da melhor spell do DPS
+  EXP ~ 0.5-1% do necessario para o proximo nivel
+  Speed ~ 200 + nivel*0.8
+  Ataque monstro ~ 8-12% do HP do Tank
+====================================================================================================
+
+       Faixa  Player HP         Best Dmg       Monstro HP  Monstro EXP    Spd        Atk
+----------------------------------------------------------------------------------------
+          1-50     12,500     110-    433      2,175           601    250    2,250
+        51-100     25,000     379-   1399      7,117         2,438    300    4,500
+       101-150     37,500     938-   3298     16,948         5,526    350    6,750
+       151-200     50,000    1470-   5138     26,432         9,863    400    9,000
+       201-250     62,500    2839-   8935     47,098        15,451    450   11,250
+       251-300     75,000    3785-  11910     62,780        22,288    500   13,500
+       301-350     87,500    4955-  15591     82,186        30,376    550   15,750
+       351-400    100,000    6291-  19791    104,328        39,713    600   18,000
+       401-450    112,500    7896-  24838    130,940        50,301    650   20,250
+       451-500    125,000    9686-  30467    160,615        62,138    700   22,500
+       501-550    137,500   11586-  36441    192,110        75,226    750   24,750
+       551-600    150,000   13717-  43142    227,436        89,563    800   27,000
+       601-650    162,500   16092-  50610    266,808       105,151    850   29,250
+       651-700    175,000   18724-  58887    310,446       121,988    900   31,500
+       701-750    187,500   21627-  68014    358,565       140,076    950   33,750
+       751-800    200,000   24813-  78032    411,385       159,413   1000   36,000
+       801-850    212,500   28296-  88983    469,121       180,001   1000   38,250
+       851-900    225,000   32089- 100908    531,993       201,838   1000   40,500
+       901-950    237,500   36205- 113848    600,216       224,926   1000   42,750
+      951-1000    250,000   40657- 127845    674,010       249,263   1000   45,000
+
+====================================================================================================
+  PARTE 5: MONSTROS EXISTENTES ADEQUADOS POR FAIXA
+  (HP do monstro dentro de 4x-12x o dano da melhor spell DPS)
+====================================================================================================
+
+  NIVEL 1-50 (spell: Signature) -> Dano=110-433  HP ideal: 815 - 3,262
+    Chakoya Windcaller                       HP=         840 EXP=       480 SPD= 270 ATK=    35
+    Undead Minion                            HP=         850 EXP=       550 SPD= 230 ATK=   160
+    Wailing Widow                            HP=         850 EXP=       450 SPD= 280 ATK=    60
+    Lich                                     HP=         880 EXP=       900 SPD= 320 ATK=   400
+    Quara Predator Scout                     HP=         890 EXP=       400 SPD= 290 ATK=     0
+    Mutated Bat                              HP=         900 EXP=       615 SPD= 245 ATK=   180
+    Apprentice Sheng                         HP=         950 EXP=     1,000 SPD= 170 ATK=    45
+    Yeti                                     HP=         950 EXP=       460 SPD= 270 ATK=   175
+    Dragon                                   HP=       1,000 EXP=       700 SPD= 180 ATK=   170
+    Mad Technomancer                         HP=       1,000 EXP=        55 SPD= 200 ATK=   120
+    ... e mais 77 monstros
+
+  NIVEL 51-100 (spell: Elite) -> Dano=379-1,399  HP ideal: 2,668 - 10,675
+    Nightmare                                HP=       2,700 EXP=     2,150 SPD= 380 ATK=   400
+    Ice Overlord                             HP=       2,800 EXP=     1,950 SPD= 390 ATK=   400
+    Rift Worm                                HP=       2,800 EXP=     1,195 SPD= 200 ATK= 1,000
+    Lizard Zaogun                            HP=       2,955 EXP=     1,700 SPD= 420 ATK=   375
+    Ancient Scarab                           HP=       3,000 EXP=     7,200 SPD= 330 ATK=   135
+    Dragon Baby                              HP=       3,000 EXP=     1,000 SPD= 170 ATK=    90
+    Draptor                                  HP=       3,000 EXP=     2,400 SPD= 340 ATK=   310
+    Grorlam                                  HP=       3,000 EXP=     2,400 SPD= 240 ATK=   200
+    Rift Brood                               HP=       3,000 EXP=     1,600 SPD= 300 ATK=   400
+    Serpent Spawn                            HP=       3,000 EXP=     2,350 SPD= 240 ATK=   500
+    ... e mais 95 monstros
+
+  NIVEL 101-150 (spell: Advanced) -> Dano=938-3,298  HP ideal: 6,355 - 25,423
+    Stonecracker                             HP=       6,500 EXP=     3,500 SPD= 280 ATK=   280
+    Botamo                                   HP=       7,000 EXP=     7,000 SPD= 300 ATK=   230
+    Centipede                                HP=       7,000 EXP=     3,000 SPD= 200 ATK=     0
+    Yakon                                    HP=       7,000 EXP=     8,000 SPD= 370 ATK=   300
+    Countess Sorrow                          HP=       7,200 EXP=     5,150 SPD= 250 ATK=   400
+    Dark Torturer                            HP=       7,350 EXP=     4,650 SPD= 280 ATK=   781
+    Fahim The Wise                           HP=       7,500 EXP=    10,010 SPD= 210 ATK=   250
+    Hand of Cursed Fate                      HP=       7,500 EXP=     5,000 SPD= 420 ATK=   926
+    Hellhound                                HP=       7,500 EXP=     6,800 SPD= 310 ATK=   660
+    Merikh The Slaughterer                   HP=       7,500 EXP=    10,010 SPD= 270 ATK=   250
+    ... e mais 41 monstros
+
+  NIVEL 151-200 (spell: Master) -> Dano=1,470-5,138  HP ideal: 9,912 - 39,648
+    flamethrower                             HP=       9,950 EXP=     1,200 SPD=   0 ATK=   100
+    magicthrower                             HP=       9,950 EXP=     1,200 SPD=   0 ATK=   100
+    plaguethrower                            HP=       9,950 EXP=     1,300 SPD=   0 ATK=   100
+    Poisonthrower                            HP=       9,950 EXP=     1,200 SPD=   0 ATK=   100
+    Banshee                                  HP=      10,000 EXP=     2,000 SPD= 220 ATK=   250
+    Lord of the Elements                     HP=      10,000 EXP=     8,000 SPD= 370 ATK=     0
+    Saibamen                                 HP=      10,000 EXP=     5,000 SPD= 400 ATK=   300
+    Saibamen White                           HP=      10,000 EXP=     5,000 SPD= 400 ATK=   300
+    Amazon                                   HP=      11,000 EXP=     6,000 SPD= 200 ATK=   200
+    Ancestral Guardian                       HP=      12,000 EXP=     3,500 SPD= 390 ATK=   300
+    ... e mais 23 monstros
+
+  NIVEL 201-250 (spell: Ultimate) -> Dano=2,839-8,935  HP ideal: 17,661 - 70,647
+    Aqua                                     HP=      20,000 EXP=    10,000 SPD= 300 ATK=   400
+    Aqua Corrupted                           HP=      20,000 EXP=    10,000 SPD= 300 ATK=   400
+    Demonic Soldier                          HP=      20,000 EXP=     8,000 SPD= 400 ATK=   900
+    Juggernaut                               HP=      20,000 EXP=     8,700 SPD= 500 ATK=   780
+    Namekjin                                 HP=      20,000 EXP=    15,000 SPD= 400 ATK=   700
+    Tank                                     HP=      20,000 EXP=     5,000 SPD= 300 ATK=   200
+    Wind Elemental                           HP=      20,000 EXP=     7,000 SPD= 500 ATK=   900
+    Acidwire                                 HP=      30,000 EXP=    30,000 SPD= 210 ATK= 1,200
+    Aegzen                                   HP=      30,000 EXP=    15,000 SPD= 200 ATK=   300
+    Massacre                                 HP=      30,000 EXP=     9,800 SPD= 390 ATK=   500
+    ... e mais 34 monstros
+
+  NIVEL 251-300 (spell: Ultimate) -> Dano=3,785-11,910  HP ideal: 23,542 - 94,170
+    Acidwire                                 HP=      30,000 EXP=    30,000 SPD= 210 ATK= 1,200
+    Aegzen                                   HP=      30,000 EXP=    15,000 SPD= 200 ATK=   300
+    Massacre                                 HP=      30,000 EXP=     9,800 SPD= 390 ATK=   500
+    Bardock Ssj                              HP=      35,000 EXP=    10,000 SPD= 350 ATK=   390
+    Ferumbras                                HP=      35,000 EXP=    12,000 SPD= 320 ATK=   800
+    The Abomination                          HP=      38,050 EXP=    25,000 SPD= 340 ATK=   900
+    Aegzengiven                              HP=      40,000 EXP=    35,000 SPD= 200 ATK=   700
+    Aegzengun                                HP=      40,000 EXP=    35,000 SPD= 200 ATK=   700
+    Fat Boo                                  HP=      40,000 EXP=    40,000 SPD= 200 ATK=   650
+    Fat Janemba                              HP=      40,000 EXP=    40,000 SPD= 200 ATK=   500
+    ... e mais 32 monstros
+
+  NIVEL 301-350 (spell: Ultimate) -> Dano=4,955-15,591  HP ideal: 30,819 - 123,279
+    Bardock Ssj                              HP=      35,000 EXP=    10,000 SPD= 350 ATK=   390
+    Ferumbras                                HP=      35,000 EXP=    12,000 SPD= 320 ATK=   800
+    The Abomination                          HP=      38,050 EXP=    25,000 SPD= 340 ATK=   900
+    Aegzengiven                              HP=      40,000 EXP=    35,000 SPD= 200 ATK=   700
+    Aegzengun                                HP=      40,000 EXP=    35,000 SPD= 200 ATK=   700
+    Fat Boo                                  HP=      40,000 EXP=    40,000 SPD= 200 ATK=   650
+    Fat Janemba                              HP=      40,000 EXP=    40,000 SPD= 200 ATK=   500
+    Golgordan                                HP=      40,000 EXP=    10,000 SPD= 350 ATK=   955
+    Hellgorak                                HP=      40,000 EXP=    10,000 SPD= 360 ATK=   819
+    Latrivan                                 HP=      40,000 EXP=    10,000 SPD= 340 ATK=   850
+    ... e mais 38 monstros
+
+  NIVEL 351-400 (spell: Ultimate) -> Dano=6,291-19,791  HP ideal: 39,123 - 156,492
+    Aegzengiven                              HP=      40,000 EXP=    35,000 SPD= 200 ATK=   700
+    Aegzengun                                HP=      40,000 EXP=    35,000 SPD= 200 ATK=   700
+    Fat Boo                                  HP=      40,000 EXP=    40,000 SPD= 200 ATK=   650
+    Fat Janemba                              HP=      40,000 EXP=    40,000 SPD= 200 ATK=   500
+    Golgordan                                HP=      40,000 EXP=    10,000 SPD= 350 ATK=   955
+    Hellgorak                                HP=      40,000 EXP=    10,000 SPD= 360 ATK=   819
+    Latrivan                                 HP=      40,000 EXP=    10,000 SPD= 340 ATK=   850
+    Purple Robocop                           HP=      40,000 EXP=    35,000 SPD= 400 ATK=   700
+    Worker                                   HP=      40,000 EXP=    45,000 SPD= 300 ATK=   700
+    Worker ice                               HP=      40,000 EXP=    45,000 SPD= 300 ATK=   700
+    ... e mais 39 monstros
+
+  NIVEL 401-450 (spell: Ultimate) -> Dano=7,896-24,838  HP ideal: 49,102 - 196,411
+    Acid Hollow                              HP=      50,000 EXP=   100,000 SPD= 470 ATK= 1,150
+    Dodoria                                  HP=      50,000 EXP=     3,500 SPD= 280 ATK=   300
+    Goku Ginyu                               HP=      50,000 EXP=    30,000 SPD= 400 ATK=   800
+    Tsuful                                   HP=      50,000 EXP=    50,000 SPD= 350 ATK=   600
+    Ushuriel                                 HP=      50,000 EXP=    10,000 SPD= 350 ATK=   760
+    Bardock Ssj4                             HP=      55,000 EXP=    40,000 SPD= 350 ATK=   490
+    Madareth                                 HP=      55,000 EXP=   100,000 SPD= 380 ATK=   600
+    Morgaroth                                HP=      55,000 EXP=    15,000 SPD= 400 ATK= 2,000
+    Ghazbaran                                HP=      60,000 EXP=    15,000 SPD= 400 ATK= 2,191
+    Lizzard King                             HP=      60,000 EXP=     9,800 SPD= 280 ATK=   300
+    ... e mais 29 monstros
+
+  NIVEL 451-500 (spell: Ultimate) -> Dano=9,686-30,467  HP ideal: 60,230 - 240,922
+    Bardock Ssj5                             HP=      65,000 EXP=    50,000 SPD= 350 ATK=15,000
+    Bawabawa                                 HP=      70,000 EXP=    70,000 SPD= 630 ATK=     0
+    Leader of the guardian of the forest of menos HP=      70,000 EXP=    70,000 SPD= 470 ATK= 5,000
+    Spider Hollow                            HP=      70,000 EXP=    80,000 SPD= 470 ATK= 1,150
+    Janemba                                  HP=      75,000 EXP=    85,000 SPD= 400 ATK=   850
+    C19 And C20                              HP=      80,000 EXP=    25,000 SPD= 300 ATK= 2,000
+    Dabura                                   HP=      90,000 EXP=    80,000 SPD= 350 ATK= 1,000
+    Furios Scorpion                          HP=      90,000 EXP=    12,000 SPD= 320 ATK=   700
+    Bojack                                   HP=      93,000 EXP=    40,000 SPD= 500 ATK=   400
+    Bardock Ssj Supreme                      HP=      95,000 EXP=    60,000 SPD= 500 ATK=   890
+    ... e mais 19 monstros
+
+  NIVEL 501-550 (spell: Ultimate) -> Dano=11,586-36,441  HP ideal: 72,041 - 288,165
+    Janemba                                  HP=      75,000 EXP=    85,000 SPD= 400 ATK=   850
+    C19 And C20                              HP=      80,000 EXP=    25,000 SPD= 300 ATK= 2,000
+    Dabura                                   HP=      90,000 EXP=    80,000 SPD= 350 ATK= 1,000
+    Furios Scorpion                          HP=      90,000 EXP=    12,000 SPD= 320 ATK=   700
+    Bojack                                   HP=      93,000 EXP=    40,000 SPD= 500 ATK=   400
+    Bardock Ssj Supreme                      HP=      95,000 EXP=    60,000 SPD= 500 ATK=   890
+    Zugurosh                                 HP=      95,000 EXP=    10,000 SPD= 340 ATK=   850
+    Freeza                                   HP=     100,000 EXP=    70,000 SPD= 350 ATK= 3,500
+    Goku SSJ                                 HP=     100,000 EXP=    75,000 SPD= 400 ATK= 1,000
+    Oozaru                                   HP=     100,000 EXP=    15,000 SPD= 300 ATK=   300
+    ... e mais 18 monstros
+
+  NIVEL 551-600 (spell: Ultimate) -> Dano=13,717-43,142  HP ideal: 85,288 - 341,154
+    Dabura                                   HP=      90,000 EXP=    80,000 SPD= 350 ATK= 1,000
+    Furios Scorpion                          HP=      90,000 EXP=    12,000 SPD= 320 ATK=   700
+    Bojack                                   HP=      93,000 EXP=    40,000 SPD= 500 ATK=   400
+    Bardock Ssj Supreme                      HP=      95,000 EXP=    60,000 SPD= 500 ATK=   890
+    Zugurosh                                 HP=      95,000 EXP=    10,000 SPD= 340 ATK=   850
+    Freeza                                   HP=     100,000 EXP=    70,000 SPD= 350 ATK= 3,500
+    Goku SSJ                                 HP=     100,000 EXP=    75,000 SPD= 400 ATK= 1,000
+    Oozaru                                   HP=     100,000 EXP=    15,000 SPD= 300 ATK=   300
+    Worker Chef                              HP=     100,000 EXP=    85,000 SPD= 300 ATK=   700
+    C19                                      HP=     110,000 EXP=    65,000 SPD= 400 ATK=   400
+    ... e mais 17 monstros
+
+  NIVEL 601-650 (spell: Ultimate) -> Dano=16,092-50,610  HP ideal: 100,053 - 400,212
+    C19                                      HP=     110,000 EXP=    65,000 SPD= 400 ATK=   400
+    Lobisomen                                HP=     110,000 EXP=    60,000 SPD= 800 ATK= 1,000
+    Ancient Dinosaur Hollow                  HP=     120,000 EXP=    61,820 SPD= 180 ATK= 1,500
+    Dr. Gero                                 HP=     130,000 EXP=    70,000 SPD= 400 ATK= 1,000
+    Cell Jr                                  HP=     150,000 EXP=    25,000 SPD= 500 ATK=   500
+    Kuririn                                  HP=     150,000 EXP=    45,000 SPD= 400 ATK=   470
+    Paikuhan                                 HP=     150,000 EXP=    65,000 SPD= 350 ATK= 8,000
+    Apocalypse                               HP=     160,000 EXP=    80,000 SPD= 400 ATK= 3,000
+    C17                                      HP=     175,000 EXP=    25,000 SPD= 550 ATK=   800
+    C18                                      HP=     185,000 EXP=    30,000 SPD= 500 ATK=   800
+    ... e mais 14 monstros
+
+  NIVEL 651-700 (spell: Ultimate) -> Dano=18,724-58,887  HP ideal: 116,417 - 465,669
+    Ancient Dinosaur Hollow                  HP=     120,000 EXP=    61,820 SPD= 180 ATK= 1,500
+    Dr. Gero                                 HP=     130,000 EXP=    70,000 SPD= 400 ATK= 1,000
+    Cell Jr                                  HP=     150,000 EXP=    25,000 SPD= 500 ATK=   500
+    Kuririn                                  HP=     150,000 EXP=    45,000 SPD= 400 ATK=   470
+    Paikuhan                                 HP=     150,000 EXP=    65,000 SPD= 350 ATK= 8,000
+    Apocalypse                               HP=     160,000 EXP=    80,000 SPD= 400 ATK= 3,000
+    C17                                      HP=     175,000 EXP=    25,000 SPD= 550 ATK=   800
+    C18                                      HP=     185,000 EXP=    30,000 SPD= 500 ATK=   800
+    Cell                                     HP=     200,000 EXP=    35,000 SPD= 500 ATK=   900
+    Cell Perfect                             HP=     200,000 EXP=   100,000 SPD= 650 ATK= 2,000
+    ... e mais 12 monstros
+
+  NIVEL 701-750 (spell: Ultimate) -> Dano=21,627-68,014  HP ideal: 134,462 - 537,848
+    Cell Jr                                  HP=     150,000 EXP=    25,000 SPD= 500 ATK=   500
+    Kuririn                                  HP=     150,000 EXP=    45,000 SPD= 400 ATK=   470
+    Paikuhan                                 HP=     150,000 EXP=    65,000 SPD= 350 ATK= 8,000
+    Apocalypse                               HP=     160,000 EXP=    80,000 SPD= 400 ATK= 3,000
+    C17                                      HP=     175,000 EXP=    25,000 SPD= 550 ATK=   800
+    C18                                      HP=     185,000 EXP=    30,000 SPD= 500 ATK=   800
+    Cell                                     HP=     200,000 EXP=    35,000 SPD= 500 ATK=   900
+    Cell Perfect                             HP=     200,000 EXP=   100,000 SPD= 650 ATK= 2,000
+    Goku SSJ2                                HP=     200,000 EXP=   100,000 SPD= 450 ATK= 2,500
+    Orshabaal                                HP=     225,000 EXP=    99,990 SPD= 380 ATK=   850
+    ... e mais 15 monstros
+
+  NIVEL 751-800 (spell: Ultimate) -> Dano=24,813-78,032  HP ideal: 154,269 - 617,077
+    Apocalypse                               HP=     160,000 EXP=    80,000 SPD= 400 ATK= 3,000
+    C17                                      HP=     175,000 EXP=    25,000 SPD= 550 ATK=   800
+    C18                                      HP=     185,000 EXP=    30,000 SPD= 500 ATK=   800
+    Cell                                     HP=     200,000 EXP=    35,000 SPD= 500 ATK=   900
+    Cell Perfect                             HP=     200,000 EXP=   100,000 SPD= 650 ATK= 2,000
+    Goku SSJ2                                HP=     200,000 EXP=   100,000 SPD= 450 ATK= 2,500
+    Orshabaal                                HP=     225,000 EXP=    99,990 SPD= 380 ATK=   850
+    Gohan SSJ2                               HP=     250,000 EXP=   100,000 SPD= 400 ATK=   800
+    Goku SSJ4                                HP=     250,000 EXP= 2,000,000 SPD= 500 ATK=50,000
+    Tsuful Oozaru                            HP=     250,000 EXP=   150,000 SPD= 200 ATK=   600
+    ... e mais 13 monstros
+
+  NIVEL 801-850 (spell: Ultimate) -> Dano=28,296-88,983  HP ideal: 175,920 - 703,682
+    C18                                      HP=     185,000 EXP=    30,000 SPD= 500 ATK=   800
+    Cell                                     HP=     200,000 EXP=    35,000 SPD= 500 ATK=   900
+    Cell Perfect                             HP=     200,000 EXP=   100,000 SPD= 650 ATK= 2,000
+    Goku SSJ2                                HP=     200,000 EXP=   100,000 SPD= 450 ATK= 2,500
+    Orshabaal                                HP=     225,000 EXP=    99,990 SPD= 380 ATK=   850
+    Gohan SSJ2                               HP=     250,000 EXP=   100,000 SPD= 400 ATK=   800
+    Goku SSJ4                                HP=     250,000 EXP= 2,000,000 SPD= 500 ATK=50,000
+    Tsuful Oozaru                            HP=     250,000 EXP=   150,000 SPD= 200 ATK=   600
+    Goku SSJ3                                HP=     300,000 EXP=   150,000 SPD= 450 ATK=25,000
+    Monako                                   HP=     350,000 EXP=   180,000 SPD= 600 ATK=   600
+    ... e mais 11 monstros
+
+  NIVEL 851-900 (spell: Ultimate) -> Dano=32,089-100,908  HP ideal: 199,497 - 797,989
+    Cell                                     HP=     200,000 EXP=    35,000 SPD= 500 ATK=   900
+    Cell Perfect                             HP=     200,000 EXP=   100,000 SPD= 650 ATK= 2,000
+    Goku SSJ2                                HP=     200,000 EXP=   100,000 SPD= 450 ATK= 2,500
+    Orshabaal                                HP=     225,000 EXP=    99,990 SPD= 380 ATK=   850
+    Gohan SSJ2                               HP=     250,000 EXP=   100,000 SPD= 400 ATK=   800
+    Goku SSJ4                                HP=     250,000 EXP= 2,000,000 SPD= 500 ATK=50,000
+    Tsuful Oozaru                            HP=     250,000 EXP=   150,000 SPD= 200 ATK=   600
+    Goku SSJ3                                HP=     300,000 EXP=   150,000 SPD= 450 ATK=25,000
+    Monako                                   HP=     350,000 EXP=   180,000 SPD= 600 ATK=   600
+    Trunks SSJ4                              HP=     350,000 EXP=   250,000 SPD= 600 ATK= 1,250
+    ... e mais 15 monstros
+
+  NIVEL 901-950 (spell: Ultimate) -> Dano=36,205-113,848  HP ideal: 225,081 - 900,324
+    Gohan SSJ2                               HP=     250,000 EXP=   100,000 SPD= 400 ATK=   800
+    Goku SSJ4                                HP=     250,000 EXP= 2,000,000 SPD= 500 ATK=50,000
+    Tsuful Oozaru                            HP=     250,000 EXP=   150,000 SPD= 200 ATK=   600
+    Goku SSJ3                                HP=     300,000 EXP=   150,000 SPD= 450 ATK=25,000
+    Monako                                   HP=     350,000 EXP=   180,000 SPD= 600 ATK=   600
+    Trunks SSJ4                              HP=     350,000 EXP=   250,000 SPD= 600 ATK= 1,250
+    C20                                      HP=     370,000 EXP=    75,000 SPD= 700 ATK= 1,200
+    Annihilon                                HP=     400,000 EXP=    10,000 SPD= 310 ATK=   700
+    Gohan SSJ4                               HP=     400,000 EXP=   200,000 SPD= 475 ATK= 1,800
+    Space Soldier                            HP=     400,000 EXP=    75,000 SPD= 450 ATK= 3,300
+    ... e mais 11 monstros
+
+  NIVEL 951-1000 (spell: Ultimate) -> Dano=40,657-127,845  HP ideal: 252,753 - 1,011,015
+    Goku SSJ3                                HP=     300,000 EXP=   150,000 SPD= 450 ATK=25,000
+    Monako                                   HP=     350,000 EXP=   180,000 SPD= 600 ATK=   600
+    Trunks SSJ4                              HP=     350,000 EXP=   250,000 SPD= 600 ATK= 1,250
+    C20                                      HP=     370,000 EXP=    75,000 SPD= 700 ATK= 1,200
+    Annihilon                                HP=     400,000 EXP=    10,000 SPD= 310 ATK=   700
+    Gohan SSJ4                               HP=     400,000 EXP=   200,000 SPD= 475 ATK= 1,800
+    Space Soldier                            HP=     400,000 EXP=    75,000 SPD= 450 ATK= 3,300
+    Gogeta                                   HP=     500,000 EXP=   120,000 SPD= 600 ATK= 5,500
+    Goku SSJ5                                HP=     500,000 EXP= 5,000,000 SPD= 600 ATK=80,000
+    Majin Buu                                HP=     500,000 EXP=   150,000 SPD= 500 ATK=   850
+    ... e mais 11 monstros
+
+====================================================================================================
+  PARTE 6: LACUNAS NA DISTRIBUICAO
+====================================================================================================
+
+          1-50:  87 monstros (       815-     3,262 HP)  Status: OK
+        51-100: 105 monstros (     2,668-    10,675 HP)  Status: OK
+       101-150:  51 monstros (     6,355-    25,423 HP)  Status: OK
+       151-200:  33 monstros (     9,912-    39,648 HP)  Status: OK
+       201-250:  44 monstros (    17,661-    70,647 HP)  Status: OK
+       251-300:  42 monstros (    23,542-    94,170 HP)  Status: OK
+       301-350:  48 monstros (    30,819-   123,279 HP)  Status: OK
+       351-400:  49 monstros (    39,123-   156,492 HP)  Status: OK
+       401-450:  39 monstros (    49,102-   196,411 HP)  Status: OK
+       451-500:  29 monstros (    60,230-   240,922 HP)  Status: OK
+       501-550:  28 monstros (    72,041-   288,165 HP)  Status: OK
+       551-600:  27 monstros (    85,288-   341,154 HP)  Status: OK
+       601-650:  24 monstros (   100,053-   400,212 HP)  Status: OK
+       651-700:  22 monstros (   116,417-   465,669 HP)  Status: OK
+       701-750:  25 monstros (   134,462-   537,848 HP)  Status: OK
+       751-800:  23 monstros (   154,269-   617,077 HP)  Status: OK
+       801-850:  21 monstros (   175,920-   703,682 HP)  Status: OK
+       851-900:  25 monstros (   199,497-   797,989 HP)  Status: OK
+       901-950:  21 monstros (   225,081-   900,324 HP)  Status: OK
+      951-1000:  21 monstros (   252,753- 1,011,015 HP)  Status: OK
+
+  Todas as faixas possuem monstros adequados.
+
+====================================================================================================
+  PARTE 7: TEMPLATE DE CRIACAO DE MONSTROS POR FAIXA
+====================================================================================================
+
+  --- 1-50 (pasta: 50/) ---
+    HP.......: 2,175
+    EXP......: 601
+    Speed....: 250
+    Ataque...: melee 1350-2250 | especial 1800-2700
+    Armor....: 10
+    Defense..: 12
+    Elems....: 1 forte (50%), 1 fraco (-10%)
+    Imunidades: paralyze, invisible
+    Loot.....: gold coins + items level 50
+
+  --- 51-100 (pasta: 50/) ---
+    HP.......: 7,117
+    EXP......: 2,438
+    Speed....: 300
+    Ataque...: melee 2700-4500 | especial 3600-5400
+    Armor....: 20
+    Defense..: 25
+    Elems....: 1 forte (50%), 1 fraco (-10%)
+    Imunidades: paralyze, invisible
+    Loot.....: gold coins + items level 100
+
+  --- 101-150 (pasta: 100/ ou 150/) ---
+    HP.......: 16,948
+    EXP......: 5,526
+    Speed....: 350
+    Ataque...: melee 4050-6750 | especial 5400-8100
+    Armor....: 30
+    Defense..: 37
+    Elems....: 1 forte (50%), 1 fraco (-10%)
+    Imunidades: paralyze, invisible
+    Loot.....: gold coins + items level 150
+
+  --- 151-200 (pasta: 100/ ou 150/) ---
+    HP.......: 26,432
+    EXP......: 9,863
+    Speed....: 400
+    Ataque...: melee 5400-9000 | especial 7200-10800
+    Armor....: 40
+    Defense..: 50
+    Elems....: 1 forte (50%), 1 fraco (-10%)
+    Imunidades: paralyze, invisible
+    Loot.....: gold coins + items level 200
+
+  --- 201-250 (pasta: 200/ ou 250/) ---
+    HP.......: 47,098
+    EXP......: 15,451
+    Speed....: 450
+    Ataque...: melee 6750-11250 | especial 9000-13500
+    Armor....: 50
+    Defense..: 62
+    Elems....: 1 forte (50%), 1 fraco (-10%)
+    Imunidades: paralyze, invisible
+    Loot.....: gold coins + items level 250
+
+  --- 251-300 (pasta: 200/ ou 250/) ---
+    HP.......: 62,780
+    EXP......: 22,288
+    Speed....: 500
+    Ataque...: melee 8100-13500 | especial 10800-16200
+    Armor....: 60
+    Defense..: 75
+    Elems....: 1 forte (50%), 1 fraco (-10%)
+    Imunidades: paralyze, invisible
+    Loot.....: gold coins + items level 300
+
+  --- 301-350 (pasta: 300/) ---
+    HP.......: 82,186
+    EXP......: 30,376
+    Speed....: 550
+    Ataque...: melee 9450-15750 | especial 12600-18900
+    Armor....: 70
+    Defense..: 87
+    Elems....: 1 forte (50%), 1 fraco (-10%)
+    Imunidades: paralyze, invisible
+    Loot.....: gold coins + items level 350
+
+  --- 351-400 (pasta: 300/) ---
+    HP.......: 104,328
+    EXP......: 39,713
+    Speed....: 600
+    Ataque...: melee 10800-18000 | especial 14400-21600
+    Armor....: 80
+    Defense..: 100
+    Elems....: 1 forte (50%), 1 fraco (-10%)
+    Imunidades: paralyze, invisible
+    Loot.....: gold coins + items level 400
+
+  --- 401-450 (pasta: 350/ ou 500/) ---
+    HP.......: 130,940
+    EXP......: 50,301
+    Speed....: 650
+    Ataque...: melee 12150-20250 | especial 16200-24300
+    Armor....: 90
+    Defense..: 112
+    Elems....: 1 forte (50%), 1 fraco (-10%)
+    Imunidades: paralyze, invisible
+    Loot.....: gold coins + items level 450
+
+  --- 451-500 (pasta: 350/ ou 500/) ---
+    HP.......: 160,615
+    EXP......: 62,138
+    Speed....: 700
+    Ataque...: melee 13500-22500 | especial 18000-27000
+    Armor....: 100
+    Defense..: 125
+    Elems....: 1 forte (50%), 1 fraco (-10%)
+    Imunidades: paralyze, invisible
+    Loot.....: gold coins + items level 500
+
+  --- 501-550 (pasta: 500+) ---
+    HP.......: 192,110
+    EXP......: 75,226
+    Speed....: 750
+    Ataque...: melee 14850-24750 | especial 19800-29700
+    Armor....: 110
+    Defense..: 137
+    Elems....: 1 forte (50%), 1 fraco (-10%)
+    Imunidades: paralyze, invisible
+    Loot.....: gold coins + items level 550
+
+  --- 551-600 (pasta: 500+) ---
+    HP.......: 227,436
+    EXP......: 89,563
+    Speed....: 800
+    Ataque...: melee 16200-27000 | especial 21600-32400
+    Armor....: 120
+    Defense..: 150
+    Elems....: 1 forte (50%), 1 fraco (-10%)
+    Imunidades: paralyze, invisible
+    Loot.....: gold coins + items level 600
+
+  --- 601-650 (pasta: 500+) ---
+    HP.......: 266,808
+    EXP......: 105,151
+    Speed....: 850
+    Ataque...: melee 17550-29250 | especial 23400-35100
+    Armor....: 130
+    Defense..: 162
+    Elems....: 1 forte (50%), 1 fraco (-10%)
+    Imunidades: paralyze, invisible
+    Loot.....: gold coins + items level 650
+
+  --- 651-700 (pasta: 500+) ---
+    HP.......: 310,446
+    EXP......: 121,988
+    Speed....: 900
+    Ataque...: melee 18900-31500 | especial 25200-37800
+    Armor....: 140
+    Defense..: 175
+    Elems....: 1 forte (50%), 1 fraco (-10%)
+    Imunidades: paralyze, invisible
+    Loot.....: gold coins + items level 700
+
+  --- 701-750 (pasta: 500+) ---
+    HP.......: 358,565
+    EXP......: 140,076
+    Speed....: 950
+    Ataque...: melee 20250-33750 | especial 27000-40500
+    Armor....: 150
+    Defense..: 187
+    Elems....: 1 forte (50%), 1 fraco (-10%)
+    Imunidades: paralyze, invisible
+    Loot.....: gold coins + items level 750
+
+  --- 751-800 (pasta: 500+) ---
+    HP.......: 411,385
+    EXP......: 159,413
+    Speed....: 1000
+    Ataque...: melee 21600-36000 | especial 28800-43200
+    Armor....: 160
+    Defense..: 200
+    Elems....: 1 forte (50%), 1 fraco (-10%)
+    Imunidades: paralyze, invisible
+    Loot.....: gold coins + items level 800
+
+  --- 801-850 (pasta: 500+) ---
+    HP.......: 469,121
+    EXP......: 180,001
+    Speed....: 1000
+    Ataque...: melee 22950-38250 | especial 30600-45900
+    Armor....: 170
+    Defense..: 212
+    Elems....: 1 forte (50%), 1 fraco (-10%)
+    Imunidades: paralyze, invisible
+    Loot.....: gold coins + items level 850
+
+  --- 851-900 (pasta: 500+) ---
+    HP.......: 531,993
+    EXP......: 201,838
+    Speed....: 1000
+    Ataque...: melee 24300-40500 | especial 32400-48600
+    Armor....: 180
+    Defense..: 225
+    Elems....: 1 forte (50%), 1 fraco (-10%)
+    Imunidades: paralyze, invisible
+    Loot.....: gold coins + items level 900
+
+  --- 901-950 (pasta: 500+) ---
+    HP.......: 600,216
+    EXP......: 224,926
+    Speed....: 1000
+    Ataque...: melee 25650-42750 | especial 34200-51300
+    Armor....: 190
+    Defense..: 237
+    Elems....: 1 forte (50%), 1 fraco (-10%)
+    Imunidades: paralyze, invisible
+    Loot.....: gold coins + items level 950
+
+  --- 951-1000 (pasta: 500+) ---
+    HP.......: 674,010
+    EXP......: 249,263
+    Speed....: 1000
+    Ataque...: melee 27000-45000 | especial 36000-54000
+    Armor....: 200
+    Defense..: 250
+    Elems....: 1 forte (50%), 1 fraco (-10%)
+    Imunidades: paralyze, invisible
+    Loot.....: gold coins + items level 1000

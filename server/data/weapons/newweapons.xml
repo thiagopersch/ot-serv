@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='utf-8'?>
+<weapons>
+  <wand id="49812" event="script" value="bows-crossbows\angel bow.lua" />
+  <wand id="30111" event="script" value="bows-crossbows\bow of destruction.lua" />
+  <wand id="49775" event="script" value="bows-crossbows\cobra bow.lua" />
+  <wand id="33049" event="script" value="bows-crossbows\cobra crossbow.lua" />
+  <wand id="30112" event="script" value="bows-crossbows\crossbow of destruction.lua" />
+  <wand id="39320" event="script" value="bows-crossbows\eldritch bow.lua" />
+  <wand id="49497" event="script" value="bows-crossbows\enchanted quincy bow.lua" />
+  <wand id="31374" event="script" value="bows-crossbows\falcon bow.lua" />
+  <wand id="39321" event="script" value="bows-crossbows\gilded eldritch bow.lua" />
+  <wand id="48933" event="script" value="bows-crossbows\grand sanguine bow.lua" />
+  <wand id="48935" event="script" value="bows-crossbows\grand sanguine crossbow.lua" />
+  <wand id="49776" event="script" value="bows-crossbows\ice golem ancient world crossbow.lua" />
+  <wand id="21696" event="script" value="bows-crossbows\icicle bow.lua" />
+  <wand id="49802" event="script" value="bows-crossbows\infernal bow.lua" />
+  <wand id="49777" event="script" value="bows-crossbows\infernal crossbow.lua" />
+  <wand id="38174" event="script" value="bows-crossbows\jungle bow.lua" />
+  <wand id="36806" event="script" value="bows-crossbows\lion longbow.lua" />
+  <wand id="32073" event="script" value="bows-crossbows\living vine bow.lua" />
+  <wand id="18454" event="script" value="bows-crossbows\mycological bow.lua" />
+  <wand id="44190" event="script" value="bows-crossbows\naga crossbow.lua" />
+  <wand id="28720" event="script" value="bows-crossbows\ornate carving bow.lua" />
+  <wand id="28723" event="script" value="bows-crossbows\ornate carving crossbow.lua" />
+  <wand id="28659" event="script" value="bows-crossbows\ornate mayhem bow.lua" />
+  <wand id="28662" event="script" value="bows-crossbows\ornate mayhem crossbow.lua" />
+  <wand id="28690" event="script" value="bows-crossbows\ornate remedy bow.lua" />
+  <wand id="28693" event="script" value="bows-crossbows\ornate remedy crossbow.lua" />
+  <wand id="25522" event="script" value="bows-crossbows\rift bow.lua" />
+  <wand id="25523" event="script" value="bows-crossbows\rift crossbow.lua" />
+  <wand id="48932" event="script" value="bows-crossbows\sanguine bow.lua" />
+  <wand id="48934" event="script" value="bows-crossbows\sanguine crossbow.lua" />
+  <wand id="8857" event="script" value="bows-crossbows\silkweaver bow.lua" />
+  <wand id="36744" event="script" value="bows-crossbows\soulbleeder.lua" />
+  <wand id="36745" event="script" value="bows-crossbows\soulpiercer.lua" />
+  <wand id="21690" event="script" value="bows-crossbows\triple bolt crossbow.lua" />
+  <wand id="22421" event="script" value="bows-crossbows\umbral master crossbow.lua" />
+
+  <wand id="49573" event="script" value="dbo-bleach\awp.lua" />
+  <wand id="49553" event="script" value="dbo-bleach\big device energy pure.lua" />
+  <wand id="49582" event="script" value="dbo-bleach\blaster saiyajin.lua" />
+  <wand id="49589" event="script" value="dbo-bleach\concentred reishi.lua" />
+  <wand id="49755" event="script" value="dbo-bleach\desert eagle hollow.lua" />
+  <wand id="49549" event="script" value="dbo-bleach\device energy pure.lua" />
+  <wand id="49590" event="script" value="dbo-bleach\enchanted tarantula prey.lua" />
+  <wand id="49579" event="script" value="dbo-bleach\energy pistol energy.lua" />
+  <wand id="49577" event="script" value="dbo-bleach\green pistol energy.lua" />
+  <wand id="49567" event="script" value="dbo-bleach\imperfect makankosappo.lua" />
+  <wand id="49580" event="script" value="dbo-bleach\lifedrain hand.lua" />
+  <wand id="49552" event="script" value="dbo-bleach\mini device energy pure.lua" />
+  <wand id="49575" event="script" value="dbo-bleach\mini gun.lua" />
+  <wand id="49574" event="script" value="dbo-bleach\mini pistol.lua" />
+  <wand id="49572" event="script" value="dbo-bleach\perfect makankosappo red.lua" />
+  <wand id="49568" event="script" value="dbo-bleach\perfect makankosappo.lua" />
+  <wand id="49754" event="script" value="dbo-bleach\yellow punch.lua" />
+
+  <wand id="33056" event="script" value="wands-rods\cobra rod.lua" />
+  <wand id="33055" event="script" value="wands-rods\cobra wand.lua" />
+  <wand id="2184" event="script" value="wands-rods\crystal wand.lua" />
+  <wand id="39330" event="script" value="wands-rods\eldritch rod.lua" />
+  <wand id="39324" event="script" value="wands-rods\eldritch wand.lua" />
+  <wand id="49498" event="script" value="wands-rods\enchanted holy wand.lua" />
+  <wand id="2433" event="script" value="wands-rods\enchanted staff.lua" />
+  <wand id="49576" event="script" value="wands-rods\enchated gaia wand.lua" />
+  <wand id="31372" event="script" value="wands-rods\falcon rod.lua" />
+  <wand id="31373" event="script" value="wands-rods\falcon wand.lua" />
+  <wand id="25420" event="script" value="wands-rods\ferumbras staff.lua" />
+  <wand id="25421" event="script" value="wands-rods\ferumbras staff1.lua" />
+  <wand id="25422" event="script" value="wands-rods\ferumbras staff2.lua" />
+  <wand id="39331" event="script" value="wands-rods\gilded eldritch rod.lua" />
+  <wand id="39325" event="script" value="wands-rods\gilded eldritch wand.lua" />
+  <wand id="18412" event="script" value="wands-rods\glacial rod.lua" />
+  <wand id="48928" event="script" value="wands-rods\grand sanguine bludgeon.lua" />
+  <wand id="48938" event="script" value="wands-rods\grand sanguine coil.lua" />
+  <wand id="48941" event="script" value="wands-rods\grand sanguine rod.lua" />
+  <wand id="2183" event="script" value="wands-rods\hailstorm rod.lua" />
+  <wand id="7958" event="script" value="wands-rods\jester staff.lua" />
+  <wand id="38177" event="script" value="wands-rods\jungle rod.lua" />
+  <wand id="38178" event="script" value="wands-rods\jungle wand.lua" />
+  <wand id="36807" event="script" value="wands-rods\lion rod.lua" />
+  <wand id="36808" event="script" value="wands-rods\lion wand.lua" />
+  <wand id="2186" event="script" value="wands-rods\moonlight rod.lua" />
+  <wand id="18411" event="script" value="wands-rods\muck rod.lua" />
+  <wand id="44194" event="script" value="wands-rods\naga rod.lua" />
+  <wand id="44193" event="script" value="wands-rods\naga wand.lua" />
+  <wand id="2185" event="script" value="wands-rods\necrotic rod.lua" />
+  <wand id="8911" event="script" value="wands-rods\northwind rod.lua" />
+  <wand id="28729" event="script" value="wands-rods\ornate carving rod.lua" />
+  <wand id="28726" event="script" value="wands-rods\ornate carving wand.lua" />
+  <wand id="28668" event="script" value="wands-rods\ornate mayhem rod.lua" />
+  <wand id="28665" event="script" value="wands-rods\ornate mayhem wand.lua" />
+  <wand id="28699" event="script" value="wands-rods\ornate remedy rod.lua" />
+  <wand id="49751" event="script" value="wands-rods\ornate remedy wand.lua" />
+  <wand id="49748" event="script" value="wands-rods\pox rod.lua" />
+  <wand id="30114" event="script" value="wands-rods\rod of destruction.lua" />
+  <wand id="48927" event="script" value="wands-rods\sanguine bludgeon.lua" />
+  <wand id="48937" event="script" value="wands-rods\sanguine coil.lua" />
+  <wand id="48940" event="script" value="wands-rods\sanguine rod.lua" />
+  <wand id="13872" event="script" value="wands-rods\shimmer rod.lua" />
+  <wand id="13880" event="script" value="wands-rods\shimmer wand.lua" />
+  <wand id="2182" event="script" value="wands-rods\snakebite rod.lua" />
+  <wand id="36747" event="script" value="wands-rods\soulhexer.lua" />
+  <wand id="36746" event="script" value="wands-rods\soultainter.lua" />
+  <wand id="8912" event="script" value="wands-rods\springsprout rod.lua" />
+  <wand id="2181" event="script" value="wands-rods\terra rod.lua" />
+  <wand id="8910" event="script" value="wands-rods\underworld rod.lua" />
+  <wand id="49467" event="script" value="wands-rods\wand of abisal venom death.lua" />
+  <wand id="2189" event="script" value="wands-rods\wand of cosmic energy.lua" />
+  <wand id="2188" event="script" value="wands-rods\wand of decay.lua" />
+  <wand id="18390" event="script" value="wands-rods\wand of defiance.lua" />
+  <wand id="30113" event="script" value="wands-rods\wand of destruction.lua" />
+  <wand id="13760" event="script" value="wands-rods\wand of dimensions.lua" />
+  <wand id="8921" event="script" value="wands-rods\wand of draconia.lua" />
+  <wand id="2191" event="script" value="wands-rods\wand of dragonbreath.lua" />
+  <wand id="18409" event="script" value="wands-rods\wand of everblazing.lua" />
+  <wand id="2187" event="script" value="wands-rods\wand of inferno.lua" />
+  <wand id="8920" event="script" value="wands-rods\wand of starstorm.lua" />
+  <wand id="8922" event="script" value="wands-rods\wand of voodoo.lua" />
+  <wand id="2190" event="script" value="wands-rods\wand of vortex.lua" />
+</weapons>

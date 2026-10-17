@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vocations>
+    <vocation id="0" name="None" description="none" needpremium="0" gaincap="5" gainhp="5" gainmana="5" gainhpticks="6" gainhpamount="1" gainmanaticks="6" gainmanaamount="1" manamultiplier="4.0" attackspeed="1000" soulmax="1000" gainsoulticks="120" fromvoc="0" type_universe="" maxrank="0">
+        <formula meleeDamage="3.5" distDamage="3.5" wandDamage="3.5" magDamage="3.5" magHealingDamage="3.5" defense="3.5" magDefense="3.5" armor="3.5" />
+        <skill fist="3.5" club="3.5" sword="3.5" axe="3.5" distance="3.5" shielding="3.5" fishing="3.5" experience="3.5" />
+    </vocation>
+    <vocation id="1" name="Bardock" description="Bardock" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="3" gainmanaamount="15" manamultiplier="1.1" attackspeed="900" soulmax="200" gainsoulticks="60" fromvoc="1" type_universe="Dragon Ball" maxrank="2" archetype="DPS" specificfragmentitemid="49856">
+        <formula meleeDamage="1.7" distDamage="1.7" wandDamage="1.7" magDamage="1.7" magHealingDamage="1.7" defense="1.0" magDefense="1.0" armor="1.0" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="2" name="Bills" description="Bills" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="3" gainmanaamount="15" manamultiplier="1.1" attackspeed="900" soulmax="200" gainsoulticks="60" fromvoc="2" type_universe="Dragon Ball" maxrank="4" archetype="DPS" specificfragmentitemid="49857">
+        <formula meleeDamage="1.7" distDamage="1.7" wandDamage="1.7" magDamage="1.7" magHealingDamage="1.7" defense="1.0" magDefense="1.0" armor="1.0" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="3" name="Botamo" description="Botamo" needpremium="0" gaincap="500" gainhp="450" gainmana="150" gainhpticks="2" gainhpamount="25" gainmanaticks="4" gainmanaamount="10" manamultiplier="1.1" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="3" type_universe="Dragon Ball" maxrank="3" archetype="Tank" specificfragmentitemid="49858">
+        <formula meleeDamage="1.0" distDamage="1.0" wandDamage="1.0" magDamage="1.0" magHealingDamage="1.0" defense="1.2" magDefense="1.2" armor="1.2" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="4" name="Brolly" description="Brolly" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="3" gainmanaamount="15" manamultiplier="1.1" attackspeed="900" soulmax="200" gainsoulticks="60" fromvoc="4" type_universe="Dragon Ball" maxrank="3" archetype="DPS" specificfragmentitemid="49859">
+        <formula meleeDamage="1.7" distDamage="1.7" wandDamage="1.7" magDamage="1.7" magHealingDamage="1.7" defense="1.0" magDefense="1.0" armor="1.0" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="5" name="Bulma" description="Bulma" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="2" gainmanaamount="25" manamultiplier="1.1" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="5" type_universe="Dragon Ball" maxrank="1" archetype="Bruiser" specificfragmentitemid="49860">
+        <formula meleeDamage="1.6" distDamage="1.6" wandDamage="1.6" magDamage="1.6" magHealingDamage="1.6" defense="1.05" magDefense="1.05" armor="1.05" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="6" name="Buu" description="Buu" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="3" gainhpamount="15" gainmanaticks="4" gainmanaamount="10" manamultiplier="1.1" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="6" type_universe="Dragon Ball" maxrank="2" archetype="Bruiser" specificfragmentitemid="49861">
+        <formula meleeDamage="1.6" distDamage="1.6" wandDamage="1.6" magDamage="1.6" magHealingDamage="1.6" defense="1.05" magDefense="1.05" armor="1.05" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="7" name="C8" description="C8" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="2" gainhpamount="25" gainmanaticks="4" gainmanaamount="10" manamultiplier="1.1" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="7" type_universe="Dragon Ball" maxrank="1" archetype="Bruiser" specificfragmentitemid="49862">
+        <formula meleeDamage="1.6" distDamage="1.6" wandDamage="1.6" magDamage="1.6" magHealingDamage="1.6" defense="1.05" magDefense="1.05" armor="1.05" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="8" name="C17" description="C17" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="3" gainmanaamount="15" manamultiplier="1.1" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="8" type_universe="Dragon Ball" maxrank="1" archetype="Bruiser" specificfragmentitemid="49863">
+        <formula meleeDamage="1.6" distDamage="1.6" wandDamage="1.6" magDamage="1.6" magHealingDamage="1.6" defense="1.05" magDefense="1.05" armor="1.05" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="9" name="C18" description="C18" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="3" gainmanaamount="15" manamultiplier="1.1" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="9" type_universe="Dragon Ball" maxrank="1" archetype="Bruiser" specificfragmentitemid="49864">
+        <formula meleeDamage="1.6" distDamage="1.6" wandDamage="1.6" magDamage="1.6" magHealingDamage="1.6" defense="1.05" magDefense="1.05" armor="1.05" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="10" name="Cabba" description="Cabba" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="3" gainmanaamount="15" manamultiplier="1.1" attackspeed="900" soulmax="200" gainsoulticks="60" fromvoc="10" type_universe="Dragon Ball" maxrank="1" archetype="DPS" specificfragmentitemid="49865">
+        <formula meleeDamage="1.7" distDamage="1.7" wandDamage="1.7" magDamage="1.7" magHealingDamage="1.7" defense="1.0" magDefense="1.0" armor="1.0" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="11" name="Cell" description="Cell" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="3" gainmanaamount="15" manamultiplier="1.1" attackspeed="900" soulmax="200" gainsoulticks="60" fromvoc="11" type_universe="Dragon Ball" maxrank="2" archetype="DPS" specificfragmentitemid="49866">
+        <formula meleeDamage="1.7" distDamage="1.7" wandDamage="1.7" magDamage="1.7" magHealingDamage="1.7" defense="1.0" magDefense="1.0" armor="1.0" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="12" name="Cooler" description="Cooler" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="3" gainmanaamount="15" manamultiplier="1.1" attackspeed="900" soulmax="200" gainsoulticks="60" fromvoc="12" type_universe="Dragon Ball" maxrank="2" archetype="DPS" specificfragmentitemid="49867">
+        <formula meleeDamage="1.7" distDamage="1.7" wandDamage="1.7" magDamage="1.7" magHealingDamage="1.7" defense="1.0" magDefense="1.0" armor="1.0" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="13" name="Dende" description="Dende" needpremium="0" gaincap="500" gainhp="150" gainmana="450" gainhpticks="4" gainhpamount="10" gainmanaticks="2" gainmanaamount="25" manamultiplier="1.05" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="13" type_universe="Dragon Ball" maxrank="1" archetype="Support" specificfragmentitemid="49868">
+        <formula meleeDamage="1.0" distDamage="1.0" wandDamage="1.0" magDamage="1.4" magHealingDamage="1.5" defense="1.1" magDefense="1.1" armor="1.1" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="14" name="Freeza" description="Freeza" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="3" gainmanaamount="15" manamultiplier="1.1" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="14" type_universe="Dragon Ball" maxrank="2" archetype="Bruiser" specificfragmentitemid="49869">
+        <formula meleeDamage="1.6" distDamage="1.6" wandDamage="1.6" magDamage="1.6" magHealingDamage="1.6" defense="1.05" magDefense="1.05" armor="1.05" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="15" name="Ginn" description="Ginn" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="3" gainmanaamount="15" manamultiplier="1.1" attackspeed="900" soulmax="200" gainsoulticks="60" fromvoc="15" type_universe="Dragon Ball" maxrank="3" archetype="DPS" specificfragmentitemid="49870">
+        <formula meleeDamage="1.7" distDamage="1.7" wandDamage="1.7" magDamage="1.7" magHealingDamage="1.7" defense="1.0" magDefense="1.0" armor="1.0" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="16" name="Gohan" description="Gohan" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="3" gainhpamount="15" gainmanaticks="4" gainmanaamount="10" manamultiplier="1.1" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="16" type_universe="Dragon Ball" maxrank="1" archetype="Bruiser" specificfragmentitemid="49854">
+        <formula meleeDamage="1.6" distDamage="1.6" wandDamage="1.6" magDamage="1.6" magHealingDamage="1.6" defense="1.05" magDefense="1.05" armor="1.05" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="17" name="Goku" description="Goku" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="3" gainmanaamount="15" manamultiplier="1.1" attackspeed="900" soulmax="200" gainsoulticks="60" fromvoc="17" type_universe="Dragon Ball" maxrank="1" archetype="DPS" specificfragmentitemid="49852">
+        <formula meleeDamage="1.7" distDamage="1.7" wandDamage="1.7" magDamage="1.7" magHealingDamage="1.7" defense="1.0" magDefense="1.0" armor="1.0" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="18" name="Goku Black" description="Goku Black" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="3" gainmanaamount="15" manamultiplier="1.1" attackspeed="900" soulmax="200" gainsoulticks="60" fromvoc="18" type_universe="Dragon Ball" maxrank="3" archetype="DPS" specificfragmentitemid="49871">
+        <formula meleeDamage="1.7" distDamage="1.7" wandDamage="1.7" magDamage="1.7" magHealingDamage="1.7" defense="1.0" magDefense="1.0" armor="1.0" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="19" name="Hitto" description="Hitto" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="3" gainmanaamount="15" manamultiplier="1.1" attackspeed="900" soulmax="200" gainsoulticks="60" fromvoc="19" type_universe="Dragon Ball" maxrank="2" archetype="DPS" specificfragmentitemid="49872">
+        <formula meleeDamage="1.7" distDamage="1.7" wandDamage="1.7" magDamage="1.7" magHealingDamage="1.7" defense="1.0" magDefense="1.0" armor="1.0" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="20" name="Janemba" description="Janemba" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="3" gainhpamount="15" gainmanaticks="4" gainmanaamount="10" manamultiplier="1.1" attackspeed="900" soulmax="200" gainsoulticks="60" fromvoc="20" type_universe="Dragon Ball" maxrank="2" archetype="DPS" specificfragmentitemid="49873">
+        <formula meleeDamage="1.7" distDamage="1.7" wandDamage="1.7" magDamage="1.7" magHealingDamage="1.7" defense="1.0" magDefense="1.0" armor="1.0" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="21" name="Jiren" description="Jiren" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="3" gainmanaamount="15" manamultiplier="1.1" attackspeed="900" soulmax="200" gainsoulticks="60" fromvoc="21" type_universe="Dragon Ball" maxrank="3" archetype="DPS" specificfragmentitemid="49874">
+        <formula meleeDamage="1.7" distDamage="1.7" wandDamage="1.7" magDamage="1.7" magHealingDamage="1.7" defense="1.0" magDefense="1.0" armor="1.0" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="22" name="Kagome" description="Kagome" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="2" gainmanaamount="25" manamultiplier="1.1" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="22" type_universe="Dragon Ball" maxrank="1" archetype="Bruiser" specificfragmentitemid="49875">
+        <formula meleeDamage="1.6" distDamage="1.6" wandDamage="1.6" magDamage="1.6" magHealingDamage="1.6" defense="1.05" magDefense="1.05" armor="1.05" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="23" name="Kaio" description="Kaio" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="2" gainmanaamount="25" manamultiplier="1.1" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="23" type_universe="Dragon Ball" maxrank="2" archetype="Bruiser" specificfragmentitemid="49876">
+        <formula meleeDamage="1.6" distDamage="1.6" wandDamage="1.6" magDamage="1.6" magHealingDamage="1.6" defense="1.05" magDefense="1.05" armor="1.05" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="24" name="Kame" description="Kame" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="2" gainmanaamount="25" manamultiplier="1.1" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="24" type_universe="Dragon Ball" maxrank="2" archetype="Bruiser" specificfragmentitemid="49877">
+        <formula meleeDamage="1.6" distDamage="1.6" wandDamage="1.6" magDamage="1.6" magHealingDamage="1.6" defense="1.05" magDefense="1.05" armor="1.05" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="25" name="King Cold" description="King Cold" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="2" gainhpamount="25" gainmanaticks="4" gainmanaamount="10" manamultiplier="1.1" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="25" type_universe="Dragon Ball" maxrank="1" archetype="Bruiser" specificfragmentitemid="49878">
+        <formula meleeDamage="1.6" distDamage="1.6" wandDamage="1.6" magDamage="1.6" magHealingDamage="1.6" defense="1.05" magDefense="1.05" armor="1.05" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="26" name="King Vegeta" description="King Vegeta" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="2" gainhpamount="25" gainmanaticks="4" gainmanaamount="10" manamultiplier="1.1" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="26" type_universe="Dragon Ball" maxrank="2" archetype="Bruiser" specificfragmentitemid="49879">
+        <formula meleeDamage="1.6" distDamage="1.6" wandDamage="1.6" magDamage="1.6" magHealingDamage="1.6" defense="1.05" magDefense="1.05" armor="1.05" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="27" name="Kuririn" description="Kuririn" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="2" gainmanaamount="25" manamultiplier="1.1" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="27" type_universe="Dragon Ball" maxrank="1" archetype="Bruiser" specificfragmentitemid="49880">
+        <formula meleeDamage="1.6" distDamage="1.6" wandDamage="1.6" magDamage="1.6" magHealingDamage="1.6" defense="1.05" magDefense="1.05" armor="1.05" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="28" name="Liquir" description="Liquir" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="3" gainmanaamount="15" manamultiplier="1.1" attackspeed="900" soulmax="200" gainsoulticks="60" fromvoc="28" type_universe="Dragon Ball" maxrank="3" archetype="DPS" specificfragmentitemid="49881">
+        <formula meleeDamage="1.7" distDamage="1.7" wandDamage="1.7" magDamage="1.7" magHealingDamage="1.7" defense="1.0" magDefense="1.0" armor="1.0" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="29" name="Pan" description="Pan" needpremium="0" gaincap="500" gainhp="150" gainmana="450" gainhpticks="4" gainhpamount="10" gainmanaticks="2" gainmanaamount="25" manamultiplier="1.05" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="29" type_universe="Dragon Ball" maxrank="2" archetype="Support" specificfragmentitemid="49882">
+        <formula meleeDamage="1.0" distDamage="1.0" wandDamage="1.0" magDamage="1.4" magHealingDamage="1.5" defense="1.1" magDefense="1.1" armor="1.1" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="30" name="Piccolo" description="Piccolo" needpremium="0" gaincap="500" gainhp="150" gainmana="450" gainhpticks="3" gainhpamount="15" gainmanaticks="4" gainmanaamount="10" manamultiplier="1.05" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="30" type_universe="Dragon Ball" maxrank="1" archetype="Support" specificfragmentitemid="49855">
+        <formula meleeDamage="1.0" distDamage="1.0" wandDamage="1.0" magDamage="1.4" magHealingDamage="1.5" defense="1.1" magDefense="1.1" armor="1.1" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="31" name="Quitela" description="Quitela" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="3" gainmanaamount="15" manamultiplier="1.1" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="31" type_universe="Dragon Ball" maxrank="3" archetype="Bruiser" specificfragmentitemid="49883">
+        <formula meleeDamage="1.6" distDamage="1.6" wandDamage="1.6" magDamage="1.6" magHealingDamage="1.6" defense="1.05" magDefense="1.05" armor="1.05" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="32" name="Raditz" description="Raditz" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="3" gainhpamount="15" gainmanaticks="4" gainmanaamount="10" manamultiplier="1.1" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="32" type_universe="Dragon Ball" maxrank="1" archetype="Bruiser" specificfragmentitemid="49884">
+        <formula meleeDamage="1.6" distDamage="1.6" wandDamage="1.6" magDamage="1.6" magHealingDamage="1.6" defense="1.05" magDefense="1.05" armor="1.05" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="33" name="Shenron" description="Shenron" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="2" gainmanaamount="25" manamultiplier="1.1" attackspeed="900" soulmax="200" gainsoulticks="60" fromvoc="33" type_universe="Dragon Ball" maxrank="4" archetype="DPS" specificfragmentitemid="49885">
+        <formula meleeDamage="1.7" distDamage="1.7" wandDamage="1.7" magDamage="1.7" magHealingDamage="1.7" defense="1.0" magDefense="1.0" armor="1.0" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="34" name="Tapion" description="Tapion" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="3" gainhpamount="15" gainmanaticks="4" gainmanaamount="10" manamultiplier="1.1" attackspeed="900" soulmax="200" gainsoulticks="60" fromvoc="34" type_universe="Dragon Ball" maxrank="3" archetype="DPS" specificfragmentitemid="49886">
+        <formula meleeDamage="1.7" distDamage="1.7" wandDamage="1.7" magDamage="1.7" magHealingDamage="1.7" defense="1.0" magDefense="1.0" armor="1.0" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="35" name="Trunks" description="Trunks" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="3" gainhpamount="15" gainmanaticks="4" gainmanaamount="10" manamultiplier="1.1" attackspeed="900" soulmax="200" gainsoulticks="60" fromvoc="35" type_universe="Dragon Ball" maxrank="1" archetype="DPS" specificfragmentitemid="49887">
+        <formula meleeDamage="1.7" distDamage="1.7" wandDamage="1.7" magDamage="1.7" magHealingDamage="1.7" defense="1.0" magDefense="1.0" armor="1.0" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="36" name="Tsuful" description="Tsuful" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="2" gainmanaamount="25" manamultiplier="1.1" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="36" type_universe="Dragon Ball" maxrank="2" archetype="Bruiser" specificfragmentitemid="49888">
+        <formula meleeDamage="1.6" distDamage="1.6" wandDamage="1.6" magDamage="1.6" magHealingDamage="1.6" defense="1.05" magDefense="1.05" armor="1.05" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="37" name="Turles" description="Turles" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="3" gainmanaamount="15" manamultiplier="1.1" attackspeed="900" soulmax="200" gainsoulticks="60" fromvoc="37" type_universe="Dragon Ball" maxrank="2" archetype="DPS" specificfragmentitemid="49889">
+        <formula meleeDamage="1.7" distDamage="1.7" wandDamage="1.7" magDamage="1.7" magHealingDamage="1.7" defense="1.0" magDefense="1.0" armor="1.0" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="38" name="Uub" description="Uub" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="3" gainhpamount="15" gainmanaticks="4" gainmanaamount="10" manamultiplier="1.1" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="38" type_universe="Dragon Ball" maxrank="2" archetype="Bruiser" specificfragmentitemid="49890">
+        <formula meleeDamage="1.6" distDamage="1.6" wandDamage="1.6" magDamage="1.6" magHealingDamage="1.6" defense="1.05" magDefense="1.05" armor="1.05" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="39" name="Vados" description="Vados" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="2" gainmanaamount="25" manamultiplier="1.1" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="39" type_universe="Dragon Ball" maxrank="4" archetype="Bruiser" specificfragmentitemid="49891">
+        <formula meleeDamage="1.6" distDamage="1.6" wandDamage="1.6" magDamage="1.6" magHealingDamage="1.6" defense="1.05" magDefense="1.05" armor="1.05" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="40" name="Vegeta" description="Vegeta" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="3" gainmanaamount="15" manamultiplier="1.1" attackspeed="900" soulmax="200" gainsoulticks="60" fromvoc="40" type_universe="Dragon Ball" maxrank="1" archetype="DPS" specificfragmentitemid="49853">
+        <formula meleeDamage="1.7" distDamage="1.7" wandDamage="1.7" magDamage="1.7" magHealingDamage="1.7" defense="1.0" magDefense="1.0" armor="1.0" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="41" name="Vegetto" description="Vegetto" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="3" gainmanaamount="15" manamultiplier="1.1" attackspeed="900" soulmax="200" gainsoulticks="60" fromvoc="41" type_universe="Dragon Ball" maxrank="3" archetype="DPS" specificfragmentitemid="49892">
+        <formula meleeDamage="1.7" distDamage="1.7" wandDamage="1.7" magDamage="1.7" magHealingDamage="1.7" defense="1.0" magDefense="1.0" armor="1.0" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="42" name="Vermouth" description="Vermouth" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="3" gainmanaamount="15" manamultiplier="1.1" attackspeed="900" soulmax="200" gainsoulticks="60" fromvoc="42" type_universe="Dragon Ball" maxrank="3" archetype="DPS" specificfragmentitemid="49893">
+        <formula meleeDamage="1.7" distDamage="1.7" wandDamage="1.7" magDamage="1.7" magHealingDamage="1.7" defense="1.0" magDefense="1.0" armor="1.0" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="43" name="Videl" description="Videl" needpremium="0" gaincap="500" gainhp="150" gainmana="450" gainhpticks="4" gainhpamount="10" gainmanaticks="2" gainmanaamount="25" manamultiplier="1.05" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="43" type_universe="Dragon Ball" maxrank="2" archetype="Support" specificfragmentitemid="49894">
+        <formula meleeDamage="1.0" distDamage="1.0" wandDamage="1.0" magDamage="1.4" magHealingDamage="1.5" defense="1.1" magDefense="1.1" armor="1.1" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="44" name="Zaiko" description="Zaiko" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="3" gainmanaamount="15" manamultiplier="1.1" attackspeed="900" soulmax="200" gainsoulticks="60" fromvoc="44" type_universe="Dragon Ball" maxrank="4" archetype="DPS" specificfragmentitemid="49895">
+        <formula meleeDamage="1.7" distDamage="1.7" wandDamage="1.7" magDamage="1.7" magHealingDamage="1.7" defense="1.0" magDefense="1.0" armor="1.0" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="45" name="Zeno" description="Zeno" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="3" gainmanaamount="15" manamultiplier="1.1" attackspeed="900" soulmax="200" gainsoulticks="60" fromvoc="45" type_universe="Dragon Ball" maxrank="4" archetype="DPS" specificfragmentitemid="49896">
+        <formula meleeDamage="1.7" distDamage="1.7" wandDamage="1.7" magDamage="1.7" magHealingDamage="1.7" defense="1.0" magDefense="1.0" armor="1.0" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="47" name="Sosuke Aizen" description="Sosuke Aizen" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="2" gainmanaamount="25" manamultiplier="1.1" attackspeed="900" soulmax="200" gainsoulticks="60" fromvoc="47" type_universe="Bleach" maxrank="4" archetype="DPS" specificfragmentitemid="49897">
+        <formula meleeDamage="1.7" distDamage="1.7" wandDamage="1.7" magDamage="1.7" magHealingDamage="1.7" defense="1.0" magDefense="1.0" armor="1.0" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="48" name="Byakuya Kuchiki" description="Byakuya Kuchiki" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="3" gainhpamount="15" gainmanaticks="4" gainmanaamount="10" manamultiplier="1.1" attackspeed="900" soulmax="200" gainsoulticks="60" fromvoc="48" type_universe="Bleach" maxrank="4" archetype="DPS" specificfragmentitemid="49898">
+        <formula meleeDamage="1.7" distDamage="1.7" wandDamage="1.7" magDamage="1.7" magHealingDamage="1.7" defense="1.0" magDefense="1.0" armor="1.0" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="49" name="Gin Ichimaru" description="Gin Ichimaru" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="3" gainhpamount="15" gainmanaticks="4" gainmanaamount="10" manamultiplier="1.1" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="49" type_universe="Bleach" maxrank="3" archetype="Bruiser" specificfragmentitemid="49899">
+        <formula meleeDamage="1.6" distDamage="1.6" wandDamage="1.6" magDamage="1.6" magHealingDamage="1.6" defense="1.05" magDefense="1.05" armor="1.05" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="50" name="Grimmjow Jaegerjaquez" description="Grimmjow Jaegerjaquez" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="3" gainmanaamount="15" manamultiplier="1.1" attackspeed="900" soulmax="200" gainsoulticks="60" fromvoc="50" type_universe="Bleach" maxrank="2" archetype="DPS" specificfragmentitemid="49900">
+        <formula meleeDamage="1.7" distDamage="1.7" wandDamage="1.7" magDamage="1.7" magHealingDamage="1.7" defense="1.0" magDefense="1.0" armor="1.0" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="51" name="Toshiro Hitsugaya" description="Toshiro Hitsugaya" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="2" gainmanaamount="25" manamultiplier="1.1" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="51" type_universe="Bleach" maxrank="4" archetype="Bruiser" specificfragmentitemid="49901">
+        <formula meleeDamage="1.6" distDamage="1.6" wandDamage="1.6" magDamage="1.6" magHealingDamage="1.6" defense="1.05" magDefense="1.05" armor="1.05" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="52" name="Ichigo Kurosaki Time Skip" description="Ichigo Kurosaki Time Skip" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="3" gainmanaamount="15" manamultiplier="1.1" attackspeed="900" soulmax="200" gainsoulticks="60" fromvoc="52" type_universe="Bleach" maxrank="4" archetype="DPS" specificfragmentitemid="49902">
+        <formula meleeDamage="1.7" distDamage="1.7" wandDamage="1.7" magDamage="1.7" magHealingDamage="1.7" defense="1.0" magDefense="1.0" armor="1.0" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="53" name="Ichigo Kurosaki" description="Ichigo Kurosaki" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="3" gainmanaamount="15" manamultiplier="1.1" attackspeed="900" soulmax="200" gainsoulticks="60" fromvoc="53" type_universe="Bleach" maxrank="1" archetype="DPS" specificfragmentitemid="49903">
+        <formula meleeDamage="1.7" distDamage="1.7" wandDamage="1.7" magDamage="1.7" magHealingDamage="1.7" defense="1.0" magDefense="1.0" armor="1.0" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="54" name="Uryuu Ishida" description="Uryuu Ishida" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="2" gainmanaamount="25" manamultiplier="1.1" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="54" type_universe="Bleach" maxrank="1" archetype="Bruiser" specificfragmentitemid="49904">
+        <formula meleeDamage="1.6" distDamage="1.6" wandDamage="1.6" magDamage="1.6" magHealingDamage="1.6" defense="1.05" magDefense="1.05" armor="1.05" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="55" name="Shunsui Kyouraku" description="Shunsui Kyouraku" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="2" gainmanaamount="25" manamultiplier="1.1" attackspeed="900" soulmax="200" gainsoulticks="60" fromvoc="55" type_universe="Bleach" maxrank="4" archetype="DPS" specificfragmentitemid="49905">
+        <formula meleeDamage="1.7" distDamage="1.7" wandDamage="1.7" magDamage="1.7" magHealingDamage="1.7" defense="1.0" magDefense="1.0" armor="1.0" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="56" name="Neliel Tu Odelschwanck" description="Neliel Tu Odelschwanck" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="3" gainhpamount="15" gainmanaticks="4" gainmanaamount="10" manamultiplier="1.1" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="56" type_universe="Bleach" maxrank="2" archetype="Bruiser" specificfragmentitemid="49906">
+        <formula meleeDamage="1.6" distDamage="1.6" wandDamage="1.6" magDamage="1.6" magHealingDamage="1.6" defense="1.05" magDefense="1.05" armor="1.05" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="57" name="Orihime Inoue" description="Orihime Inoue" needpremium="0" gaincap="500" gainhp="150" gainmana="450" gainhpticks="4" gainhpamount="10" gainmanaticks="2" gainmanaamount="25" manamultiplier="1.05" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="57" type_universe="Bleach" maxrank="1" archetype="Support" specificfragmentitemid="49907">
+        <formula meleeDamage="1.0" distDamage="1.0" wandDamage="1.0" magDamage="1.4" magHealingDamage="1.5" defense="1.1" magDefense="1.1" armor="1.1" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="58" name="Renji Abarai" description="Renji Abarai" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="3" gainhpamount="15" gainmanaticks="4" gainmanaamount="10" manamultiplier="1.1" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="58" type_universe="Bleach" maxrank="1" archetype="Bruiser" specificfragmentitemid="49908">
+        <formula meleeDamage="1.6" distDamage="1.6" wandDamage="1.6" magDamage="1.6" magHealingDamage="1.6" defense="1.05" magDefense="1.05" armor="1.05" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="59" name="Rukia Kuchiki" description="Rukia Kuchiki" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="2" gainmanaamount="25" manamultiplier="1.1" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="59" type_universe="Bleach" maxrank="1" archetype="Bruiser" specificfragmentitemid="49909">
+        <formula meleeDamage="1.6" distDamage="1.6" wandDamage="1.6" magDamage="1.6" magHealingDamage="1.6" defense="1.05" magDefense="1.05" armor="1.05" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="60" name="Yasutora Sado" description="Yasutora Sado" needpremium="0" gaincap="500" gainhp="450" gainmana="150" gainhpticks="3" gainhpamount="15" gainmanaticks="4" gainmanaamount="10" manamultiplier="1.1" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="60" type_universe="Bleach" maxrank="1" archetype="Tank" specificfragmentitemid="49910">
+        <formula meleeDamage="1.0" distDamage="1.0" wandDamage="1.0" magDamage="1.0" magHealingDamage="1.0" defense="1.2" magDefense="1.2" armor="1.2" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="61" name="Shinji Hirako" description="Shinji Hirako" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="2" gainmanaamount="25" manamultiplier="1.1" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="61" type_universe="Bleach" maxrank="4" archetype="Bruiser" specificfragmentitemid="49911">
+        <formula meleeDamage="1.6" distDamage="1.6" wandDamage="1.6" magDamage="1.6" magHealingDamage="1.6" defense="1.05" magDefense="1.05" armor="1.05" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="62" name="Soi Fong" description="Soi Fong" needpremium="0" gaincap="0" gainhp="250" gainmana="250" gainhpticks="3" gainhpamount="15" gainmanaticks="4" gainmanaamount="10" manamultiplier="1.1" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="62" type_universe="Bleach" maxrank="3" archetype="Bruiser" specificfragmentitemid="49912">
+        <formula meleeDamage="1.6" distDamage="1.6" wandDamage="1.6" magDamage="1.6" magHealingDamage="1.6" defense="1.05" magDefense="1.05" armor="1.05" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="63" name="Kaname Tousen" description="Kaname Tousen" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="2" gainmanaamount="25" manamultiplier="1.1" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="63" type_universe="Bleach" maxrank="4" archetype="Bruiser" specificfragmentitemid="49913">
+        <formula meleeDamage="1.6" distDamage="1.6" wandDamage="1.6" magDamage="1.6" magHealingDamage="1.6" defense="1.05" magDefense="1.05" armor="1.05" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="64" name="Ulquiorra Ciffer" description="Ulquiorra Ciffer" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="3" gainmanaamount="15" manamultiplier="1.1" attackspeed="900" soulmax="200" gainsoulticks="60" fromvoc="64" type_universe="Bleach" maxrank="4" archetype="DPS" specificfragmentitemid="49914">
+        <formula meleeDamage="1.7" distDamage="1.7" wandDamage="1.7" magDamage="1.7" magHealingDamage="1.7" defense="1.0" magDefense="1.0" armor="1.0" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="65" name="Kisuke Urahara" description="Kisuke Urahara" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="2" gainmanaamount="25" manamultiplier="1.1" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="65" type_universe="Bleach" maxrank="4" archetype="Bruiser" specificfragmentitemid="49915">
+        <formula meleeDamage="1.6" distDamage="1.6" wandDamage="1.6" magDamage="1.6" magHealingDamage="1.6" defense="1.05" magDefense="1.05" armor="1.05" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="66" name="Yoruichi Shihouin" description="Yoruichi Shihouin" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="3" gainmanaamount="15" manamultiplier="1.1" attackspeed="1000" soulmax="200" gainsoulticks="60" fromvoc="66" type_universe="Bleach" maxrank="4" archetype="Bruiser" specificfragmentitemid="49916">
+        <formula meleeDamage="1.6" distDamage="1.6" wandDamage="1.6" magDamage="1.6" magHealingDamage="1.6" defense="1.05" magDefense="1.05" armor="1.05" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+    <vocation id="67" name="Kenpachi Zaraki" description="Kenpachi Zaraki" needpremium="0" gaincap="500" gainhp="250" gainmana="250" gainhpticks="4" gainhpamount="10" gainmanaticks="3" gainmanaamount="15" manamultiplier="1.1" attackspeed="900" soulmax="200" gainsoulticks="60" fromvoc="67" type_universe="Bleach" maxrank="4" archetype="DPS" specificfragmentitemid="49917">
+        <formula meleeDamage="1.7" distDamage="1.7" wandDamage="1.7" magDamage="1.7" magHealingDamage="1.7" defense="1.0" magDefense="1.0" armor="1.0" />
+        <skill fist="2.0" club="2.0" sword="2.0" axe="2.0" distance="2.0" shielding="2.0" fishing="2.0" experience="2.0" />
+    </vocation>
+</vocations>

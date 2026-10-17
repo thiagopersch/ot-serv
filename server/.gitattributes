@@ -1,0 +1,12 @@
+# Normalize source code before commits
+*.lua eol=lf
+*.txt eol=lf
+*.ot* eol=lf
+*.cpp eol=lf
+*.h   eol=lf
+*.rar eol=lf
+*.xml eol=lf
+*.otbm eol=lf
+*.psd filter=lfs diff=lfs merge=lfs -text
+src/vc10/.vs/theforgottenserver/CopilotIndices/17.13.444.19527/SemanticSymbols.db filter=lfs diff=lfs merge=lfs -text
+src/vc10/.vs/theforgottenserver/v17/Browse.VC.db filter=lfs diff=lfs merge=lfs -text

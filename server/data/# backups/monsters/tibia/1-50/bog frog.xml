@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<monster name="Bog Frog" bestiary="monster" namedescription="a bog frog" race="blood" experience="20" speed="180"
+	manacost="0">
+	<health now="25" max="25" />
+	<look type="412" head="0" body="0" legs="0" feet="0" corpse="6079" />
+	<targetchange interval="5000" chance="8" />
+	<strategy attack="100" defense="0" />
+	<flags>
+		<flag summonable="0" />
+		<flag attackable="1" />
+		<flag hostile="1" />
+		<flag illusionable="1" />
+		<flag convinceable="0" />
+		<flag pushable="0" />
+		<flag canpushitems="1" />
+		<flag canpushcreatures="0" />
+		<flag hidename="0" />
+		<flag hidehealth="0" />
+		<flag lightlevel="0" />
+		<flag lightcolor="0" />
+		<flag lootmessage="0" />
+		<flag targetdistance="1" />
+		<flag staticattack="90" />
+		<flag runonhealth="25" />
+		<flag lureable="0" />
+		<flag walkable="0" />
+		<flag skull="0" />
+		<flag shield="0" />
+		<flag emblem="0" />
+		<flag canwalkonenergy="0" />
+		<flag canwalkonfire="0" />
+		<flag canwalkonpoison="0" />
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="10" attack="25" />
+	</attacks>
+	<defenses armor="8" defense="8" />
+	<elements>
+		<element icePercent="0" />
+		<element firePercent="0" />
+	</elements>
+	<voices interval="5000" chance="10">
+		<voice sentence="Ribbit, ribbit!" yell="false" />
+		<voice sentence="Ribbit!" yell="false" />
+	</voices>
+	<loot>
+		<item chance="10000" id="3976" /> <!-- worm -->
+	</loot>
+</monster>

@@ -1,0 +1,76 @@
+local param = {
+    enableDistanceEffect = false,
+    distanceEffect = 0,
+    magEffect = 303,
+    lvl = 250,
+    interval = 300,
+    numRepeat = 1,
+    pos = { x = 3, y = 3, z = 0 },
+    speedPerTile = 1 -- tempo em ms que o distanceEffect leva para percorrer 1 tile
+}
+
+local combat = createCombatObject()
+setCombatParam(combat, COMBAT_PARAM_TYPE, COMBAT_PHYSICALDAMAGE)
+if param.enableDistanceEffect then
+    setCombatParam(combat, COMBAT_PARAM_DISTANCEEFFECT, param.distanceEffect)
+end
+
+function onGetFormulaValues(cid, level, maglevel)
+    return getCombatFormulaValues(cid, level, maglevel, 1, 2, 10, 1, 1, param.lvl)
+end
+
+setCombatCallback(combat, CALLBACK_PARAM_LEVELMAGICVALUE, "onGetFormulaValues")
+
+local function onCastSpell1(parameters)
+    doCombat(parameters.cid, parameters.combat1, parameters.var)
+end
+
+function onCastSpell(cid, var)
+    -- Verificar magic level mínimo
+    if getPlayerMagLevel(cid) < 100 then
+        doPlayerSendTextMessage(cid, MESSAGE_STATUS_WARNING, "You not have magic level 100.")
+        return false
+    end
+
+    -- Consumir 100% da mana atual
+    local currentMana = getCreatureMana(cid)
+    if currentMana <= 0 then
+        doPlayerSendTextMessage(cid, MESSAGE_STATUS_WARNING, "You not have mana to use Hakai.")
+        return false
+    end
+    doCreatureAddMana(cid, -currentMana)
+
+    local target = getCreatureTarget(cid)
+    if not target or not isCreature(target) or getCreatureHealth(target) <= 0 then
+        return false
+    end
+
+    local casterPos = getCreaturePosition(cid)
+    local targetPos = getCreaturePosition(target)
+
+    -- posição para exibir o magEffect
+    local magEffectPos = {
+        x = targetPos.x + param.pos.x,
+        y = targetPos.y + param.pos.y,
+        z = targetPos.z + param.pos.z
+    }
+
+    local distance = math.max(math.abs(targetPos.x - casterPos.x), math.abs(targetPos.y - casterPos.y))
+    local delay = param.speedPerTile * distance
+
+    local parameters = { cid = cid, var = var, combat1 = combat }
+
+    for k = 1, param.numRepeat do
+        addEvent(function()
+            if isCreature(cid) then
+                onCastSpell1(parameters)
+                addEvent(function()
+                    if isCreature(cid) and isCreature(target) then
+                        doSendMagicEffect(magEffectPos, param.magEffect)
+                    end
+                end, delay)
+            end
+        end, 1 + ((k - 1) * param.interval))
+    end
+    return true
+end

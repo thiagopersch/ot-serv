@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extoutfits>
+
+  <!-- ========== WINGS ========== -->
+  <!-- lookType = sprite ID no .dat, deve ser ThingCategoryCreature -->
+  <!-- storageId/storageValue = se vazio, todos os players tem acesso -->
+  <wings id="1" looktype="3519" name="Dark Wings" />
+  <wings id="2" looktype="3520" name="Ulquiorra Wings" />
+  <wings id="3" looktype="3523" name="Red Dragon Wings" />
+  <wings id="4" looktype="3524" name="Blue Dragon Wings" />
+  <wings id="5" looktype="3584" name="Iron Bat Wings" />
+  <wings id="6" looktype="3585" name="Bronze Bat Wings" />
+  <wings id="7" looktype="3586" name="Dark Angel Wings" />
+  <wings id="8" looktype="3587" name="Pink Angel Wings" />
+  <wings id="9" looktype="3588" name="Angel Wings" />
+  <wings id="10" looktype="3589" name="New Dark Wings" />
+
+  <!-- ========== AURAS ========== -->
+  <auras id="1" looktype="3479" name="grey aura" />
+  <auras id="2" looktype="3517" name="Yellow Ki" />
+  <auras id="3" looktype="3480" name="Blue Ki" />
+  <auras id="4" looktype="3482" name="Sword Aura" />
+  <auras id="5" looktype="3484" name="Pink Aura" />
+  <auras id="6" looktype="3485" name="Red Aura" />
+  <auras id="7" looktype="3490" name="Ray Aura" />
+  <auras id="8" looktype="3533" name="Red Lightning Aura" />
+  <auras id="9" looktype="3534" name="White Lightning Aura" />
+  <auras id="10" looktype="3528" name="Reiatsu Lightning Aura" />
+
+
+  <!-- ========== SHADERS ========== -->
+  <!-- shadername = nome registrado via g_shaders.createOutfitShader no cliente -->
+  <shaders id="1" shadername="outfit_rainbow" name="Arco-iris" />
+  <shaders id="2" shadername="ShaderChargeBlue" name="Carga Azul" />
+  <shaders id="3" shadername="ShaderChargeGreen" name="Carga Verde" />
+  <shaders id="4" shadername="ShaderChargeYellow" name="Carga Amarela" />
+  <shaders id="5" shadername="ShaderChargeRed" name="Carga Vermelha" />
+  <shaders id="6" shadername="ShaderOutBlack" name="Contorno Preto" />
+  <shaders id="7" shadername="ShaderOutBlue" name="Contorno Azul" />
+  <shaders id="8" shadername="ShaderOutRed" name="Contorno Vermelho" />
+  <shaders id="9" shadername="ShaderOutPurple" name="Contorno Roxo" />
+  <shaders id="10" shadername="ShaderOutMultiColors" name="Contorno Multicor" />
+  <shaders id="11" shadername="ShaderEstaticYellow" name="Estatico Amarelo" />
+  <shaders id="12" shadername="upgrade" name="Upgrade" />
+  <shaders id="13" shadername="lendario" name="Lendario" />
+  <shaders id="14" shadername="mitico" name="Mitico" />
+  <shaders id="15" shadername="epico" name="Epico" />
+  <shaders id="16" shadername="ShaderChargeLightPink" name="Carga Rosa Claro" />
+  <shaders id="17" shadername="ShaderChargeMultiColors" name="Carga Multicor" />
+  <shaders id="18" shadername="ShaderChargeObito" name="Carga Obito" />
+  <shaders id="19" shadername="especial" name="Especial" />
+  <shaders id="20" shadername="fire_aura" name="Aura de Fogo" />
+  <shaders id="21" shadername="big_fire_aura" name="Big Fire Aura" />
+
+  <!-- ========== HEALTH BARS ========== -->
+  <!-- image = path da imagem no cliente (sem extensao) -->
+  <healthbars id="1" image="/images/bars/health1" name="Saude Padrao" />
+  <healthbars id="2" image="/images/bars/fogo" name="Fogo" />
+  <healthbars id="3" image="/images/bars/fire" name="Fire" />
+  <healthbars id="4" image="/images/bars/energy" name="Energy" />
+  <healthbars id="5" image="/images/bars/darkbar" name="Dark" />
+  <healthbars id="6" image="/images/bars/ghost" name="Ghost" />
+  <healthbars id="7" image="/images/bars/rainbow" name="Arco-iris" />
+  <healthbars id="8" image="/images/bars/Akatsuki" name="Akatsuki" />
+  <healthbars id="9" image="/images/bars/Kurama" name="Kurama" />
+  <healthbars id="10" image="/images/bars/Susanoo" name="Susanoo" />
+  <healthbars id="11" image="/images/bars/Hachibi" name="Hachibi" />
+  <healthbars id="12" image="/images/bars/Shenlong Dragon Bar" name="Shenlong" />
+  <healthbars id="13" image="/images/bars/Namekian Dragon Bar" name="Namekian" />
+  <healthbars id="14" image="/images/bars/Majestic Sphere Bar" name="Majestic" />
+  <healthbars id="15" image="/images/bars/Energy Sphere Bar" name="Energy Sphere" />
+  <healthbars id="16" image="/images/bars/Energy Light Sphere Bar" name="Energy Light" />
+  <healthbars id="17" image="/images/bars/Akamaru" name="Akamaru" />
+  <healthbars id="18" image="/images/bars/bow" name="Bow" />
+  <healthbars id="19" image="/images/bars/Brilhante" name="Brilhante" />
+  <healthbars id="20" image="/images/bars/chidori" name="Chidori" />
+  <healthbars id="21" image="/images/bars/ChuvaLama" name="ChuvaLama" />
+  <healthbars id="22" image="/images/bars/coud" name="Coud" />
+  <healthbars id="23" image="/images/bars/Effect1" name="Effect 1" />
+  <healthbars id="24" image="/images/bars/Effect2" name="Effect 2" />
+  <healthbars id="25" image="/images/bars/Effect3" name="Effect 3" />
+  <healthbars id="26" image="/images/bars/Effect4" name="Effect 4" />
+  <healthbars id="27" image="/images/bars/Effect5" name="Effect 5" />
+  <healthbars id="28" image="/images/bars/Fenix" name="Fenix" />
+  <healthbars id="29" image="/images/bars/Foguinho" name="Foguinho" />
+  <healthbars id="30" image="/images/bars/Gobi" name="Gobi" />
+  <healthbars id="31" image="/images/bars/healtsh1" name="Healtsh1" />
+  <healthbars id="32" image="/images/bars/Hokage" name="Hokage" />
+  <healthbars id="33" image="/images/bars/Hokage Novo" name="Hokage Novo" />
+  <healthbars id="34" image="/images/bars/Juubi" name="Juubi" />
+  <healthbars id="35" image="/images/bars/Kakuzo" name="Kakuzo" />
+  <healthbars id="36" image="/images/bars/Kazekage" name="Kazekage" />
+  <healthbars id="37" image="/images/bars/Kazekage Novo" name="Kazekage Novo" />
+  <healthbars id="38" image="/images/bars/kurama2" name="Kurama 2" />
+  <healthbars id="39" image="/images/bars/Laranja" name="Laranja" />
+  <healthbars id="40" image="/images/bars/Mizukage" name="Mizukage" />
+  <healthbars id="41" image="/images/bars/Mizukage Novo" name="Mizukage Novo" />
+  <healthbars id="42" image="/images/bars/Nanabi" name="Nanabi" />
+  <healthbars id="43" image="/images/bars/Nibi" name="Nibi" />
+  <healthbars id="44" image="/images/bars/Pingo" name="Pingo" />
+  <healthbars id="45" image="/images/bars/Preto" name="Preto" />
+  <healthbars id="46" image="/images/bars/Raikage" name="Raikage" />
+  <healthbars id="47" image="/images/bars/Raikage Novo" name="Raikage Novo" />
+  <healthbars id="48" image="/images/bars/Raio" name="Raio" />
+  <healthbars id="49" image="/images/bars/Rokubi" name="Rokubi" />
+  <healthbars id="50" image="/images/bars/Roxo" name="Roxo" />
+  <healthbars id="51" image="/images/bars/Sanbi" name="Sanbi" />
+  <healthbars id="52" image="/images/bars/Shenlong Dragon Bar Light" name="Shenlong Light" />
+  <healthbars id="53" image="/images/bars/Shukaku" name="Shukaku" />
+  <healthbars id="54" image="/images/bars/Tsuchikage" name="Tsuchikage" />
+  <healthbars id="55" image="/images/bars/Tsuchikage Novo" name="Tsuchikage Novo" />
+  <healthbars id="56" image="/images/bars/mana1" name="Mana Padrao" />
+  <healthbars id="57" image="/images/bars/chuva" name="Chuva" />
+  <healthbars id="58" image="/images/bars/escuro" name="Escuro" />
+  <healthbars id="59" image="/images/bars/beta" name="Beta" />
+  <healthbars id="60" image="/images/bars/party" name="Festa" />
+  <healthbars id="61" image="/images/bars/Prata" name="Prata" />
+  <healthbars id="62" image="/images/bars/Pirata" name="Pirata" />
+  <healthbars id="63" image="/images/bars/Natal" name="Natal" />
+  <healthbars id="64" image="/images/bars/SonGoku" name="Son Goku" />
+  <healthbars id="65" image="/images/bars/Amaterasu" name="Amaterasu" />
+  <healthbars id="66" image="/images/bars/Simples" name="Simples" />
+  <healthbars id="67" image="/images/bars/rikudou1" name="Rikudou 1" />
+  <healthbars id="68" image="/images/bars/rikudou2" name="Rikudou 2" />
+  <healthbars id="69" image="/images/bars/pochita" name="Pochita" />
+  <healthbars id="70" image="/images/bars/Shaolin" name="Shaolin" />
+  <healthbars id="71" image="/images/bars/blue_spirit" name="Blue Spirit" />
+  <healthbars id="72" image="/images/bars/golden_aura" name="Golden Aura" />
+  <healthbars id="73" image="/images/bars/iron" name="Iron" />
+  <healthbars id="74" image="/images/bars/iron_aura" name="Iron Aura" />
+  <healthbars id="75" image="/images/bars/demon_horn" name="Demon Horn" />
+  <healthbars id="76" image="/images/bars/hollow_skull" name="Hollow Skull" />
+  <healthbars id="77" image="/images/bars/snake_ninja" name="Snake Ninja" />
+  <healthbars id="78" image="/images/bars/kon" name="Kon" />
+  <healthbars id="79" image="/images/bars/orange_energy" name="Orange Energy" />
+  <healthbars id="80" image="/images/bars/pink_blossom" name="Pink Blossom" />
+  <healthbars id="81" image="/images/bars/super_yellow_ray" name="Super Yellow Ray" />
+  <healthbars id="82" image="/images/bars/purple_shadow" name="Purple Shadow" />
+  <healthbars id="83" image="/images/bars/dark_chakra" name="Dark Chakra" />
+  <healthbars id="84" image="/images/bars/hunter_green" name="Hunter Green" />
+  <healthbars id="85" image="/images/bars/leaf_ninja" name="Leaf Ninja" />
+  <healthbars id="86" image="/images/bars/youtube" name="Youtube" />
+  <healthbars id="87" image="/images/bars/kitchen" name="Kitchen" />
+  <healthbars id="88" image="/images/bars/love" name="Love" />
+  <healthbars id="89" image="/images/bars/straw_hat" name="Straw Hat" />
+  <healthbars id="90" image="/images/bars/love_aikawa" name="Love Aikawa" />
+  <healthbars id="91" image="/images/bars/blue_iron_angel_wings" name="Blue Iron Angel Wings" />
+  <healthbars id="92" image="/images/bars/pink_fairy_wings" name="Pink Fairy Wings" />
+  <healthbars id="93" image="/images/bars/iron_angel_wings" name="Iron Angel Wings" />
+  <healthbars id="94" image="/images/bars/grimmjow" name="Grimmjow" />
+  <healthbars id="95" image="/images/bars/renji" name="Renji" />
+  <healthbars id="96" image="/images/bars/hyori" name="Hyori" />
+  <healthbars id="97" image="/images/bars/rukia_kuchiki" name="Rukia Kuchiki" />
+  <healthbars id="98" image="/images/bars/three_hollow_mask" name="Three Hollow Mask" />
+  <healthbars id="99" image="/images/bars/young_ayamamoto" name="Young Ayamamoto" />
+  <healthbars id="100" image="/images/bars/lille_barro" name="Lille Barro" />
+  <healthbars id="101" image="/images/bars/cookie" name="Cookie" />
+  <healthbars id="102" image="/images/bars/candy" name="Candy" />
+  <healthbars id="103" image="/images/bars/gerard_valkyrie" name="Gerard Valkyrie" />
+  <healthbars id="104" image="/images/bars/giselle_gewelle" name="Giselle Gewelle" />
+  <healthbars id="105" image="/images/bars/red_phantom" name="Red Phantom" />
+
+  <!-- ========== MANA BARS ========== -->
+  <manabars id="1" image="/images/bars/mana1" name="Mana Padrao" />
+  <manabars id="2" image="/images/bars/chuva" name="Chuva" />
+  <manabars id="3" image="/images/bars/escuro" name="Escuro" />
+  <manabars id="4" image="/images/bars/beta" name="Beta" />
+  <manabars id="5" image="/images/bars/party" name="Festa" />
+  <manabars id="6" image="/images/bars/Prata" name="Prata" />
+  <manabars id="7" image="/images/bars/Pirata" name="Pirata" />
+  <manabars id="8" image="/images/bars/Natal" name="Natal" />
+  <manabars id="9" image="/images/bars/SonGoku" name="Son Goku" />
+  <manabars id="10" image="/images/bars/Amaterasu" name="Amaterasu" />
+  <manabars id="11" image="/images/bars/Simples" name="Simples" />
+  <manabars id="12" image="/images/bars/rikudou1" name="Rikudou 1" />
+  <manabars id="13" image="/images/bars/rikudou2" name="Rikudou 2" />
+  <manabars id="14" image="/images/bars/pochita" name="Pochita" />
+  <manabars id="15" image="/images/bars/Shaolin" name="Shaolin" />
+
+</extoutfits>

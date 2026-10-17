@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Gukoa" script="default.lua" walkinterval="2000" floorchange="0">
+   <health now="100" max="100" />
+   <look type="134" head="114" body="87" legs="42" feet="40" addons="3" />
+   <parameters>
+      <parameter key="module_shop" value="1" />
+      <parameter key="shop_sellable" value="
+               pluff legs,2468,100000;
+               mystic legs,2469,50000;
+               majin legs,2470,40000;
+               human legs,2477,40000;
+               cell legs,2478,100000;
+               demonic legs,2488,80000;
+               bardock legs,2495,50000;
+               c17 legs,2504,40000;
+               saiyan legs,2507,30000;
+               c18 legs,2647,40000;
+               majin legs,2648,40000;
+               goku legs,2649,50000;
+               black blue legs,3983,50000;
+               fusion legs,5918,50000;
+               brolly legs,7464,50000;
+               ssj5 legs,7730,100000;
+               supreme legs,7885,200000;
+               unknow legs,7894,50000;
+               goku ssj5 legs,7895,50000;
+               janemba legs,7896,50000;
+               strange legs,8923,200000;
+               bills legs,9777,100000;
+               ice barbarian legs,9928,200000;
+               trousers of the ancients,10300,740000;
+               zaoan legs,11304,3030000;
+               depth ocrea,15409,4280000;
+               ornate legs,15412,3340000;
+               grasshopper legs,15490,3650000;
+               gill legs,18400,3240000;
+               prismatic legs,18405,3760000;
+               icy culottes,21700,3550000;
+               alloy legs,23539,3440000;
+               wereboar loincloth,24743,1570000;
+               chocolatey dragon scale legs,27058,840000;
+               tatty dragon scale legs,27060,1050000;
+               brass legs,27170,10000;
+               gnome legs,30305,4480000;
+               falcon greaves,31376,5010000;
+               lederhosen,34753,320000;
+               fabulous legs,35273,4690000;
+               soulful legs,35274,4070000;
+               soulshanks,36748,4800000;
+               soulstrider,36749,270000;
+               exotic legs,38172,3130000;
+               bast legs,38173,3860000;
+               eldritch greaves,39323,4170000;
+               green demon legs,40756,2720000;
+               dawnfire pantaloons,44197,4380000;
+               midnight sarong,44198,4590000;
+               indie lance legs,45528,6980000;
+               indie knight legs,45586,7090000;
+               indie knight thin legs,45587,7290000;
+               indie knight armor,45588,7190000;
+               sanguine legs,48931,6770000;
+               sanguine greaves,48936,6880000;
+               zaiko legs,49451,9060000;
+               hunter legs,49456,6670000;
+               unknown legs,49461,5110000;
+               ice legs,49605,6460000;
+               golden legs,49606,25000;
+               vegeta legs,49607,5530000;
+               android 17 legs,49641,6250000;
+               experial legs,49672,5420000;
+               xicor legs,49675,6150000;
+               zamasu legs,49729,150000;
+               enchanted ancient hunter legs,49742,7710000;
+               goku golden legs,49743,9270000;
+               black janemba legs,49744,250000;
+               freeza legs,49745,100000;
+               elite patroler legs,49752,8540000;
+               goku training legs,49756,8440000;
+               cabba legs,49758,100000;
+               hitto legs,49760,100000;
+               golden freeza legs,49761,100000;
+               ultimate shenlong legs,49778,9480000;
+               ultimate black shenlong legs,49779,9580000;
+               demonic mage legs,49787,9690000;
+               shenlong legs,49791,200000;
+               ultimate fullbring legs,49817,10000000;
+               ultimate demonic shenlong legs,49823,8960000;
+               fullbring legs,49827,220000;
+               angel legs,49831,220000;
+               corporation legs,49850,7400000;
+               imperfect-form freeza legs,49866,6360000;
+               imperfect-form cell legs,49869,6570000;
+               energy legs,49892,9170000" />
+      <parameter key="message_greet" value="Hello, |PLAYERNAME|! I buy legs. Say {trade}." />
+      <parameter key="message_farewell" value="Bye bye!!" />
+   </parameters>
+</npc>

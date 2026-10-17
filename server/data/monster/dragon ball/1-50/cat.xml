@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Cat" bestiary="monster" nameDescription="a cat" race="blood" experience="300"
+	speed="150" manacost="220">
+	<health now="200" max="200" />
+	<look type="276" corpse="7637" />
+	<targetchange interval="2000" chance="0" />
+	<strategy attack="100" defense="0" />
+	<flags>
+		<flag summonable="1" />
+		<flag attackable="1" />
+		<flag hostile="0" />
+		<flag illusionable="1" />
+		<flag convinceable="1" />
+		<flag pushable="1" />
+		<flag canpushitems="0" />
+		<flag canpushcreatures="0" />
+		<flag targetdistance="1" />
+		<flag runonhealth="8" />
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="10" attack="10" />
+	</attacks>
+	<defenses armor="1" defense="2" />
+	<voices interval="1000" chance="10">
+		<voice sentence="Mew!" />
+		<voice sentence="Meow!" />
+		<voice sentence="Meow meow!" />
+	</voices>
+</monster>

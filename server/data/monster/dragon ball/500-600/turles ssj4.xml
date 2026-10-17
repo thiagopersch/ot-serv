@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Turles SSJ5" bestiary="monster" nameDescription="an turles ssj5" race="blood"
+	experience="500000"
+	speed="400" manacost="0">
+	<health now="750000" max="750000" />
+	<look type="2102" head="1" body="1" legs="1" feet="1" addons="0" corpse="49288" />
+	<targetchange interval="5000" chance="8" />
+	<strategy attack="100" defense="0" />
+	<flags>
+		<flag summonable="0" />
+		<flag attackable="1" />
+		<flag hostile="1" />
+		<flag illusionable="0" />
+		<flag convinceable="0" />
+		<flag pushable="1" />
+		<flag canpushitems="1" />
+		<flag canpushcreatures="1" />
+		<flag targetdistance="1" />
+		<flag staticattack="90" />
+		<flag runonhealth="0" />
+	</flags>
+	<attacks>
+		<attack name="melee" interval="1000" min="-200" max="-600" />
+		<attack name="Kienzan" interval="1000" chance="25" min="-400" max="-600" />
+		<attack name="Super Energy Wave" interval="3000" chance="10" min="-300" max="-500" />
+		<attack name="Crusher Ball" interval="3000" chance="15" min="-500" max="-800" />
+		<attack name="Burning Attack" interval="3000" chance="20" min="-400" max="-900" />
+		<attack name="Chybie Blast" interval="3000" chance="5" min="-100" max="-900" />
+	</attacks>
+	<immunities>
+		<immunity physical="0" />
+		<immunity energy="0" />
+		<immunity fire="0" />
+		<immunity poison="0" />
+		<immunity lifedrain="0" />
+		<immunity paralyze="0" />
+		<immunity outfit="1" />
+		<immunity invisible="1" />
+	</immunities>
+	<voices interval="5000" chance="10">
+		<voice sentence="Your death is near!" />
+		<voice sentence="It made me furious!" />
+	</voices>
+	<loot>
+		<item id="2148" countmax="50" chance="90000" /> <!-- gold coin -->
+		<item id="2152" countmax="50" chance="90000" /> <!-- platinum coin -->
+		<item id="2160" countmax="5" chance="50000" /> <!-- crystal coin -->
+		<item id="56712" countmax="3" chance="10000" /> <!-- yellow potion -->
+		<item id="56713" countmax="3" chance="10000" /> <!-- grey potion -->
+		<item id="56714" countmax="3" chance="10000" /> <!-- purple potion -->
+		<item id="56715" countmax="3" chance="10000" /> <!-- pink potion -->
+		<item id="56716" countmax="3" chance="10000" /> <!-- light blue potion -->
+		<item id="56717" countmax="3" chance="10000" /> <!-- green potion -->
+		<item id="56718" countmax="3" chance="10000" /> <!-- red potion -->
+		<item id="49689" countmax="10" chance="1000" /> <!-- hp point -->
+		<item id="49690" countmax="10" chance="1000" /> <!-- mp point -->
+		<item id="49691" countmax="5" chance="1000" /> <!-- leaf senzu -->
+		<item id="49692" countmax="5" chance="1000" /> <!-- branch senzu -->
+		<item id="49714" chance="1000" /> <!-- strong white magesty glove -->
+		<item id="49767" chance="1000" /> <!-- saiyan waistcoat -->
+		<item id="49768" chance="1000" /> <!-- saiyan boots -->
+	</loot>
+</monster>

@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<monster name="Monako" bestiary="monster" nameDescription="an monako" race="blood" experience="180000" speed="600" manacost="0">
+	<health now="350000" max="350000" />
+	<look type="925" head="1" body="1" legs="1" feet="1" addons="0" corpse="12850" />
+	<targetchange interval="5000" chance="8" />
+	<strategy attack="100" defense="0" />
+	<flags>
+		<flag summonable="0" />
+		<flag attackable="1" />
+		<flag hostile="1" />
+		<flag illusionable="0" />
+		<flag convinceable="0" />
+		<flag pushable="1" />
+		<flag canpushitems="1" />
+		<flag canpushcreatures="1" />
+		<flag targetdistance="1" />
+		<flag staticattack="90" />
+		<flag runonhealth="0" />
+	</flags>
+	<attacks>
+		<attack name="melee" interval="1000" min="-170" max="-400" />
+		<attack name="Super Saiyaman Furie" interval="1000" chance="25" min="-400" max="-600" />
+		<attack name="Makosen" interval="3000" chance="25" min="-300" max="-500" />
+	</attacks>
+	<defenses armor="0" defense="0">
+	</defenses>
+	<immunities>
+		<immunity physical="0" />
+		<immunity energy="0" />
+		<immunity fire="0" />
+		<immunity poison="0" />
+		<immunity lifedrain="0" />
+		<immunity paralyze="1" />
+		<immunity outfit="1" />
+		<immunity invisible="1" />
+	</immunities>
+	<voices interval="5000" chance="10">
+		<voice sentence="Your death is near!" />
+		<voice sentence="It made me furious!!!" yell="1" />
+	</voices>
+		<loot>
+		  <item countmax="100" chance="100000" id="2148" /> <!-- gold coin -->
+  		<item countmax="75" chance="50000" id="2152" /> <!-- platinum coin -->
+  		<item countmax="5" chance="1000" id="2160" /> <!-- crystal coin -->
+  		<item countmax="10" chance="1000" id="49689" /> <!-- hp point -->
+  		<item countmax="10" chance="1000" id="49690" /> <!-- mp point -->
+  		<item countmax="5" chance="1000" id="49691" /> <!-- leaf senzu -->
+  		<item countmax="5" chance="1000" id="49692" /> <!-- branch senzu -->
+			<item countmax="3" chance="1500" id="2151" /> <!-- talon -->
+			<item chance="500" id="49717" /> <!-- iron red glove -->
+		</loot>
+</monster>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monsters>
+  <monster name="Acid hollow" file="bleach/51-100/acid hollow.xml" />
+  <monster name="Acidwire" file="dragon ball/51-100/acidwire.xml" />
+  <monster name="Aegzen" file="dragon ball/51-100/aegzen.xml" />
+  <monster name="Aegzengiven" file="dragon ball/51-100/aegzengiven.xml" />
+  <monster name="Aegzengun" file="dragon ball/51-100/aegzengun.xml" />
+  <monster name="Aizen" file="bleach/1-50/aizen.xml" />
+  <monster name="Ancestral guardian" file="dragon ball/51-100/ancestral guardian.xml" />
+  <monster name="Ancient dinosaur hollow" file="bleach/101-150/ancient dinosaur hollow.xml" />
+  <monster name="Android" file="dragon ball/1-50/android.xml" />
+  <monster name="Aqua" file="dragon ball/51-100/aqua.xml" />
+  <monster name="Aqua corrupted" file="dragon ball/51-100/aqua corrupted.xml" />
+  <monster name="Assassin" file="dragon ball/1-50/assassin.xml" />
+  <monster name="Badger" file="dragon ball/1-50/badger.xml" />
+  <monster name="Bandit" file="dragon ball/1-50/bandit.xml" />
+  <monster name="Bandit black" file="dragon ball/1-50/bandit black.xml" />
+  <monster name="Bandit chef" file="dragon ball/1-50/bandit chef.xml" />
+  <monster name="Bandit gun" file="dragon ball/1-50/bandit gun.xml" />
+  <monster name="Bandit hollow" file="bleach/51-100/bandit hollow.xml" />
+  <monster name="Bandit swordman" file="dragon ball/1-50/bandit swordman.xml" />
+  <monster name="Bardock" file="dragon ball/1-50/bardock.xml" />
+  <monster name="Bardock oozaru" file="dragon ball/51-100/bardock oozaru.xml" />
+  <monster name="Bardock ssj" file="dragon ball/51-100/bardock ssj.xml" />
+  <monster name="Bardock ssj supreme" file="dragon ball/700-800/bardock ssj supreme.xml" />
+  <monster name="Bardock ssj3" file="dragon ball/151-200/bardock ssj3.xml" />
+  <monster name="Bardock ssj4" file="dragon ball/500-600/bardock ssj4.xml" />
+  <monster name="Bardock ssj5" file="dragon ball/600-700/bardock ssj5.xml" />
+  <monster name="Bat" file="dragon ball/1-50/bat.xml" />
+  <monster name="Bawabawa" file="bleach/51-100/bawabawa.xml" />
+  <monster name="Bear" file="dragon ball/1-50/bear.xml" />
+  <monster name="Boar" file="dragon ball/1-50/boar.xml" />
+  <monster name="Bojack" file="dragon ball/151-200/bojack.xml" />
+  <monster name="Botamo" file="dragon ball/51-100/botamo.xml" />
+  <monster name="Butterfly" file="dragon ball/1-50/butterfly.xml" />
+  <monster name="Byakuya" file="bleach/1-50/byakuya.xml" />
+  <monster name="C17" file="dragon ball/101-150/c17.xml" />
+  <monster name="C18" file="dragon ball/101-150/c18.xml" />
+  <monster name="C19" file="dragon ball/101-150/c19.xml" />
+  <monster name="C19 and c20" file="dragon ball/51-100/c19 and c20.xml" />
+  <monster name="C20" file="dragon ball/101-150/c20.xml" />
+  <monster name="Cat" file="dragon ball/1-50/cat.xml" />
+  <monster name="Cave rat" file="dragon ball/1-50/cave rat.xml" />
+  <monster name="Cell" file="dragon ball/101-150/cell.xml" />
+  <monster name="Cell jr" file="dragon ball/101-150/cell jr.xml" />
+  <monster name="Cell perfect" file="dragon ball/151-200/cell perfect.xml" />
+  <monster name="Cobra" file="dragon ball/1-50/cobra.xml" />
+  <monster name="Crocodile" file="dragon ball/1-50/crocodile.xml" />
+  <monster name="Dabura" file="dragon ball/101-150/dabura.xml" />
+  <monster name="Deer" file="dragon ball/1-50/deer.xml" />
+  <monster name="Demon" file="dragon ball/151-200/demon.xml" />
+  <monster name="Demonic soldier" file="dragon ball/51-100/demonic soldier.xml" />
+  <monster name="Dest" file="dragon ball/1-50/dest.xml" />
+  <monster name="Destroyer" file="dragon ball/1-50/destroyer.xml" />
+  <monster name="Dino" file="dragon ball/1-50/dino.xml" />
+  <monster name="Dino hollow" file="bleach/1-50/dino hollow.xml" />
+  <monster name="Dodoria" file="dragon ball/51-100/dodoria.xml" />
+  <monster name="Dog" file="dragon ball/1-50/dog.xml" />
+  <monster name="Donkey" file="dragon ball/1-50/donkey.xml" />
+  <monster name="Dr. gero" file="dragon ball/101-150/dr. gero.xml" />
+  <monster name="Dragon" file="dragon ball/1-50/dragon.xml" />
+  <monster name="Dragon baby" file="dragon ball/1-50/dragon baby.xml" />
+  <monster name="Dragon hatchling" file="dragon ball/1-50/dragon hatchling.xml" />
+  <monster name="Dragon lord" file="dragon ball/1-50/dragon lord.xml" />
+  <monster name="Dragon lord hatchling" file="dragon ball/1-50/dragon lord hatchling.xml" />
+  <monster name="Fat buu" file="dragon ball/51-100/fat buu.xml" />
+  <monster name="Fat janemba" file="dragon ball/51-100/fat janemba.xml" />
+  <monster name="Fire elemental supremo" file="dragon ball/bosses/fire elemental supremo.xml" />
+  <monster name="Fishbone d" file="bleach/151-200/fishbone d.xml" />
+  <monster name="Flamingo" file="dragon ball/1-50/flamingo.xml" />
+  <monster name="Freeza" file="dragon ball/101-150/freeza.xml" />
+  <monster name="Furios scorpion" file="dragon ball/201-250/furios scorpion.xml" />
+  <monster name="Ghost hollow" file="bleach/1-50/ghost hollow.xml" />
+  <monster name="Giant spider" file="dragon ball/1-50/giant spider.xml" />
+  <monster name="Gilian" file="bleach/51-100/gilian.xml" />
+  <monster name="Gin" file="bleach/1-50/gin.xml" />
+  <monster name="Gogeta" file="dragon ball/151-200/gogeta.xml" />
+  <monster name="Gohan ssj2" file="dragon ball/101-150/gohan ssj2.xml" />
+  <monster name="Gohan ssj4" file="dragon ball/500-600/gohan ssj4.xml" />
+  <monster name="Gohan ssj5" file="dragon ball/600-700/gohan ssj5.xml" />
+  <monster name="Goku" file="dragon ball/1-50/goku.xml" />
+  <monster name="Goku ginyu" file="dragon ball/51-100/goku ginyu.xml" />
+  <monster name="Goku ssj" file="dragon ball/101-150/goku ssj.xml" />
+  <monster name="Goku ssj2" file="dragon ball/101-150/goku ssj2.xml" />
+  <monster name="Goku ssj3" file="dragon ball/151-200/goku ssj3.xml" />
+  <monster name="Goku ssj4" file="dragon ball/500-600/goku ssj4.xml" />
+  <monster name="Goku ssj5" file="dragon ball/600-700/goku ssj5.xml" />
+  <monster name="Golden oozaru" file="dragon ball/201-250/golden oozaru.xml" />
+  <monster name="Grand fisher" file="bleach/151-200/grand fisher.xml" />
+  <monster name="Grimmjow" file="bleach/1-50/grimmjow.xml" />
+  <monster name="Hawk" file="dragon ball/bosses/hawk.xml" />
+  <monster name="Hitsugaya" file="bleach/1-50/hitsugaya.xml" />
+  <monster name="Hollow" file="bleach/51-100/hollow.xml" />
+  <monster name="Human tiger" file="dragon ball/1-50/human tiger.xml" />
+  <monster name="Ichigo" file="bleach/1-50/ichigo.xml" />
+  <monster name="Ikomikidomoe" file="bleach/301-350/ikomikidomoe.xml" />
+  <monster name="Ishida" file="bleach/1-50/ishida.xml" />
+  <monster name="Janemba" file="dragon ball/51-100/janemba.xml" />
+  <monster name="Kid janemba" file="dragon ball/51-100/kid janemba.xml" />
+  <monster name="King vegeta" file="dragon ball/51-100/king vegeta.xml" />
+  <monster name="Kongra" file="dragon ball/201-250/kongra.xml" />
+  <monster name="Kuririn" file="dragon ball/101-150/kuririn.xml" />
+  <monster name="Kyouraku" file="bleach/1-50/kyouraku.xml" />
+  <monster name="Larva" file="dragon ball/1-50/larva.xml" />
+  <monster name="Lavahole" file="dragon ball/1-50/lavahole.xml" />
+  <monster name="Leader of the guardian of the forest of menos" file="bleach/101-150/leader of the guardian of the forest of menos.xml" />
+  <monster name="Lion" file="dragon ball/1-50/lion.xml" />
+  <monster name="Lobisomen" file="dragon ball/101-150/lobisomen.xml" />
+  <monster name="Majin buu" file="dragon ball/201-250/majin buu.xml" />
+  <monster name="Mama bird" file="dragon ball/bosses/mama bird.xml" />
+  <monster name="Merlkin" file="dragon ball/201-250/merlkin.xml" />
+  <monster name="Namekjin" file="dragon ball/51-100/namekjin.xml" />
+  <monster name="Neliel" file="bleach/1-50/neliel.xml" />
+  <monster name="Numb chandelier" file="bleach/1-50/numb chandelier.xml" />
+  <monster name="Oozaru" file="dragon ball/51-100/oozaru.xml" />
+  <monster name="Paikuhan" file="dragon ball/101-150/paikuhan.xml" />
+  <monster name="Panda" file="dragon ball/101-150/panda.xml" />
+  <monster name="Parrot" file="dragon ball/1-50/parrot.xml" />
+  <monster name="Poison spider" file="dragon ball/1-50/poison spider.xml" />
+  <monster name="Purple robocop" file="dragon ball/51-100/purple robocop.xml" />
+  <monster name="Rabbit" file="dragon ball/1-50/rabbit.xml" />
+  <monster name="Raditz" file="dragon ball/1-50/raditz.xml" />
+  <monster name="Raditz ssj4" file="dragon ball/500-600/raditz ssj4.xml" />
+  <monster name="Raditz ssj5" file="dragon ball/600-700/raditz ssj5.xml" />
+  <monster name="Rat" file="dragon ball/1-50/rat.xml" />
+  <monster name="Red red robocop" file="dragon ball/51-100/red red robocop.xml" />
+  <monster name="Renji" file="bleach/1-50/renji.xml" />
+  <monster name="Robotron" file="dragon ball/101-150/robotron.xml" />
+  <monster name="Rukia" file="bleach/1-50/rukia.xml" />
+  <monster name="Sado" file="bleach/1-50/sado.xml" />
+  <monster name="Saibamen" file="dragon ball/51-100/saibamen.xml" />
+  <monster name="Saibamen white" file="dragon ball/51-100/saibamen white.xml" />
+  <monster name="Saiyan" file="dragon ball/201-250/saiyan.xml" />
+  <monster name="Saiyan ghost" file="dragon ball/51-100/saiyan ghost.xml" />
+  <monster name="Scorpion" file="dragon ball/1-50/scorpion.xml" />
+  <monster name="Sibang" file="dragon ball/201-250/sibang.xml" />
+  <monster name="Skeleton samurai" file="dragon ball/1-50/skeleton samurai.xml" />
+  <monster name="Snake" file="dragon ball/1-50/snake.xml" />
+  <monster name="Space soldier" file="dragon ball/101-150/space soldier.xml" />
+  <monster name="Spider hollow" file="bleach/51-100/spider hollow.xml" />
+  <monster name="Spopovitch" file="dragon ball/51-100/spopovitch.xml" />
+  <monster name="Super c17" file="dragon ball/300-400/super c17.xml" />
+  <monster name="Super c18" file="dragon ball/300-400/super c18.xml" />
+  <monster name="Tank" file="dragon ball/51-100/tank.xml" />
+  <monster name="Tarantula" file="dragon ball/1-50/tarantula.xml" />
+  <monster name="Term" file="dragon ball/1-50/term.xml" />
+  <monster name="Terminator" file="dragon ball/1-50/terminator.xml" />
+  <monster name="Terror bird" file="dragon ball/1-50/terror bird.xml" />
+  <monster name="Training monk" file="outros/training monk.xml" />
+  <monster name="Triceratops" file="dragon ball/1-50/triceratops.xml" />
+  <monster name="Trunks ssj2" file="dragon ball/101-150/trunks SSJ2.xml" />
+  <monster name="Trunks ssj4" file="dragon ball/500-600/trunks SSJ4.xml" />
+  <monster name="Trunks ssj5" file="dragon ball/600-700/trunks SSJ5.xml" />
+  <monster name="Tsuful" file="dragon ball/51-100/tsuful.xml" />
+  <monster name="Tsuful baby" file="dragon ball/1-50/tsuful baby.xml" />
+  <monster name="Tsuful oozaru" file="dragon ball/101-150/tsuful oozaru.xml" />
+  <monster name="Tsuful ssj5" file="dragon ball/600-700/tsuful SSJ5.xml" />
+  <monster name="Turles" file="dragon ball/1-50/turles.xml" />
+  <monster name="Turles ssj4" file="dragon ball/500-600/turles ssj4.xml" />
+  <monster name="Turles ssj5" file="dragon ball/600-700/turles ssj5.xml" />
+  <monster name="Tyrannosaurus rex" file="dragon ball/1-50/tyrannosaurus rex.xml" />
+  <monster name="Tyrannosaurus rex hollow" file="bleach/1-50/tyrannosaurus rex hollow.xml" />
+  <monster name="Ulquiorra" file="bleach/1-50/ulquiorra.xml" />
+  <monster name="Undead dragon" file="dragon ball/1-50/undead dragon.xml" />
+  <monster name="Undead dragon baby" file="dragon ball/1-50/undead dragon baby.xml" />
+  <monster name="Urahara" file="bleach/1-50/urahara.xml" />
+  <monster name="Vegeta" file="dragon ball/1-50/vegeta.xml" />
+  <monster name="Vegeta ssj blue" file="dragon ball/700-800/vegeta ssj blue.xml" />
+  <monster name="Vegeta ssj4" file="dragon ball/500-600/vegeta ssj4.xml" />
+  <monster name="Vegetto" file="dragon ball/201-250/vegetto.xml" />
+  <monster name="Wasp" file="dragon ball/1-50/wasp.xml" />
+  <monster name="Wind elemental" file="dragon ball/51-100/wind elemental.xml" />
+  <monster name="Wisp" file="dragon ball/1-50/wisp.xml" />
+  <monster name="Wolf" file="dragon ball/1-50/wolf.xml" />
+  <monster name="Wolf hollow" file="bleach/1-50/wolf hollow.xml" />
+  <monster name="Yakon" file="dragon ball/51-100/yakon.xml" />
+  <monster name="Zangetsu" file="bleach/51-100/zangetsu.xml" />
+  <monster name="Zaraki" file="bleach/1-50/zaraki.xml" />
+  <monster name="Zarbon" file="dragon ball/51-100/zarbon.xml" />
+</monsters>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Merlin" script="default.lua" walkinterval="2000" floorchange="0">
+   <health now="100" max="100" />
+   <look type="138" head="114" body="108" legs="107" feet="128" addons="3" />
+   <parameters>
+      <parameter key="module_shop" value="1" />
+      <parameter key="shop_sellable" value="
+               ice barbarian boots,2195,500000;
+               silver boots,2358,30000;
+               bardock boots,2640,50000;
+               janemba boots,2641,80000;
+               brolly boots,2642,80000;
+               majin boots,2643,50000;
+               c17 boots,2644,50000;
+               goku boots,2645,50000;
+               super goku boots,2646,100000;
+               zamasu boots,3982,100000;
+               ssj5 boots,5462,100000;
+               mystic boots,6132,100000;
+               fur boots,7457,50000;
+               strange boots,7886,150000;
+               bills boots,7891,100000;
+               golden freeza boots,7892,120000;
+               lightning boots,7893,100000;
+               freeza boots,9931,50000;
+               black janemba boots,9932,250000;
+               golden boots,9933,190000;
+               worn soft boots,10021,1030000;
+               worn firewalker boots,10022,1130000;
+               crystal boots,11117,2460000;
+               dragon scale boots,11118,2560000;
+               guardian boots,11240,2660000;
+               zaoan shoes,11303,3170000;
+               draken boots,12646,4090000;
+               fish tail,13580,5620000;
+               depth calcei,15410,2860000;
+               prismatic boots,18406,4390000;
+               vampire silk slippers,21708,1230000;
+               metal spats,23540,2250000;
+               oriental shoes,24637,3880000;
+               badger boots,24742,3270000;
+               treader of torment,25412,3070000;
+               boots of homecoming,25429,2350000;
+               void boots,26132,5110000;
+               filthy bunnyslippers,27065,520000;
+               pair of dreamwalkers,32080,3990000;
+               yetislippers,32852,720000;
+               cobra boots,33050,4290000;
+               winged boots,34273,4600000;
+               traditional leather shoes,34754,110000;
+               pair of nightmare boots,35275,3680000;
+               pair of soulwalkers,36753,350000;
+               pair of soulstalkers,36754,350000;
+               makeshift boots,38175,3780000;
+               make-do boots,38176,3580000;
+               green demon slippers,40759,620000;
+               frostflower boots,44189,3370000;
+               feverbloom boots,44192,4500000;
+               indie lance boots,45531,7150000;
+               pox boots,45589,7450000;
+               bones boots,45590,7250000;
+               sanguine boots,48939,8170000;
+               sanguine galoshed,48942,8270000;
+               tsuful boots,49457,5820000;
+               bills legs,49458,6430000;
+               hitto boots,49460,8060000;
+               ice golem ancient world boots,49499,7660000;
+               android 17 boots,49668,6130000;
+               goku ssj5 boots,49670,6530000;
+               hercules boots,49671,5720000;
+               zaiko boots,49698,9080000;
+               elite saiyan boots,49724,6740000;
+               vegeto armor,49725,7550000;
+               broly legs,49726,7040000;
+               piccolo boots,49762,5210000;
+               human boots,49763,25000;
+               grand saiyan boots,49764,8370000;
+               cabba boots,49765,100000;
+               super c17 boots,49766,6330000;
+               saiyan boots,49768,50000;
+               demonic boots,49769,7960000;
+               experial boots,49771,8780000;
+               goku golden boots,49772,9390000;
+               demonic mage boots,49788,9690000;
+               shenlong boots,49792,200000;
+               ultimate shenlong boots,49793,9490000;
+               ultimate black shenlong boots,49794,9590000;
+               ultimate fullbring boots,49818,10000000;
+               ultimate demonic shenlong boots,49824,8980000;
+               fullbring boots,49828,300000;
+               angel boots,49832,300000;
+               broly boots,49849,7760000;
+               simple golden boots,49870,7350000;
+               ice boots,49877,8570000;
+               energy boots,49886,9180000" />
+      <parameter key="message_greet" value="Hello, |PLAYERNAME|! I buy boots. Say {trade}." />
+   </parameters>
+</npc>

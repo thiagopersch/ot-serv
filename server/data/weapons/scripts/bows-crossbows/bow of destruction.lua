@@ -1,0 +1,6 @@
+local combat = createCombatObject()
+setCombatParam(combat, COMBAT_PARAM_TYPE, COMBAT_PHYSICALDAMAGE)
+setCombatParam(combat, COMBAT_PARAM_DISTANCEEFFECT, 559)
+setCombatParam(combat, COMBAT_PARAM_EFFECT, 2379)
+setCombatFormula(combat, COMBAT_FORMULA_SKILL, -1, -1000, -1, -2500)
+function onUseWeapon(cid, var) return doCombat(cid, combat, var) end

@@ -1,0 +1,30 @@
+[workspace]
+resolver = "2"
+members = ["crates/pme-core", "crates/pme-io", "crates/pme-app"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "GPL-3.0-or-later"
+
+[workspace.dependencies]
+pme-core = { path = "crates/pme-core" }
+pme-io = { path = "crates/pme-io" }
+ahash = "0.8"
+fastrand = "2"
+memmap2 = "0.9"
+quick-xml = "0.37"
+anyhow = "1"
+log = "0.4"
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 2
