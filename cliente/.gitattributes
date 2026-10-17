@@ -2,7 +2,15 @@
 *.lua eol=lf
 *.txt eol=lf
 *.ot* eol=lf
+# Binários: o *.ot* acima também pegava .otb/.otbm e o git convertia bytes CRLF dentro
+# deles, corrompendo o mapa e o items.otb no repositório. Estas regras vêm depois e vencem.
+*.otb binary
+*.otbm binary
+*.rar binary
+*.zip binary
+*.spr binary
+*.dat binary
+*.pic binary
 *.cpp eol=lf
 *.h   eol=lf
-*.rar eol=lf
 *.psd filter=lfs diff=lfs merge=lfs -text
