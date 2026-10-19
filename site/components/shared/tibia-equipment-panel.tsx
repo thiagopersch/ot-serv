@@ -5,6 +5,7 @@ import { Backpack } from "lucide-react";
 
 import { entityImageUrl } from "@/lib/entity-image";
 import { looktypeFrameUrl } from "@/lib/looktype-storage";
+import { useHdSprites } from "@/hooks/use-hd-sprites";
 import {
   Tooltip,
   TooltipContent,
@@ -126,17 +127,23 @@ function EquipmentSlot({
   placeholder: string;
 }) {
   const frameIndex = useLooktypeFrame(item?.looktype ?? null);
+  const { hd } = useHdSprites();
 
-  const imageSrc = item?.looktype
-    ? looktypeFrameUrl(item.looktype.id, frameIndex, new Date(item.looktype.updatedAt))
-    : item?.image
-      ? entityImageUrl(
-          "item",
-          item.itemId,
-          item.image.extension,
-          new Date(item.image.updatedAt),
-        )
-      : placeholder;
+  // Até o flag de HD chegar mostra o placeholder do slot (não baixa a sprite 1x e depois a 2x).
+  const imageSrc =
+    hd === undefined
+      ? placeholder
+      : item?.looktype
+        ? looktypeFrameUrl(item.looktype.id, frameIndex, new Date(item.looktype.updatedAt), hd)
+        : item?.image
+          ? entityImageUrl(
+              "item",
+              item.itemId,
+              item.image.extension,
+              new Date(item.image.updatedAt),
+              hd,
+            )
+          : placeholder;
 
   const skillEntries = item ? Object.entries(item.skills) : [];
 
@@ -162,7 +169,7 @@ function EquipmentSlot({
             src={imageSrc}
             alt={item?.name ?? ""}
             className="size-8 object-contain"
-            style={{ imageRendering: "pixelated", opacity: item ? 1 : 0.6 }}
+            style={{ imageRendering: hd ? "auto" : "pixelated", opacity: item ? 1 : 0.6 }}
           />
         </div>
       </TooltipTrigger>

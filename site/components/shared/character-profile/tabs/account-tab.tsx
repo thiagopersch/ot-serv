@@ -5,19 +5,23 @@ import { useSession } from "next-auth/react";
 
 import { entityImageUrl } from "@/lib/entity-image";
 import { isSiteAdmin } from "@/lib/auth-constants";
+import { useHdSprites } from "@/hooks/use-hd-sprites";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { CharacterDetail, OtherCharacter } from "../types";
 
 function OtherCharacterCard({ character }: { character: OtherCharacter }) {
-  const src = character.vocationImage
-    ? entityImageUrl(
-        "vocation",
-        character.vocation,
-        character.vocationImage.extension,
-        new Date(character.vocationImage.updatedAt),
-      )
-    : null;
+  const { hd } = useHdSprites();
+  const src =
+    character.vocationImage && hd !== undefined
+      ? entityImageUrl(
+          "vocation",
+          character.vocation,
+          character.vocationImage.extension,
+          new Date(character.vocationImage.updatedAt),
+          hd,
+        )
+      : null;
 
   return (
     <Link
@@ -31,7 +35,7 @@ function OtherCharacterCard({ character }: { character: OtherCharacter }) {
             src={src}
             alt={character.vocationName}
             className="size-full object-contain"
-            style={{ imageRendering: "pixelated" }}
+            style={{ imageRendering: hd ? "auto" : "pixelated" }}
           />
         ) : (
           <span className="text-xs text-muted-foreground">{character.vocationName.slice(0, 2)}</span>

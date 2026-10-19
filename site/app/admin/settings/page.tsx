@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { SkillCapsForm } from "@/components/admin/settings/skill-caps-form";
+import { SpriteSettingsForm } from "@/components/admin/settings/sprite-settings-form";
 
 export const metadata: Metadata = {
   title: "Configurações",
@@ -14,6 +15,7 @@ export default function AdminSettingsPage() {
         <p className="text-muted-foreground">Parâmetros administráveis do portal (tabela `server_config`).</p>
       </div>
       <SkillCapsForm />
+      <SpriteSettingsForm />
     </div>
   );
 }

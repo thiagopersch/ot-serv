@@ -1,5 +1,7 @@
 import path from "node:path";
 
+import { storageSpriteUrl } from "@/lib/sprite-hd";
+
 /** Frames ficam em `public/storage/looktypes/{id}/{frameIndex}.png`, servidos estaticamente
  * pelo Next (mesmo esquema/limitação de volume persistente descrita em `lib/entity-image.ts`). */
 export function looktypeFrameStoragePath(looktypeId: number, frameIndex: number): string {
@@ -10,8 +12,9 @@ export function looktypeFrameDirPath(looktypeId: number): string {
   return path.join(process.cwd(), "public", "storage", "looktypes", String(looktypeId));
 }
 
-export function looktypeFrameUrl(looktypeId: number, frameIndex: number, updatedAt: Date): string {
-  return `/storage/looktypes/${looktypeId}/${frameIndex}.png?v=${updatedAt.getTime()}`;
+/** `hd`: versão xBRZ 2x gerada sob demanda (ver `lib/sprite-hd.ts`). */
+export function looktypeFrameUrl(looktypeId: number, frameIndex: number, updatedAt: Date, hd = false): string {
+  return `${storageSpriteUrl(`looktypes/${looktypeId}/${frameIndex}.png`, hd)}?v=${updatedAt.getTime()}`;
 }
 
 /** Camadas extras gravadas só pra outfits com direção/máscara de cor/addon (ver
@@ -65,6 +68,8 @@ export function looktypeOutfitLayerUrl(
   layer: "base" | "mask",
   frameIndex: number,
   updatedAt: Date,
+  hd = false,
 ): string {
-  return `/storage/looktypes/${looktypeId}/${direction}/${addonSlot}/${layer}/${frameIndex}.png?v=${updatedAt.getTime()}`;
+  const relativePath = `looktypes/${looktypeId}/${direction}/${addonSlot}/${layer}/${frameIndex}.png`;
+  return `${storageSpriteUrl(relativePath, hd)}?v=${updatedAt.getTime()}`;
 }

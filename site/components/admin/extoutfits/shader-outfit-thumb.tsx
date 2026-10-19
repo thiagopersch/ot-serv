@@ -9,6 +9,8 @@ import { DEFAULT_PREVIEW_OUTFIT_COLORS } from "@/lib/extoutfit-preview-defaults"
 import { OutfitShaderRenderer, type ShaderColor } from "@/lib/shader-preview/webgl-outfit-shader";
 import type { ExtOutfitRow } from "@/lib/extoutfit-mapper";
 import type { CompositeLooktype } from "@/components/shared/outfit-composite-preview";
+import { spriteScale } from "@/lib/sprite-hd";
+import { useHdSprites } from "@/hooks/use-hd-sprites";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const THUMB_PX = 64;
@@ -37,13 +39,13 @@ function getImage(url: string): HTMLImageElement | null {
 }
 
 /** Camada da outfit virada para o Sul (fallback: frame genérico quando não há camada por direção). */
-function outfitLayer(outfit: CompositeLooktype, layer: "base" | "mask", frame: number): HTMLImageElement | null {
+function outfitLayer(outfit: CompositeLooktype, layer: "base" | "mask", frame: number, hd: boolean): HTMLImageElement | null {
   const updated = new Date(outfit.updatedAt);
   const direction = outfit.directions > 1 ? SOUTH : 0;
-  const layerUrl = looktypeOutfitLayerUrl(outfit.id, direction, 0, layer, frame, updated);
+  const layerUrl = looktypeOutfitLayerUrl(outfit.id, direction, 0, layer, frame, updated, hd);
   const img = getImage(layerUrl);
   if (img || layer === "mask" || imageCache.get(layerUrl) !== "error") return img;
-  return getImage(looktypeFrameUrl(outfit.id, frame, updated));
+  return getImage(looktypeFrameUrl(outfit.id, frame, updated, hd));
 }
 
 function frameAt(outfit: CompositeLooktype, ms: number): number {
@@ -77,6 +79,8 @@ type ThumbJob = {
     fragment: string | null;
     vertex: string | null;
     tex1Url: string | null;
+    /** HD Mode das sprites — `undefined` enquanto o flag não chegou (não desenha). */
+    hd: boolean | undefined;
   };
 };
 
@@ -98,13 +102,13 @@ function renderer(): OutfitShaderRenderer | null {
 
 function drawJob(job: ThumbJob, now: number) {
   const ctx = job.canvas.getContext("2d");
-  const { outfit, fragment, vertex, programKey, tex1Url } = job.state;
-  if (!ctx || !outfit) return;
+  const { outfit, fragment, vertex, programKey, tex1Url, hd } = job.state;
+  if (!ctx || !outfit || hd === undefined) return;
 
   const frame = frameAt(outfit, now);
-  const base = outfitLayer(outfit, "base", frame);
+  const base = outfitLayer(outfit, "base", frame, hd);
   if (!base) return;
-  const mask = outfit.hasColorMask ? outfitLayer(outfit, "mask", frame) : null;
+  const mask = outfit.hasColorMask ? outfitLayer(outfit, "mask", frame, hd) : null;
 
   let output: HTMLImageElement | HTMLCanvasElement = base;
   const shared = fragment ? renderer() : null;
@@ -120,12 +124,16 @@ function drawJob(job: ThumbJob, now: number) {
 
   const size = job.sizePx;
   ctx.clearRect(0, 0, size, size);
-  const fit = Math.min(size / output.width, size / output.height);
+  // Tamanho lógico (32px por tile): em HD a sprite tem 2x os pixels, mas ocupa o mesmo espaço.
+  const hdScale = spriteScale(hd);
+  const logicalWidth = output.width / hdScale;
+  const logicalHeight = output.height / hdScale;
+  const fit = Math.min(size / logicalWidth, size / logicalHeight);
   // Miniatura: só reduz; preview ampliado: escala inteira (pixel art nítido), até caber no canvas.
   const scale = job.upscale ? (fit >= 1 ? Math.min(Math.floor(fit), ZOOM_SCALE) : fit) : Math.min(fit, 1);
-  const width = Math.round(output.width * scale);
-  const height = Math.round(output.height * scale);
-  ctx.imageSmoothingEnabled = false;
+  const width = Math.round(logicalWidth * scale);
+  const height = Math.round(logicalHeight * scale);
+  ctx.imageSmoothingEnabled = hd;
   ctx.drawImage(output, Math.round((size - width) / 2), Math.round((size - height) / 2), width, height);
 }
 
@@ -165,6 +173,7 @@ type ShaderCanvasProps = {
 function ShaderCanvas({ row, outfit, fragment, vertex, sizePx, upscale = false, className }: ShaderCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const jobRef = useRef<ThumbJob | null>(null);
+  const { hd } = useHdSprites();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -174,7 +183,7 @@ function ShaderCanvas({ row, outfit, fragment, vertex, sizePx, upscale = false, 
       visible: true,
       sizePx,
       upscale,
-      state: { outfit: null, programKey: "", fragment: null, vertex: null, tex1Url: null },
+      state: { outfit: null, programKey: "", fragment: null, vertex: null, tex1Url: null, hd: undefined },
     };
     jobRef.current = job;
     register(job);
@@ -199,8 +208,9 @@ function ShaderCanvas({ row, outfit, fragment, vertex, sizePx, upscale = false, 
       fragment,
       vertex,
       tex1Url: row.shaderTex1Url,
+      hd,
     };
-  }, [outfit, fragment, vertex, row.id, row.updatedAt, row.shaderTex1Url, sizePx, upscale]);
+  }, [outfit, fragment, vertex, row.id, row.updatedAt, row.shaderTex1Url, sizePx, upscale, hd]);
 
   return (
     <canvas
@@ -208,7 +218,7 @@ function ShaderCanvas({ row, outfit, fragment, vertex, sizePx, upscale = false, 
       width={sizePx}
       height={sizePx}
       className={className}
-      style={{ imageRendering: "pixelated" }}
+      style={{ imageRendering: hd ? "auto" : "pixelated" }}
     />
   );
 }

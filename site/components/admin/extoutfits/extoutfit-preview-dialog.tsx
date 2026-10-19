@@ -8,6 +8,7 @@ import { fetcher } from "@/lib/fetcher";
 import type { PaginatedResult } from "@/lib/pagination";
 import type { ExtOutfitRow } from "@/lib/extoutfit-mapper";
 import { entityImageUrl } from "@/lib/entity-image";
+import { useHdSprites } from "@/hooks/use-hd-sprites";
 import { formatLooktypeOption } from "@/lib/validations/admin/looktype";
 import { EXTOUTFIT_KINDS, EXTOUTFIT_KIND_LABELS, type ExtOutfitKind } from "@/lib/validations/admin/extoutfit";
 import { Button } from "@/components/ui/button";
@@ -76,6 +77,7 @@ export function ExtOutfitPreviewDialog({ trigger, initial }: ExtOutfitPreviewDia
   const [animate, setAnimate] = useState(true);
   const [zoom, setZoom] = useState(2);
   const [shaderError, setShaderError] = useState<string | null>(null);
+  const { hd } = useHdSprites();
 
   const { data: rowsData } = useSWR<PaginatedResult<ExtOutfitRow>>(
     open ? "/api/admin/extoutfits?pageSize=200" : null,
@@ -90,11 +92,12 @@ export function ExtOutfitPreviewDialog({ trigger, initial }: ExtOutfitPreviewDia
   const rowFor = (kind: ExtOutfitKind) =>
     enabled[kind] ? (rows.find((row) => row.kind === kind && row.id === selected[kind]) ?? null) : null;
 
-  /** URL da imagem enviada do registro (`EntityImage`), `null` se não houver. */
-  function imageUrlFor(rowId: number): string | null {
+  /** URL da imagem enviada do registro (`EntityImage`), `null` se não houver. O preview composto
+   * usa sempre a 1x (desenha em unidades de 32px); `hdThumb` só pra miniatura do select. */
+  function imageUrlFor(rowId: number, hdThumb = false): string | null {
     const image = images.get(rowId);
     return image?.extension && image.updatedAt
-      ? entityImageUrl("extoutfit", rowId, image.extension, new Date(image.updatedAt))
+      ? entityImageUrl("extoutfit", rowId, image.extension, new Date(image.updatedAt), hdThumb)
       : null;
   }
 
@@ -206,14 +209,14 @@ export function ExtOutfitPreviewDialog({ trigger, initial }: ExtOutfitPreviewDia
                           <SelectValue placeholder="Selecione...">
                             {(value: string) => {
                               const row = ofKind.find((entry) => String(entry.id) === value);
-                              return row ? renderRecordOption(row, imageUrlFor(row.id)) : "Selecione...";
+                              return row ? renderRecordOption(row, imageUrlFor(row.id, hd ?? false)) : "Selecione...";
                             }}
                           </SelectValue>
                         </SelectTrigger>
                         <SelectContent>
                           {ofKind.map((row) => (
                             <SelectItem key={row.id} value={String(row.id)}>
-                              {renderRecordOption(row, imageUrlFor(row.id))}
+                              {renderRecordOption(row, imageUrlFor(row.id, hd ?? false))}
                             </SelectItem>
                           ))}
                         </SelectContent>

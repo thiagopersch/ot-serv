@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { ImageOff } from "lucide-react";
 
 import { looktypeFrameUrl } from "@/lib/looktype-storage";
+import { spriteUrlScale } from "@/lib/sprite-hd";
+import { useHdSprites } from "@/hooks/use-hd-sprites";
 import {
   Tooltip,
   TooltipContent,
@@ -46,6 +48,7 @@ export function LooktypeAnimatedImage({
   const [frameIndex, setFrameIndex] = useState(0);
   const [naturalSize, setNaturalSize] = useState<{ width: number; height: number } | null>(null);
   const sizeClass = SIZE_CLASSES[size];
+  const { hd } = useHdSprites();
 
   useEffect(() => {
     if (frameCount <= 1) return;
@@ -58,6 +61,10 @@ export function LooktypeAnimatedImage({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [frameIndex, frameCount]);
 
+  if (frameCount > 0 && hd === undefined) {
+    return <span className={`${sizeClass} shrink-0 rounded-sm border border-border bg-muted/40`} />;
+  }
+
   if (frameCount <= 0) {
     return (
       <span
@@ -69,10 +76,13 @@ export function LooktypeAnimatedImage({
   }
 
   const updatedDate = typeof updatedAt === "string" ? new Date(updatedAt) : updatedAt;
-  const frameUrl = looktypeFrameUrl(looktypeId, frameIndex, updatedDate);
+  const frameUrl = looktypeFrameUrl(looktypeId, frameIndex, updatedDate, hd);
+  // Sprite HD tem 2x os pixels — o preview usa o tamanho lógico (32px) pra não dobrar de tamanho.
+  const scale = spriteUrlScale(frameUrl);
+  const imageRendering = scale > 1 ? "auto" : "pixelated";
 
-  const previewWidth = naturalSize ? Math.min(naturalSize.width * PREVIEW_SCALE, MAX_PREVIEW_SIZE) : undefined;
-  const previewHeight = naturalSize ? Math.min(naturalSize.height * PREVIEW_SCALE, MAX_PREVIEW_SIZE) : undefined;
+  const previewWidth = naturalSize ? Math.min((naturalSize.width / scale) * PREVIEW_SCALE, MAX_PREVIEW_SIZE) : undefined;
+  const previewHeight = naturalSize ? Math.min((naturalSize.height / scale) * PREVIEW_SCALE, MAX_PREVIEW_SIZE) : undefined;
 
   return (
     <TooltipProvider>
@@ -87,7 +97,7 @@ export function LooktypeAnimatedImage({
               setNaturalSize({ width: naturalWidth, height: naturalHeight });
             }}
             className={`${sizeClass} shrink-0 scale-100 rounded-sm border border-border object-contain bg-muted/40 transition-transform duration-150 ${zoomOnHover ? "hover:z-10 hover:scale-150" : ""}`}
-            style={{ imageRendering: "pixelated" }}
+            style={{ imageRendering }}
           />
         </TooltipTrigger>
         <TooltipContent>
@@ -99,7 +109,7 @@ export function LooktypeAnimatedImage({
               style={{
                 width: previewWidth ?? 64,
                 height: previewHeight ?? 64,
-                imageRendering: "pixelated",
+                imageRendering,
               }}
               className="rounded-sm border border-border object-contain bg-muted/40"
             />

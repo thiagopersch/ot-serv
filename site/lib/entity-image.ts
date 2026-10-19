@@ -1,5 +1,7 @@
 import path from "node:path";
 
+import { isHdEntityImageType, storageSpriteUrl } from "@/lib/sprite-hd";
+
 /**
  * Tipos de entidade que podem ter imagem custom no portal (independente do sprite do cliente
  * OTServer, que vive só no `.otb`, fora do escopo do items.xml/movements.xml).
@@ -29,9 +31,13 @@ export function entityImageUrl(
   entityType: EntityImageType,
   entityId: number,
   extension: string,
-  updatedAt: Date
+  updatedAt: Date,
+  /** Versão xBRZ 2x (ver `lib/sprite-hd.ts`) — só pra PNG de tipos que são sprite; GIF e capa de
+   * post seguem o arquivo original. */
+  hd = false,
 ): string {
-  return `/storage/${entityType}/${entityId}.${extension}?v=${updatedAt.getTime()}`;
+  const useHd = hd && extension === "png" && isHdEntityImageType(entityType);
+  return `${storageSpriteUrl(`${entityType}/${entityId}.${extension}`, useHd)}?v=${updatedAt.getTime()}`;
 }
 
 const PNG_SIGNATURE = [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a];

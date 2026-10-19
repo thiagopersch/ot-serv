@@ -43,6 +43,7 @@ const ROUTE_LABELS: Record<string, string> = {
   towns: "Towns",
   images: "Imagens",
   "skill-caps": "Limites de skill",
+  "sprite-settings": "Configurações de sprite",
 };
 
 function humanizeSegment(segment: string): string {

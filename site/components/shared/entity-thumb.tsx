@@ -7,6 +7,8 @@ import { ImageOff } from "lucide-react";
 import { entityImageUrl, type EntityImageType } from "@/lib/entity-image";
 import { fetchEntityImageBatched } from "@/lib/entity-image-batch";
 import { looktypeFrameUrl } from "@/lib/looktype-storage";
+import { spriteUrlScale } from "@/lib/sprite-hd";
+import { useHdSprites } from "@/hooks/use-hd-sprites";
 import {
   Tooltip,
   TooltipContent,
@@ -59,6 +61,7 @@ export function EntityThumb({
   const owned = useOwnLookup(entityType, id, resolvedByProp);
   const info = resolvedByProp ? image : owned;
   const looktype = info?.looktype ?? null;
+  const { hd } = useHdSprites();
 
   const [naturalSize, setNaturalSize] = useState<{
     width: number;
@@ -90,20 +93,29 @@ export function EntityThumb({
   const label = name ? `#${id} — ${name}` : `#${id}`;
   const tooltipLabel = name ? `${name} (#${id})` : `#${id}`;
 
-  const imageUrl = looktype
-    ? looktypeFrameUrl(looktype.id, frameIndex, new Date(looktype.updatedAt))
-    : info?.extension && info?.updatedAt
-      ? entityImageUrl(entityType, id, info.extension, new Date(info.updatedAt))
-      : null;
+  // Espera o flag de HD antes de montar a URL (não baixa a 1x pra trocar logo pela 2x).
+  const hdPending = hd === undefined && (looktype !== null || Boolean(info?.extension));
+  const imageUrl = hdPending
+    ? null
+    : looktype
+      ? looktypeFrameUrl(looktype.id, frameIndex, new Date(looktype.updatedAt), hd)
+      : info?.extension && info?.updatedAt
+        ? entityImageUrl(entityType, id, info.extension, new Date(info.updatedAt), hd)
+        : null;
+  // Sprite HD tem 2x os pixels — o preview usa o tamanho lógico pra não dobrar de tamanho.
+  const scale = spriteUrlScale(imageUrl);
+  const imageRendering = scale > 1 ? "auto" : "pixelated";
 
   const previewWidth = naturalSize
-    ? Math.min(naturalSize.width * PREVIEW_SCALE, MAX_PREVIEW_SIZE)
+    ? Math.min((naturalSize.width / scale) * PREVIEW_SCALE, MAX_PREVIEW_SIZE)
     : undefined;
   const previewHeight = naturalSize
-    ? Math.min(naturalSize.height * PREVIEW_SCALE, MAX_PREVIEW_SIZE)
+    ? Math.min((naturalSize.height / scale) * PREVIEW_SCALE, MAX_PREVIEW_SIZE)
     : undefined;
 
-  const content = imageUrl ? (
+  const content = hdPending ? (
+    <span className={`${sizeClass} shrink-0 rounded-sm border border-border bg-muted/40`} />
+  ) : imageUrl ? (
     // eslint-disable-next-line @next/next/no-img-element -- sprite pequeno, servido estático de public/storage, sem necessidade de otimização do next/image
     <img
       src={imageUrl}
@@ -138,7 +150,7 @@ export function EntityThumb({
                 style={{
                   width: previewWidth ?? 64,
                   height: previewHeight ?? 64,
-                  imageRendering: "pixelated",
+                  imageRendering,
                 }}
                 className="rounded-sm border border-border object-contain bg-muted/40"
               />

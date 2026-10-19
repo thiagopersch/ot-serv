@@ -6,6 +6,8 @@ import { looktypeFrameUrl, looktypeOutfitLayerUrl } from "@/lib/looktype-storage
 import { OUTFIT_MASK_REGION_COLORS, getOutfitPaletteColor, type Rgb } from "@/lib/tibia-outfit-color";
 import { OutfitShaderRenderer, type ShaderColor } from "@/lib/shader-preview/webgl-outfit-shader";
 import { animatedFrameAt, decodeApng, type AnimatedImage } from "@/lib/apng-decoder";
+import { spriteScale } from "@/lib/sprite-hd";
+import { useHdSprites } from "@/hooks/use-hd-sprites";
 
 /** Sprite do cadastro de looktypes com os campos de camada/direção (`Looktype`). */
 export type CompositeLooktype = {
@@ -131,11 +133,12 @@ function looktypeLayer(
   slot: number,
   layer: "base" | "mask",
   frame: number,
+  hd: boolean,
 ): HTMLImageElement | null {
   const updated = new Date(looktype.updatedAt);
   const dir = looktype.directions > 1 ? direction : 0;
-  const urls = [looktypeOutfitLayerUrl(looktype.id, dir, slot, layer, frame, updated)];
-  if (layer === "base" && slot === 0) urls.push(looktypeFrameUrl(looktype.id, frame, updated));
+  const urls = [looktypeOutfitLayerUrl(looktype.id, dir, slot, layer, frame, updated, hd)];
+  if (layer === "base" && slot === 0) urls.push(looktypeFrameUrl(looktype.id, frame, updated, hd));
   return firstAvailable(urls);
 }
 
@@ -216,8 +219,19 @@ function recolored(base: HTMLImageElement, mask: HTMLImageElement | null, colors
   return canvas;
 }
 
-function drawAnchored(ctx: CanvasRenderingContext2D, image: CanvasImageSource & { width: number; height: number }, offsetX = 0, offsetY = 0) {
-  ctx.drawImage(image, ANCHOR_X - image.width + offsetX, ANCHOR_Y - image.height + offsetY);
+/** Coordenadas do canvas em unidades de 32px (âncora, offsets) — `imageScale` é quantos pixels
+ * da imagem formam 1 px lógico (2 pra sprite HD, 1 pra imagem enviada), igual à regra
+ * `spriteSize()`/`getOffsetFactor()` do cliente. */
+function drawAnchored(
+  ctx: CanvasRenderingContext2D,
+  image: CanvasImageSource & { width: number; height: number },
+  imageScale: number,
+  offsetX = 0,
+  offsetY = 0,
+) {
+  const width = image.width / imageScale;
+  const height = image.height / imageScale;
+  ctx.drawImage(image, ANCHOR_X - width + offsetX, ANCHOR_Y - height + offsetY, width, height);
 }
 
 /** Camada 0 (e opcionalmente a camada 1 / "top aura", gravada como `mask` pelo pipeline do
@@ -229,40 +243,53 @@ function drawExtraLayer(
   ms: number,
   animate: boolean,
   withTopLayer: boolean,
+  hd: boolean,
 ) {
   if (layer.imageUrl) {
     const img = uploadedFrame(layer.imageUrl, ms, animate);
-    if (img) drawAnchored(ctx, img, layer.offsetX, layer.offsetY);
+    if (img) drawAnchored(ctx, img, 1, layer.offsetX, layer.offsetY);
     return;
   }
   if (!layer.looktype) return;
   const frame = cycleFrame(layer.looktype.frameCount, ms, animate);
-  const base = looktypeLayer(layer.looktype, direction, 0, "base", frame);
-  if (base) drawAnchored(ctx, base, layer.offsetX, layer.offsetY);
+  const base = looktypeLayer(layer.looktype, direction, 0, "base", frame, hd);
+  if (base) drawAnchored(ctx, base, spriteScale(hd), layer.offsetX, layer.offsetY);
   if (withTopLayer && layer.looktype.hasColorMask) {
-    const top = looktypeLayer(layer.looktype, direction, 0, "mask", frame);
-    if (top) drawAnchored(ctx, top, layer.offsetX, layer.offsetY);
+    const top = looktypeLayer(layer.looktype, direction, 0, "mask", frame, hd);
+    if (top) drawAnchored(ctx, top, spriteScale(hd), layer.offsetX, layer.offsetY);
   }
 }
 
-function barImage(layer: CompositeLayer | null | undefined, ms: number, animate: boolean): Drawable | null {
+type BarImage = { image: Drawable; scale: number };
+
+/** Imagem da barra + quantos pixels dela formam 1 px lógico (ver `drawAnchored`). */
+function barImage(layer: CompositeLayer | null | undefined, ms: number, animate: boolean, hd: boolean): BarImage | null {
   if (!layer) return null;
-  if (layer.imageUrl) return uploadedFrame(layer.imageUrl, ms, animate);
-  if (layer.looktype) return looktypeLayer(layer.looktype, 2, 0, "base", 0);
+  if (layer.imageUrl) {
+    const image = uploadedFrame(layer.imageUrl, ms, animate);
+    return image ? { image, scale: 1 } : null;
+  }
+  if (layer.looktype) {
+    const image = looktypeLayer(layer.looktype, 2, 0, "base", 0, hd);
+    return image ? { image, scale: spriteScale(hd) } : null;
+  }
   return null;
 }
 
 /** Barra de vida/mana como no `Creature::drawInformation`: imagem decorativa centralizada sobre o
  * retângulo da barra, fundo preto e preenchimento de 2 px. */
-function drawBar(ctx: CanvasRenderingContext2D, image: Drawable | null, layer: CompositeLayer | null | undefined, centerX: number, y: number, fill: string) {
-  const size = image ? sizeOf(image) : null;
+function drawBar(ctx: CanvasRenderingContext2D, bar: BarImage | null, layer: CompositeLayer | null | undefined, centerX: number, y: number, fill: string) {
+  const natural = bar ? sizeOf(bar.image) : null;
+  const size = bar && natural ? { width: natural.width / bar.scale, height: natural.height / bar.scale } : null;
   const width = size ? Math.min(BAR_WIDTH, size.width - 2) : BAR_WIDTH;
   const x = Math.round(centerX - width / 2);
-  if (image && size) {
+  if (bar && size) {
     ctx.drawImage(
-      image,
+      bar.image,
       Math.round(centerX - size.width / 2) + (layer?.offsetX ?? 0),
       Math.round(y + 2 - size.height / 2) + (layer?.offsetY ?? 0),
+      size.width,
+      size.height,
     );
   }
   ctx.fillStyle = "#000";
@@ -292,10 +319,11 @@ export function OutfitCompositePreview({
   const rendererRef = useRef<OutfitShaderRenderer | null>(null);
   /** Programa compilado e linkado com sucesso — lido pelo loop de desenho. */
   const shaderReadyRef = useRef(false);
-  const propsRef = useRef({ outfit, direction, addons, colors, animate, wings, aura, healthBar, manaBar });
+  const { hd, scale: hdScale } = useHdSprites();
+  const propsRef = useRef({ outfit, direction, addons, colors, animate, wings, aura, healthBar, manaBar, hd });
   // O loop de `requestAnimationFrame` lê sempre as props mais recentes sem ser recriado.
   useEffect(() => {
-    propsRef.current = { outfit, direction, addons, colors, animate, wings, aura, healthBar, manaBar };
+    propsRef.current = { outfit, direction, addons, colors, animate, wings, aura, healthBar, manaBar, hd };
   });
 
   // (Re)compila o shader quando o fonte muda.
@@ -342,16 +370,24 @@ export function OutfitCompositePreview({
       if (!canvas || !ctx) return;
       const p = propsRef.current;
       const ms = performance.now() - started;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (p.hd === undefined) return; // espera o flag de HD antes de baixar as sprites
+      const hd = p.hd;
+      const scale = spriteScale(hd);
+      // Backing do canvas em `scale`× e tudo abaixo em unidades de 32px: a sprite HD cai 1:1 nos
+      // pixels reais e a imagem 1x (upload) é dobrada sem suavizar.
+      ctx.setTransform(scale, 0, 0, scale, 0, 0);
+      ctx.imageSmoothingEnabled = false;
 
       // Grade do tile (referência de posição).
       ctx.strokeStyle = "rgba(127,127,127,0.35)";
       ctx.strokeRect(ANCHOR_X - 32 + 0.5, ANCHOR_Y - 32 + 0.5, 31, 31);
 
       // 1. Aura atrás (camadas 0 e 1), se não for `isFront`.
-      if (p.aura && !p.aura.front) drawExtraLayer(ctx, p.aura, p.direction, ms, p.animate, true);
+      if (p.aura && !p.aura.front) drawExtraLayer(ctx, p.aura, p.direction, ms, p.animate, true, hd);
       // 2. Wings por baixo da outfit (exceto Norte).
-      if (p.wings && p.direction !== 0) drawExtraLayer(ctx, p.wings, p.direction, ms, p.animate, false);
+      if (p.wings && p.direction !== 0) drawExtraLayer(ctx, p.wings, p.direction, ms, p.animate, false, hd);
 
       // 3. Outfit (corpo + addons ligados), com shader quando houver.
       let outfitTop = ANCHOR_Y - 32;
@@ -365,27 +401,27 @@ export function OutfitCompositePreview({
 
         for (let slot = 0; slot <= p.outfit.addonSlots; slot++) {
           if (slot > 0 && !(p.addons & (1 << (slot - 1)))) continue;
-          const base = looktypeLayer(p.outfit, p.direction, slot, "base", frame);
+          const base = looktypeLayer(p.outfit, p.direction, slot, "base", frame, hd);
           if (!base) continue;
-          const mask = p.outfit.hasColorMask ? looktypeLayer(p.outfit, p.direction, slot, "mask", frame) : null;
+          const mask = p.outfit.hasColorMask ? looktypeLayer(p.outfit, p.direction, slot, "mask", frame, hd) : null;
           if (slot === 0) {
-            outfitTop = ANCHOR_Y - base.naturalHeight;
-            outfitCenterX = ANCHOR_X - base.naturalWidth / 2;
+            outfitTop = ANCHOR_Y - base.naturalHeight / scale;
+            outfitCenterX = ANCHOR_X - base.naturalWidth / scale / 2;
           }
           const drawn = renderer ? renderer.render(base, mask, shaderColors) : recolored(base, mask, p.colors);
-          drawAnchored(ctx, drawn);
+          drawAnchored(ctx, drawn, scale);
         }
       }
 
       // 4. Aura na frente / wings por cima (Norte).
-      if (p.aura && p.aura.front) drawExtraLayer(ctx, p.aura, p.direction, ms, p.animate, true);
-      if (p.wings && p.direction === 0) drawExtraLayer(ctx, p.wings, p.direction, ms, p.animate, false);
+      if (p.aura && p.aura.front) drawExtraLayer(ctx, p.aura, p.direction, ms, p.animate, true, hd);
+      if (p.wings && p.direction === 0) drawExtraLayer(ctx, p.wings, p.direction, ms, p.animate, false, hd);
 
       // 5. Barras acima da cabeça.
       if (p.healthBar || p.manaBar) {
         const barY = Math.max(6, outfitTop - 10);
-        drawBar(ctx, barImage(p.healthBar, ms, p.animate), p.healthBar, outfitCenterX, barY, "#00c000");
-        if (p.manaBar) drawBar(ctx, barImage(p.manaBar, ms, p.animate), p.manaBar, outfitCenterX, barY + 5, "#2060ff");
+        drawBar(ctx, barImage(p.healthBar, ms, p.animate, hd), p.healthBar, outfitCenterX, barY, "#00c000");
+        if (p.manaBar) drawBar(ctx, barImage(p.manaBar, ms, p.animate, hd), p.manaBar, outfitCenterX, barY + 5, "#2060ff");
       }
     }
 
@@ -396,10 +432,15 @@ export function OutfitCompositePreview({
   return (
     <canvas
       ref={canvasRef}
-      width={CANVAS_WIDTH}
-      height={CANVAS_HEIGHT}
+      width={CANVAS_WIDTH * hdScale}
+      height={CANVAS_HEIGHT * hdScale}
       className="rounded-md border border-border bg-[repeating-conic-gradient(#80808022_0_25%,transparent_0_50%)] bg-[length:16px_16px]"
-      style={{ width: CANVAS_WIDTH * zoom, height: CANVAS_HEIGHT * zoom, imageRendering: "pixelated" }}
+      style={{
+        width: CANVAS_WIDTH * zoom,
+        height: CANVAS_HEIGHT * zoom,
+        // Em HD com zoom < 2 o canvas é reduzido — suaviza em vez de descartar pixels.
+        imageRendering: hd && zoom < hdScale ? "auto" : "pixelated",
+      }}
     />
   );
 }

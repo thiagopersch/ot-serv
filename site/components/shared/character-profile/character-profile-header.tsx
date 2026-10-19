@@ -1,4 +1,5 @@
 import { entityImageUrl } from "@/lib/entity-image";
+import { useHdSprites } from "@/hooks/use-hd-sprites";
 import { Badge } from "@/components/ui/badge";
 import type { CharacterDetail } from "./types";
 
@@ -11,9 +12,11 @@ function VocationPortrait({
   vocationId: number;
   image: CharacterDetail["vocationImage"];
 }) {
-  const src = image
-    ? entityImageUrl("vocation", vocationId, image.extension, new Date(image.updatedAt))
-    : null;
+  const { hd } = useHdSprites();
+  const src =
+    image && hd !== undefined
+      ? entityImageUrl("vocation", vocationId, image.extension, new Date(image.updatedAt), hd)
+      : null;
 
   return (
     <div
@@ -28,7 +31,7 @@ function VocationPortrait({
     >
       {src ? (
         // eslint-disable-next-line @next/next/no-img-element -- sprite pequeno, sem otimização necessária
-        <img src={src} alt={name} className="size-full object-contain" style={{ imageRendering: "pixelated" }} />
+        <img src={src} alt={name} className="size-full object-contain" style={{ imageRendering: hd ? "auto" : "pixelated" }} />
       ) : (
         <span className="text-xs text-zinc-500">{name.slice(0, 2).toUpperCase()}</span>
       )}

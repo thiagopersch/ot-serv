@@ -4,6 +4,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { ImageOff } from "lucide-react";
 
 import { looktypeOutfitLayerUrl } from "@/lib/looktype-storage";
+import { spriteScale } from "@/lib/sprite-hd";
+import { useHdSprites } from "@/hooks/use-hd-sprites";
 import { OUTFIT_MASK_REGION_COLORS, getOutfitPaletteColor, type Rgb } from "@/lib/tibia-outfit-color";
 import {
   Tooltip,
@@ -57,14 +59,17 @@ async function drawOutfitSlot(
   updatedDate: Date,
   hasColorMask: boolean,
   colors: OutfitColors,
+  hd: boolean,
 ): Promise<void> {
-  const baseUrl = looktypeOutfitLayerUrl(looktypeId, direction, slot, "base", frameIndex, updatedDate);
+  // Em HD a base vem em xBRZ e a máscara em nearest, ambas 2x — mesmo tamanho, então a
+  // recoloração abaixo não muda.
+  const baseUrl = looktypeOutfitLayerUrl(looktypeId, direction, slot, "base", frameIndex, updatedDate, hd);
   const baseImg = await loadImage(baseUrl);
   ctx.drawImage(baseImg, 0, 0);
 
   if (!hasColorMask) return;
 
-  const maskUrl = looktypeOutfitLayerUrl(looktypeId, direction, slot, "mask", frameIndex, updatedDate);
+  const maskUrl = looktypeOutfitLayerUrl(looktypeId, direction, slot, "mask", frameIndex, updatedDate, hd);
   const maskImg = await loadImage(maskUrl);
 
   const maskCanvas = document.createElement("canvas");
@@ -169,6 +174,8 @@ export function OutfitColorPreview({
   const [naturalSize, setNaturalSize] = useState<{ width: number; height: number } | null>(null);
   const sizeClass = SIZE_CLASSES[size];
   const sizePx = SIZE_PX[size];
+  const { hd } = useHdSprites();
+  const scale = spriteScale(hd);
 
   const updatedDate = useMemo(
     () => (typeof updatedAt === "string" ? new Date(updatedAt) : updatedAt),
@@ -186,7 +193,8 @@ export function OutfitColorPreview({
   }, [frameIndex, frameCount]);
 
   useEffect(() => {
-    if (frameCount <= 0) return;
+    if (frameCount <= 0 || hd === undefined) return;
+    const useHd = hd;
     let cancelled = false;
 
     async function render() {
@@ -200,7 +208,7 @@ export function OutfitColorPreview({
         // troca o canvas visível de uma vez no final — desenhar direto no canvas visível causava
         // um "piscar" a cada troca de frame, já que cada slot/máscara carrega de forma assíncrona
         // e o canvas ficava visível com o addon faltando por um instante entre um `await` e outro.
-        const baseUrl = looktypeOutfitLayerUrl(looktypeId, effectiveDirection, 0, "base", frameIndex, updatedDate);
+        const baseUrl = looktypeOutfitLayerUrl(looktypeId, effectiveDirection, 0, "base", frameIndex, updatedDate, useHd);
         const baseImg = await loadImage(baseUrl);
         if (cancelled) return;
 
@@ -210,14 +218,14 @@ export function OutfitColorPreview({
         const offscreenCtx = offscreen.getContext("2d");
         if (!offscreenCtx) return;
 
-        await drawOutfitSlot(offscreenCtx, looktypeId, effectiveDirection, 0, frameIndex, updatedDate, hasColorMask, colors);
+        await drawOutfitSlot(offscreenCtx, looktypeId, effectiveDirection, 0, frameIndex, updatedDate, hasColorMask, colors, useHd);
         if (cancelled) return;
 
         // Slots 1/2 são aditivos (chapéu, mochila, ...) — só desenha quando o outfit realmente
         // tem esse slot gravado E o bit correspondente do addon do NPC está ligado.
         for (let slot = 1; slot <= addonSlots; slot++) {
           if (!(addons & (1 << (slot - 1)))) continue;
-          await drawOutfitSlot(offscreenCtx, looktypeId, effectiveDirection, slot, frameIndex, updatedDate, hasColorMask, colors);
+          await drawOutfitSlot(offscreenCtx, looktypeId, effectiveDirection, slot, frameIndex, updatedDate, hasColorMask, colors, useHd);
           if (cancelled) return;
         }
 
@@ -226,7 +234,8 @@ export function OutfitColorPreview({
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(offscreen, 0, 0);
 
-        setNaturalSize({ width: canvas.width, height: canvas.height });
+        // Tamanho lógico (32px por tile) — em HD o canvas tem 2x os pixels.
+        setNaturalSize({ width: canvas.width / spriteScale(useHd), height: canvas.height / spriteScale(useHd) });
         setPreviewUrl(canvas.toDataURL());
       } catch {
         // Frame ainda não existe em disco (looktype não reprocessado) — deixa o canvas vazio.
@@ -251,6 +260,7 @@ export function OutfitColorPreview({
     legsColor,
     feetColor,
     updatedDate,
+    hd,
   ]);
 
   if (frameCount <= 0) {
@@ -272,7 +282,7 @@ export function OutfitColorPreview({
       width={sizePx}
       height={sizePx}
       className={`${sizeClass} shrink-0 scale-100 rounded-sm border border-border bg-muted/40 transition-transform duration-150 ${zoomOnHover ? "hover:z-10 hover:scale-150" : ""}`}
-      style={{ imageRendering: "pixelated" }}
+      style={{ imageRendering: scale > 1 ? "auto" : "pixelated" }}
     />
   );
 
@@ -292,7 +302,7 @@ export function OutfitColorPreview({
                 style={{
                   width: previewWidth ?? 64,
                   height: previewHeight ?? 64,
-                  imageRendering: "pixelated",
+                  imageRendering: scale > 1 ? "auto" : "pixelated",
                 }}
                 className="rounded-sm border border-border object-contain bg-muted/40"
               />
